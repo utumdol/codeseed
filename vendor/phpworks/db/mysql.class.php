@@ -45,7 +45,7 @@ class MySQL {
 	}
 
 	public function error() {
-		return mysqli_error();
+		return mysqli_error($this->conn);
 	}
 
 	public function get_table_schema($table_name) {
