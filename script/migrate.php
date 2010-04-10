@@ -1,30 +1,30 @@
 <?php
-// include genesis system init 
+// include system init 
 require_once(dirname(__FILE__) . '/../config/environment.php');
 
 // init
-$VERSION = strlen($argv[1]) ? $argv[1] : '99991231235959';
+$INTEND_VERSION = strlen($argv[1]) ? $argv[1] : '99991231235959';
 
 // connect db connection
 $DATABASE->connect();
 
 // init version table
 $tables = $DATABASE->get_tables();
-if (!in_array('version', $tables)) {
-	$migration = new CreateSchemaMigrations($DATABASE);
+if (!in_array('schema_version', $tables)) {
+	$migration = new CreateSchemaVersion($DATABASE);
 	$migration->up();
 }
 
-$version = new Version();
-if ($version->get_total() == 0) {
-	$version->version_id = 0;
-	$version->register();
+$schema_version = new SchemaVersion();
+if ($schema_version->get_total() == 0) {
+	$schema_version->version = 0;
+	$schema_version->register();
 }
-$version = $version->get();
+$schema_version = $schema_version->get();
 
 // read migration files...
 $files = get_files(MIGR_DIR);
-if ($VERSION >= $version->version_id) {
+if ($INTEND_VERSION >= $schema_version->version) {
 	sort($files);
 	$direction = 'UP';
 } else {
@@ -34,35 +34,42 @@ if ($VERSION >= $version->version_id) {
 
 for($i = 0; $i < count($files); $i++) {
 	$file = $files[$i];
-	echobn($file);
 	$matches = parse_migration_filename($file);
 	if (!empty($matches)) {
-		$version_id = $matches[1];
+		$version = $matches[1];
 		$filename = $matches[2];
 		$classname = filename_to_classname($filename);
 
-		if ($direction == 'UP' && $version_id > $version->version_id && $version_id <= $VERSION) {
+		if ($direction == 'UP' && $version > $schema_version->version && $version <= $INTEND_VERSION) {
 			require_once($file);
 			$migration = new $classname;
 			$migration->up();
-			$version->version_id = $version_id;
-			$version->update();
+			$schema_version->version = $version;
+			$schema_version->update();
+
+			echonl($classname . '.up() is executed.');
+			echonl('Schema version is ' . $version . ' now.');
+			echonl('================================================================================');
 		}
 
-		if ($direction == 'DOWN' && $version_id > $VERSION) {
+		if ($direction == 'DOWN' && $version > $INTEND_VERSION) {
 			require_once($file);
 			$migration = new $classname;
 			$migration->down();
 			if ($i == count($files) - 1) {
-				$down_version_id = 0;
+				$down_version = 0;
 			} else {
 				$matches = parse_migration_filename($files[$i + 1]);
 				if (!empty($matches)) {
-					$down_version_id = $matches[1];
+					$down_version = $matches[1];
 				}
 			}
-			$version->version_id = $down_version_id;
-			$version->update();
+			$schema_version->version = $down_version;
+			$schema_version->update();
+
+			echonl($classname . '.down() is executed.');
+			echonl('Schema version is ' . $down_version . ' now.');
+			echonl('================================================================================');
 		}
 	}
 }

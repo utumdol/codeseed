@@ -1,5 +1,5 @@
 <?php
-// include genesis system init 
+// include system init 
 require_once(dirname(__FILE__) . '/../config/environment.php');
 
 // connect db connection

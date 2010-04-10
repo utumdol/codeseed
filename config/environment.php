@@ -21,7 +21,7 @@ define('BR', '<br/>');
 define('NL', "\n");
 define('BN', "<br/>\n");
 
-// include genesis system helpers
+// include system helpers
 require_once(SYS_HELP_DIR . '/system.php');
 
 // include all system helpers
