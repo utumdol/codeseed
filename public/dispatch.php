@@ -24,16 +24,10 @@ try {
 } catch (Exception $e) {
 	echo $e->getMessage();
 }
-$contents = ob_get_contents();
+$CONTENTS = ob_get_contents();
 ob_end_clean();
 
-// make layout
-ob_start();
 require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
-$layout = ob_get_contents();
-ob_end_clean();
-
-echo str_replace('[BODY]', $contents, $layout);
 
 // close db connection
 $DATABASE->close();

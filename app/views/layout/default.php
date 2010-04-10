@@ -6,6 +6,6 @@
 <title>phpworks</title>
 </head>
 <body>
-[BODY]
+<?= $CONTENTS ?>
 </body>
 </html>
