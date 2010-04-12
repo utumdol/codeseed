@@ -5,6 +5,13 @@ require_once(dirname(__FILE__) . '/../config/environment.php');
 // init
 $INTEND_VERSION = strlen($argv[1]) ? $argv[1] : '99991231235959';
 
+// functions
+function print_migration_status($direction, $classname, $version) {
+	echonl($classname . '.'. strtolower($direction) . '() is executed.');
+	echonl('Schema version is ' . $version . ' now.');
+	echonl('================================================================================');
+}
+
 // connect db connection
 $DATABASE->connect();
 
@@ -47,9 +54,7 @@ for($i = 0; $i < count($files); $i++) {
 			$schema_version->version = $version;
 			$schema_version->update();
 
-			echonl($classname . '.up() is executed.');
-			echonl('Schema version is ' . $version . ' now.');
-			echonl('================================================================================');
+			print_migration_status($direction, $classname, $version);
 		}
 
 		if ($direction == 'DOWN' && $version > $INTEND_VERSION) {
@@ -67,9 +72,7 @@ for($i = 0; $i < count($files); $i++) {
 			$schema_version->version = $down_version;
 			$schema_version->update();
 
-			echonl($classname . '.down() is executed.');
-			echonl('Schema version is ' . $down_version . ' now.');
-			echonl('================================================================================');
+			print_migration_status($direction, $classname, $down_version);
 		}
 	}
 }
