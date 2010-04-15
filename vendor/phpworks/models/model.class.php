@@ -131,7 +131,7 @@ class Model {
 			$total = $row['cnt'];
 		}
 
-		$this->database->fetch($result);
+		$this->database->free_result($result);
 		return $total;
 	}
 
