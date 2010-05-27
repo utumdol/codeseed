@@ -3,7 +3,7 @@
 require_once(dirname(__FILE__) . '/../config/environment.php');
 
 // init
-$INTEND_VERSION = strlen($argv[1]) ? $argv[1] : '99991231235959';
+$INTEND_VERSION = isset($argv[1]) ? $argv[1] : '99991231235959';
 
 // functions
 function print_migration_status($direction, $classname, $version) {
