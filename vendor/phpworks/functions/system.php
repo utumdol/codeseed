@@ -22,7 +22,6 @@ function get_files($dir) {
 			$result[] = $dir . '/' . $file;
 		}
 	}
-	print_r($result);
 	return $result;
 }
 
