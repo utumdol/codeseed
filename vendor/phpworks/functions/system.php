@@ -9,15 +9,21 @@ function parse_request_uri($uri) {
 }
 
 function get_files($dir) {
-	$files = array();
-
-	$dh  = opendir($dir);
-	while (false !== ($filename = readdir($dh))) {
-		if (strpos($filename, '.') != 0 && is_file($dir . '/' . $filename)) {
-			$files[] = $dir . '/' . $filename;
+	$result = array();
+	$files = scandir($dir);
+	foreach($files as $file) {
+		if ($file == '.' or $file == '..') {
+			continue;
 		}
-	} 
-	return $files;
+		if (is_dir($dir . '/' . $file)) {
+			$result = array_merge($result, get_files($dir . '/' . $file));
+		}
+		if (strpos($file, '.') != 0 && is_file($dir . '/' . $file)) {
+			$result[] = $dir . '/' . $file;
+		}
+	}
+	print_r($result);
+	return $result;
 }
 
 function require_once_all($files) {
@@ -29,15 +35,4 @@ function require_once_all($files) {
 function require_once_dir($dir) {
 	require_once_all(get_files($dir));
 }
-
-/*
-function load_sys_model($modelname) {
-	global $DATABASE;
-
-	// include model file
-	$model = new $modelname($DATABASE);
-
-	return $model;
-}
-*/
 ?>
