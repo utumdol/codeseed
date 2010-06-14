@@ -33,8 +33,4 @@ require_once_dir(HELP_DIR);
 // include all application models
 require_once_dir(MODEL_DIR);
 
-// include db driver
-require_once(SYS_DIR . '/db/' . DBMS . '.class.php');
-
 $DATABASE = get_database();
-?>
