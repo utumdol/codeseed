@@ -3,11 +3,8 @@ define('ROOT_DIR', dirname(__FILE__) . '/..');
 define('ROOT_FILE', basename($_SERVER['SCRIPT_FILENAME']));
 
 define('SYS_DIR', ROOT_DIR . '/vendor/phpworks');
-define('SYS_CNTR_DIR', SYS_DIR . '/controllers');
-define('SYS_MODEL_DIR', SYS_DIR . '/models');
-define('SYS_VIEW_DIR', SYS_DIR . '/views');
-define('SYS_HELP_DIR', SYS_DIR . '/helpers');
-define('SYS_MIGR_DIR', SYS_DIR . '/db/migrate');
+define('SYS_CLASSES', SYS_DIR . '/classes');
+define('SYS_FUNCTIONS', SYS_DIR . '/functions');
 
 define('APP_DIR', ROOT_DIR . '/app');
 define('CONF_DIR', ROOT_DIR . '/config');
@@ -22,14 +19,12 @@ define('NL', "\n");
 define('BN', "<br/>\n");
 
 // include system helpers
-require_once(SYS_HELP_DIR . '/system.php');
+require_once(SYS_FUNCTIONS . '/system.php');
 
 // include all system helpers
-require_once_dir(SYS_HELP_DIR);
+require_once_dir(SYS_FUNCTIONS);
 // include required system classes
-require_once_dir(SYS_CNTR_DIR);
-require_once_dir(SYS_MODEL_DIR);
-require_once_dir(SYS_MIGR_DIR);
+require_once_dir(SYS_CLASSES);
 
 // include all application configs
 require_once_dir(CONF_DIR);
