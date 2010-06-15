@@ -19,48 +19,6 @@ class Model {
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	// validation
-	///////////////////////////////////////////////////////////////////////////
-
-	public function is_exist($arr) {
-		if (!is_array($arr)) {
-			$arr = array($arr);
-		}
-
-		foreach ($arr as $ele) {
-			if (empty($this->$ele)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public function is_equal($a, $b) {
-		return ($this->$a == $this->$b);
-	}
-
-	public function is_valid_email($email = '') {
-		if (empty($this->$email)) {
-			return true;
-		}
-		if (eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $this->$email)) {
-			return true;
-		}
-		return false;
-	}
-
-	public function is_valid_url($url = '') {
-		if (empty($this->$url)) {
-			return true;
-		}
-		$regex = "^(https?|ftp)\:\/\/([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?[a-z0-9+\$_-]+(\.[a-z0-9+\$_-]+)*(\:[0-9]{2,5})?(\/([a-z0-9+\$_-]\.?)+)*\/?(\?[a-z+&\$_.-][a-z0-9;:@/&%=+\$_.-]*)?(#[a-z_.-][a-z0-9+\$_.-]*)?\$";
-		if (eregi($regex, $this->$url)) {
-			return true;
-		}
-		return false;
-	}
-
-	///////////////////////////////////////////////////////////////////////////
 	// DB Processing
 	///////////////////////////////////////////////////////////////////////////
 
