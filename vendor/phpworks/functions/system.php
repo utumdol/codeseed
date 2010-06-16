@@ -12,13 +12,14 @@ function get_files($dir) {
 	$result = array();
 	$files = scandir($dir);
 	foreach($files as $file) {
-		if ($file == '.' or $file == '..') {
+		// skip unix hidden file which is start '.'
+		if (preg_match('/^\..*$/', $file)) {
 			continue;
 		}
 		if (is_dir($dir . '/' . $file)) {
 			$result = array_merge($result, get_files($dir . '/' . $file));
 		}
-		if (strpos($file, '.') != 0 && is_file($dir . '/' . $file)) {
+		if (is_file($dir . '/' . $file)) {
 			$result[] = $dir . '/' . $file;
 		}
 	}
