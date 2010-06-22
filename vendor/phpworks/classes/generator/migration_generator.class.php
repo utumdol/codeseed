@@ -1,21 +1,25 @@
 <?php
 class MigrationGenerator {
 	var $name = '';
-	var $path = 'db/migrate';
+	var $path = MIGR_DIR;
 	var $template = '<?php
-class Create<CLASS_NAME> extends Migration {
+class Create<CLASSNAME> extends Migration {
 	public function up() {
-		$this->creat_table(\'<TABLE_NAME>\');
+		$this->creat_table(\'<TABLENAME>\');
 	}
 
 	public function down() {
-		$this->drop_table(\'<TABLE_NAME>\');
+		$this->drop_table(\'<TABLENAME>\');
 	}
 }
 ?>';
 
 	public function MigrationGenerator($name) {
 		$this->name = $name;
+	}
+
+	public function validation() {
+		return true;
 	}
 
 	public function generatePath() {
@@ -25,6 +29,20 @@ class Create<CLASS_NAME> extends Migration {
 			echonl('generate ' . $this->path);
 			mkdir($this->path, 0755, true);
 		}
+	}
+
+	public function makeTemplate() {
+		$tablename = $this->name;
+		$classname = tablename_to_classname($this->name);
+		$result = str_replace('<TABLENAME>', $tablename, $this->template);
+		$result = str_replace('<CLASSNAME>', $classname, $result);
+		return $result;
+	}
+
+	public function getFileName() {
+	}
+
+	public function generateTemplate() {
 	}
 }
 ?>
