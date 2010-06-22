@@ -13,6 +13,7 @@ class [NAME] extends Model {
 
 }
 ?>";
+	var $path = 'app/model';
 
 	function ModelGenerator($name) {
 		$this->name = $name;

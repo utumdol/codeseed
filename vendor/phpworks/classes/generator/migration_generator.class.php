@@ -1,15 +1,15 @@
 <?php
 class MigrationGenerator {
 	var $name = '';
-	var $directory = '';
+	var $path = 'db/migrate';
 	var $template = '<?php
-class CreateUser extends Migration {
+class Create<CLASS_NAME> extends Migration {
 	public function up() {
-		$this->creat_table(\'user\');
+		$this->creat_table(\'<TABLE_NAME>\');
 	}
 
 	public function down() {
-		$this->drop_table(\'user\');
+		$this->drop_table(\'<TABLE_NAME>\');
 	}
 }
 ?>';
@@ -17,7 +17,14 @@ class CreateUser extends Migration {
 	public function MigrationGenerator($name) {
 		$this->name = $name;
 	}
-}
 
-new MigrationGenerator('test');
+	public function generatePath() {
+		if (is_dir($this->path)) {
+			echonl('exist ' . $this->path);
+		} else {
+			echonl('generate ' . $this->path);
+			mkdir($this->path, 0755, true);
+		}
+	}
+}
 ?>

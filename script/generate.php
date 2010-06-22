@@ -13,6 +13,10 @@ if ($argc < 3) {
 	exit(0);
 }
 
+$generator = new MigrationGenerator($argv[2]);
+$generator->generatePath();
+
+/*
 switch($argv[1]) {
 	case 'model':
 		if (file_exists(MODEL_DIR)) {
@@ -44,4 +48,5 @@ switch($argv[1]) {
 		// 6. generate app/view/controller file
 		break;
 }
+*/
 ?>
