@@ -27,6 +27,14 @@ function tablename_to_classname($tablename) {
 	return filename_to_classname($tablename);
 }
 
+function filename_to_tablename($filename) {
+	return $filename;
+}
+
+function tablename_to_filename($tablename) {
+	return $tablename;
+}
+
 function has_property($obj, $prop) {
 	$arr = get_object_vars($obj);
 	foreach($arr as $key => $value) {
