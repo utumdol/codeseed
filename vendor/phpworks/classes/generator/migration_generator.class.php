@@ -5,7 +5,7 @@ class MigrationGenerator {
 	var $template = '<?php
 class Create<CLASSNAME> extends Migration {
 	public function up() {
-		$this->creat_table(\'<TABLENAME>\');
+		$this->create_table(\'<TABLENAME>\');
 	}
 
 	public function down() {
