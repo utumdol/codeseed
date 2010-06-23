@@ -53,7 +53,7 @@ class Create<CLASSNAME> extends Migration {
 
 	private function generateFile() {
 		$filename = $this->getFileName();
-		$contents = $this->getContents();
+		$content = $this->getContents();
 		echonl('generate ' . $this->path . '/' . $filename);
 		$f = fopen($this->path . '/' . $filename, 'w');
 		fwrite($f, $content, strlen($content)); 

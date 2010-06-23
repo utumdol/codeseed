@@ -14,9 +14,7 @@ if ($argc < 3) {
 }
 
 $generator = new MigrationGenerator($argv[2]);
-$generator->generatePath();
-$generator->generateTemplate();
-echo $generator->template;
+$generator->generate();
 
 /*
 switch($argv[1]) {
