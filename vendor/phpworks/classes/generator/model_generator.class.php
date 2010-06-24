@@ -14,7 +14,7 @@ class <CLASSNAME> extends Model {
 
 	public function getContents() {
 		$classname = tablename_to_classname($this->name);
-		$result = str_replace('<CLASSNAME>', $classname, $result);
+		$result = str_replace('<CLASSNAME>', $classname, $this->template);
 		return $result;
 	}
 }
