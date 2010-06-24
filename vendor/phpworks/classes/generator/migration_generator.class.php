@@ -1,5 +1,5 @@
 <?php
-class MigrationGenerator {
+class MigrationGenerator extends Generator {
 	private $name = '';
 	private $path = MIGR_DIR;
 	private $template = '<?php
@@ -14,19 +14,25 @@ class Create<CLASSNAME> extends Migration {
 }
 ?>';
 
+	/*
 	public function MigrationGenerator($name) {
 		$this->name = $name;
 	}
+	*/
 
+	/*
 	public function generate() {
 		$this->validation();
 		$this->generatePath();
 		$this->generateFile();
 	}
+	*/
 
+	/*
 	private function validation() {
 		return true;
 	}
+	*/
 
 	private function getFileName() {
 		$tablename = filename_to_tablename($this->name);
@@ -34,6 +40,7 @@ class Create<CLASSNAME> extends Migration {
 		return $this_time . '_create_' . $tablename . '.class.php';
 	}
 
+	/*
 	private function getContents() {
 		$tablename = filename_to_tablename($this->name);
 		$classname = tablename_to_classname($this->name);
@@ -41,7 +48,9 @@ class Create<CLASSNAME> extends Migration {
 		$result = str_replace('<CLASSNAME>', $classname, $result);
 		return $result;
 	}
+	*/
 
+	/*
 	private function generatePath() {
 		if (is_dir($this->path)) {
 			echonl('exist ' . $this->path);
@@ -50,7 +59,9 @@ class Create<CLASSNAME> extends Migration {
 			mkdir($this->path, 0755, true);
 		}
 	}
+	*/
 
+	/*
 	private function generateFile() {
 		$filename = $this->getFileName();
 		$content = $this->getContents();
@@ -59,5 +70,6 @@ class Create<CLASSNAME> extends Migration {
 		fwrite($f, $content, strlen($content)); 
 		fclose($f);
 	}
+	*/
 }
 ?>
