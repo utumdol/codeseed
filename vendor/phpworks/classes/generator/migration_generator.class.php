@@ -1,8 +1,8 @@
 <?php
 class MigrationGenerator extends Generator {
-	private $name = '';
-	private $path = MIGR_DIR;
-	private $template = '<?php
+	public $name = '';
+	public  $path = MIGR_DIR;
+	public $template = '<?php
 class Create<CLASSNAME> extends Migration {
 	public function up() {
 		$this->create_table(\'<TABLENAME>\');
@@ -14,13 +14,13 @@ class Create<CLASSNAME> extends Migration {
 }
 ?>';
 
-	private function getFileName() {
+	public function getFileName() {
 		$tablename = filename_to_tablename($this->name);
 		$this_time = date('YmdHis');
 		return $this_time . '_create_' . $tablename . '.class.php';
 	}
 
-	private function getContents() {
+	public function getContents() {
 		$tablename = filename_to_tablename($this->name);
 		$classname = tablename_to_classname($this->name);
 		$result = str_replace('<TABLENAME>', $tablename, $this->template);

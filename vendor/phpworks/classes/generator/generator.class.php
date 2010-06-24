@@ -1,8 +1,8 @@
 <?php
 class Generator {
-	private $name = '';
-	private $path = '';
-	private $template = '';
+	var $name = '';
+	var $path = '';
+	var $template = '';
 
 	public function Generator($name) {
 		$this->name = $name;
@@ -14,15 +14,15 @@ class Generator {
 		$this->generateFile();
 	}
 
-	private function validation() {
+	public function validation() {
 		return true;
 	}
 
-	private function getFileName() {
+	public function getFileName() {
 		return $this->name;
 	}
 
-	private function getContents() {
+	public function getContents() {
 		return $this->template;
 	}
 
