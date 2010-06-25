@@ -26,7 +26,7 @@ class Generator {
 		return $this->template;
 	}
 
-	private function generatePath() {
+	public function generatePath() {
 		if (is_dir($this->path)) {
 			echonl('exist ' . $this->path);
 		} else {
@@ -35,7 +35,7 @@ class Generator {
 		}
 	}
 
-	private function generateFile() {
+	public function generateFile() {
 		$filename = $this->getFileName();
 		$content = $this->getContents();
 		echonl('generate ' . $this->path . '/' . $filename);

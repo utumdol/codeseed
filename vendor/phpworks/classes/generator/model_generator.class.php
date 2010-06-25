@@ -1,12 +1,21 @@
 <?php
 class ModelGenerator extends Generator {
-	public $name = '';
-	public  $path = MODEL_DIR;
-	public $template = '<?php
+	var $name = '';
+	var $path = MODEL_DIR;
+	var $template = '<?php
 class <CLASSNAME> extends Model {
 
 }
 ?>';
+
+	public function generate() {
+		$this->validation();
+		$this->generatePath();
+		$this->generateFile();
+
+		$migration_generator = new MigrationGenerator($this->name);
+		$migration_generator->generate();
+	}
 
 	public function getFileName() {
 		return $this->name . '.class.php';
