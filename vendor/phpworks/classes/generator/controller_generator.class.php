@@ -1,16 +1,33 @@
 <?php
-class ControllerGenerator {
+class ControllerGenerator extends Generator {
+	var $name = '';
+	var $path = CONT_DIR;
+	var $template = '<?php
+class <CLASSNAME> extends Controller {
+	<METHODS>
+}
+?>';
 
-	// 1. mkdir app
-	// 2. mkdir app/controller
-	// 3. generate controller file with actions
-	// 4. mkdir app/view
-	// 5. mkdir app/view/controller
-	// 6. generate app/view/controller file
-	var $name;
+	var $method_template = 'public function <METHOD> {
+	}';
 
-	function ControllerGenerator($name) {
-		$this->name = $name;
+	public function generate() {
+		$this->validation();
+		$this->generatePath();
+		$this->generateFile();
+
+		$migration_generator = new MigrationGenerator($this->name);
+		$migration_generator->generate();
+	}
+
+	public function getFileName() {
+		return $this->name . '.class.php';
+	}
+
+	public function getContents() {
+		$classname = tablename_to_classname($this->name);
+		$result = str_replace('<CLASSNAME>', $classname, $this->template);
+		return $result;
 	}
 }
 ?>
