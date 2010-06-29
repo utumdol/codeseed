@@ -6,7 +6,6 @@ class MigrationGenerator extends Generator {
 class Create<CLASSNAME> extends Migration {
 	public function up() {
 		$this->create_table(\'<TABLENAME>\');
-		// $this->add_column(\'<TABLENAME>\', \'name\', \'type\', \'size\');
 	}
 
 	public function down() {

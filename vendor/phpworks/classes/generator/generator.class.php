@@ -15,9 +15,13 @@ class Generator {
 	}
 
 	public function validation() {
-		if (file_exists($this->path . '/' . $this->getFileName())) {
-			throw new ValidationError($this->path . '/' . $this->getFileName() . ' is already exists.');
+		if (file_exists($this->getPath() . '/' . $this->getFileName())) {
+			throw new ValidationError($this->getPath() . '/' . $this->getFileName() . ' is already exists.');
 		}
+	}
+
+	public function getPath() {
+		return $this->path;
 	}
 
 	public function getFileName() {
@@ -29,19 +33,19 @@ class Generator {
 	}
 
 	public function generatePath() {
-		if (is_dir($this->path)) {
-			echonl('exist ' . $this->path);
+		if (is_dir($this->getPath())) {
+			echonl('exist ' . $this->getPath());
 		} else {
-			echonl('generate ' . $this->path);
-			mkdir($this->path, 0755, true);
+			echonl('generate ' . $this->getPath());
+			mkdir($this->getPath(), 0755, true);
 		}
 	}
 
 	public function generateFile() {
 		$filename = $this->getFileName();
 		$content = $this->getContents();
-		echonl('generate ' . $this->path . '/' . $filename);
-		$f = fopen($this->path . '/' . $filename, 'w');
+		echonl('generate ' . $this->getPath() . '/' . $filename);
+		$f = fopen($this->getPath() . '/' . $filename, 'w');
 		fwrite($f, $content, strlen($content)); 
 		fclose($f);
 	}
