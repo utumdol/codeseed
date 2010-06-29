@@ -8,12 +8,6 @@ class <CLASSNAME> extends Model {
 }
 ?>';
 
-	public function validation() {
-		if (file_exists($this->path . '/' . $this->getFileName())) {
-			throw new ValidationError('model ' . $this->name . ' is already exists.');
-		}
-	}
-
 	public function generate() {
 		$this->validation();
 		$this->generatePath();
