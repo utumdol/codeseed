@@ -3,7 +3,7 @@ class ModelGenerator extends Generator {
 	var $name = '';
 	var $path = MODEL_DIR;
 	var $template = '<?php
-class <CLASSNAME> extends Model {
+class <class> extends Model {
 
 }
 ?>';
@@ -22,9 +22,10 @@ class <CLASSNAME> extends Model {
 	}
 
 	public function getContents() {
-		$classname = tablename_to_classname($this->name);
-		$result = str_replace('<CLASSNAME>', $classname, $this->template);
+		$class = tablename_to_classname($this->name);
+		$result = str_replace('<class>', $class, $this->template);
 		return $result;
 	}
 }
 ?>
+

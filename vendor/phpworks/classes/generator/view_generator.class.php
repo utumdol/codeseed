@@ -1,14 +1,14 @@
 <?php
 class ViewGenerator extends Generator {
-	var $contname = '';
+	var $dir = '';
 	var $name = '';
 	var $path = VIEW_DIR;
-	var $template = '<h1><CONTNAME>#<VIEWNAME></h1>
+	var $template = '<h1><dir>#<view></h1>
 <div>hello, world</div>
 ';
 
-	public function ViewGenerator($contname, $name) {
-		$this->contname = $contname;
+	public function ViewGenerator($dir, $name) {
+		$this->dir = $dir;
 		$this->name = $name;
 	}
 
@@ -19,7 +19,7 @@ class ViewGenerator extends Generator {
 	}
 
 	public function getPath() {
-		return $this->contname . '/' . $this->name;
+		return $this->dir . '/' . $this->name;
 	}
 
 	public function getFileName() {
@@ -27,9 +27,10 @@ class ViewGenerator extends Generator {
 	}
 
 	public function getContents() {
-		$result = str_replace('<CLASSNAME>', $this->contname, $this->template);
-		$result = str_replace('<VIEWNAME>', $this->name, $result);
+		$result = str_replace('<dir>', $this->dir, $this->template);
+		$result = str_replace('<view>', $this->name, $result);
 		return $result;
 	}
 }
 ?>
+

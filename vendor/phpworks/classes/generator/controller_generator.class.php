@@ -7,9 +7,11 @@ class <CLASSNAME> extends Controller {
 	<METHODS>
 }
 ?>';
-
 	var $method_template = 'public function <METHOD> {
 	}';
+
+	public function ControllerGenerator($name, $methods = array()) {
+	}
 
 	public function generate() {
 		$this->validation();
