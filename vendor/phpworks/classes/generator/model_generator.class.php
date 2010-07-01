@@ -27,5 +27,4 @@ class <class> extends Model {
 		return $result;
 	}
 }
-?>
 

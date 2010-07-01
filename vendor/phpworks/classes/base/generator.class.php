@@ -50,5 +50,4 @@ class Generator {
 		fclose($f);
 	}
 }
-?>
 

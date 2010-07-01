@@ -32,5 +32,4 @@ class ViewGenerator extends Generator {
 		return $result;
 	}
 }
-?>
 

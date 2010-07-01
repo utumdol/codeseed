@@ -28,5 +28,4 @@ class Create<class> extends Migration {
 		return $result;
 	}
 }
-?>
 

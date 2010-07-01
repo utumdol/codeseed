@@ -34,3 +34,4 @@ require_once_dir(HELP_DIR);
 require_once_dir(MODEL_DIR);
 
 $DATABASE = get_database();
+

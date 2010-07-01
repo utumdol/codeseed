@@ -3,9 +3,10 @@ class ControllerGenerator extends Generator {
 	var $name = '';
 	var $functions = '';
 
-	var $path = CONT_DIR;
+	var $path = CNTR_DIR;
 	var $template = '<?php
 class <class> extends Controller {
+
 	<functions>
 }
 ?>';
@@ -45,4 +46,4 @@ class <class> extends Controller {
 		return $result;
 	}
 }
-?>
+
