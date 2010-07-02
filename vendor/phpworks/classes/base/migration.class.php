@@ -15,7 +15,7 @@ class Migration {
 		$this->database->execute("DROP TABLE $table_name");
 	}
 
-	public function add_column($table_name, $name, $type, $size, $is_null = false) {
+	public function add_column($table_name, $name, $type, $size, $is_null = true) {
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 
 		$this->database->execute("ALTER TABLE $table_name ADD COLUMN $name $type($size) $not_null");
 	}
