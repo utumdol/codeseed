@@ -12,7 +12,7 @@ class Create<class> extends Migration {
 		$this->drop_table(\'<table>\');
 	}
 }
-?>';
+';
 
 	public function getFileName() {
 		$table = filename_to_tablename($this->name);

@@ -6,7 +6,7 @@ class ModelGenerator extends Generator {
 class <class> extends Model {
 
 }
-?>';
+';
 
 	public function generate() {
 		$this->validation();

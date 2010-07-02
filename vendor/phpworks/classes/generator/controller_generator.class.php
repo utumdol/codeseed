@@ -9,7 +9,7 @@ class <class> extends Controller {
 
 	<functions>
 }
-?>';
+';
 	var $function_template = 'public function <function> {
 	}
 
