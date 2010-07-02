@@ -5,7 +5,7 @@ class ControllerGenerator extends Generator {
 
 	var $path = CNTR_DIR;
 	var $template = '<?php
-class <class> extends Controller {
+class <class>Controller extends Controller {
 
 	<functions>
 }
@@ -33,7 +33,7 @@ class <class> extends Controller {
 	}
 
 	public function getFileName() {
-		return $this->name . '.class.php';
+		return $this->name . '_controller.class.php';
 	}
 
 	public function getFunctionsContents() {
