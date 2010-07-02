@@ -6,13 +6,12 @@ class ControllerGenerator extends Generator {
 	var $path = CNTR_DIR;
 	var $template = '<?php
 class <class>Controller extends Controller {
-
 	<functions>
 }
 ';
-	var $function_template = 'public function <function> {
+	var $function_template = '
+	public function <function>() {
 	}
-
 	';
 
 	public function ControllerGenerator($name, $functions = array()) {
