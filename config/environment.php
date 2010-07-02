@@ -1,5 +1,5 @@
 <?php
-define('ROOT_DIR', dirname(__FILE__) . '/..');
+define('ROOT_DIR', realpath(dirname(__FILE__) . '/..'));
 define('ROOT_FILE', basename($_SERVER['SCRIPT_FILENAME']));
 
 define('SYS_DIR', ROOT_DIR . '/vendor/phpworks');

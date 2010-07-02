@@ -35,4 +35,8 @@ function require_once_all($files) {
 function require_once_dir($dir) {
 	require_once_all(get_files($dir));
 }
+
+function abbr_path($path) {
+	return str_replace(ROOT_DIR . '/', '', $path);
+}
 ?>
