@@ -12,7 +12,7 @@ class <class> extends Controller {
 ?>';
 	var $function_template = 'public function <function> {
 	}
-	
+
 	';
 
 	public function ControllerGenerator($name, $functions = array()) {
@@ -24,6 +24,12 @@ class <class> extends Controller {
 		$this->validation();
 		$this->generatePath();
 		$this->generateFile();
+
+		// make view
+		foreach($this->functions as $function) {
+			$view_generator = new ViewGenerator($this->name, $function);
+			$view_generator->generate();
+		}
 	}
 
 	public function getFileName() {

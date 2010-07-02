@@ -19,7 +19,7 @@ class ViewGenerator extends Generator {
 	}
 
 	public function getPath() {
-		return $this->dir . '/' . $this->name;
+		return $this->path . '/' . $this->dir;
 	}
 
 	public function getFileName() {
