@@ -1,6 +1,13 @@
-<form action="/blog/post">
+<form action="/blog/post" method="post">
 <div>
-	<span>user_id</span>
-	<span><input type="text" name="Article['user_id']"/></span>
+	<span>subject</span>
+	<span><input type="text" name="Article[subject]" /></span>
+</div>
+<div>
+	<span>content</span>
+	<span><textarea name="Article[content]"></textarea></span>
+</div>
+<div>
+	<span><input type="submit" value="submit" /></span>
 </div>
 </form>
