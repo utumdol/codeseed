@@ -1,4 +1,4 @@
 <?php
-define('DEFAULT_CONTROLLER', 'welcome');
-define('DEFAULT_ACTION', 'index');
+define('DEFAULT_CONTROLLER', 'blog');
+define('DEFAULT_ACTION', 'post_form');
 ?>
