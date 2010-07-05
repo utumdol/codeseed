@@ -59,7 +59,7 @@ class Paging {
 	}
 
 	public function get_link($page = 1) {
-		return str_replace('[PAGE]', $page, $this->link);
+		return str_replace('<page>', $page, $this->link);
 	}
 }
 ?>
