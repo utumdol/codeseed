@@ -25,5 +25,10 @@ class BlogController extends Controller {
 		$this->article = $article->get("id = '$id'");
 	}
 
+	public function update_form($id) {
+		$article = new Article();
+		$this->article = $article->get("id = '$id'");
+	}
+
 }
 

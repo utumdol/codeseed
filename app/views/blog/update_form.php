@@ -1,4 +1,4 @@
-<form action="/blog/post" method="post">
+<form action="/blog/update" method="post">
 <?php
 $this->load_view('/blog/form');
 ?>
