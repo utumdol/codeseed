@@ -30,5 +30,14 @@ class BlogController extends Controller {
 		$this->article = $article->get("id = '$id'");
 	}
 
+	public function update() {
+		$this->article = new Article();
+		$this->article->validate();
+		$article = $this->article->get("id = '" . $this->article->id . "'");
+		$this->article->created_at = $article->created_at;
+		$this->article->updated_at = time();
+		$this->article->update();
+		$this->redirect_with_message('/blog/index', '수정이 완료되었습니다.');
+	}
 }
 
