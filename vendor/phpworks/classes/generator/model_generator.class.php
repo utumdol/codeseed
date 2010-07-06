@@ -13,7 +13,7 @@ class <class> extends Model {
 		$this->generatePath();
 		$this->generateFile();
 
-		$migration_generator = new MigrationGenerator($this->name);
+		$migration_generator = new MigrationGenerator($this->name, 'model');
 		$migration_generator->generate();
 	}
 

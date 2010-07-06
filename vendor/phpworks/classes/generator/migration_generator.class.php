@@ -1,11 +1,23 @@
 <?php
 class MigrationGenerator extends Generator {
-	public $name = '';
-	public $path = MIGR_DIR;
-	public $template = '<?php
+	var $name = '';
+	var $path = MIGR_DIR;
+	var $template = '<?php
+class Create<class> extends Migration {
+	public function up() {
+
+	}
+
+	public function down() {
+
+	}
+}
+';
+	var $table_template = '<?php
 class Create<class> extends Migration {
 	public function up() {
 		$this->create_table(\'<table>\');
+		// $this->add_column(\'<table>\', \'name\', \'varchar\', \'255\', true);
 	}
 
 	public function down() {
@@ -13,6 +25,13 @@ class Create<class> extends Migration {
 	}
 }
 ';
+
+	public function MigrationGenerator($name, $from = '') {
+		$this->name = $name;
+		if ($from == 'model') {
+			$this->template = $this->table_template;
+		}
+	}
 
 	public function getFileName() {
 		$table = filename_to_tablename($this->name);
