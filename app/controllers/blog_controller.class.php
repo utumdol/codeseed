@@ -5,11 +5,11 @@ class BlogController extends Controller {
 	}
 
 	public function post() {
-		$this->article = new Article();
-		$this->article->validate();
-		$this->article->created_at = time();
-		$this->article->updated_at = $this->article->created_at;
-		$this->article->register();
+		$article = new Article();
+		$article->validate();
+		$article->created_at = time();
+		$article->updated_at = $article->created_at;
+		$article->register();
 		$this->redirect_with_message('/blog/index', '글이 등록되었습니다.');
 	}
 
@@ -31,13 +31,19 @@ class BlogController extends Controller {
 	}
 
 	public function update() {
-		$this->article = new Article();
-		$this->article->validate();
-		$article = $this->article->get("id = '" . $this->article->id . "'");
-		$this->article->created_at = $article->created_at;
-		$this->article->updated_at = time();
-		$this->article->update();
+		$article = new Article();
+		$article->validate();
+		$old_article = $article->get("id = '" . $article->id . "'");
+		$article->created_at = $old_article->created_at;
+		$article->updated_at = time();
+		$article->update();
 		$this->redirect_with_message('/blog/index', '수정이 완료되었습니다.');
+	}
+
+	public function remove($id) {
+		$article = new Article();
+		$article->remove("id = '$id'");
+		$this->redirect_with_message('/blog/index', '삭제가 완료되었습니다.');
 	}
 }
 
