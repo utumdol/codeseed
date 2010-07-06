@@ -1,6 +1,6 @@
 <form action="/blog/post" method="post">
 <?php
-$this->load_view('/blog/form');
+$this->load_view('/blog/_form');
 ?>
 </form>
 <div>

@@ -23,7 +23,7 @@ foreach($this->list as $article) {
 </tbody>
 </table>
 <?
-$this->load_view('layout/paging');
+$this->load_view('layout/_paging');
 ?>
 <div class="menu">
 <span>[<a href="/blog/index">처음으로</a>]</span><span>[<a href="/blog/post_form">등록하기</a>]</span>
