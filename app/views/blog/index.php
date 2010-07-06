@@ -12,10 +12,10 @@
 foreach($this->list as $article) {
 ?>
 <tr>
-	<td><a href="/user/view/<?= $article->id ?>"><?= $article->id ?></a></td>
-	<td><a href="/user/view/<?= $article->id ?>"><?= $article->subject ?></a></td>
-	<td><a href="/user/update_form/<?= $article->id ?>">+</a></td>
-	<td><a href="/user/remove/<?= $article->id ?>" onclick="return confirm('정말 삭제하시겠습니까?');">-</a></td>
+	<td><a href="/blog/view/<?= $article->id ?>"><?= $article->id ?></a></td>
+	<td><a href="/blog/view/<?= $article->id ?>"><?= $article->subject ?></a></td>
+	<td><a href="/blog/update_form/<?= $article->id ?>">+</a></td>
+	<td><a href="/blog/remove/<?= $article->id ?>" onclick="return confirm('정말 삭제하시겠습니까?');">-</a></td>
 </tr>
 <?php
 }
