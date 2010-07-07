@@ -1,25 +1,21 @@
-<table id="list">
-<thead>
-<tr>
-	<th class="subject">제목</th>
-	<th class="date">생성일</th>
-	<th class="date">수정일</th>
-</tr>
-</thead>
-<tbody>
-<?php
-foreach($this->list as $article) {
-?>
-<tr>
-	<td class="subject"><a href="/blog/view/<?= $article->id ?>"><?= $article->subject ?></a></td>
-	<td class="date"><?= date('m-d H:i', $article->created_at) ?></td>
-	<td class="date"><?= date('m-d H:i', $article->updated_at) ?></td>
-</tr>
-<?php
-}
-?>
-</tbody>
-</table>
+<div id="list">
+	<div>
+		<span class="subject">제목</span>
+		<span class="date">생성일</span>
+		<span class="date">수정일</span>
+	</div>
+	<?php
+	foreach($this->list as $article) {
+	?>
+	<div>
+		<span class="subject"><a href="/blog/view/<?= $article->id ?>"><?= $article->subject ?></a></span>
+		<span class="date"><?= date('m-d H:i', $article->created_at) ?></span>
+		<span class="date"><?= date('m-d H:i', $article->updated_at) ?></span>
+	</div>
+	<?php
+	}
+	?>
+</div>
 <?
 $this->load_view('layout/_paging');
 ?>

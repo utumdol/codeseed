@@ -18,11 +18,6 @@ a:hover {
 	color: #333333;
 }
 
-table, tr, th, td {
-	border: solid 1px #cccccc;
-	text-align: left;
-}
-
 #contents {
 	width: 700px;
 	margin: auto;
