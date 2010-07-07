@@ -60,3 +60,12 @@ form .button_area {
 	text-align: center;
 }
 
+#view #subject {
+	padding: 5px;
+	font-weight: bold;
+}
+
+#view #content {
+	padding: 5px;
+}
+
