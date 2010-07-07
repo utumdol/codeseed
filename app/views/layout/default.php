@@ -7,8 +7,7 @@
 </head>
 <body>
 <div id="wrap">
-	<div id="menu">
-	</div>
+	<div id="head">예제 블로그</div>
 	<div id="contents">
 		<?= $CONTENTS ?>
 	</div>
