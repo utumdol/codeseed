@@ -6,6 +6,12 @@
 <title>phpworks</title>
 </head>
 <body>
-<?= $CONTENTS ?>
+<div id="wrap">
+	<div id="menu">
+	</div>
+	<div id="contents">
+		<?= $CONTENTS ?>
+	</div>
+</div>
 </body>
 </html>

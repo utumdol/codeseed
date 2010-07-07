@@ -1,8 +1,9 @@
-<table>
+<table id="list">
 <thead>
 <tr>
-	<th>id</th>
-	<th>subject</th>
+	<th class="id">id</th>
+	<th class="subject">subject</th>
+	<th class="date">created at</th>
 </tr>
 </thead>
 <tbody>
@@ -10,8 +11,9 @@
 foreach($this->list as $article) {
 ?>
 <tr>
-	<td><a href="/blog/view/<?= $article->id ?>"><?= $article->id ?></a></td>
-	<td><a href="/blog/view/<?= $article->id ?>"><?= $article->subject ?></a></td>
+	<td class="id"><a href="/blog/view/<?= $article->id ?>"><?= $article->id ?></a></td>
+	<td class="subject"><a href="/blog/view/<?= $article->id ?>"><?= $article->subject ?></a></td>
+	<td class="date"><?= date('Y.m.d', $article->created_at) ?></td>
 </tr>
 <?php
 }
@@ -21,7 +23,7 @@ foreach($this->list as $article) {
 <?
 $this->load_view('layout/_paging');
 ?>
-<div class="menu">
+<div class="menu_area">
 	<span>[<a href="/blog/index">처음으로</a>]</span><span>[<a href="/blog/post_form">등록하기</a>]</span>
 </div>
 

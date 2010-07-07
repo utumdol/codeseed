@@ -2,23 +2,61 @@
 
 body, select, input, textarea {
 	font-family: 나눔고딕, 돋움, Dotum, 굴림, Gulim, AppleGothic, Sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	color: #333333;
-	margin: 0px;
+	margin: 0px auto;
 	padding: 0px;
 }
+
 a {
 	text-decoration: none;
 	color: #999999;
 }
+
 a:hover {
 	text-decoration: underline;
 	color: #333333;
 }
+
 table, tr, th, td {
 	border: solid 1px #cccccc;
 	text-align: left;
 }
+
 input {
 	width: 200;
 }
+
+#contents {
+	width: 700px;
+	margin: auto;
+}
+
+#list {
+	width: 100%;
+}
+
+.menu_area {
+	text-align: right;
+}
+
+.paging {
+	text-align: center;
+}
+
+form #subject {
+	width: 100%;
+	padding: 5px;
+	font-weight: bold;
+}
+
+form #content {
+	width: 100%;
+	height: 300px;
+	padding: 5px;
+}
+
+form .button_area {
+	text-align: center;
+}
+

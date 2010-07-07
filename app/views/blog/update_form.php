@@ -3,8 +3,9 @@
 <?php
 $this->load_view('/blog/_form');
 ?>
-<div>
-	<span><input type="submit" value="submit" /></span>
+<div class="button_area">
+	<span><input type="submit" value="수정하기" /></span>
+	<span><input type="button" value="취소하기" onclick="javascript:history.back();" /></span>
 </div>
 </form>
 
