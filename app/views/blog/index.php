@@ -1,9 +1,9 @@
 <table id="list">
 <thead>
 <tr>
-	<th class="id">id</th>
-	<th class="subject">subject</th>
+	<th class="subject">제목</th>
 	<th class="date">created at</th>
+	<th class="date">updated at</th>
 </tr>
 </thead>
 <tbody>
@@ -11,9 +11,9 @@
 foreach($this->list as $article) {
 ?>
 <tr>
-	<td class="id"><a href="/blog/view/<?= $article->id ?>"><?= $article->id ?></a></td>
 	<td class="subject"><a href="/blog/view/<?= $article->id ?>"><?= $article->subject ?></a></td>
-	<td class="date"><?= date('Y.m.d', $article->created_at) ?></td>
+	<td class="date"><?= date('m-d H:i', $article->created_at) ?></td>
+	<td class="date"><?= date('m-d H:i', $article->updated_at) ?></td>
 </tr>
 <?php
 }

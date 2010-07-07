@@ -10,7 +10,7 @@ class BlogController extends Controller {
 		$article->created_at = time();
 		$article->updated_at = $article->created_at;
 		$article->register();
-		$this->redirect_with_message('/blog/index', '글이 등록되었습니다.');
+		$this->redirect('/blog/index');
 	}
 
 	public function index($page = '1') {
@@ -37,13 +37,13 @@ class BlogController extends Controller {
 		$article->created_at = $old_article->created_at;
 		$article->updated_at = time();
 		$article->update();
-		$this->redirect_with_message('/blog/index', '수정이 완료되었습니다.');
+		$this->redirect('/blog/index');
 	}
 
 	public function remove($id) {
 		$article = new Article();
 		$article->remove("id = '$id'");
-		$this->redirect_with_message('/blog/index', '삭제가 완료되었습니다.');
+		$this->redirect('/blog/index');
 	}
 }
 
