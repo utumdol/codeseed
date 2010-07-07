@@ -1,4 +1,4 @@
-<form action="/blog/post" method="post">
+<form id="article_form" action="/blog/post" method="post">
 <?php
 $this->load_view('/blog/_form');
 ?>
