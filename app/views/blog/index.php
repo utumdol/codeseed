@@ -2,8 +2,8 @@
 <thead>
 <tr>
 	<th class="subject">제목</th>
-	<th class="date">created at</th>
-	<th class="date">updated at</th>
+	<th class="date">생성일</th>
+	<th class="date">수정일</th>
 </tr>
 </thead>
 <tbody>
