@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+body, select, input, textarea {
+	font-family: 나눔명조, 나눔고딕, 돋움, Dotum, 굴림, Gulim, AppleGothic, Sans-serif;
+	font-size: 16px;
+	color: #333333;
+	line-height: 150%;
+	margin: 0px auto;
+	padding: 0px;
+}
+
+a {
+	text-decoration: none;
+	color: #333333;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #333333;
+}
+
+#contents {
+	width: 700px;
+	margin: auto;
+}
+
+#head {
+	width: 700px;
+	margin: auto;
+	font-size: 20px;
+	padding: 10px;
+	color: #3366cc;
+}
+
+#list {
+	width: 100%;
+}
+
+#list .subject {
+	width: 600px;
+	border-bottom: 1px solid #cccccc;
+}
+
+#list .date {
+	width: 100px;
+	border-bottom: 1px solid #cccccc;
+}
+
+#list .title {
+	border-top: 1px solid #cccccc;
+}
+
+.menu_area {
+	text-align: right;
+}
+
+.paging {
+	text-align: center;
+}
+
+#article_form #subject {
+	width: 100%;
+	font-weight: bold;
+	margin: 5px 0 5px 0;
+	border: 1px solid #cccccc;
+}
+
+#article_form #content {
+	width: 100%;
+	height: 250px;
+	margin: 5px 0 5px 0;
+	border: 1px solid #cccccc;
+}
+
+#article_form .button_area {
+	text-align: center;
+}
+
+#view #subject {
+	padding: 5px;
+	font-weight: bold;
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+}
+
+#view #content {
+	padding: 20px 5px;
+	border-bottom: 1px solid #cccccc;
+}
+
