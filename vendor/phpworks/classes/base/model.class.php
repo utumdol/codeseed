@@ -28,10 +28,18 @@ class Model {
 		$names = array();
 		$values = array();
 		foreach ($fields as $field) {
-			if ($field->name == 'id') {
+			$field_name = $field->name;
+
+			if ($field_name == 'id') {
 				continue;
 			}
-			$field_name = $field->name;
+			if ($field_name == 'created_at') {
+				$this->$field_name = time();
+			}
+			if ($field_name == 'updated_at') {
+				$this->$field_name = time();
+			}
+
 			$names[] = $field_name;
 			$values[] = quotes_to_string($field->type, $this->$field_name);
 		}
@@ -98,10 +106,16 @@ class Model {
 		$fields = $this->database->get_table_schema($this->table_name);
 		$pairs = array();
 		foreach ($fields as $field) {
-			if ($field->name == 'id') {
+			$field_name = $field->name;
+			if ($field_name == 'id') {
 				continue;
 			}
-			$field_name = $field->name;
+			if ($field_name == 'created_at') {
+				continue;
+			}
+			if ($field_name == 'updated_at') {
+				$this->$field_name = time();
+			}
 			$value = quotes_to_string($field->type, $this->$field_name);
 			$pairs[] = "$field_name = $value";
 		}

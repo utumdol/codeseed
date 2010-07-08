@@ -11,8 +11,6 @@ class BlogController extends Controller {
 	public function post() {
 		$article = new Article();
 		$article->validate();
-		$article->created_at = time();
-		$article->updated_at = $article->created_at;
 		$article->register();
 		$this->redirect('/blog/index');
 	}
@@ -38,8 +36,6 @@ class BlogController extends Controller {
 		$article = new Article();
 		$article->validate();
 		$old_article = $article->get("id = '" . $article->id . "'");
-		$article->created_at = $old_article->created_at;
-		$article->updated_at = time();
 		$article->update();
 		$this->redirect('/blog/index');
 	}
