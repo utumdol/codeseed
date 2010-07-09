@@ -50,11 +50,11 @@ class Model {
 	}
 
 	public function get($where = '') {
-		$arr = $this->get_list($where);
+		$arr = $this->all($where);
 		return $arr[0];
 	}
 
-	public function get_list($where = '', $order = '', $page = '', $size = '') {
+	public function all($where = '', $order = '', $page = '', $size = '') {
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
