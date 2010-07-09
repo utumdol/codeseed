@@ -49,7 +49,7 @@ class Model {
 		$result = $this->database->execute($query);
 	}
 
-	public function get($where = '') {
+	public function find($where = '') {
 		$arr = $this->all($where);
 		return $arr[0];
 	}

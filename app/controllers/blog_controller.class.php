@@ -24,18 +24,18 @@ class BlogController extends Controller {
 
 	public function view($id, $page = '1') {
 		$article = new Article();
-		$this->article = $article->get("id = '$id'");
+		$this->article = $article->find("id = '$id'");
 	}
 
 	public function update_form($id) {
 		$article = new Article();
-		$this->article = $article->get("id = '$id'");
+		$this->article = $article->find("id = '$id'");
 	}
 
 	public function update() {
 		$article = new Article();
 		$article->validate();
-		$old_article = $article->get("id = '" . $article->id . "'");
+		$old_article = $article->find("id = '" . $article->id . "'");
 		$article->update();
 		$this->redirect('/blog/index');
 	}

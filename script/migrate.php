@@ -27,7 +27,7 @@ if ($schema_version->count() == 0) {
 	$schema_version->version = 0;
 	$schema_version->save();
 }
-$schema_version = $schema_version->get();
+$schema_version = $schema_version->find();
 
 // read migration files...
 $files = get_files(MIGR_DIR);
