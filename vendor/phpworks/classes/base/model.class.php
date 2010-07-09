@@ -50,11 +50,11 @@ class Model {
 	}
 
 	public function find($where = '') {
-		$arr = $this->all($where);
+		$arr = $this->find_all($where);
 		return $arr[0];
 	}
 
-	public function all($where = '', $order = '', $page = '', $size = '') {
+	public function find_all($where = '', $order = '', $page = '', $size = '') {
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
