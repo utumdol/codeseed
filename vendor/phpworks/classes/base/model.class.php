@@ -22,7 +22,7 @@ class Model {
 	// DB Processing
 	///////////////////////////////////////////////////////////////////////////
 
-	public function register() {
+	public function save() {
 		// load table schema and value setting
 		$fields = $this->database->get_table_schema($this->table_name);
 		$names = array();

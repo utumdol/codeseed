@@ -11,7 +11,7 @@ class BlogController extends Controller {
 	public function post() {
 		$article = new Article();
 		$article->validate();
-		$article->register();
+		$article->save();
 		$this->redirect('/blog/index');
 	}
 
