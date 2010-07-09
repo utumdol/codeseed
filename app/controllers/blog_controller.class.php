@@ -42,7 +42,8 @@ class BlogController extends Controller {
 
 	public function destroy($id) {
 		$article = new Article();
-		$article->destroy("id = '$id'");
+		$article->id = $id;
+		$article->destroy();
 		$this->redirect('/blog/index');
 	}
 }
