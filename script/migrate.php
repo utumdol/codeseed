@@ -23,7 +23,7 @@ if (!in_array('schema_version', $tables)) {
 }
 
 $schema_version = new SchemaVersion();
-if ($schema_version->get_total() == 0) {
+if ($schema_version->count() == 0) {
 	$schema_version->version = 0;
 	$schema_version->save();
 }

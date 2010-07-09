@@ -19,7 +19,7 @@ class BlogController extends Controller {
 		$article = new Article();
 		$page_size = 7;
 		$this->list = $article->all('', 'id DESC', $page, $page_size);
-		$this->paging = new Paging($article->get_total(), $page_size, '/blog/index/<page>', $page);
+		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
 	}
 
 	public function view($id, $page = '1') {

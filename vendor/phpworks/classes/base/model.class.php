@@ -85,7 +85,7 @@ class Model {
 		return $arr;
 	}
 
-	public function get_total($where = '') {
+	public function count($where = '') {
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
