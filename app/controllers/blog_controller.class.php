@@ -40,9 +40,9 @@ class BlogController extends Controller {
 		$this->redirect('/blog/index');
 	}
 
-	public function remove($id) {
+	public function destroy($id) {
 		$article = new Article();
-		$article->remove("id = '$id'");
+		$article->destroy("id = '$id'");
 		$this->redirect('/blog/index');
 	}
 }

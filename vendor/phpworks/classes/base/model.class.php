@@ -125,7 +125,7 @@ class Model {
 		$result = $this->database->execute($query);
 	}
 
-	public function remove($where = '') {
+	public function destroy($where = '') {
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
