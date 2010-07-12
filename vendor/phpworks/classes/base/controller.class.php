@@ -6,13 +6,15 @@ class Controller {
 		require(VIEW_DIR . '/' . $view . '.php');
 	}
 
-	public function redirect($where) {
+	public function redirect_to($where) {
 		echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
 	}
 
-	public function redirect_with_message($where, $message = '') {
+	/*
+	public function redirect_to_with_message($where, $message = '') {
 		alert($message);
-		$this->redirect($where);
+		$this->redirect_to($where);
 	}
+	*/
 }
-?>
+

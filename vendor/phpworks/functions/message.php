@@ -4,4 +4,4 @@ function alert($message = '') {
 	echo $message;
 	echo '");</script>';
 }
-?>
+

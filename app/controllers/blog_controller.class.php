@@ -12,7 +12,7 @@ class BlogController extends Controller {
 		$article = new Article();
 		$article->validate();
 		$article->save();
-		$this->redirect('/blog/index');
+		$this->redirect_to('/blog/index');
 	}
 
 	public function index($page = '1') {
@@ -37,14 +37,14 @@ class BlogController extends Controller {
 		$article->validate();
 		$old_article = $article->find("id = '" . $article->id . "'");
 		$article->update();
-		$this->redirect('/blog/index');
+		$this->redirect_to('/blog/index');
 	}
 
 	public function delete($id) {
 		$article = new Article();
 		$article->id = $id;
 		$article->delete();
-		$this->redirect('/blog/index');
+		$this->redirect_to('/blog/index');
 	}
 }
 
