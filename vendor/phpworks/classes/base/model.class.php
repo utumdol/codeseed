@@ -125,13 +125,13 @@ class Model {
 		$result = $this->database->execute($query);
 	}
 
-	public function destroy() {
+	public function delete() {
 		// delete
 		$query = 'DELETE FROM ' . $this->table_name . ' WHERE id = ' . $this->id;
 		$this->database->execute($query);
 	}
 
-	public function destroy_all($where = '') {
+	public function delete_all($where = '') {
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;

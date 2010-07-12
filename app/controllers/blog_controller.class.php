@@ -40,10 +40,10 @@ class BlogController extends Controller {
 		$this->redirect('/blog/index');
 	}
 
-	public function destroy($id) {
+	public function delete($id) {
 		$article = new Article();
 		$article->id = $id;
-		$article->destroy();
+		$article->delete();
 		$this->redirect('/blog/index');
 	}
 }
