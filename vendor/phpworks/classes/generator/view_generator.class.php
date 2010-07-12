@@ -4,7 +4,7 @@ class ViewGenerator extends Generator {
 	var $name = '';
 	var $path = VIEW_DIR;
 	var $template = '<h1><dir>#<view></h1>
-<div>hello, world</div>
+<div>Find me in app/views/<dir>/<view>.php</div>
 
 ';
 
