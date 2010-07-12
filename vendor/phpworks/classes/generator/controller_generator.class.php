@@ -8,6 +8,7 @@ class ControllerGenerator extends Generator {
 class <class>Controller extends Controller {
 	<functions>
 }
+
 ';
 	var $function_template = '
 	public function <function>() {
@@ -21,8 +22,8 @@ class <class>Controller extends Controller {
 
 	public function generate() {
 		$this->validation();
-		$this->generatePath();
-		$this->generateFile();
+		$this->generate_path();
+		$this->generate_file();
 
 		// make view
 		foreach($this->functions as $function) {
@@ -31,11 +32,11 @@ class <class>Controller extends Controller {
 		}
 	}
 
-	public function getFileName() {
+	public function get_filename() {
 		return $this->name . '_controller.class.php';
 	}
 
-	public function getFunctionsContents() {
+	public function get_functions_contents() {
 		$result = '';
 		foreach($this->functions as $function) {
 			$result .= str_replace('<function>', $function, $this->function_template);
@@ -43,9 +44,9 @@ class <class>Controller extends Controller {
 		return $result;
 	}
 
-	public function getContents() {
+	public function get_contents() {
 		$class = tablename_to_classname($this->name);
-		$functions = $this->getFunctionsContents();
+		$functions = $this->get_functions_contents();
 		$result = str_replace('<class>', $class, $this->template);
 		$result = str_replace('<functions>', $functions, $result);
 		return $result;

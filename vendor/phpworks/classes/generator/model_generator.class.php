@@ -6,22 +6,23 @@ class ModelGenerator extends Generator {
 class <class> extends Model {
 
 }
+
 ';
 
 	public function generate() {
 		$this->validation();
-		$this->generatePath();
-		$this->generateFile();
+		$this->generate_path();
+		$this->generate_file();
 
 		$migration_generator = new MigrationGenerator($this->name, 'model');
 		$migration_generator->generate();
 	}
 
-	public function getFileName() {
+	public function get_filename() {
 		return $this->name . '.class.php';
 	}
 
-	public function getContents() {
+	public function get_contents() {
 		$class = tablename_to_classname($this->name);
 		$result = str_replace('<class>', $class, $this->template);
 		return $result;

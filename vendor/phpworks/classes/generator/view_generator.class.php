@@ -5,6 +5,7 @@ class ViewGenerator extends Generator {
 	var $path = VIEW_DIR;
 	var $template = '<h1><dir>#<view></h1>
 <div>hello, world</div>
+
 ';
 
 	public function ViewGenerator($dir, $name) {
@@ -14,19 +15,19 @@ class ViewGenerator extends Generator {
 
 	public function generate() {
 		$this->validation();
-		$this->generatePath();
-		$this->generateFile();
+		$this->generate_path();
+		$this->generate_file();
 	}
 
-	public function getPath() {
+	public function get_path() {
 		return $this->path . '/' . $this->dir;
 	}
 
-	public function getFileName() {
+	public function get_filename() {
 		return $this->name . '.php';
 	}
 
-	public function getContents() {
+	public function get_contents() {
 		$result = str_replace('<dir>', $this->dir, $this->template);
 		$result = str_replace('<view>', $this->name, $result);
 		return $result;
