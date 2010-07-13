@@ -39,4 +39,4 @@ function require_once_dir($dir) {
 function abbr_path($path) {
 	return str_replace(ROOT_DIR . '/', '', $path);
 }
-?>
+

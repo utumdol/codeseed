@@ -11,4 +11,4 @@ function quotes_to_string($type, $value) {
 	}
 	return $value;
 }
-?>
+

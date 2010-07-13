@@ -32,4 +32,4 @@ class Migration {
 		$this->database->execute("ALTER TABLE $table_name DROP INDEX $name");
 	}
 }
-?>
+

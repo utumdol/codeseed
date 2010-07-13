@@ -79,4 +79,4 @@ for($i = 0; $i < count($files); $i++) {
 
 // close db connection
 $DATABASE->close();
-?>
+

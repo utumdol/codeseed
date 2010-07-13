@@ -7,4 +7,4 @@ function back_with_message($message = '') {
 function back() {
 	echo '"<script type="text/javascript">history.back();</script>';
 }
-?>
+

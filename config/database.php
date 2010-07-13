@@ -5,4 +5,4 @@ define('DBPORT', '3306');
 define('DBUSER', 'root');
 define('DBPASSWD', '');
 define('DBNAME', 'phpworks');
-?>
+

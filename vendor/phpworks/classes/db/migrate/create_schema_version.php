@@ -9,4 +9,4 @@ class CreateSchemaVersion extends Migration {
 		$this->drop_table('schema_version');
 	}
 }
-?>
+

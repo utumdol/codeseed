@@ -32,4 +32,4 @@ require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 
 // close db connection
 $DATABASE->close();
-?>
+

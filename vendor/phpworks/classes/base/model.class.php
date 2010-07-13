@@ -142,4 +142,4 @@ class Model {
 		$this->database->execute($query);
 	}
 }
-?>
+

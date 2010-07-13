@@ -15,4 +15,4 @@ class Database {
 		$this->name = DBNAME;
 	}
 }
-?>
+

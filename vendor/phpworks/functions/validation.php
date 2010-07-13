@@ -30,4 +30,4 @@ function is_valid_url($url = '') {
 	}
 	return false;
 }
-?>
+

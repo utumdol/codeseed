@@ -10,4 +10,4 @@ function echonl($str = '') {
 function echobn($str = '') {
 	echo $str . BR . NL;
 }
-?>
+

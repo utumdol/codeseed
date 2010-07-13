@@ -62,4 +62,4 @@ class Paging {
 		return str_replace('<page>', $page, $this->link);
 	}
 }
-?>
+
