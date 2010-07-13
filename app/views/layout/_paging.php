@@ -23,3 +23,4 @@ if (!$this->paging->is_last_frame) {
 }
 ?>
 </div>
+

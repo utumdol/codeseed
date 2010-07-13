@@ -1,3 +1,4 @@
 RewriteEngine on
 RewriteCond $1 !^(index\.php|dispatch\.php|images|stylesheets|javascripts|robots\.txt)
 RewriteRule ^(.*)$ /dispatch.php/$1 [L]
+

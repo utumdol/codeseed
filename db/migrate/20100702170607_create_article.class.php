@@ -12,3 +12,4 @@ class CreateArticle extends Migration {
 		$this->drop_table('article');
 	}
 }
+
