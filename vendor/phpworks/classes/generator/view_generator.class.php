@@ -13,18 +13,8 @@ class ViewGenerator extends Generator {
 		$this->name = $name;
 	}
 
-	public function generate() {
-		$this->validation();
-		$this->generate_path();
-		$this->generate_file();
-	}
-
 	public function get_path() {
 		return $this->path . '/' . $this->dir;
-	}
-
-	public function get_filename() {
-		return $this->name . '.php';
 	}
 
 	public function get_contents() {
