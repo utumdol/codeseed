@@ -9,6 +9,7 @@ $DATABASE->connect();
 $path = parse_request_uri($_SERVER['REQUEST_URI']);
 $controller_path = empty($path[1]) ? DEFAULT_CONTROLLER : $path[1];
 $action_path = empty($path[2]) ? DEFAULT_ACTION : $path[2];
+require_once(HELP_DIR. '/' . $controller_path . '.php');
 require_once(CNTR_DIR . '/' . $controller_path . '_controller.class.php');
 $controller_name = filename_to_classname($controller_path . '_controller');
 $controller = new $controller_name;

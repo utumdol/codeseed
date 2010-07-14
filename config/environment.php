@@ -28,8 +28,8 @@ require_once_dir(SYS_CLASSES);
 
 // include all application configs
 require_once_dir(CONF_DIR);
-// include all application helpers
-require_once_dir(HELP_DIR);
+// include default application helper
+require_once(HELP_DIR . '/application.php');
 // include all application models
 require_once_dir(MODEL_DIR);
 
