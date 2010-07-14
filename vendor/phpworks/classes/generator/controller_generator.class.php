@@ -25,6 +25,10 @@ class <class>Controller extends Controller {
 		$this->generate_path();
 		$this->generate_file();
 
+		// make helper
+		$view_generator = new HelperGenerator($this->name);
+		$view_generator->generate();
+
 		// make view
 		foreach($this->functions as $function) {
 			$view_generator = new ViewGenerator($this->name, $function);
