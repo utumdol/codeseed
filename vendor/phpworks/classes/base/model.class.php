@@ -4,17 +4,15 @@ class Model {
 	var $name;
 	var $table_name;
 
-	public function Model() {
+	public function Model($params = array()) {
 		global $DATABASE;
 
 		$this->database = $DATABASE;
 		$this->name = get_class($this);
 		$this->table_name = classname_to_tablename($this->name);
 		
-		if (array_key_exists($this->name, $_POST)) {
-			foreach(array_keys($_POST[$this->name]) as $key) {
-				$this->$key = $_POST[$this->name][$key];
-			}
+		foreach(array_keys($params) as $key) {
+			$this->$key = $params[$key];
 		}
 	}
 
