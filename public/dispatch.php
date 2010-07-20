@@ -29,9 +29,11 @@ ob_start();
 try {
 	call_user_func_array(array($controller, $action_path), array_slice($path, 3));
 	call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
-} catch (ValidationException $e) {
+} catch (PassoverException $e) {
+	// stop processing, and go to the finish
+} catch (ValidationError $e) {
 	echo $e->getMessage();
-} catch (ProcessingException $e) {
+} catch (ProcessingError $e) {
 	echo $e->getMessage();
 } catch (Exception $e) {
 	echo $e->getMessage();

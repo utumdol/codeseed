@@ -32,9 +32,9 @@ try {
 	$classname = filename_to_classname($kind) . 'Generator';
 	$generator = new $classname($name, $params);
 	$generator->generate();
-} catch (ValidationException $e) {
+} catch (ValidationError $e) {
 	echonl($e->getMessage());
-} catch (ProcessingException $e) {
+} catch (ProcessingError $e) {
 	echonl($e->getMessage());
 } catch (Exception $e) {
 	echonl($e->getMessage());
