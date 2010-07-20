@@ -10,7 +10,7 @@ class BlogController extends Controller {
 		$article = new Article($params['article']);
 		$article->validate();
 		$article->save();
-		$this->redirect_to('/blog/index');
+		redirect_to('/blog/index');
 	}
 
 	public function index($page = '1') {
@@ -36,14 +36,14 @@ class BlogController extends Controller {
 		$article->validate();
 		$old_article = $article->find("id = '" . $article->id . "'");
 		$article->update();
-		$this->redirect_to('/blog/index');
+		redirect_to('/blog/index');
 	}
 
 	public function delete($id) {
 		$article = new Article();
 		$article->id = $id;
 		$article->delete();
-		$this->redirect_to('/blog/index');
+		redirect_to('/blog/index');
 	}
 }
 
