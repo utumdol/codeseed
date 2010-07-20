@@ -1,4 +1,4 @@
 <?php
-class ProcessingError extends Exception {
+class ProcessingException extends Exception {
 }
 

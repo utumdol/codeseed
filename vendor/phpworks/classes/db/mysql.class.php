@@ -16,11 +16,11 @@ class MySQL {
 
 	public function connect() {
 		if (!function_exists('mysqli_connect')) {
-			throw new ProcessingError('[FATAL] class mysqli_connect doesn\'t exist: no MySQL interface');
+			throw new ProcessingException('[FATAL] class mysqli_connect doesn\'t exist: no MySQL interface');
 		}
 		$this->conn = mysqli_connect($this->host, $this->user, $this->passwd, $this->name);
 		if (mysqli_connect_error()) {
-			throw new ProcessingError('DB 연결 에러(' . mysqli_connect_errorno() . ') - ' . mysqli_connect_error());
+			throw new ProcessingException('DB 연결 에러(' . mysqli_connect_errorno() . ') - ' . mysqli_connect_error());
 		}
 	}
 
@@ -31,7 +31,7 @@ class MySQL {
 	public function execute($query) {
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
-			throw new ProcessingError('Could not run query: ' . $this->error());
+			throw new ProcessingException('Could not run query: ' . $this->error());
 		}
 		return $result;
 	}

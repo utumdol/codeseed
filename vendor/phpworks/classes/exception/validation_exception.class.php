@@ -1,4 +1,4 @@
 <?php
-class ValidationError extends Exception {
+class ValidationException extends Exception {
 }
 
