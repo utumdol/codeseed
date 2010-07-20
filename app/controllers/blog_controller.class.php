@@ -6,7 +6,8 @@ class BlogController extends Controller {
 	}
 
 	public function post() {
-		$article = new Article($this->params['article']);
+		global $params;
+		$article = new Article($params['article']);
 		$article->validate();
 		$article->save();
 		$this->redirect_to('/blog/index');
@@ -30,7 +31,8 @@ class BlogController extends Controller {
 	}
 
 	public function update() {
-		$article = new Article($this->params['article']);
+		global $params;
+		$article = new Article($params['article']);
 		$article->validate();
 		$old_article = $article->find("id = '" . $article->id . "'");
 		$article->update();

@@ -1,11 +1,6 @@
 <?php
 class Controller {
 	var $layout = 'default';
-	var $params;
-
-	public function Controller($params) {
-		$this->params = $params;
-	}
 
 	public function load_view($view) {
 		require(VIEW_DIR . '/' . $view . '.php');

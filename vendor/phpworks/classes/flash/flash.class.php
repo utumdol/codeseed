@@ -3,7 +3,7 @@ class Flash {
 	var $flashes;
 
 	public function load() {
-		if ($_SESSION['flash']) {
+		if (isset($_SESSION['flash'])) {
 			$this->flashes = unserialize($_SESSION['flash']);
 		} else {
 			$this->flashes = array();

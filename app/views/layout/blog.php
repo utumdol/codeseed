@@ -9,6 +9,9 @@
 <div id="wrap">
 	<div id="head">예제 블로그</div>
 	<div id="contents">
+		<div id="message">
+		<?= $flash->get('message'); ?>
+		</div>
 		<?= $CONTENTS ?>
 	</div>
 </div>
