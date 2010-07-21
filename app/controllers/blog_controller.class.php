@@ -12,10 +12,10 @@ class BlogController extends Controller {
 		$article = new Article($params['article']);
 		if ($article->validate()) {
 			$article->save();
-			redirect_to('/blog/index');
+			$this->redirect_to('/blog/index');
 		} else {
 			$flash->add('message', '에러가 발생하였습니다.');
-			back();
+			$this->back();
 		}
 	}
 
@@ -44,10 +44,10 @@ class BlogController extends Controller {
 		if ($article->validate()) {
 			$old_article = $article->find("id = '" . $article->id . "'");
 			$article->update();
-			redirect_to('/blog/index');
+			$this->redirect_to('/blog/index');
 		} else {
 			$flash->add('message', '에러가 발생하였습니다.');
-			back();
+			$this->back();
 		}
 	}
 
@@ -55,7 +55,7 @@ class BlogController extends Controller {
 		$article = new Article();
 		$article->id = $id;
 		$article->delete();
-		redirect_to('/blog/index');
+		$this->redirect_to('/blog/index');
 	}
 }
 

@@ -5,9 +5,11 @@ class Article extends Model {
 		if (empty($this->subject)) {
 			return false;
 		}
+
 		if (empty($this->content)) {
 			return false;
 		}
+
 		return true;
 	}
 }
