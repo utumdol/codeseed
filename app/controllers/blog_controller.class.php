@@ -7,10 +7,16 @@ class BlogController extends Controller {
 
 	public function post() {
 		global $params;
+		global $flash;
+
 		$article = new Article($params['article']);
-		$article->validate();
-		$article->save();
-		redirect_to('/blog/index');
+		if ($article->validate()) {
+			$article->save();
+			redirect_to('/blog/index');
+		} else {
+			$flash->add('message', '에러가 발생하였습니다.');
+			redirect_to('/blog/post_form');
+		}
 	}
 
 	public function index($page = '1') {
@@ -32,11 +38,17 @@ class BlogController extends Controller {
 
 	public function update() {
 		global $params;
+		global $flash;
+
 		$article = new Article($params['article']);
-		$article->validate();
-		$old_article = $article->find("id = '" . $article->id . "'");
-		$article->update();
-		redirect_to('/blog/index');
+		if ($article->validate()) {
+			$old_article = $article->find("id = '" . $article->id . "'");
+			$article->update();
+			redirect_to('/blog/index');
+		} else {
+			$flash->add('message', '에러가 발생하였습니다.');
+			redirect_to('/blog/update_form');
+		}
 	}
 
 	public function delete($id) {
