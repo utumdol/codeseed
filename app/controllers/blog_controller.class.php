@@ -15,7 +15,7 @@ class BlogController extends Controller {
 			redirect_to('/blog/index');
 		} else {
 			$flash->add('message', '에러가 발생하였습니다.');
-			redirect_to('/blog/post_form');
+			back();
 		}
 	}
 
@@ -47,7 +47,7 @@ class BlogController extends Controller {
 			redirect_to('/blog/index');
 		} else {
 			$flash->add('message', '에러가 발생하였습니다.');
-			redirect_to('/blog/update_form');
+			back();
 		}
 	}
 
