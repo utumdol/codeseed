@@ -3,6 +3,7 @@ class Model {
 	var $database;
 	var $name;
 	var $table_name;
+	var $errors;
 
 	public function Model($params = array()) {
 		global $DATABASE;
@@ -10,6 +11,7 @@ class Model {
 		$this->database = $DATABASE;
 		$this->name = get_class($this);
 		$this->table_name = classname_to_tablename($this->name);
+		$this->errors = new Errors();
 		
 		foreach(array_keys($params) as $key) {
 			$this->$key = $params[$key];

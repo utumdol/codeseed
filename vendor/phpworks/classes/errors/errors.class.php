@@ -1,0 +1,20 @@
+<?php
+class Errors {
+
+	public function Errors() {
+		$this->messages = array();
+	}
+
+	public function add($message) {
+		$this->messages[] = $message;
+	}
+	
+	public function get_messages($glue = "\n") {
+		return implode($glue, $this->messages);
+	}
+
+	public function is_empty() {
+		return empty($this->messages);
+	}
+}
+

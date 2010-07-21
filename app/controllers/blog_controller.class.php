@@ -14,7 +14,7 @@ class BlogController extends Controller {
 			$article->save();
 			$this->redirect_to('/blog/index');
 		} else {
-			$flash->add('message', '에러가 발생하였습니다.');
+			$flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
 	}
@@ -46,7 +46,7 @@ class BlogController extends Controller {
 			$article->update();
 			$this->redirect_to('/blog/index');
 		} else {
-			$flash->add('message', '에러가 발생하였습니다.');
+			$flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
 	}
