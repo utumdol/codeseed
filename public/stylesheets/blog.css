@@ -24,6 +24,10 @@ a:hover {
 	margin: auto;
 }
 
+#message {
+	color: #999999;
+}
+
 #head {
 	width: 700px;
 	margin: auto;
