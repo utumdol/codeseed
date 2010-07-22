@@ -1,6 +1,5 @@
 <?php
 class MigrationGenerator extends Generator {
-	var $name = '';
 	var $path = MIGR_DIR;
 	var $template = '<?php
 class Create<class> extends Migration {

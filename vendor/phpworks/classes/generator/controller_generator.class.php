@@ -1,6 +1,5 @@
 <?php
 class ControllerGenerator extends Generator {
-	var $name = '';
 	var $functions = '';
 
 	var $path = CNTR_DIR;
