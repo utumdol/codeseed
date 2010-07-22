@@ -42,7 +42,6 @@ class BlogController extends Controller {
 
 		$article = new Article($params['article']);
 		if ($article->validate()) {
-			$old_article = $article->find("id = '" . $article->id . "'");
 			$article->update();
 			$this->redirect_to('/blog/index');
 		} else {
