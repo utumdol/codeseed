@@ -35,9 +35,8 @@ class Create<class> extends Migration {
 	}
 
 	public function get_filename() {
-		$table = filename_to_tablename($this->name);
 		$this_time = date('YmdHis');
-		return $this_time . '_create_' . $table . '.class.php';
+		return $this_time . '_' . $this->name . '.class.php';
 	}
 
 	public function get_contents() {
