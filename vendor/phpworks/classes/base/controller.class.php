@@ -6,11 +6,6 @@ class Controller {
 		require(VIEW_DIR . '/' . $view . '.php');
 	}
 
-	public function back_with_message($message = '') {
-		alert($message);
-		back();
-	}
-
 	public function back() {
 		echo '"<script type="text/javascript">history.back();</script>';
 	}
