@@ -6,6 +6,7 @@ class CreateArticleComment extends Migration {
 		$this->add_column('article_comment', 'comment', 'text', '0', false);
 		$this->add_column('article_comment', 'created_at', 'int', '0', false);
 		$this->add_column('article_comment', 'updated_at', 'int', '0', false);
+		$this->add_index('article_comment', 'article_comment_idx', 'article_id');
 	}
 
 	public function down() {
