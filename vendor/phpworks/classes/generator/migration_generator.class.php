@@ -1,8 +1,9 @@
 <?php
 class MigrationGenerator extends Generator {
+	var $from;
 	var $path = MIGR_DIR;
 	var $template = '<?php
-class Create<class> extends Migration {
+class <class> extends Migration {
 	public function up() {
 
 	}
@@ -29,13 +30,17 @@ class Create<class> extends Migration {
 
 	public function MigrationGenerator($name, $from = '') {
 		$this->name = $name;
-		if ($from == 'model') {
+		$this->from = $from;
+		if ($this->from == 'model') {
 			$this->template = $this->table_template;
 		}
 	}
 
 	public function get_filename() {
 		$this_time = date('YmdHis');
+		if ($this->from == 'model') {
+			return $this_time . '_create_' . $this->name . '.class.php';
+		}
 		return $this_time . '_' . $this->name . '.class.php';
 	}
 
