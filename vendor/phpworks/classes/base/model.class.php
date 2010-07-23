@@ -125,9 +125,14 @@ class Model {
 		$result = $this->database->execute($query);
 	}
 
-	public function delete() {
+	public function delete($where = '') {
+		// make condition
+		if (!empty($where)) {
+			$where = 'WHERE ' . $where;
+		}
+
 		// delete
-		$query = 'DELETE FROM ' . $this->table_name . ' WHERE id = ' . $this->id;
+		$query = 'DELETE FROM ' . $this->table_name . ' ' . $where;
 		$this->database->execute($query);
 	}
 

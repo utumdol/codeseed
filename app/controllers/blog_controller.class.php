@@ -55,8 +55,11 @@ class BlogController extends Controller {
 
 	public function delete($id) {
 		$article = new Article();
-		$article->id = $id;
-		$article->delete();
+		$article->delete('id = ' . $id);
+
+		$comment = new ArticleComment();
+		$comment->delete('article_id = ' . $id);
+
 		$this->redirect_to('/blog/index');
 	}
 
