@@ -29,6 +29,9 @@ class BlogController extends Controller {
 	public function view($id, $page = '1') {
 		$article = new Article();
 		$this->article = $article->find("id = '$id'");
+
+		$comment = new ArticleComment();
+		$this->comment_list = $comment->find_all("article_id = '$id'");
 	}
 
 	public function update_form($id) {
@@ -55,6 +58,19 @@ class BlogController extends Controller {
 		$article->id = $id;
 		$article->delete();
 		$this->redirect_to('/blog/index');
+	}
+
+	public function post_comment() {
+		global $flash;
+		global $params;
+
+		$comment = new ArticleComment($params['article_comment']);
+		if ($comment->validate()) {
+			$comment->save();
+		} else {
+			$flash->add('message', $comment->errors->get_messages());
+		}
+		$this->redirect_to('/blog/view/' . $params['article_comment']['article_id']);
 	}
 }
 

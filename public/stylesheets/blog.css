@@ -71,7 +71,7 @@ a:hover {
 
 #article_form #content {
 	width: 100%;
-	height: 250px;
+	height: 400px;
 	margin: 5px 0 5px 0;
 	border: 1px solid #cccccc;
 }
@@ -90,5 +90,25 @@ a:hover {
 #view #content {
 	padding: 20px 5px;
 	border-bottom: 1px solid #cccccc;
+}
+
+#comments #comment {
+	padding: 5px;
+	border-bottom: 1px solid #cccccc;
+	font-size: 14px;
+	background-color: #eeeeee;
+}
+
+#article_comment_form #comment_form {
+	width: 100%;
+	height: 100px;
+	margin: 5px 0 0 0;
+	border: 1px solid #cccccc;
+	font-size: 14px;
+}
+
+#article_comment_form .button_area {
+	text-align: right;
+	margin: 2px 0 5px 0;
 }
 
