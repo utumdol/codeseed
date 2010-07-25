@@ -26,7 +26,17 @@ class BlogController extends Controller {
 		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
 
 		$comment = new ArticleComment();
-		$this->comment_counts = $comment->find_all('', '', '', '', 'article_id', 'article_id, count(*)');
+		$article_ids = $this->get_article_ids($this->list);
+		$article_ids = implode(', ', $article_ids);
+		$this->comment_counts = $comment->find_all("article_id in ($article_ids)", '', '', '', 'article_id', 'article_id, count(*) cnt');
+	}
+	
+	private function get_article_ids($list) {
+		$result = array(0);
+		foreach($list as $article) {
+			$result[] = $article->id;
+		}
+		return $result;
 	}
 
 	public function view($id, $page = '1') {
