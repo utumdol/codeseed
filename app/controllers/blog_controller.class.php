@@ -24,6 +24,9 @@ class BlogController extends Controller {
 		$page_size = 7;
 		$this->list = $article->find_all('', 'id DESC', $page, $page_size);
 		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
+
+		$comment = new ArticleComment();
+		$this->comment_counts = $comment->find_all('', '', '', '', 'article_id', 'article_id, count(*)');
 	}
 
 	public function view($id, $page = '1') {

@@ -54,7 +54,7 @@ class Model {
 		return $arr[0];
 	}
 
-	public function find_all($where = '', $order = '', $page = '', $size = '') {
+	public function find_all($where = '', $order = '', $page = '', $size = '', $group = '', $select = '*') {
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
@@ -67,8 +67,11 @@ class Model {
 			$page_start = ($page - 1) * $size;
 			$limit = "LIMIT $page_start, $size";
 		}
+		if (!empty($group)) {
+			$group = 'GROUP BY ' . $group;
+		}
 
-		$result = $this->database->execute('SELECT * FROM ' . $this->table_name . ' ' . $where . ' ' . $order . ' ' . $limit);
+		$result = $this->database->execute('SELECT ' . $select . ' FROM ' . $this->table_name . ' ' . $where . ' ' . $group . ' ' . $order . ' ' . $limit);
 		$arr = array();	
 		while ($row = $this->database->fetch($result)) {
 			$obj = new $this->name; 
