@@ -10,7 +10,7 @@
 		foreach($this->list as $article) {
 		?>
 		<tr>
-			<td class="subject"><a href="/blog/view/<?= $article->id ?>"><?= $article->subject ?></a><?= get_comment_count($this->comment_counts, $article->id) ?></td>
+			<td class="subject"><a href="/blog/view/<?= $article->id ?>"><?= h($article->subject) ?></a><?= get_comment_count($this->comment_counts, $article->id) ?></td>
 			<td class="date"><?= date('m-d H:i', $article->updated_at) ?></td>
 		</tr>
 		<?php

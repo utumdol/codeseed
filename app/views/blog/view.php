@@ -1,12 +1,12 @@
 <div id="view">
-	<div id="subject"><?= $this->article->subject ?></div>
-	<div id="content"><?= nl2br($this->article->content) ?></div>
+	<div id="subject"><?= h($this->article->subject) ?></div>
+	<div id="content"><?= nl2br(h($this->article->content)) ?></div>
 </div>
 <div id="comments">
 	<?php
 	foreach ($this->comment_list as $comment) {
 	?>
-	<div id="comment"><?= nl2br($comment->comment) ?></div>
+	<div id="comment"><?= nl2br(h($comment->comment)) ?></div>
 	<?php
 	}
 	?>
