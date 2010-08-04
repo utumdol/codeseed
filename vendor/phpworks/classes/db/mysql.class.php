@@ -48,6 +48,10 @@ class MySQL {
 		return mysqli_error($this->conn);
 	}
 
+	public function real_escape_string($escapestr) {
+		return mysqli_real_escape_string($this->conn, $escapestr);
+	}
+
 	public function get_table_schema($table_name) {
 		$table = array();
 		$result = $this->execute('SHOW COLUMNS FROM ' . $table_name);
@@ -70,5 +74,6 @@ class MySQL {
 		$this->free_result($result);
 		return $tables;
 	}
+
 }
 

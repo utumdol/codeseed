@@ -41,7 +41,7 @@ class Model {
 			}
 
 			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $this->$field_name);
+			$values[] = quotes_to_string($field->type, $this->database->real_escape_string($this->$field_name));
 		}
 
 		// insert
@@ -119,7 +119,7 @@ class Model {
 			if ($field_name == 'updated_at') {
 				$this->$field_name = time();
 			}
-			$value = quotes_to_string($field->type, $this->$field_name);
+			$value = quotes_to_string($field->type, $this->database->real_escape_string($this->$field_name));
 			$pairs[] = "$field_name = $value";
 		}
 
