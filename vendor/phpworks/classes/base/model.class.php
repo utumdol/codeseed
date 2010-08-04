@@ -138,16 +138,5 @@ class Model {
 		$query = 'DELETE FROM ' . $this->table_name . ' ' . $where;
 		$this->database->execute($query);
 	}
-
-	public function delete_all($where = '') {
-		// make condition
-		if (!empty($where)) {
-			$where = 'WHERE ' . $where;
-		}
-
-		// delete
-		$query = 'DELETE FROM ' . $this->table_name . ' ' . $where;
-		$this->database->execute($query);
-	}
 }
 
