@@ -13,12 +13,12 @@ function print_migration_status($direction, $classname, $version) {
 }
 
 // connect db connection
-$DATABASE->connect();
+$database->connect();
 
 // init version table
-$tables = $DATABASE->get_tables();
+$tables = $database->get_tables();
 if (!in_array('schema_version', $tables)) {
-	$migration = new CreateSchemaVersion($DATABASE);
+	$migration = new CreateSchemaVersion($database);
 	$migration->up();
 }
 
@@ -78,5 +78,5 @@ for($i = 0; $i < count($files); $i++) {
 }
 
 // close db connection
-$DATABASE->close();
+$database->close();
 

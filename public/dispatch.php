@@ -13,7 +13,7 @@ $flash = new Flash();
 $flash->load();
 
 // connect db connection
-$DATABASE->connect();
+$database->connect();
 
 // routing
 $path = parse_request_uri($_SERVER['REQUEST_URI']);
@@ -46,5 +46,5 @@ $flash->clear();
 $flash->save();
 
 // close db connection
-$DATABASE->close();
+$database->close();
 

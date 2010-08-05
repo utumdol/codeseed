@@ -33,5 +33,5 @@ require_once(HELP_DIR . '/application.php');
 // include all application models
 require_once_dir(MODEL_DIR);
 
-$DATABASE = get_database();
+$database = get_database();
 
