@@ -18,6 +18,9 @@ class Model {
 	// DB Processing
 	///////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * @return TRUE on success, FALSE on failure
+	 */
 	public function save() {
 		global $database;
 
@@ -45,13 +48,20 @@ class Model {
 		// insert
 		$query = 'INSERT INTO ' . $this->table_name . ' (' . implode(', ', $names) . ') VALUES (' . implode(', ', $values) . ')';
 		$result = $database->execute($query);
+		return $result;
 	}
 
+	/**
+	 * @return a model object
+	 */
 	public function find($where = '') {
 		$arr = $this->find_all($where);
 		return $arr[0];
 	}
 
+	/**
+	 * @return model objects array
+	 */
 	public function find_all($where = '', $order = '', $page = '', $size = '', $group = '', $select = '*') {
 		global $database;
 
@@ -84,10 +94,12 @@ class Model {
 			$arr[] = $obj;
 		}
 		$database->free_result($result);
-
 		return $arr;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function count($where = '') {
 		global $database;
 
@@ -106,6 +118,9 @@ class Model {
 		return $total;
 	}
 
+	/**
+	 * @return TRUE on success, FALSE on failure
+	 */
 	public function update() {
 		global $database;
 
@@ -130,8 +145,12 @@ class Model {
 		// insert
 		$query = 'UPDATE ' . $this->table_name . ' SET ' . implode(', ', $pairs) . ' WHERE id = ' . $this->id;
 		$result = $database->execute($query);
+		return $result;
 	}
 
+	/**
+	 * @return TRUE on success, FALSE on failure
+	 */
 	public function delete($where = '') {
 		global $database;
 
@@ -142,7 +161,8 @@ class Model {
 
 		// delete
 		$query = 'DELETE FROM ' . $this->table_name . ' ' . $where;
-		$database->execute($query);
+		$result = $database->execute($query);
+		return $result;
 	}
 }
 
