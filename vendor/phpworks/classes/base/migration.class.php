@@ -13,7 +13,7 @@ class Migration {
 		$database->execute("DROP TABLE $table_name");
 	}
 
-	public function add_column($table_name, $name, $type, $size, $is_null = true) {
+	public function add_column($table_name, $name, $type, $size, $is_null = TRUE) {
 		global $database;
 
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 

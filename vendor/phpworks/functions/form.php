@@ -3,10 +3,10 @@ function has_property($obj, $prop) {
 	$arr = get_object_vars($obj);
 	foreach($arr as $key => $value) {
 		if ($key == $prop) {
-			return true;
+			return TRUE;
 		}
 	}
-	return false;
+	return FALSE;
 }
 
 function get_value($obj, $props = array()) {

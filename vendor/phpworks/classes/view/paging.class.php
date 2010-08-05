@@ -42,7 +42,7 @@ class Paging {
 		}
 		$start_page = $this->cur_page - (($this->cur_page - 1) % $this->frame_size);
 		if ($start_page == 1) {
-			$this->is_first_frame = true;
+			$this->is_first_frame = TRUE;
 		}
 		return $start_page;
 	}
@@ -51,7 +51,7 @@ class Paging {
 		$end_page = $this->get_start_page() + $this->frame_size - 1;
 		$last_page = $this->get_last_page();
 		if ($end_page >= $last_page) {
-			$this->is_last_frame = true;
+			$this->is_last_frame = TRUE;
 			return $last_page;
 		} else {
 			return $end_page;
