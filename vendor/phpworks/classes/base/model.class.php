@@ -1,14 +1,10 @@
 <?php
 class Model {
-	var $database;
 	var $name;
 	var $table_name;
 	var $errors;
 
 	public function Model($params = array()) {
-		global $DATABASE;
-
-		$this->database = $DATABASE;
 		$this->name = get_class($this);
 		$this->table_name = classname_to_tablename($this->name);
 		$this->errors = new Errors();
@@ -23,8 +19,10 @@ class Model {
 	///////////////////////////////////////////////////////////////////////////
 
 	public function save() {
+		global $DATABASE;
+
 		// load table schema and value setting
-		$fields = $this->database->get_table_schema($this->table_name);
+		$fields = $DATABASE->get_table_schema($this->table_name);
 		$names = array();
 		$values = array();
 		foreach ($fields as $field) {
@@ -41,12 +39,12 @@ class Model {
 			}
 
 			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $this->database->real_escape_string($this->$field_name));
+			$values[] = quotes_to_string($field->type, $DATABASE->real_escape_string($this->$field_name));
 		}
 
 		// insert
 		$query = 'INSERT INTO ' . $this->table_name . ' (' . implode(', ', $names) . ') VALUES (' . implode(', ', $values) . ')';
-		$result = $this->database->execute($query);
+		$result = $DATABASE->execute($query);
 	}
 
 	public function find($where = '') {
@@ -55,6 +53,8 @@ class Model {
 	}
 
 	public function find_all($where = '', $order = '', $page = '', $size = '', $group = '', $select = '*') {
+		global $DATABASE;
+
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
@@ -71,9 +71,9 @@ class Model {
 			$group = 'GROUP BY ' . $group;
 		}
 
-		$result = $this->database->execute('SELECT ' . $select . ' FROM ' . $this->table_name . ' ' . $where . ' ' . $group . ' ' . $order . ' ' . $limit);
+		$result = $DATABASE->execute('SELECT ' . $select . ' FROM ' . $this->table_name . ' ' . $where . ' ' . $group . ' ' . $order . ' ' . $limit);
 		$arr = array();	
-		while ($row = $this->database->fetch($result)) {
+		while ($row = $DATABASE->fetch($result)) {
 			$obj = new $this->name; 
 			foreach ($row as $key => $value) {
 				if (is_int($key)) {
@@ -83,30 +83,34 @@ class Model {
 			}
 			$arr[] = $obj;
 		}
-		$this->database->free_result($result);
+		$DATABASE->free_result($result);
 
 		return $arr;
 	}
 
 	public function count($where = '') {
+		global $DATABASE;
+
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
 		}
 	
-		$result = $this->database->execute('SELECT COUNT(*) AS cnt FROM ' . $this->table_name . ' ' . $where);
+		$result = $DATABASE->execute('SELECT COUNT(*) AS cnt FROM ' . $this->table_name . ' ' . $where);
 
-		while ($row = $this->database->fetch($result)) {
+		while ($row = $DATABASE->fetch($result)) {
 			$total = $row['cnt'];
 		}
 
-		$this->database->free_result($result);
+		$DATABASE->free_result($result);
 		return $total;
 	}
 
 	public function update() {
+		global $DATABASE;
+
 		// load table schema and value setting
-		$fields = $this->database->get_table_schema($this->table_name);
+		$fields = $DATABASE->get_table_schema($this->table_name);
 		$pairs = array();
 		foreach ($fields as $field) {
 			$field_name = $field->name;
@@ -119,16 +123,18 @@ class Model {
 			if ($field_name == 'updated_at') {
 				$this->$field_name = time();
 			}
-			$value = quotes_to_string($field->type, $this->database->real_escape_string($this->$field_name));
+			$value = quotes_to_string($field->type, $DATABASE->real_escape_string($this->$field_name));
 			$pairs[] = "$field_name = $value";
 		}
 
 		// insert
 		$query = 'UPDATE ' . $this->table_name . ' SET ' . implode(', ', $pairs) . ' WHERE id = ' . $this->id;
-		$result = $this->database->execute($query);
+		$result = $DATABASE->execute($query);
 	}
 
 	public function delete($where = '') {
+		global $DATABASE;
+
 		// make condition
 		if (!empty($where)) {
 			$where = 'WHERE ' . $where;
@@ -136,7 +142,7 @@ class Model {
 
 		// delete
 		$query = 'DELETE FROM ' . $this->table_name . ' ' . $where;
-		$this->database->execute($query);
+		$DATABASE->execute($query);
 	}
 }
 
