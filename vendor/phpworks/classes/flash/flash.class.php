@@ -20,7 +20,7 @@ class Flash {
 				return $flash->value;
 			}
 		}
-		return null;
+		return NULL;
 	}
 
 	public function clear() {

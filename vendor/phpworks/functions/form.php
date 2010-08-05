@@ -11,7 +11,7 @@ function has_property($obj, $prop) {
 
 function get_value($obj, $props = array()) {
 	if (empty($obj)) {
-		return null;
+		return NULL;
 	}
 
 	if (!is_array($props)) {
@@ -22,7 +22,7 @@ function get_value($obj, $props = array()) {
 		if (has_property($obj, $prop)) {
 			$obj = $obj->$prop;
 		} else {
-			return null;
+			return NULL;
 		}
 	}
 	return $obj;
