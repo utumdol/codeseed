@@ -16,7 +16,7 @@ $flash->load();
 $database->connect();
 
 // routing
-$path = parse_request_uri($_SERVER['REQUEST_URI']);
+$path = parse_request_uri($_SERVER['PATH_INFO']);
 $controller_path = empty($path[1]) ? DEFAULT_CONTROLLER : $path[1];
 $action_path = empty($path[2]) ? DEFAULT_ACTION : $path[2];
 require_once(HELP_DIR. '/' . $controller_path . '.php');
