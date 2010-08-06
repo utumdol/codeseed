@@ -19,7 +19,7 @@ class Model {
 	///////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @return TRUE on success, FALSE on failure
+	 * @return true on success, false on failure
 	 */
 	public function save() {
 		global $database;
@@ -119,7 +119,7 @@ class Model {
 	}
 
 	/**
-	 * @return TRUE on success, FALSE on failure
+	 * @return true on success, false on failure
 	 */
 	public function update() {
 		global $database;
@@ -149,7 +149,7 @@ class Model {
 	}
 
 	/**
-	 * @return TRUE on success, FALSE on failure
+	 * @return true on success, false on failure
 	 */
 	public function delete($where = '') {
 		global $database;

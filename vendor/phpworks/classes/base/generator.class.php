@@ -37,7 +37,7 @@ class Generator {
 			echonl('exist ' . abbr_path($this->get_path()));
 		} else {
 			echonl('generate ' . abbr_path($this->get_path()));
-			mkdir($this->get_path(), 0755, TRUE);
+			mkdir($this->get_path(), 0755, true);
 		}
 	}
 

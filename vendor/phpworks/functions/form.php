@@ -3,15 +3,15 @@ function has_property($obj, $prop) {
 	$arr = get_object_vars($obj);
 	foreach($arr as $key => $value) {
 		if ($key == $prop) {
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 function get_value($obj, $props = array()) {
 	if (empty($obj)) {
-		return NULL;
+		return null;
 	}
 
 	if (!is_array($props)) {
@@ -22,7 +22,7 @@ function get_value($obj, $props = array()) {
 		if (has_property($obj, $prop)) {
 			$obj = $obj->$prop;
 		} else {
-			return NULL;
+			return null;
 		}
 	}
 	return $obj;
