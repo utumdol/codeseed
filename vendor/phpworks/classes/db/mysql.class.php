@@ -52,6 +52,37 @@ class MySQL {
 		return mysqli_real_escape_string($this->conn, $escapestr);
 	}
 
+	///////////////////////////////////////////////////////////////////////////
+	// DML
+	///////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * @return true or false
+	 */
+	public function insert($table_name, $names, $values) {
+	}
+
+	/**
+	 * @return a result object
+	 */
+	public function select($select, $table_name, $where, $group, $order, $limit) {
+	}
+
+	/**
+	 * @return true or false
+	 */
+	public function update($table_name, $names, $valuse) {
+	}
+
+	/**
+	 * @return true or false
+	 */
+	public function delete($table_name, $where) {
+	}
+
+	/**
+	 * @return a result object
+	 */
 	public function get_table_schema($table_name) {
 		$table = array();
 		$result = $this->execute('SHOW COLUMNS FROM ' . $table_name);
@@ -65,6 +96,9 @@ class MySQL {
 		return $table;
 	}
 
+	/**
+	 * @return a result object
+	 */
 	public function get_tables() {
 		$tables = array();
 		$result = $this->execute('SHOW TABLES FROM ' . $this->name);
@@ -75,5 +109,51 @@ class MySQL {
 		return $tables;
 	}
 
+	///////////////////////////////////////////////////////////////////////////
+	// DDL
+	///////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * @return true or false
+	 */
+	public function create_table($table_name) {
+		return $this->execute("CREATE TABLE $table_name (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))");
+	}
+
+	/**
+	 * @return true or false
+	 */
+	public function drop_table($table_name) {
+		$this->execute("DROP TABLE $table_name");
+	}
+
+	/**
+	 * @return true or false
+	 */
+	public function add_column($table_name, $name, $type, $size, $is_null = true) {
+		$not_null = ($is_null) ? '' : 'NOT NULL'; 
+		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $type($size) $not_null");
+	}
+
+	/**
+	 * @return true or false
+	 */
+	public function drop_column($table_name, $name) {
+		$this->execute("ALTER TABLE $table_name DROP COLUMN $name");
+	}
+
+	/**
+	 * @return true or false
+	 */
+	public function add_index($table_name, $name, $fields) {
+		$this->execute("ALTER TABLE $table_name ADD INDEX $name ($fields)");
+	}
+
+	/**
+	 * @return true or false
+	 */
+	public function drop_index($table_name, $name) {
+		$this->execute("ALTER TABLE $table_name DROP INDEX $name");
+	}
 }
 
