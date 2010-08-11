@@ -59,25 +59,71 @@ class MySQL {
 	/**
 	 * @return true or false
 	 */
-	public function insert($table_name, $names, $values) {
+	public function insert($table_name, $names = array(), $values = array()) {
+		$query = 'INSERT INTO ' . $table_name . ' (' . implode(', ', $names) . ') VALUES (' . implode(', ', $values) . ')';
+		$result = $this->execute($query);
+
+		return $result;
 	}
 
 	/**
 	 * @return a result object
 	 */
-	public function select($select, $table_name, $where, $group, $order, $limit) {
+	public function select($select = '*', $table_name, $where = '', $group = '', $page = '', $size = '', $order = '') {
+		// make condition
+		if (!empty($where)) {
+			$where = ' WHERE ' . $where;
+		}
+		if (!empty($order)) {
+			$order = ' ORDER BY ' . $order;
+		}
+		$limit = '';
+		if (!empty($page) && !empty($size)) {
+			$page_start = ($page - 1) * $size;
+			$limit = " LIMIT $page_start, $size";
+		}
+		if (!empty($group)) {
+			$group = ' GROUP BY ' . $group;
+		}
+
+		$result = $this->execute('SELECT ' . $select . ' FROM ' . $table_name . $where . $group . $order . $limit);
+		return $result;
 	}
 
 	/**
 	 * @return true or false
 	 */
-	public function update($table_name, $names, $valuse) {
+	public function update($table_name, $names = array(), $values = array(), $where = '') {
+		if (!empty($where)) {
+			$where = ' WHERE ' . $where;
+		}
+
+		$paris = array();
+		$i = 0;
+		foreach($names as $name) {
+			$value = $values[$i++];
+			$pairs[] = "$name  = $value";
+		}
+
+		$query = 'UPDATE ' . $table_name . ' SET ' . implode(', ', $pairs) . $where;
+		$result = $this->execute($query);
+
+		return $result;
 	}
 
 	/**
 	 * @return true or false
 	 */
-	public function delete($table_name, $where) {
+	public function delete($table_name, $where = '') {
+		if (!empty($where)) {
+			$where = ' WHERE ' . $where;
+		}
+
+		// delete
+		$query = 'DELETE FROM ' . $table_name . $where;
+		$result = $this->execute($query);
+
+		return $result;
 	}
 
 	/**

@@ -46,8 +46,7 @@ class Model {
 		}
 
 		// insert
-		$query = 'INSERT INTO ' . $this->table_name . ' (' . implode(', ', $names) . ') VALUES (' . implode(', ', $values) . ')';
-		$result = $database->execute($query);
+		$result = $database->insert($this->table_name, $names, $values);
 		return $result;
 	}
 
@@ -65,23 +64,8 @@ class Model {
 	public function find_all($where = '', $order = '', $page = '', $size = '', $group = '', $select = '*') {
 		global $database;
 
-		// make condition
-		if (!empty($where)) {
-			$where = 'WHERE ' . $where;
-		}
-		if (!empty($order)) {
-			$order = 'ORDER BY ' . $order;
-		}
-		$limit = '';
-		if (!empty($page) && !empty($size)) {
-			$page_start = ($page - 1) * $size;
-			$limit = "LIMIT $page_start, $size";
-		}
-		if (!empty($group)) {
-			$group = 'GROUP BY ' . $group;
-		}
+		$result = $database->select($select, $this->table_name, $where, $group, $page, $size, $order);
 
-		$result = $database->execute('SELECT ' . $select . ' FROM ' . $this->table_name . ' ' . $where . ' ' . $group . ' ' . $order . ' ' . $limit);
 		$arr = array();	
 		while ($row = $database->fetch($result)) {
 			$obj = new $this->name; 
@@ -103,12 +87,7 @@ class Model {
 	public function count($where = '') {
 		global $database;
 
-		// make condition
-		if (!empty($where)) {
-			$where = 'WHERE ' . $where;
-		}
-	
-		$result = $database->execute('SELECT COUNT(*) AS cnt FROM ' . $this->table_name . ' ' . $where);
+		$result = $database->select('COUNT(*) as cnt', $this->table_name, $where);
 
 		while ($row = $database->fetch($result)) {
 			$total = $row['cnt'];
@@ -126,7 +105,8 @@ class Model {
 
 		// load table schema and value setting
 		$fields = $database->get_table_schema($this->table_name);
-		$pairs = array();
+		$names = array();
+		$values = array();
 		foreach ($fields as $field) {
 			$field_name = $field->name;
 			if ($field_name == 'id') {
@@ -138,13 +118,13 @@ class Model {
 			if ($field_name == 'updated_at') {
 				$this->$field_name = time();
 			}
-			$value = quotes_to_string($field->type, $database->real_escape_string($this->$field_name));
-			$pairs[] = "$field_name = $value";
+
+			$names[] = $field_name;
+			$values[] = quotes_to_string($field->type, $database->real_escape_string($this->$field_name));
 		}
 
-		// insert
-		$query = 'UPDATE ' . $this->table_name . ' SET ' . implode(', ', $pairs) . ' WHERE id = ' . $this->id;
-		$result = $database->execute($query);
+		// update
+		$result = $database->update($this->table_name, $names, $values, 'id = ' . $this->id);
 		return $result;
 	}
 
@@ -155,13 +135,7 @@ class Model {
 		global $database;
 
 		// make condition
-		if (!empty($where)) {
-			$where = 'WHERE ' . $where;
-		}
-
-		// delete
-		$query = 'DELETE FROM ' . $this->table_name . ' ' . $where;
-		$result = $database->execute($query);
+		$result = $database->delete($this->table_name, $where);
 		return $result;
 	}
 }
