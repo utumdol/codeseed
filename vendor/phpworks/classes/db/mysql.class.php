@@ -57,7 +57,7 @@ class MySQL {
 	///////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function insert($table_name, $names = array(), $values = array()) {
 		$query = 'INSERT INTO ' . $table_name . ' (' . implode(', ', $names) . ') VALUES (' . implode(', ', $values) . ')';
@@ -91,7 +91,7 @@ class MySQL {
 	}
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function update($table_name, $names = array(), $values = array(), $where = '') {
 		if (!empty($where)) {
@@ -112,7 +112,7 @@ class MySQL {
 	}
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function delete($table_name, $where = '') {
 		if (!empty($where)) {
@@ -160,21 +160,21 @@ class MySQL {
 	///////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function create_table($table_name) {
 		return $this->execute("CREATE TABLE $table_name (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))");
 	}
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function drop_table($table_name) {
 		$this->execute("DROP TABLE $table_name");
 	}
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function add_column($table_name, $name, $type, $size, $is_null = true) {
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 
@@ -182,21 +182,21 @@ class MySQL {
 	}
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function drop_column($table_name, $name) {
 		$this->execute("ALTER TABLE $table_name DROP COLUMN $name");
 	}
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function add_index($table_name, $name, $fields) {
 		$this->execute("ALTER TABLE $table_name ADD INDEX $name ($fields)");
 	}
 
 	/**
-	 * @return true or false
+	 * @return true on success, false on failure
 	 */
 	public function drop_index($table_name, $name) {
 		$this->execute("ALTER TABLE $table_name DROP INDEX $name");
