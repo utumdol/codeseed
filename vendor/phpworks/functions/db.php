@@ -1,8 +1,8 @@
 <?php
 function get_database() {
 	$dbms = DBMS;
-	$database = new $dbms(DBHOST, DBUSER, DBPASSWD, DBNAME);
-	return $database;
+	$db = new $dbms(DBHOST, DBUSER, DBPASSWD, DBNAME);
+	return $db;
 }
 
 function quotes_to_string($type, $value) {

@@ -2,39 +2,39 @@
 class Migration {
 
 	public function create_table($table_name) {
-		global $database;
+		global $db;
 
-		$database->create_table($table_name);
+		$db->create_table($table_name);
 	}
 
 	public function drop_table($table_name) {
-		global $database;
+		global $db;
 
-		$database->drop_table($table_name);
+		$db->drop_table($table_name);
 	}
 
 	public function add_column($table_name, $name, $type, $size, $is_null = true) {
-		global $database;
+		global $db;
 
-		$database->add_column($table_name, $name, $type, $size, $is_null = true);
+		$db->add_column($table_name, $name, $type, $size, $is_null = true);
 	}
 
 	public function drop_column($table_name, $name) {
-		global $database;
+		global $db;
 
-		$database->drop_column($table_name, $name);
+		$db->drop_column($table_name, $name);
 	}
 
 	public function add_index($table_name, $name, $fields) {
-		global $database;
+		global $db;
 
-		$database->add_index($table_name, $name, $fields);
+		$db->add_index($table_name, $name, $fields);
 	}
 
 	public function drop_index($table_name, $name) {
-		global $database;
+		global $db;
 
-		$database->drop_index($table_name, $name);
+		$db->drop_index($table_name, $name);
 	}
 }
 

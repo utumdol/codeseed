@@ -22,10 +22,10 @@ class Model {
 	 * @return true on success, false on failure
 	 */
 	public function save() {
-		global $database;
+		global $db;
 
 		// load table schema and value setting
-		$fields = $database->get_table_schema($this->table_name);
+		$fields = $db->get_table_schema($this->table_name);
 		$names = array();
 		$values = array();
 		foreach ($fields as $field) {
@@ -42,11 +42,11 @@ class Model {
 			}
 
 			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $database->real_escape_string($this->$field_name));
+			$values[] = quotes_to_string($field->type, $db->real_escape_string($this->$field_name));
 		}
 
 		// insert
-		$result = $database->insert($this->table_name, $names, $values);
+		$result = $db->insert($this->table_name, $names, $values);
 		return $result;
 	}
 
@@ -62,12 +62,12 @@ class Model {
 	 * @return model objects array
 	 */
 	public function find_all($where = '', $order = '', $page = '', $size = '', $group = '', $select = '*') {
-		global $database;
+		global $db;
 
-		$result = $database->select($select, $this->table_name, $where, $group, $page, $size, $order);
+		$result = $db->select($select, $this->table_name, $where, $group, $page, $size, $order);
 
 		$arr = array();	
-		while ($row = $database->fetch($result)) {
+		while ($row = $db->fetch($result)) {
 			$obj = new $this->name; 
 			foreach ($row as $key => $value) {
 				if (is_int($key)) {
@@ -77,7 +77,7 @@ class Model {
 			}
 			$arr[] = $obj;
 		}
-		$database->free_result($result);
+		$db->free_result($result);
 		return $arr;
 	}
 
@@ -85,15 +85,15 @@ class Model {
 	 * @return int
 	 */
 	public function count($where = '') {
-		global $database;
+		global $db;
 
-		$result = $database->select('COUNT(*) as cnt', $this->table_name, $where);
+		$result = $db->select('COUNT(*) as cnt', $this->table_name, $where);
 
-		while ($row = $database->fetch($result)) {
+		while ($row = $db->fetch($result)) {
 			$total = $row['cnt'];
 		}
 
-		$database->free_result($result);
+		$db->free_result($result);
 		return $total;
 	}
 
@@ -101,10 +101,10 @@ class Model {
 	 * @return true on success, false on failure
 	 */
 	public function update() {
-		global $database;
+		global $db;
 
 		// load table schema and value setting
-		$fields = $database->get_table_schema($this->table_name);
+		$fields = $db->get_table_schema($this->table_name);
 		$names = array();
 		$values = array();
 		foreach ($fields as $field) {
@@ -120,11 +120,11 @@ class Model {
 			}
 
 			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $database->real_escape_string($this->$field_name));
+			$values[] = quotes_to_string($field->type, $db->real_escape_string($this->$field_name));
 		}
 
 		// update
-		$result = $database->update($this->table_name, $names, $values, 'id = ' . $this->id);
+		$result = $db->update($this->table_name, $names, $values, 'id = ' . $this->id);
 		return $result;
 	}
 
@@ -132,10 +132,10 @@ class Model {
 	 * @return true on success, false on failure
 	 */
 	public function delete($where = '') {
-		global $database;
+		global $db;
 
 		// make condition
-		$result = $database->delete($this->table_name, $where);
+		$result = $db->delete($this->table_name, $where);
 		return $result;
 	}
 }
