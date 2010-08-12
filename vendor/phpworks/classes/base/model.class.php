@@ -54,17 +54,26 @@ class Model {
 	 * @return a model object
 	 */
 	public function find($where = '') {
-		$arr = $this->find_all($where);
+		$arr = $this->find_all(array('where' => $where));
 		return $arr[0];
 	}
 
 	/**
+	 * @params array.<br />
+	 *	ex) array('select' => 'a, b', 'where' => 'a = b and c = d', 'group' => 'c', 'page' => 1, 'size' => 10, 'order' => 'a')
 	 * @return model objects array
 	 */
-	public function find_all($where = '', $order = '', $page = '', $size = '', $group = '', $select = '*') {
+	public function find_all($arr = array()) {
 		global $db;
 
-		$result = $db->select($select, $this->table_name, $where, $group, $page, $size, $order);
+		if (!array_key_exists('select', $arr)) { $arr['select'] = '*'; }
+		if (!array_key_exists('where', $arr)) { $arr['where'] = ''; }
+		if (!array_key_exists('group', $arr)) { $arr['group'] = ''; }
+		if (!array_key_exists('page', $arr)) { $arr['page'] = ''; }
+		if (!array_key_exists('size', $arr)) { $arr['size'] = ''; }
+		if (!array_key_exists('order', $arr)) { $arr['order'] = ''; }
+
+		$result = $db->select($arr['select'], $this->table_name, $arr['where'], $arr['group'], $arr['page'], $arr['size'], $arr['order']);
 
 		$arr = array();	
 		while ($row = $db->fetch($result)) {

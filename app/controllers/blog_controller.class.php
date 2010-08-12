@@ -22,13 +22,13 @@ class BlogController extends Controller {
 	public function index($page = '1') {
 		$article = new Article();
 		$page_size = 7;
-		$this->list = $article->find_all('', 'id DESC', $page, $page_size);
+		$this->list = $article->find_all(array('page' => $page, 'size' => $page_size, 'order' => 'id DESC'));
 		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
 
 		$comment = new ArticleComment();
 		$article_ids = $this->get_article_ids($this->list);
 		$article_ids = implode(', ', $article_ids);
-		$this->comment_counts = $comment->find_all("article_id in ($article_ids)", '', '', '', 'article_id', 'article_id, count(*) cnt');
+		$this->comment_counts = $comment->find_all(array('select' => 'article_id, count(*) cnt', 'where' => "article_id in ($article_ids)", 'group' => 'article_id'));
 	}
 	
 	private function get_article_ids($list) {
@@ -44,7 +44,7 @@ class BlogController extends Controller {
 		$this->article = $article->find("id = '$id'");
 
 		$comment = new ArticleComment();
-		$this->comment_list = $comment->find_all("article_id = '$id'");
+		$this->comment_list = $comment->find_all(array('where' => "article_id = '$id'"));
 	}
 
 	public function update_form($id) {
