@@ -1,5 +1,5 @@
 <?php
-function get_database() {
+function get_db() {
 	$dbms = DBMS;
 	$db = new $dbms(DBHOST, DBUSER, DBPASSWD, DBNAME);
 	return $db;
