@@ -69,6 +69,7 @@ class MySQL {
 	/**
 	 * @return a result object
 	 */
+	// @TODO change page parameter to offset
 	public function select($select = '*', $table_name, $where = '', $group = '', $page = '', $size = '', $order = '') {
 		// make condition
 		if (!empty($where)) {
