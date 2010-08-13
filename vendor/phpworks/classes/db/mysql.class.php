@@ -71,18 +71,18 @@ class MySQL {
 	 */
 	public function select($select = '*', $table_name, $where = '', $group = '', $offset = '', $size = '', $order = '') {
 		// make condition
-		if (!empty($where)) {
+		if (!blank($where)) {
 			$where = ' WHERE ' . $where;
 		}
-		if (!empty($order)) {
+		if (!blank($order)) {
 			$order = ' ORDER BY ' . $order;
 		}
 		$limit = '';
-		if (!empty($offset) && !empty($size)) {
+		if (!blank($offset) && !blank($size)) {
 			// $page_start = ($page - 1) * $size;
 			$limit = " LIMIT $offset, $size";
 		}
-		if (!empty($group)) {
+		if (!blank($group)) {
 			$group = ' GROUP BY ' . $group;
 		}
 
@@ -94,7 +94,7 @@ class MySQL {
 	 * @return true on success, false on failure
 	 */
 	public function update($table_name, $names = array(), $values = array(), $where = '') {
-		if (!empty($where)) {
+		if (!blank($where)) {
 			$where = ' WHERE ' . $where;
 		}
 
@@ -115,7 +115,7 @@ class MySQL {
 	 * @return true on success, false on failure
 	 */
 	public function delete($table_name, $where = '') {
-		if (!empty($where)) {
+		if (!blank($where)) {
 			$where = ' WHERE ' . $where;
 		}
 
