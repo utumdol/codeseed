@@ -69,8 +69,7 @@ class MySQL {
 	/**
 	 * @return a result object
 	 */
-	// @TODO change page parameter to offset
-	public function select($select = '*', $table_name, $where = '', $group = '', $page = '', $size = '', $order = '') {
+	public function select($select = '*', $table_name, $where = '', $group = '', $offset = '', $size = '', $order = '') {
 		// make condition
 		if (!empty($where)) {
 			$where = ' WHERE ' . $where;
@@ -79,9 +78,9 @@ class MySQL {
 			$order = ' ORDER BY ' . $order;
 		}
 		$limit = '';
-		if (!empty($page) && !empty($size)) {
-			$page_start = ($page - 1) * $size;
-			$limit = " LIMIT $page_start, $size";
+		if (!empty($offset) && !empty($size)) {
+			// $page_start = ($page - 1) * $size;
+			$limit = " LIMIT $offset, $size";
 		}
 		if (!empty($group)) {
 			$group = ' GROUP BY ' . $group;

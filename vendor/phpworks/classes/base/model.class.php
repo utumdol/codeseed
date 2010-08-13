@@ -73,7 +73,14 @@ class Model {
 		if (!array_key_exists('size', $arr)) { $arr['size'] = ''; }
 		if (!array_key_exists('order', $arr)) { $arr['order'] = ''; }
 
-		$result = $db->select($arr['select'], $this->table_name, $arr['where'], $arr['group'], $arr['page'], $arr['size'], $arr['order']);
+		$offset = '';
+		if (array_key_exists('page', $arr) && !empty($arr['page'])
+				&& array_key_exists('size', $arr) && !empty($arr['size'])) {
+			$offset = ($arr['page'] - 1) * $arr['size'];
+		}
+
+		$result = $db->select($arr['select'], $this->table_name, $arr['where'],
+				$arr['group'], $offset, $arr['size'], $arr['order']);
 
 		$arr = array();	
 		while ($row = $db->fetch($result)) {
