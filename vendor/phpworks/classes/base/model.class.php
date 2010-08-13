@@ -74,8 +74,8 @@ class Model {
 		if (!array_key_exists('order', $arr)) { $arr['order'] = ''; }
 
 		$offset = '';
-		if (array_key_exists('page', $arr) && !empty($arr['page'])
-				&& array_key_exists('size', $arr) && !empty($arr['size'])) {
+		if (array_key_exists('page', $arr) && !blank($arr['page'])
+				&& array_key_exists('size', $arr) && !blank($arr['size'])) {
 			$offset = ($arr['page'] - 1) * $arr['size'];
 		}
 

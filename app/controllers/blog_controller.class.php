@@ -21,7 +21,7 @@ class BlogController extends Controller {
 
 	public function index($page = '1') {
 		$article = new Article();
-		$page_size = 7;
+		$page_size = 2;
 		$this->list = $article->find_all(array('page' => $page, 'size' => $page_size, 'order' => 'id DESC'));
 		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
 
