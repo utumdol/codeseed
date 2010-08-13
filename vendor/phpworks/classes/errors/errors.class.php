@@ -13,8 +13,8 @@ class Errors {
 		return implode($glue, $this->messages);
 	}
 
-	public function is_blank() {
-		return blank($this->messages);
+	public function is_empty() {
+		return empty($this->messages);
 	}
 }
 
