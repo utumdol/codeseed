@@ -28,7 +28,9 @@ $controller = new $controller_name();
 ob_start();
 try {
 	call_user_func_array(array($controller, $action_path), array_slice($path, 3));
-	call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
+	if (file_exists($controller_path . '/' . $action_path)) {
+		call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
+	}
 } catch (ValidationError $e) {
 	echo $e->getMessage();
 } catch (ProcessingError $e) {
