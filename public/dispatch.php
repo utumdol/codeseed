@@ -28,7 +28,7 @@ $controller = new $controller_name();
 ob_start();
 try {
 	call_user_func_array(array($controller, $action_path), array_slice($path, 3));
-	if (file_exists($controller_path . '/' . $action_path)) {
+	if (file_exists(VIEW_DIR . '/' . $controller_path . '/' . $action_path . '.php')) {
 		call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
 	}
 } catch (ValidationError $e) {
