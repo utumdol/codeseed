@@ -7,6 +7,33 @@ class MySQL {
 	var $passwd;
 	var $name;
 
+	var $types = array(
+		'binary' => 'BLOB',
+		'boolean' => 'TINYINT',
+		'date' => 'DATE',
+		'datetime' => 'DATETIME',
+		'decimal' => 'DECIMAL',
+		'float' => 'FLOAT',
+		'integer' => 'INT',
+		'string' => 'VARCHAR',
+		'text' => 'TEXT',
+		'time' => 'TIME',
+		'timestamp' => 'DATETIME',
+	);
+	var $sizes = array(
+		'binary' => '',
+		'boolean' => '1',
+		'date' => '',
+		'datetime' => '',
+		'decimal' => '',
+		'float' => '',
+		'integer' => '11',
+		'string' => '255',
+		'text' => '',
+		'time' => '',
+		'timestamp' => '',
+	);
+
 	public function MySQL($host, $user, $passwd, $name) {
 		$this->host = $host;
 		$this->user = $user;
@@ -50,6 +77,14 @@ class MySQL {
 
 	public function real_escape_string($escapestr) {
 		return mysqli_real_escape_string($this->conn, $escapestr);
+	}
+
+	public function get_type($type) {
+		return $this->types[strtolower($type)];
+	}
+
+	public function get_size($type) {
+		return $this->sizes[strtolower($type)];
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -163,7 +198,9 @@ class MySQL {
 	 * @return true on success, false on failure
 	 */
 	public function create_table($table_name) {
-		return $this->execute("CREATE TABLE $table_name (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))");
+		$type = $this->get_type('integer');
+		$size = $this->get_size('integer');
+		return $this->execute("CREATE TABLE $table_name (id $type($size) NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))");
 	}
 
 	/**
@@ -176,9 +213,12 @@ class MySQL {
 	/**
 	 * @return true on success, false on failure
 	 */
-	public function add_column($table_name, $name, $type, $size, $is_null = true) {
+	public function add_column($table_name, $name, $type, $is_null = true, $size = null) {
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 
-		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $type($size) $not_null");
+		$new_type = $this->get_type($type);
+		$new_size = (empty($size)) ? $this->get_size($type) : $size;
+		$new_size = blank($new_size) ? $new_size : "($new_size)";
+		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $new_type$new_size $not_null");
 	}
 
 	/**

@@ -13,10 +13,10 @@ class Migration {
 		$db->drop_table($table_name);
 	}
 
-	public function add_column($table_name, $name, $type, $size, $is_null = true) {
+	public function add_column($table_name, $name, $type, $is_null = true, $size = null) {
 		global $db;
 
-		$db->add_column($table_name, $name, $type, $size, $is_null = true);
+		$db->add_column($table_name, $name, $type, $is_null = true, $size);
 	}
 
 	public function drop_column($table_name, $name) {

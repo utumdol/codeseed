@@ -18,7 +18,7 @@ class <class> extends Migration {
 class Create<class> extends Migration {
 	public function up() {
 		$this->create_table(\'<table>\');
-		// $this->add_column(\'<table>\', \'name\', \'varchar\', \'255\', true);
+		// $this->add_column(\'<table>\', \'name\', \'string\', \'255\', true);
 	}
 
 	public function down() {
