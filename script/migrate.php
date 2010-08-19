@@ -57,7 +57,7 @@ for($i = 0; $i < count($files); $i++) {
 			print_migration_status($direction, $classname, $version);
 		}
 
-		if ($direction == 'DOWN' && $version > $INTEND_VERSION) {
+		if ($direction == 'DOWN' && $version <= $schema_version->version && $version > $INTEND_VERSION) {
 			require_once($file);
 			$migration = new $classname;
 			$migration->down();
