@@ -7,9 +7,9 @@ $INTEND_VERSION = isset($argv[1]) ? $argv[1] : '99991231235959';
 
 // functions
 function print_migration_status($direction, $classname, $version) {
+	echonl('================================================================================');
 	echonl($classname . '.'. strtolower($direction) . '() is executed.');
 	echonl('Schema version is ' . $version . ' now.');
-	echonl('================================================================================');
 }
 
 // connect db connection
