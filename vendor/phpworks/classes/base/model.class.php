@@ -51,11 +51,14 @@ class Model {
 	}
 
 	/**
-	 * @return a model object
+	 * @return a model object or null
 	 */
 	public function find($where = '') {
 		$arr = $this->find_all(array('where' => $where));
-		return $arr[0];
+		if (count($arr) > 0) {
+			return $arr[0];
+		}
+		return null;
 	}
 
 	/**
@@ -120,7 +123,10 @@ class Model {
 		global $db;
 
 		// load table schema and value setting
+		echo $this->table_name;
+		print_r($db);
 		$fields = $db->get_table_schema($this->table_name);
+		print_r($fields);
 		$names = array();
 		$values = array();
 		foreach ($fields as $field) {
