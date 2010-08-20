@@ -224,8 +224,19 @@ class MySQL {
 	/**
 	 * @return true on success, false on failure
 	 */
-	public function drop_column($table_name, $name) {
+	public function remove_column($table_name, $name) {
 		$this->execute("ALTER TABLE $table_name DROP COLUMN $name");
+	}
+
+	/**
+	 * @return true on success, false on failure
+	 */
+	public function change_column($table_name, $name, $type, $is_null = true, $size = null) {
+		$not_null = ($is_null) ? '' : 'NOT NULL'; 
+		$new_type = $this->get_type($type);
+		$new_size = (empty($size)) ? $this->get_size($type) : $size;
+		$new_size = blank($new_size) ? $new_size : "($new_size)";
+		$this->execute("ALTER TABLE $table_name MODIFY $name $new_type$new_size $not_null");
 	}
 
 	/**
@@ -238,7 +249,7 @@ class MySQL {
 	/**
 	 * @return true on success, false on failure
 	 */
-	public function drop_index($table_name, $name) {
+	public function remove_index($table_name, $name) {
 		$this->execute("ALTER TABLE $table_name DROP INDEX $name");
 	}
 }

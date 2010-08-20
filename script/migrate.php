@@ -15,8 +15,16 @@ function print_migration_status($direction, $classname, $version) {
 // connect db connection
 $db->connect();
 
-// init version table
+// init table
 $tables = $db->get_tables();
+
+// init session table
+if (!in_array('session', $tables)) {
+	$migration = new CreateSession();
+	$migration->up();
+}
+
+// init version table
 if (!in_array('schema_version', $tables)) {
 	$migration = new CreateSchemaVersion();
 	$migration->up();

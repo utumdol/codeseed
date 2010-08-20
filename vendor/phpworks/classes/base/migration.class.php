@@ -16,13 +16,19 @@ class Migration {
 	public function add_column($table_name, $name, $type, $is_null = true, $size = null) {
 		global $db;
 
-		$db->add_column($table_name, $name, $type, $is_null = true, $size);
+		$db->add_column($table_name, $name, $type, $is_null, $size);
 	}
 
-	public function drop_column($table_name, $name) {
+	public function remove_column($table_name, $name) {
 		global $db;
 
-		$db->drop_column($table_name, $name);
+		$db->remove_column($table_name, $name);
+	}
+
+	public function change_column($table_name, $name, $type, $is_null = true, $size = null) {
+		global $db;
+
+		$db->change_column($table_name, $name, $type, $is_null, $size);
 	}
 
 	public function add_index($table_name, $name, $fields) {
@@ -31,10 +37,10 @@ class Migration {
 		$db->add_index($table_name, $name, $fields);
 	}
 
-	public function drop_index($table_name, $name) {
+	public function remove_index($table_name, $name) {
 		global $db;
 
-		$db->drop_index($table_name, $name);
+		$db->remove_index($table_name, $name);
 	}
 }
 
