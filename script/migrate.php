@@ -18,9 +18,9 @@ $db->connect();
 // init table
 $tables = $db->get_tables();
 
-// init session table
-if (!in_array('session', $tables)) {
-	$migration = new CreateSession();
+// init sessions table
+if (!in_array('sessions', $tables)) {
+	$migration = new CreateSessions();
 	$migration->up();
 }
 
