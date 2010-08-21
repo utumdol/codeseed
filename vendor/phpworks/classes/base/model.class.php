@@ -123,10 +123,7 @@ class Model {
 		global $db;
 
 		// load table schema and value setting
-		echo $this->table_name;
-		print_r($db);
 		$fields = $db->get_table_schema($this->table_name);
-		print_r($fields);
 		$names = array();
 		$values = array();
 		foreach ($fields as $field) {

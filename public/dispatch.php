@@ -49,7 +49,8 @@ require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 $flash->clear();
 $flash->save();
 
-session_destroy();
+// close session
+session_write_close();
 
 // close db connection
 $db->close();

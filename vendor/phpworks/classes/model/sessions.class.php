@@ -9,35 +9,36 @@ class Sessions extends Model {
 		return true;
 	}
 
-	public static function read($id) {
+	public static function read($session_id) {
 		$sessions = new Sessions();
-		$s = $sessions->find("id = '$id'");
+		$s = $sessions->find("session_id = '$session_id'");
 		if (is_null($s)) {
 			return '';	
 		}
 		return $s->data;
 	}
 
-	public static function write($id, $data) {
+	public static function write($session_id, $data) {
 		$sessions = new Sessions();
-		$sessions->id = $id;
+		$sessions->session_id = $session_id;
 		$sessions->data = $data;
-		$sessions->aceess = time();
-		if (is_null($sessions->find("id = $id"))) {
+		$s = $sessions->find("session_id = '$session_id'");
+		if (is_null($s)) {
 			return $sessions->save();
 		}
+		$sessions->id = $s->id;
 		return $sessions->update();
 	}
 
-	public static function destroy($id) {
+	public static function destroy($session_id) {
 		$sessions = new Sessions();
-		return $sessions->delete("id = '$id'");
+		return $sessions->delete("session_id = '$session_id'");
 	}
 
 	public static function clean($max) {
 		$sessions = new Sessions();
 		$old = time() - $max;
-		return $sessions->delete("access < '$old'");
+		return $sessions->delete("updated_at < '$old'");
 	}
 }
 
