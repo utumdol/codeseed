@@ -5,15 +5,17 @@ require_once(dirname(__FILE__) . '/../config/environment.php');
 // init params
 $params = array_merge($_GET, $_POST);
 
+// connect db connection
+$db->connect();
+
 // init session
+session_set_save_handler(array('Sessions', 'open'), array('Sessions', 'close'),
+	array('Sessions', 'read'), array('Sessions', 'write'), array('Sessions', 'destroy'), array('Sessions', 'clean'));
 session_start();
 
 // init flash
 $flash = new Flash();
 $flash->load();
-
-// connect db connection
-$db->connect();
 
 // routing
 $path = parse_request_uri($_SERVER['PATH_INFO']);
@@ -46,6 +48,9 @@ require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 // close flash
 $flash->clear();
 $flash->save();
+
+// close session
+session_write_close();
 
 // close db connection
 $db->close();

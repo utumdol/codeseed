@@ -51,11 +51,14 @@ class Model {
 	}
 
 	/**
-	 * @return a model object
+	 * @return a model object or null
 	 */
 	public function find($where = '') {
 		$arr = $this->find_all(array('where' => $where));
-		return $arr[0];
+		if (count($arr) > 0) {
+			return $arr[0];
+		}
+		return null;
 	}
 
 	/**
