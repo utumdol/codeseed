@@ -95,7 +95,7 @@ a:hover {
 #comments #comment {
 	padding: 5px;
 	border-bottom: 1px solid #cccccc;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 #article_comment_form #comment_form {
@@ -103,7 +103,7 @@ a:hover {
 	height: 100px;
 	margin: 5px 0 0 0;
 	border: 1px solid #cccccc;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 #article_comment_form .button_area {
