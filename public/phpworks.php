@@ -9,8 +9,10 @@ $params = array_merge($_GET, $_POST);
 $db->connect();
 
 // init session
-session_set_save_handler(array('Sessions', 'open'), array('Sessions', 'close'),
-	array('Sessions', 'read'), array('Sessions', 'write'), array('Sessions', 'destroy'), array('Sessions', 'clean'));
+session_set_save_handler(
+	array('DbSessionHandler', 'open'), array('DbSessionHandler', 'close'),
+	array('DbSessionHandler', 'read'), array('DbSessionHandler', 'write'),
+	array('DbSessionHandler', 'destroy'), array('DbSessionHandler', 'clean'));
 session_start();
 
 // init flash
