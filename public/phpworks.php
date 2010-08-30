@@ -6,6 +6,7 @@ require_once(dirname(__FILE__) . '/../config/environment.php');
 $params = array_merge($_GET, $_POST);
 
 // connect db connection
+$db = get_db();
 $db->connect();
 
 // init session
