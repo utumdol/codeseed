@@ -70,6 +70,7 @@ class Model {
 		global $db;
 
 		if (!array_key_exists('select', $arr)) { $arr['select'] = '*'; }
+		if (!array_key_exists('from', $arr)) { $arr['from'] = $this->table_name; }
 		if (!array_key_exists('where', $arr)) { $arr['where'] = ''; }
 		if (!array_key_exists('group', $arr)) { $arr['group'] = ''; }
 		if (!array_key_exists('page', $arr)) { $arr['page'] = ''; }
@@ -82,7 +83,7 @@ class Model {
 			$offset = ($arr['page'] - 1) * $arr['size'];
 		}
 
-		$result = $db->select($arr['select'], $this->table_name, $arr['where'],
+		$result = $db->select($arr['select'], $arr['from'], $arr['where'],
 				$arr['group'], $offset, $arr['size'], $arr['order']);
 
 		$arr = array();	
@@ -103,10 +104,14 @@ class Model {
 	/**
 	 * @return int
 	 */
-	public function count($where = '') {
+	public function count($where = '', $from = '') {
 		global $db;
 
-		$result = $db->select('COUNT(*) as cnt', $this->table_name, $where);
+		if(blank($from)) {
+			$from = $this->table_name;
+		}
+
+		$result = $db->select('COUNT(*) as cnt', $from, $where);
 
 		while ($row = $db->fetch($result)) {
 			$total = $row['cnt'];
@@ -136,6 +141,9 @@ class Model {
 			}
 			if ($field_name == 'updated_at') {
 				$this->$field_name = time();
+			}
+			if (!isset($this->$field_name)) {
+				continue;
 			}
 
 			$names[] = $field_name;
