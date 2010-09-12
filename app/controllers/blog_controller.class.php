@@ -30,7 +30,7 @@ class BlogController extends Controller {
 		$article_ids = implode(', ', $article_ids);
 		$this->comment_counts = $comment->find_all(array('select' => 'article_id, count(*) cnt', 'where' => "article_id in ($article_ids)", 'group' => 'article_id'));
 	}
-	
+
 	private function get_article_ids($list) {
 		$result = array(0);
 		foreach($list as $article) {
