@@ -1,6 +1,6 @@
 <?php
 class Field {
-	var $name;
-	var $type;
+	private $name;
+	private $type;
 }
 

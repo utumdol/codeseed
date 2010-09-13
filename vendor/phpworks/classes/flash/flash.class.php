@@ -1,6 +1,6 @@
 <?php
 class Flash {
-	var $flashes;
+	private $flashes;
 
 	public function load() {
 		if (isset($_SESSION['flash'])) {

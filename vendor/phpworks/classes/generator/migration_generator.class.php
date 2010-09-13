@@ -1,8 +1,8 @@
 <?php
 class MigrationGenerator extends Generator {
-	var $from;
-	var $path = MIGR_DIR;
-	var $template = '<?php
+	private $from;
+	private $path = MIGR_DIR;
+	private $template = '<?php
 class <class> extends Migration {
 	public function up() {
 
@@ -14,7 +14,7 @@ class <class> extends Migration {
 }
 
 ';
-	var $table_template = '<?php
+	private $table_template = '<?php
 class Create<class> extends Migration {
 	public function up() {
 		$this->create_table(\'<table>\');

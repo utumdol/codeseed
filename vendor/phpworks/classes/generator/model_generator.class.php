@@ -1,7 +1,7 @@
 <?php
 class ModelGenerator extends Generator {
-	var $path = MODEL_DIR;
-	var $template = '<?php
+	private $path = MODEL_DIR;
+	private $template = '<?php
 class <class> extends Model {
 
 }

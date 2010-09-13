@@ -1,7 +1,7 @@
 <?php
 class HelperGenerator extends Generator {
-	var $path = HELP_DIR;
-	var $template = '<?php
+	private $path = HELP_DIR;
+	private $template = '<?php
 
 ';
 

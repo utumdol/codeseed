@@ -1,6 +1,6 @@
 <?php
 class BlogController extends Controller {
-	var $layout = 'blog';
+	private $layout = 'blog';
 
 	public function post_form() {
 	}

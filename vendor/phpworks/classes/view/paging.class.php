@@ -1,16 +1,16 @@
 <?php
 class Paging {
-	var $total;
-	var $size;
-	var $link;
-	var $cur_page;
-	var $frame_size;
-	var $is_first_frame;
-	var $is_last_frame;
+	private $total;
+	private $size;
+	private $link;
+	private $cur_page;
+	private $frame_size;
+	private $is_first_frame;
+	private $is_last_frame;
 
-	var $pages;
-	var $start_page;
-	var $end_page;
+	private $pages;
+	private $start_page;
+	private $end_page;
 
 	public function Paging($total = 1, $size = 1, $link = '', $cur_page = 1, $frame_size = 10) {
 		$this->total = $total;

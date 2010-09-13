@@ -1,8 +1,8 @@
 <?php
 class ViewGenerator extends Generator {
-	var $dir = '';
-	var $path = VIEW_DIR;
-	var $template = '<h1><dir>#<view></h1>
+	private $dir = '';
+	private $path = VIEW_DIR;
+	private $template = '<h1><dir>#<view></h1>
 <div>Find me in app/views/<dir>/<view>.php</div>
 
 ';

@@ -1,6 +1,6 @@
 <?php
 class Controller {
-	var $layout = 'default';
+	private $layout = 'default';
 
 	public function load_view($view) {
 		require(VIEW_DIR . '/' . $view . '.php');

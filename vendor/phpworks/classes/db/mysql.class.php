@@ -1,13 +1,13 @@
 <?php
 class MySQL {
-	var $conn;
+	private $conn;
 
-	var $host;
-	var $user;
-	var $passwd;
-	var $name;
+	private $host;
+	private $user;
+	private $passwd;
+	private $name;
 
-	var $types = array(
+	private $types = array(
 		'binary' => 'BLOB',
 		'boolean' => 'TINYINT',
 		'date' => 'DATE',
@@ -20,7 +20,7 @@ class MySQL {
 		'time' => 'TIME',
 		'timestamp' => 'DATETIME',
 	);
-	var $sizes = array(
+	private $sizes = array(
 		'binary' => '',
 		'boolean' => '1',
 		'date' => '',

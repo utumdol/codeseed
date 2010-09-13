@@ -1,8 +1,8 @@
 <?php
 class Model {
-	var $name;
-	var $table_name;
-	var $errors;
+	private $name;
+	private $table_name;
+	private $errors;
 
 	public function Model($params = array()) {
 		$this->name = get_class($this);
