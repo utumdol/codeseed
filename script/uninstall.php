@@ -9,13 +9,13 @@ $db->connect();
 // init table
 $tables = $db->get_tables();
 
-// init sessions table
+// remove sessions table
 if (in_array('sessions', $tables)) {
 	$migration = new CreateSessions();
 	$migration->down();
 }
 
-// init version table
+// remove version table
 if (in_array('schema_version', $tables)) {
 	$migration = new CreateSchemaVersion();
 	$migration->down();
