@@ -1,8 +1,8 @@
 <?php
 class FlashElement {
-	private $name;
-	private $value;
-	private $life;
+	public $name;
+	public $value;
+	public $life;
 
 	public function FlashElement($name = '', $value = '', $life = 1) {
 		$this->name = $name;

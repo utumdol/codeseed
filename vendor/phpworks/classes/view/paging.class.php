@@ -3,14 +3,14 @@ class Paging {
 	private $total;
 	private $size;
 	private $link;
-	private $cur_page;
 	private $frame_size;
-	private $is_first_frame;
-	private $is_last_frame;
-
-	private $pages;
 	private $start_page;
 	private $end_page;
+
+	public $pages;
+	public $cur_page;
+	public $is_first_frame;
+	public $is_last_frame;
 
 	public function Paging($total = 1, $size = 1, $link = '', $cur_page = 1, $frame_size = 10) {
 		$this->total = $total;

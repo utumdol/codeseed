@@ -14,6 +14,5 @@ class Crypt {
 		$this->random_source = $random_source;
 	}
 
-	public 
 }
 
