@@ -5,7 +5,7 @@ class Model {
 
 	public $errors;
 
-	public function Model($params = array()) {
+	public function __construct($params = array()) {
 		$this->name = get_class($this);
 		$this->table_name = classname_to_tablename($this->name);
 		$this->errors = new Errors();

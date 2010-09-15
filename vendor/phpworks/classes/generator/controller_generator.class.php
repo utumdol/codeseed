@@ -14,8 +14,8 @@ class <class>Controller extends Controller {
 	}
 	';
 
-	public function ControllerGenerator($name, $functions = array()) {
-		$this->name = $name;
+	public function __construct($name, $functions = array()) {
+		parent::__construct($name);
 		$this->functions = $functions;
 	}
 

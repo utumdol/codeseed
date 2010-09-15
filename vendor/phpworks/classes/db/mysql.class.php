@@ -34,7 +34,7 @@ class MySQL {
 		'timestamp' => '',
 	);
 
-	public function MySQL($host, $user, $passwd, $name) {
+	public function __construct($host, $user, $passwd, $name) {
 		$this->host = $host;
 		$this->user = $user;
 		$this->passwd = $passwd;

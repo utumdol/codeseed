@@ -28,8 +28,8 @@ class Create<class> extends Migration {
 
 ';
 
-	public function MigrationGenerator($name, $from = '') {
-		$this->name = $name;
+	public function __construct($name, $from = '') {
+		parent::__construct($name);
 		$this->from = $from;
 		if ($this->from == 'model') {
 			$this->template = $this->table_template;

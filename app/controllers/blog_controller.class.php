@@ -1,7 +1,7 @@
 <?php
 class BlogController extends Controller {
 
-	public function BlogController() {
+	public function __construct() {
 		$this->layout = 'blog';
 	}
 

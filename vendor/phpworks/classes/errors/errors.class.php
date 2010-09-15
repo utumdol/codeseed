@@ -1,7 +1,7 @@
 <?php
 class Errors {
 
-	public function Errors() {
+	public function __construct() {
 		$this->messages = array();
 	}
 

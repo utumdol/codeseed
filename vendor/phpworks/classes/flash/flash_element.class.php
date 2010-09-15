@@ -4,7 +4,7 @@ class FlashElement {
 	public $value;
 	public $life;
 
-	public function FlashElement($name = '', $value = '', $life = 1) {
+	public function __construct($name = '', $value = '', $life = 1) {
 		$this->name = $name;
 		$this->value = $value;
 		$this->life = $life;

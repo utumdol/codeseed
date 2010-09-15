@@ -7,7 +7,8 @@ class ViewGenerator extends Generator {
 
 ';
 
-	public function ViewGenerator($dir, $name) {
+	public function __construct($dir, $name) {
+		parent::__construct($name);
 		$this->dir = $dir;
 		$this->name = $name;
 	}
