@@ -6,6 +6,7 @@ class Crypt {
 	private $algorithm;
 	private $mode;
 	private $random_source;
+	private $key;
 
 	public $clear_text;
 	public $cipher_text;
@@ -15,6 +16,7 @@ class Crypt {
 		$this->algorithm = $algorithm;
 		$this->mode = $mode;
 		$this->random_source = $random_source;
+		$this->key = md5('phpworks'); // TODO move it to the global init.
 	}
 
 	public function generate_iv() {
@@ -22,11 +24,11 @@ class Crypt {
 	}
 
 	public function encrypt() {
-		$this->ciphertext = mcrypt_encrypt($this->algorithm, $_SERVER['CRYPT_KEY'], $this->cleartext, $this->mode, $this->iv);
+		$this->cipher_text = mcrypt_encrypt($this->algorithm, $this->key, $this->clear_text, $this->mode, $this->iv);
 	}
 
 	public function decrypt() {
-		$this->cleartext = mcrypt_decrypt($this->algorithm, $_SERVER['CRYPT_KEY'], $this->ciphertext, $this->mode, $this->iv);
+		$this->clear_text = mcrypt_decrypt($this->algorithm, $this->key, $this->cipher_text, $this->mode, $this->iv);
 	}
 }
 
