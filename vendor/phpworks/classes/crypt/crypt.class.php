@@ -17,7 +17,7 @@ class Crypt {
 		$this->algorithm = $algorithm;
 		$this->mode = $mode;
 		$this->random_source = $random_source;
-		$this->key = md5('phpworks'); // TODO move it to the global init.
+		$this->key = md5(CRYPT_KEY);
 	}
 
 	public function encrypt($data) {
