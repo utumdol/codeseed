@@ -1,18 +1,17 @@
 <?php
 class ControllerGenerator extends Generator {
-	private $functions = '';
-
-	private $path = CNTR_DIR;
-	private $template = '<?php
+	public $path = CNTR_DIR;
+	public $template = '<?php
 class <class>Controller extends Controller {
 	<functions>
 }
 
 ';
-	private $function_template = '
+	public $function_template = '
 	public function <function>() {
 	}
 	';
+	private $functions = '';
 
 	public function __construct($name, $functions = array()) {
 		parent::__construct($name);

@@ -1,8 +1,8 @@
 <?php
 class Generator {
-	private $name = '';
-	private $path = '';
-	private $template = '';
+	public $name = '';
+	public $path = '';
+	public $template = '';
 
 	public function __construct($name) {
 		$this->name = $name;

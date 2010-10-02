@@ -1,11 +1,11 @@
 <?php
 class ViewGenerator extends Generator {
-	private $dir = '';
-	private $path = VIEW_DIR;
-	private $template = '<h1><dir>#<view></h1>
+	public $path = VIEW_DIR;
+	public $template = '<h1><dir>#<view></h1>
 <div>Find me in app/views/<dir>/<view>.php</div>
 
 ';
+	private $dir = '';
 
 	public function __construct($dir, $name) {
 		parent::__construct($name);
