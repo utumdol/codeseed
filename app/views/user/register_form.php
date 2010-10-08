@@ -8,6 +8,7 @@ $this->load_view('/user/_form');
 </div>
 </form>
 <script type="text/javascript">
+// local scripts
 $('#email').keyup(function() {
 	$('#nickname').val($('#email').val().split('@')[0]);
 });
