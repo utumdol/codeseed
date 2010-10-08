@@ -3,7 +3,7 @@
 body, select, input, textarea {
 	font-family: 나눔명조, 나눔고딕, 돋움, Dotum, 굴림, Gulim, AppleGothic, Sans-serif;
 	font-size: 16px;
-	color: #333333;
+	color: #333;
 	line-height: 150%;
 	margin: 0px auto;
 	padding: 0px;
@@ -11,15 +11,58 @@ body, select, input, textarea {
 
 a {
 	text-decoration: none;
-	color: #333333;
+	color: #333;
 }
 
 a:hover {
 	text-decoration: underline;
-	color: #333333;
+	color: #333;
 }
 
+form {
+	float: left;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* define area */
+#wrap {
+	width: 700px;
+	margin: auto;
+}
+
+#contents {
+	float: left;
+	width: 100%;
+	margin: auto;
+}
+
+#message {
+	float: left;
+	color: #999;
+}
+
+#head {
+	float: left;
+	font-size: 20px;
+	padding: 10px;
+	color: #3366cc;
+}
+
+#tail {
+	float: left;
+	width: 100%;
+	padding: 10px 0;
+	font: 12px bold;
+	border-top: #ccc solid 2px;
+	text-align: right;
+	margin: 40px 0 40px 0;
+}
+
+/* define style */
 .form_row {
+	width: 100%;
 	border-bottom: 1px solid #cccccc;
 	padding: 5px 0 5px 0;
 	float: left;
@@ -30,12 +73,12 @@ a:hover {
 }
 
 .form_subject {
-	width: 120px;
+	width: 20%;
 	float: left;
 }
 
 .input_area {
-	width: 580px;
+	width: 80%;
 	float: left;
 }
 
@@ -46,28 +89,14 @@ a:hover {
 }
 
 .button_area {
-	margin: 10px;
+	width: 100%;
+	float: left;
+	padding: 10px 0;
+	margin: 0;
 	text-align: center;
 }
 
-
-#contents {
-	width: 700px;
-	margin: auto;
-}
-
-#message {
-	color: #999999;
-}
-
-#head {
-	width: 700px;
-	margin: auto;
-	font-size: 20px;
-	padding: 10px;
-	color: #3366cc;
-}
-
+/*
 #list {
 	width: 100%;
 }
@@ -142,4 +171,5 @@ a:hover {
 	text-align: right;
 	margin: 2px 0 5px 0;
 }
+*/
 

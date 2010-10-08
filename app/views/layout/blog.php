@@ -14,6 +14,7 @@
 		</div>
 		<?= $CONTENTS ?>
 	</div>
+	<div id="tail">Powered by PHPWorks</div>
 </div>
 </body>
 </html>
