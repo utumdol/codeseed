@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="/stylesheets/blog.css" media="all" rel="stylesheet" type="text/css" />
+<script src="/javascripts/jquery.js" type="text/javascript"></script>
 <title>phpworks</title>
 </head>
 <body>
@@ -16,6 +17,18 @@
 	</div>
 	<div id="tail">Powered by PHPWorks</div>
 </div>
+<script type="text/javascript">
+input_border_css = $('.input').css('border');
+input_background_css = $('.input').css('background-color');
+$('.input').focus(function () {
+	$(this).css('border', '2px solid #ccc');
+	$(this).css('background-color', '#ffe');
+});
+$('.input').blur(function () {
+	$(this).css('border', input_border_css);
+	$(this).css('background-color', input_background_css);
+});
+</script>
 </body>
 </html>
 

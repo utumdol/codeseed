@@ -7,4 +7,9 @@ $this->load_view('/user/_form');
 	<span><input type="button" value="취소하기" onclick="javascript:history.back()" /></span>
 </div>
 </form>
+<script type="text/javascript">
+$('#email').keyup(function() {
+	$('#nickname').val($('#email').val().split('@')[0]);
+});
+</script>
 
