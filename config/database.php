@@ -7,7 +7,8 @@ define('DBPORT', '3306');
 define('DBUSER', 'root');
 define('DBPASSWD', '');
 define('DBNAME', 'phpworks');
-define('CRYPT_KEY', 'phpworks');
+define('CRYPT_KEY', 'a2c$%^*()');
+
 
 // for test
 

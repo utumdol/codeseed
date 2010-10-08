@@ -19,6 +19,38 @@ a:hover {
 	color: #333333;
 }
 
+.form_row {
+	border-bottom: 1px solid #cccccc;
+	padding: 5px 0 5px 0;
+	float: left;
+}
+
+.form_top {
+	border-top: 2px solid #999999;
+}
+
+.form_subject {
+	width: 120px;
+	float: left;
+}
+
+.input_area {
+	width: 580px;
+	float: left;
+}
+
+.input {
+	width: 99%;
+	font-weight: bold;
+	border: 1px solid #cccccc;
+}
+
+.button_area {
+	margin: 10px;
+	text-align: center;
+}
+
+
 #contents {
 	width: 700px;
 	margin: auto;

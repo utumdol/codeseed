@@ -17,7 +17,7 @@ class Crypt {
 		$this->algorithm = $algorithm;
 		$this->mode = $mode;
 		$this->random_source = $random_source;
-		$this->key = md5(CRYPT_KEY);
+		$this->key = sha1(CRYPT_KEY);
 	}
 
 	public function encrypt($data) {

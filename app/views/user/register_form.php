@@ -1,4 +1,4 @@
-<form id="user_form" action="/user/register" method="post">
+<form class="form" action="/user/register" method="post">
 <?php
 $this->load_view('/user/_form');
 ?>
