@@ -12,6 +12,6 @@
 </div>
 <div class="form_row">
 	<div class="form_subject">패스워드 재입력</div>
-	<div class="input_area"><input type="password" class="input" id="repassword" name="user[password]" value="<?= h(get_value($this, array('user', 'password'))) ?>" /></div>
+	<div class="input_area"><input type="password" class="input" id="repassword" name="user[repassword]" value="<?= h(get_value($this, array('user', 'password'))) ?>" /></div>
 </div>
 

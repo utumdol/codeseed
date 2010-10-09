@@ -6,6 +6,9 @@ class UserController extends Controller {
 	}
 	
 	public function register() {
+		global $params;
+
+		print_r($params['user']);
 	}
 	
 	public function register_result() {

@@ -17,19 +17,6 @@
 	</div>
 	<div id="tail">Powered by PHPWorks</div>
 </div>
-<script type="text/javascript">
-// global scripts
-input_border_css = $('.input').css('border');
-input_background_css = $('.input').css('background-color');
-$('.input').focus(function () {
-	$(this).css('border', '2px solid #ccc');
-	$(this).css('background-color', '#ffe');
-});
-$('.input').blur(function () {
-	$(this).css('border', input_border_css);
-	$(this).css('background-color', input_background_css);
-});
-</script>
 </body>
 </html>
 
