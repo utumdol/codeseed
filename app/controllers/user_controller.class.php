@@ -7,10 +7,16 @@ class UserController extends Controller {
 	
 	public function register() {
 		global $params;
+		global $flash;
 
-		print_r($params['user']);
+		$user = new User($params['user']);
+		if ($user->validate()) {
+		} else {
+			$flash->add('message', $user->errors->get_messages());
+			$this->back();
+		}
 	}
-	
+
 	public function register_result() {
 	}
 	
