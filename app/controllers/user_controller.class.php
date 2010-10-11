@@ -9,10 +9,10 @@ class UserController extends Controller {
 		global $params;
 		global $flash;
 
-		$user = new User($params['user']);
-		if ($user->validate()) {
+		$this->user = new User($params['user']);
+		if ($this->user->validate()) {
 		} else {
-			$flash->add('message', $user->errors->get_messages());
+			$flash->add('message', $this->user->errors->get_messages());
 			$this->back();
 		}
 	}

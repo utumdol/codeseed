@@ -49,6 +49,7 @@ ob_end_clean();
 require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 
 // close flash
+$flash->add('that', $controller); // reserve this controller
 $flash->clear();
 $flash->save();
 

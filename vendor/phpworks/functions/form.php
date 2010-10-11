@@ -10,12 +10,18 @@ function has_property($obj, $prop) {
 }
 
 function get_value($obj, $props = array()) {
-	if (empty($obj)) {
-		return null;
-	}
+	global $flash;
 
 	if (!is_array($props)) {
 		$props = array($props);
+	}
+
+	if (!has_property($obj, $props[0])) {
+		$obj = unserialize(serialize($flash->get('that')));
+	}
+
+	if (empty($obj)) {
+		return null;
 	}
 
 	foreach($props as $prop) {
