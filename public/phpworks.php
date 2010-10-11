@@ -36,6 +36,8 @@ try {
 	if (file_exists(VIEW_DIR . '/' . $controller_path . '/' . $action_path . '.php')) {
 		call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
 	}
+} catch (SkipProcessing $e) {
+	// nothing to do
 } catch (ValidationError $e) {
 	echo $e->getMessage();
 } catch (ProcessingError $e) {

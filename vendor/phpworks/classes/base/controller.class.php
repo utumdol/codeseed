@@ -12,6 +12,7 @@ class Controller {
 
 	public function redirect_to($where) {
 		echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
+		throw new SkipProcessing();
 	}
 }
 

@@ -13,7 +13,7 @@ class UserController extends Controller {
 		if ($this->user->validate()) {
 		} else {
 			$flash->add('message', $this->user->errors->get_messages());
-			$this->back();
+			$this->redirect_to('/user/register_form');
 		}
 	}
 
