@@ -17,8 +17,8 @@ class User extends Model {
 			return false;
 		}
 
-		if (blank($this->repassword)) {
-			$this->errors->add('비밀번호를 입력해 주세요.');
+		if ($this->password != $this->repassword ) {
+			$this->errors->add('비밀번호가 서로 다릅니다. 다시 입력해 주세요.');
 			return false;
 		}
 
