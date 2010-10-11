@@ -7,7 +7,7 @@ class Controller {
 	}
 
 	public function back() {
-		echo '"<script type="text/javascript">history.back();</script>';
+		echo '<script type="text/javascript">history.back();</script>';
 	}
 
 	public function redirect_to($where) {
