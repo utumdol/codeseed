@@ -31,3 +31,8 @@ function is_valid_url($url = '') {
 	return false;
 }
 
+function is_valid_password($password) {
+	// 대소문자, 숫자, 그리고 특수문자 8자 이상
+	return false;
+}
+
