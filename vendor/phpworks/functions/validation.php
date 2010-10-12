@@ -5,10 +5,7 @@ function is_valid_email($email = '') {
 	}
 
 	// refers to http://www.ars-informatica.ca/article.php?article=46
-	if (preg_match("/^[A-Z0-9._%-]+@[A-Z0-9][A-Z0-9.-]{0,61}[A-Z0-9]\.[A-Z]{2,6}$/i", $email)) {
-		return true;
-	}
-	return false;
+	return (preg_match("/^[A-Z0-9._%-]+@[A-Z0-9][A-Z0-9.-]{0,61}[A-Z0-9]\.[A-Z]{2,6}$/i", $email));
 }
 
 function is_valid_url($url = '') {
@@ -25,14 +22,12 @@ function is_valid_url($url = '') {
 	$pattern .= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?";
 	$pattern .= "(#[a-z_.-][a-z0-9+\$_.-]*)?$/i";
 
-	if (preg_match($pattern, $url)) {
-		return true;
-	}
-	return false;
+	return (preg_match($pattern, $url));
 }
 
 function is_valid_password($password) {
 	// 대소문자, 숫자, 그리고 특수문자 8자 이상
-	return false;
+	// refers to http://nilangshah.wordpress.com/2007/06/26/password-validation-via-regular-expression/
+	return (preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z])(?=.*[\!@#$%^&\*-+=).*$/", $password));
 }
 
