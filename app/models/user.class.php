@@ -13,7 +13,12 @@ class User extends Model {
 		}
 
 		if (blank($this->nickname)) {
-			$this->errors->add('별밍은 이 곳에서 필명으로 사용됩니다. 별명을 입력해 주세요.');
+			$this->errors->add('별명은 이 곳에서 필명으로 사용됩니다. 별명을 입력해 주세요.');
+			return false;
+		}
+
+		if (mb_strlen($this->nickname) < 2) {
+			$this->errors->add('사용자 구분을 위해 2글자 이상의 별명이 필요합니다.');
 			return false;
 		}
 
