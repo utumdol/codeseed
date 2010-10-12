@@ -28,6 +28,6 @@ function is_valid_url($url = '') {
 function is_valid_password($password) {
 	// 대소문자, 숫자, 그리고 특수문자 8자 이상
 	// refers to http://nilangshah.wordpress.com/2007/06/26/password-validation-via-regular-expression/
-	return (preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z])(?=.*[~`!@#$%^&*()\-_+=|\\\\[\]{};:'\",<.>?\/]).*$/", $password));
+	return (preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[\w])(?=.*[\W]).*$/", $password));
 }
 
