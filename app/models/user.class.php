@@ -32,12 +32,6 @@ class User extends Model {
 			return false;
 		}
 
-		if (!is_valid_password($this->password)) {
-			$this->errors->add('비밀번호는 8자 이상, 적어도 하나 이상의 숫자와 특수문자가 있어야 안전하게 암호화됩니다.' . BN);
-			$this->errors->add('ex) abcD12#$');
-			return false;
-		}
-
 		if ($this->count("email = '{$this->email}'") > 0) {
 			$this->errors->add('이미 등록되어 있는 이메일 주소입니다.');
 			return false;
