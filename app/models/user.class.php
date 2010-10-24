@@ -50,5 +50,21 @@ class User extends Model {
 
 		return true;
 	}
+
+	public function register() {
+		$this->create_new_salt();
+		$this->encrypt_password($this->password, $this->salt);
+		$this->save();
+
+	}
+
+	private function create_new_salt() {
+		$this->salt = uniqid() . mt_rand();
+	}
+
+	private function encrypt_password($password, $salt) {
+		$this->hashed_password = sha1($password . CRYPT_KEY . $salt);
+	}
+
 }
 

@@ -15,6 +15,7 @@ class UserController extends Controller {
 			$flash->add('message', $this->user->errors->get_messages());
 			$this->redirect_to('/user/register_form');
 		}
+		$this->user->register();
 	}
 
 	public function register_result() {
