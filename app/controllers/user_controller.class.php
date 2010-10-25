@@ -16,12 +16,12 @@ class UserController extends Controller {
 			$this->redirect_to('/user/register_form');
 		}
 		$this->user->register();
-		$this->redirect_to('/user/register_result/' + $this->user->nickname);
+		$this->redirect_to('/user/register_result/' . $this->user->nickname);
 	}
 
 	public function register_result($nickname) {
 		$this->user = new User();
-		$this->user = $this->user->find("nickname = '$nickname'");
+		$this->user->nickname = $nickname;
 	}
 	
 	public function update_form() {
