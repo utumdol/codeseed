@@ -4,8 +4,8 @@
 $this->load_view('/blog/_form');
 ?>
 <div class="button_area">
-	<span><input type="submit" value="수정하기" /></span>
-	<span><input type="button" value="취소하기" onclick="javascript:history.back();" /></span>
+	<span><input type="submit" class="button" value="수정하기" /></span>
+	<span><input type="button" class="button" value="취소하기" onclick="javascript:history.back();" /></span>
 </div>
 </form>
 

@@ -131,6 +131,12 @@ form {
 	border: 0;
 }
 
+.button {
+	line-height: 100%;
+	width: 90px;
+	height: 35px;
+}
+
 /*
 #list {
 	width: 100%;

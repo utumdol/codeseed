@@ -12,7 +12,7 @@
 <form id="article_comment_form" action="/blog/post_comment" method="post">
 	<input type="hidden" name="article_comment[article_id]" value="<?= $this->article->id ?>" />
 	<textarea id="comment_form" name="article_comment[comment]"></textarea>
-	<div class="button_area"><input type="submit" value="댓글달기" /></div>
+	<div class="button_area"><input type="submit" class="button" value="댓글달기" /></div>
 </form>
 <div class="menu_area">
 	<span>[<a href="/blog/index">목록으로</a>]</span>
