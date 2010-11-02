@@ -41,6 +41,14 @@ class UserController extends Controller {
 	
 	public function leave_result() {
 	}
+
+	public function login_form() {
+	}
 	
+	public function login() {
+	}
+	
+	public function logout() {
+	}
 }
 
