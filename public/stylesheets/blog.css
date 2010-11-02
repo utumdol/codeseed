@@ -69,6 +69,10 @@ form {
 	float: left;
 }
 
+.no_bottom {
+	border-bottom: 0px;
+}
+
 .form_top {
 	border-top: 2px solid #999999;
 }
@@ -102,6 +106,31 @@ form {
 	text-align: center;
 }
 
+.menu_area {
+	width: 100%;
+	float: left;
+	padding: 10px 0;
+	margin: 0;
+	text-align: right;
+}
+
+.paging {
+	text-align: center;
+}
+
+.box {
+	border: solid 5px #eee;
+	padding: 10px;
+	float: left;
+}
+
+.hr {
+	color: #eee;
+	height: 5px;
+	background-color: #eee;
+	border: 0;
+}
+
 /*
 #list {
 	width: 100%;
@@ -119,32 +148,6 @@ form {
 
 #list .title {
 	border-top: 1px solid #cccccc;
-}
-
-.menu_area {
-	text-align: right;
-}
-
-.paging {
-	text-align: center;
-}
-
-#article_form #subject {
-	width: 100%;
-	font-weight: bold;
-	margin: 5px 0 5px 0;
-	border: 1px solid #cccccc;
-}
-
-#article_form #content {
-	width: 100%;
-	height: 400px;
-	margin: 5px 0 5px 0;
-	border: 1px solid #cccccc;
-}
-
-#article_form .button_area {
-	text-align: center;
 }
 
 #view #subject {
