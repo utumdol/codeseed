@@ -3,7 +3,7 @@
 	<div class="box" style="width: 100%;">
 	<div class="form_row">
 		<div class="form_subject">이메일</div>
-		<div class="input_area"><input type="text" class="input" id="email" name="user[email]" value="" /></div>
+		<div class="input_area"><input type="text" class="input" id="email" name="user[email]" value="<?= h(get_value($this, array('user', 'email'))) ?>" /></div>
 	</div>
 	<div class="form_row no_bottom">
 		<div class="form_subject">비밀번호</div>

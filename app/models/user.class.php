@@ -45,11 +45,40 @@ class User extends Model {
 		return true;
 	}
 
+	public function validate_login() {
+		if (blank($this->email)) {
+			$this->errors->add('이메일 주소를 입력해 주세요.');
+			return false;
+		}
+
+		if (blank($this->password)) {
+			$this->errors->add('비밀번호를 입력해 주세요.');
+			return false;
+		}
+
+		return true;
+	}
+
 	public function register() {
 		$this->create_new_salt();
 		$this->encrypt_password($this->password, $this->salt);
 		$this->save();
+	}
 
+	public function authenticate() {
+		$user = $this->find("email = '" . $this->email . "'");
+
+		if (is_null($user)) {
+			$this->errors->add('가입되지 않은 이메일 주소입니다.');
+			return false;
+		}
+
+		if ($user->hashed_password != $this->encrypt_password($this->password, $user->salt)) {
+			$this->errors->add('비밀번호를 잘못 입력하셨습니다.');
+			return false;
+		}
+
+		return true;
 	}
 
 	private function create_new_salt() {
@@ -58,7 +87,7 @@ class User extends Model {
 
 	private function encrypt_password($password, $salt) {
 		$this->hashed_password = sha1($password . CRYPT_KEY . $salt);
+		return $this->hashed_password;
 	}
-
 }
 
