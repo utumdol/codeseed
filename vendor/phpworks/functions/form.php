@@ -16,9 +16,9 @@ function get_value($obj, $props = array()) {
 		$props = array($props);
 	}
 
-	if (!has_property($obj, $props[0])) {
-		$obj = unserialize(serialize($flash->get('that')));
-	}
+	// if (!has_property($obj, $props[0])) {
+	// 	$obj = unserialize(serialize($flash->get('that')));
+	// }
 
 	if (empty($obj)) {
 		return null;
