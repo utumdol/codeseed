@@ -1,4 +1,4 @@
-<form class="form" action="/login/login" method="post">
+<form class="form" action="/user/login" method="post">
 	<div style="width: 400px; margin: auto; clear: both;">
 	<div class="box" style="width: 100%;">
 	<div class="form_row">

@@ -7,6 +7,6 @@
 	</div>
 </div>
 <div class="menu_area">
-	<span>[<a href="/blog/index">처음으로</a>]</span><span>[<a href="/login/login_form">로그 인</a>]</span>
+	<span>[<a href="/blog/index">처음으로</a>]</span><span>[<a href="/user/login_form">로그 인</a>]</span>
 </div>
 
