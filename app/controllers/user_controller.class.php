@@ -12,7 +12,7 @@ class UserController extends Controller {
 		$this->user = new User($params['user']);
 		if (!$this->user->validate()) {
 			$flash->add('message', $this->user->errors->get_messages());
-			$this->redirect_to('/user/register_form');
+			$this->back();
 		}
 
 		$this->user->register();
@@ -52,8 +52,9 @@ class UserController extends Controller {
 		$this->user = new User($params['user']);
 		if (!$this->user->validate_login() || !$this->user->authenticate()) {
 			$flash->add('message', $this->user->errors->get_messages());
-			$this->redirect_to('/user/login_form');
+			$this->back();
 		}
+
 		$_SESSION['user_email'] = $this->user->email;
 		$this->redirect_to('/blog/index');
 	}
