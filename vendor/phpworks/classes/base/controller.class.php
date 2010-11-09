@@ -7,10 +7,10 @@ class Controller {
 	}
 
 	public function back() {
-		if (empty($_SERVER['HTTP_REFERER'])) {
-			echo '<script type="text/javascript">history.back();</script>';
+		if (!empty($_SERVER['HTTP_REFERER'])) {
+			$this->redirect_to($_SERVER['HTTP_REFERER']);
 		}
-		$this->redirect_to($_SERVER['HTTP_REFERER']);
+		echo '<script type="text/javascript">history.back();</script>';
 	}
 
 	public function redirect_to($where) {
