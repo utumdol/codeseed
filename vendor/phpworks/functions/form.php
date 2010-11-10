@@ -2,16 +2,18 @@
 function get_value($obj, $props = array()) {
 	global $flash;
 
+	// 먼저 flash에 저장된 값을 반환한다.
+	$old_params = get_value_from_array($flash->get('params'), $props);
+	if (isset($old_params)) {
+		return $old_params;
+	}
+
 	if (empty($obj) || empty($props)) {
 		return null;
 	}
 
 	if (!is_array($props)) {
 		$props = array($props);
-	}
-
-	if (!property_exists($obj, $props[0])) {
-		return get_value_from_array($flash->get('params'), $props);
 	}
 
 	foreach($props as $prop) {
@@ -25,7 +27,7 @@ function get_value($obj, $props = array()) {
 }
 
 function get_value_from_array($arr, $props = array()) {
-	if (empty($arr)) {
+	if ($arr == null) {
 		return null;
 	}
 
