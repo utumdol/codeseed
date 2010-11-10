@@ -25,6 +25,10 @@ function get_value($obj, $props = array()) {
 }
 
 function get_value_from_array($arr, $props = array()) {
+	if (empty($arr)) {
+		return null;
+	}
+
 	foreach($props as $prop) {
 		if (array_key_exists($prop, $arr)) {
 			$arr = $arr[$prop];
