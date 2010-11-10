@@ -1,12 +1,7 @@
 <?php
 function has_property($obj, $prop) {
 	$arr = get_object_vars($obj);
-	foreach($arr as $key => $value) {
-		if ($key == $prop) {
-			return true;
-		}
-	}
-	return false;
+	return array_key_exists($prop, $arr);
 }
 
 function get_value($obj, $props = array()) {
