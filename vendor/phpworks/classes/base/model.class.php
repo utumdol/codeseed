@@ -79,8 +79,8 @@ class Model {
 		if (!array_key_exists('order', $arr)) { $arr['order'] = ''; }
 
 		$offset = '';
-		if (array_key_exists('page', $arr) && !blank($arr['page'])
-				&& array_key_exists('size', $arr) && !blank($arr['size'])) {
+		if (array_key_exists('page', $arr) && !is_blank($arr['page'])
+				&& array_key_exists('size', $arr) && !is_blank($arr['size'])) {
 			$offset = ($arr['page'] - 1) * $arr['size'];
 		}
 
@@ -108,7 +108,7 @@ class Model {
 	public function count($where = '', $from = '') {
 		global $db;
 
-		if(blank($from)) {
+		if(is_blank($from)) {
 			$from = $this->table_name;
 		}
 

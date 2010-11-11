@@ -1,6 +1,6 @@
 <?php
 function is_valid_email($email = '') {
-	if (blank($email)) {
+	if (is_blank($email)) {
 		return true;
 	}
 
@@ -9,7 +9,7 @@ function is_valid_email($email = '') {
 }
 
 function is_valid_url($url = '') {
-	if (blank($url)) {
+	if (is_blank($url)) {
 		return true;
 	}
 

@@ -3,7 +3,7 @@
 /**
  * @return bool
  */
-function blank($str) {
+function is_blank($str) {
 	return (trim(strval($str)) == '');
 }
 

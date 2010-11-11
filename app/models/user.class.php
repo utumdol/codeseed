@@ -2,7 +2,7 @@
 class User extends Model {
 
 	public function validate() {
-		if (blank($this->email)) {
+		if (is_blank($this->email)) {
 			$this->errors->add('사용자 구분을 위해 이메일 주소가 필요합니다.');
 			return false;
 		}
@@ -12,7 +12,7 @@ class User extends Model {
 			return false;
 		}
 
-		if (blank($this->nickname)) {
+		if (is_blank($this->nickname)) {
 			$this->errors->add('별명은 이 곳에서 필명으로 사용됩니다. 별명을 입력해 주세요.');
 			return false;
 		}
@@ -22,7 +22,7 @@ class User extends Model {
 			return false;
 		}
 
-		if (blank($this->password)) {
+		if (is_blank($this->password)) {
 			$this->errors->add('비밀번호를 입력해 주세요.');
 			return false;
 		}
@@ -46,12 +46,12 @@ class User extends Model {
 	}
 
 	public function validate_login() {
-		if (blank($this->email)) {
+		if (is_blank($this->email)) {
 			$this->errors->add('이메일 주소를 입력해 주세요.');
 			return false;
 		}
 
-		if (blank($this->password)) {
+		if (is_blank($this->password)) {
 			$this->errors->add('비밀번호를 입력해 주세요.');
 			return false;
 		}

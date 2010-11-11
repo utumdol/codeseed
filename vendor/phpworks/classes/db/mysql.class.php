@@ -106,18 +106,18 @@ class MySQL {
 	 */
 	public function select($select = '*', $table_name, $where = '', $group = '', $offset = '', $size = '', $order = '') {
 		// make condition
-		if (!blank($where)) {
+		if (!is_blank($where)) {
 			$where = ' WHERE ' . $where;
 		}
-		if (!blank($order)) {
+		if (!is_blank($order)) {
 			$order = ' ORDER BY ' . $order;
 		}
 		$limit = '';
-		if (!blank($offset) && !blank($size)) {
+		if (!is_blank($offset) && !is_blank($size)) {
 			// $page_start = ($page - 1) * $size;
 			$limit = " LIMIT $offset, $size";
 		}
-		if (!blank($group)) {
+		if (!is_blank($group)) {
 			$group = ' GROUP BY ' . $group;
 		}
 
@@ -129,7 +129,7 @@ class MySQL {
 	 * @return true on success, false on failure
 	 */
 	public function update($table_name, $names = array(), $values = array(), $where = '') {
-		if (!blank($where)) {
+		if (!is_blank($where)) {
 			$where = ' WHERE ' . $where;
 		}
 
@@ -150,7 +150,7 @@ class MySQL {
 	 * @return true on success, false on failure
 	 */
 	public function delete($table_name, $where = '') {
-		if (!blank($where)) {
+		if (!is_blank($where)) {
 			$where = ' WHERE ' . $where;
 		}
 
@@ -217,7 +217,7 @@ class MySQL {
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 
 		$new_type = $this->get_type($type);
 		$new_size = (empty($size)) ? $this->get_size($type) : $size;
-		$new_size = blank($new_size) ? $new_size : "($new_size)";
+		$new_size = is_blank($new_size) ? $new_size : "($new_size)";
 		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $new_type$new_size $not_null");
 	}
 
@@ -235,7 +235,7 @@ class MySQL {
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 
 		$new_type = $this->get_type($type);
 		$new_size = (empty($size)) ? $this->get_size($type) : $size;
-		$new_size = blank($new_size) ? $new_size : "($new_size)";
+		$new_size = is_blank($new_size) ? $new_size : "($new_size)";
 		$this->execute("ALTER TABLE $table_name MODIFY $name $new_type$new_size $not_null");
 	}
 
