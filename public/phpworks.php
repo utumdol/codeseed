@@ -54,7 +54,7 @@ ob_end_clean();
 require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 
 // close flash
-$flash->add('params', $params); // reserve this controller
+$flash->add('params', $params); // reserve params for history back
 $flash->clear();
 $flash->save();
 
