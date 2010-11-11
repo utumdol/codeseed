@@ -4,6 +4,6 @@
  * @return bool
  */
 function blank($str) {
-	return (strval($str) == '');
+	return (trim(strval($str)) == '');
 }
 
