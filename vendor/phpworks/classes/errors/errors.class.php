@@ -12,9 +12,5 @@ class Errors {
 	public function get_messages($glue = "\n") {
 		return implode($glue, $this->messages);
 	}
-
-	public function is_blank() {
-		return blank($this->messages);
-	}
 }
 
