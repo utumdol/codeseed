@@ -3,8 +3,10 @@ class Flash {
 	private $flashes;
 
 	public function load() {
-		if (isset($_SESSION['flash'])) {
-			$this->flashes = unserialize($_SESSION['flash']);
+		global $session;
+
+		if ($session->is_exist('flash')) {
+			$this->flashes = unserialize($session->find('flash'));
 		} else {
 			$this->flashes = array();
 		}
@@ -35,7 +37,9 @@ class Flash {
 	}
 
 	public function save() {
-		$_SESSION['flash'] = serialize($this->flashes);
+		global $session;
+
+		$session->save('flash', serialize($this->flashes));
 	}
 }
 

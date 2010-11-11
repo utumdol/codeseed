@@ -16,6 +16,9 @@ session_set_save_handler(
 	array('DbSessionHandler', 'destroy'), array('DbSessionHandler', 'clean'));
 session_start();
 
+// init session
+$session = new Session();
+
 // init flash
 $flash = new Flash();
 $flash->load();

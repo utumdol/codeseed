@@ -1,17 +1,12 @@
 <?php
 class Session {
-	public $session;
-
-	public function Session() {
-		$this->session = $_SESSION;
-	}
 
 	public function save($key, $value) {
-		$this->session[$key] = $value;
+		$_SESSION[$key] = $value;
 	}
 
 	public function find($key) {
-		return $this->session[$key];
+		return $_SESSION[$key];
 	}
 
 	public function update($key, $value) {
@@ -19,7 +14,11 @@ class Session {
 	}
 
 	public function delete($key) {
-		$this->session[$key] = null;
+		unset($_SESSION[$key]);
+	}
+
+	public function is_exist($key) {
+		return array_key_exists($key, $_SESSION);
 	}
 }
 

@@ -48,6 +48,7 @@ class UserController extends Controller {
 	public function login() {
 		global $params;
 		global $flash;
+		global $session;
 
 		$this->user = new User($params['user']);
 		if (!$this->user->validate_login() || !$this->user->authenticate()) {
@@ -55,7 +56,7 @@ class UserController extends Controller {
 			$this->back();
 		}
 
-		$_SESSION['user_email'] = $this->user->email;
+		$session->save('user_email', $this->user->email);
 		$this->redirect_to('/blog/index');
 	}
 	
