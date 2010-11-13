@@ -8,7 +8,22 @@
 </head>
 <body>
 <div id="wrap">
-	<div id="head">예제 블로그</div>
+	<div id="login">
+		<?php
+		if ($session->find('user_email')) {
+		?>
+		<a href="/user/logout">로그 아웃</a>
+		<a href="/user/update_form">회원정보수정</a>
+		<?php
+		} else {
+		?>
+		<a href="/user/login_form">로그 인</a>
+		<a href="/user/register_form">회원가입</a>
+		<?php
+		}
+		?>
+	</div>
+	<div id="head"><a href="/">홈</a> | <a href="/blog">예제 블로그</a></div>
 	<div id="contents">
 		<div id="message">
 		<?= $flash->get('message'); ?>

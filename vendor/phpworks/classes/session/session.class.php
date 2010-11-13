@@ -6,7 +6,10 @@ class Session {
 	}
 
 	public function find($key) {
-		return $_SESSION[$key];
+		if ($this->is_exist($key)) {
+			return $_SESSION[$key];
+		}
+		return null;
 	}
 
 	public function update($key, $value) {
