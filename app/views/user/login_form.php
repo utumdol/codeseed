@@ -1,3 +1,10 @@
+<script type="text/javascript">
+$(function() {
+	$('#button_cancel').click(function() {
+		history.back();
+	});
+});
+</script>
 <form class="form" action="/user/login" method="post">
 	<div style="width: 400px; margin: auto; clear: both;">
 	<div class="box" style="width: 100%;">

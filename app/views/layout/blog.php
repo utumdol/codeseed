@@ -12,6 +12,7 @@
 		<?php
 		if ($session->find('user_email')) {
 		?>
+		<a href="/user/logout"><?= $session->find('user_nickname'); ?>님 환영합니다.</a>
 		<a href="/user/logout">로그 아웃</a>
 		<a href="/user/update_form">회원정보수정</a>
 		<?php
@@ -23,7 +24,10 @@
 		}
 		?>
 	</div>
-	<div id="head"><a href="/">홈</a> | <a href="/blog">예제 블로그</a></div>
+	<div id="head">
+		<span class="menu"><a href="/">홈</a></span>
+		<span class="menu"><a href="/blog">예제 블로그</a></span>
+	</div>
 	<div id="contents">
 		<div id="message">
 		<?= $flash->get('message'); ?>

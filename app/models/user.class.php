@@ -81,6 +81,19 @@ class User extends Model {
 		return true;
 	}
 
+	public function login_session() {
+		global $session;
+		$user = $this->find("email = '" . $this->email . "'");
+		$session->save('user_email', $user->email);
+		$session->save('user_nickname', $user->nickname);
+	}
+
+	public function logout_session() {
+		global $session;
+		$session->delete('user_email');
+		$session->delete('user_nickname');
+	}
+
 	private function create_new_salt() {
 		$this->salt = uniqid() . mt_rand();
 	}

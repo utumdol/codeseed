@@ -55,12 +55,15 @@ class UserController extends Controller {
 			$flash->add('message', $this->user->errors->get_messages());
 			$this->back();
 		}
-
-		$session->save('user_email', $this->user->email);
+		
+		$this->user->login_session();
 		$this->redirect_to('/blog/index');
 	}
 	
 	public function logout() {
+		$this->user = new User();
+		$this->user->logout_session();
+		$this->redirect_to('/blog/index');
 	}
 }
 
