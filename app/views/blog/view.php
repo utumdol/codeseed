@@ -1,5 +1,5 @@
-<div id="form_row form_top"><?= h($this->article->subject) ?></div>
-<div id="form_row"><?= nl2br(h($this->article->content)) ?></div>
+<div id="list_row list_top"><?= h($this->article->subject) ?></div>
+<div id="list_row"><?= nl2br(h($this->article->content)) ?></div>
 <div id="comments">
 	<?php
 	foreach ($this->comment_list as $comment) {

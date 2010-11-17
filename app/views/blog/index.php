@@ -1,23 +1,17 @@
-<table id="list">
-	<thead>
-		<tr>
-			<th class="title subject">제목</th>
-			<th class="title date">수정일</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php
-		foreach($this->list as $article) {
-		?>
-		<tr>
-			<td class="subject"><a href="/blog/view/<?= $article->id ?>"><?= h($article->subject) ?></a><?= get_comment_count($this->comment_counts, $article->id) ?></td>
-			<td class="date"><?= date('m-d H:i', $article->updated_at) ?></td>
-		</tr>
-		<?php
-		}
-		?>
-	</tbody>
-</table>
+<div class="list_row list_top">
+	<div>제목</div>
+	<div>수정일</div>
+</div>
+<?php
+foreach($this->list as $article) {
+?>
+<div class="list_row">
+	<div class="subject"><a href="/blog/view/<?= $article->id ?>"><?= h($article->subject) ?></a><?= get_comment_count($this->comment_counts, $article->id) ?></div>
+	<div class="date"><?= date('m-d H:i', $article->updated_at) ?></div>
+</div>
+<?php
+}
+?>
 <?
 $this->load_view('layout/_paging');
 ?>

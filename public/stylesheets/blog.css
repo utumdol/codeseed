@@ -62,7 +62,7 @@ form {
 }
 
 /* define style */
-.form_row {
+.list_row {
 	width: 100%;
 	border-bottom: 1px solid #cccccc;
 	padding: 5px 0 5px 0;
@@ -73,7 +73,7 @@ form {
 	border-bottom: 0px;
 }
 
-.form_top {
+.list_top {
 	border-top: 2px solid #999999;
 }
 
@@ -136,44 +136,43 @@ form {
 	height: 35px;
 }
 
-/*
-#list {
+.list {
 	width: 100%;
 }
 
-#list .subject {
+.list .subject {
 	width: 600px;
 	border-bottom: 1px solid #cccccc;
 }
 
-#list .date {
+.list .date {
 	width: 100px;
 	border-bottom: 1px solid #cccccc;
 }
 
-#list .title {
+.list .title {
 	border-top: 1px solid #cccccc;
 }
 
-#view #subject {
+.view .subject {
 	padding: 5px;
 	font-weight: bold;
 	border-top: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 }
 
-#view #content {
+.view .content {
 	padding: 20px 5px;
 	border-bottom: 1px solid #cccccc;
 }
 
-#comments #comment {
+.comments .comment {
 	padding: 5px;
 	border-bottom: 1px solid #cccccc;
 	font-size: 16px;
 }
 
-#article_comment_form #comment_form {
+.article_comment_form .comment_form {
 	width: 100%;
 	height: 100px;
 	margin: 5px 0 0 0;
@@ -181,9 +180,8 @@ form {
 	font-size: 16px;
 }
 
-#article_comment_form .button_area {
+.article_comment_form .button_area {
 	text-align: right;
 	margin: 2px 0 5px 0;
 }
-*/
 

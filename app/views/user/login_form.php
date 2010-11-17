@@ -8,11 +8,11 @@ $(function() {
 <form class="form" action="/user/login" method="post">
 	<div style="width: 400px; margin: auto; clear: both;">
 	<div class="box" style="width: 100%;">
-	<div class="form_row">
+	<div class="list_row">
 		<div class="form_subject">이메일</div>
 		<div class="input_area"><input type="text" class="input" id="email" name="user[email]" value="<?= h(get_value($this, array('user', 'email'))) ?>" /></div>
 	</div>
-	<div class="form_row no_bottom">
+	<div class="list_row no_bottom">
 		<div class="form_subject">비밀번호</div>
 		<div class="input_area"><input type="password" class="input" id="password" name="user[password]" value="" /></div>
 	</div>
