@@ -1,6 +1,6 @@
 <div class="list_row list_top">
-	<div>제목</div>
-	<div>수정일</div>
+	<div class="subject">제목</div>
+	<div class="date">수정일</div>
 </div>
 <?php
 foreach($this->list as $article) {
