@@ -12,11 +12,13 @@
 		<?php
 		if ($session->get('user_id')) {
 		?>
-		<a href="/user/logout"><?= $session->get('user_nickname'); ?>님 환영합니다.</a>
+		<?= $session->get('user_nickname'); ?>님 환영합니다.
 		|
 		<a href="/user/logout">로그 아웃</a>
 		|
 		<a href="/user/update_form">회원정보수정</a>
+		|
+		<a href="/user/leave_form">회원탈퇴</a>
 		<?php
 		} else {
 		?>
