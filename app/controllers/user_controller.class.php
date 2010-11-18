@@ -56,13 +56,13 @@ class UserController extends Controller {
 			$this->back();
 		}
 		
-		$this->user->login_session();
+		$this->user->login();
 		$this->redirect_to('/blog/index');
 	}
 	
 	public function logout() {
 		$this->user = new User();
-		$this->user->logout_session();
+		$this->user->logout();
 		$this->redirect_to('/blog/index');
 	}
 }

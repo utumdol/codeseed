@@ -6,7 +6,7 @@ class Flash {
 		global $session;
 
 		if ($session->is_exist('flash')) {
-			$this->flashes = unserialize($session->find('flash'));
+			$this->flashes = unserialize($session->get('flash'));
 		} else {
 			$this->flashes = array();
 		}

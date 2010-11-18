@@ -5,7 +5,7 @@ class Session {
 		$_SESSION[$key] = $value;
 	}
 
-	public function find($key) {
+	public function get($key) {
 		if ($this->is_exist($key)) {
 			return $_SESSION[$key];
 		}

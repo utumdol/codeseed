@@ -9,11 +9,13 @@ class BlogController extends Controller {
 	}
 
 	public function post() {
+		global $session;
 		global $params;
 		global $flash;
 
 		$article = new Article($params['article']);
 		if ($article->validate()) {
+			$article->user_id = $session->get('user_id');
 			$article->save();
 			$this->redirect_to('/blog/index');
 		} else {

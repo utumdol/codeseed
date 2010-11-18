@@ -10,9 +10,9 @@
 <div id="wrap">
 	<div id="login">
 		<?php
-		if ($session->find('user_email')) {
+		if ($session->get('user_id')) {
 		?>
-		<a href="/user/logout"><?= $session->find('user_nickname'); ?>님 환영합니다.</a>
+		<a href="/user/logout"><?= $session->get('user_nickname'); ?>님 환영합니다.</a>
 		|
 		<a href="/user/logout">로그 아웃</a>
 		|
@@ -28,7 +28,7 @@
 		?>
 	</div>
 	<div id="head">
-		<span class="menu">예제 블로그</span>
+		<span class="menu"><a href="/blog/index">예제 블로그</a></span>
 	</div>
 	<div id="contents">
 		<div id="message">
