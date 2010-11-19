@@ -17,8 +17,6 @@
 		<a href="/user/logout">로그 아웃</a>
 		|
 		<a href="/user/update_form">나의 정보수정</a>
-		|
-		<a href="/user/leave_form">회원탈퇴</a>
 		<?php
 		} else {
 		?>
