@@ -84,9 +84,11 @@ class BlogController extends Controller {
 	public function post_comment() {
 		global $flash;
 		global $params;
+		global $session;
 
 		$comment = new ArticleComment($params['article_comment']);
 		if ($comment->validate()) {
+			$comment->user_id = $session->get('user_id');
 			$comment->save();
 		} else {
 			$flash->add('message', $comment->errors->get_messages());

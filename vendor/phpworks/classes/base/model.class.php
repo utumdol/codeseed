@@ -41,6 +41,9 @@ class Model {
 			if ($field_name == 'updated_at') {
 				$this->$field_name = time();
 			}
+			if (!isset($this->$field_name)) {
+				continue;
+			}
 
 			$names[] = $field_name;
 			$values[] = quotes_to_string($field->type, $db->real_escape_string($this->$field_name));
