@@ -5,7 +5,7 @@ class BlogController extends Controller {
 		$this->layout = 'blog';
 	}
 
-	public function before($action) {
+	public function before($action = '') {
 		if ($action == 'index' || $action == 'view') {
 			return;
 		}
