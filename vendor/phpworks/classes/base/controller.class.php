@@ -2,6 +2,10 @@
 class Controller {
 	public $layout = 'default';
 
+	public function before($action) {
+		// the method which is called before excute actions
+	}
+
 	public function load_view($view) {
 		require(VIEW_DIR . '/' . $view . '.php');
 	}
@@ -16,6 +20,10 @@ class Controller {
 	public function redirect_to($where) {
 		echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
 		throw new SkipProcessing();
+	}
+
+	public function after($action) {
+		// the method which is called after excute actions
 	}
 }
 

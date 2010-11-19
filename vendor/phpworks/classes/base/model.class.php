@@ -46,7 +46,7 @@ class Model {
 			}
 
 			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $db->real_escape_string($this->$field_name));
+			$values[] = quotes_to_string($field->type, $db->real_escape_string(trim($this->$field_name)));
 		}
 
 		// insert
@@ -58,6 +58,12 @@ class Model {
 	 * @return a model object or null
 	 */
 	public function find($where = '') {
+		if (is_null($where)) {
+			return null;
+		}
+		if (is_int($where)) {
+			$where = 'id = ' . $where;
+		}
 		$arr = $this->find_all(array('where' => $where));
 		if (count($arr) > 0) {
 			return $arr[0];
@@ -151,7 +157,7 @@ class Model {
 			}
 
 			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $db->real_escape_string($this->$field_name));
+			$values[] = quotes_to_string($field->type, $db->real_escape_string(trim($this->$field_name)));
 		}
 
 		// update

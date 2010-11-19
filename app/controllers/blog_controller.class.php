@@ -5,6 +5,25 @@ class BlogController extends Controller {
 		$this->layout = 'blog';
 	}
 
+	public function before($action) {
+		if ($action == 'index' || $action == 'view') {
+			return;
+		}
+		$this->authorize();
+	}
+
+	public function authorize() {
+		global $session;
+		global $flash;
+
+		$user = new User();
+		$user = $user->find($session->get('user_id'));
+		if (is_null($user)) {
+			$flash->add('message', '로그 인이 필요합니다.');
+			$this->redirect_to('/user/login_form');
+		}
+	}
+
 	public function post_form() {
 	}
 
