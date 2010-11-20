@@ -9,7 +9,7 @@ foreach ($this->comment_list as $comment) {
 ?>
 <form action="/blog/post_comment" method="post">
 	<input type="hidden" name="article_comment[article_id]" value="<?= $this->article->id ?>" />
-	<textarea class="comment_form" name="article_comment[comment]"></textarea>
+	<textarea class="comment_form input" name="article_comment[comment]"></textarea>
 	<div class="button_area"><input type="submit" class="button" value="댓글달기" /></div>
 </form>
 <div class="menu_area">
