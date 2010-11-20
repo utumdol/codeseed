@@ -5,6 +5,14 @@
 <link href="/stylesheets/blog.css" media="all" rel="stylesheet" type="text/css" />
 <script src="/javascripts/jquery.js" type="text/javascript"></script>
 <title>phpworks</title>
+<script type="text/javascript">
+$(function() {
+	$('#menu_blog').css("cursor", "pointer");
+	$('#menu_blog').click(function() {
+		location.href="/blog/index";
+	});
+});
+</script>
 </head>
 <body>
 <div id="wrap">
@@ -27,7 +35,9 @@
 		}
 		?>
 	</div>
-	<div id="menu"><a href="/blog/index">예제 블로그</a></div>
+	<div id="menus">
+		<div id="menu_blog" class="menu on">예제 블로그</div>
+	</div>
 	<div id="message">
 	<?= $flash->get('message'); ?>
 	</div>
