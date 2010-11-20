@@ -61,7 +61,7 @@ class Model {
 		if (is_null($where)) {
 			return null;
 		}
-		if (is_int($where)) {
+		if (is_int(intval($where))) {
 			$where = 'id = ' . $where;
 		}
 		$arr = $this->find_all(array('where' => $where));
@@ -172,6 +172,9 @@ class Model {
 		global $db;
 
 		// make condition
+		if (is_int(intval($where))) {
+			$where = 'id = ' . $where;
+		}
 		$result = $db->delete($this->table_name, $where);
 		return $result;
 	}

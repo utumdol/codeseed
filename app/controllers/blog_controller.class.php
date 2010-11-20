@@ -15,11 +15,13 @@ class BlogController extends Controller {
 	public function authorize() {
 		global $session;
 		global $flash;
+		global $params;
 
 		$user = new User();
 		$user = $user->find($session->get('user_id'));
 		if (is_null($user)) {
 			$flash->add('message', '로그 인이 필요합니다.');
+			$session->save('return_url', $_SERVER['REQUEST_URI']);
 			$this->redirect_to('/user/login_form');
 		}
 	}
@@ -65,7 +67,7 @@ class BlogController extends Controller {
 
 	public function view($id, $page = '1') {
 		$article = new Article();
-		$this->article = $article->find("id = '$id'");
+		$this->article = $article->find($id);
 
 		$comment = new ArticleComment();
 		$this->comment_list = $comment->find_all(array('where' => "article_id = '$id'"));
@@ -73,7 +75,7 @@ class BlogController extends Controller {
 
 	public function update_form($id) {
 		$article = new Article();
-		$this->article = $article->find("id = '$id'");
+		$this->article = $article->find($id);
 	}
 
 	public function update() {
@@ -92,7 +94,7 @@ class BlogController extends Controller {
 
 	public function delete($id) {
 		$article = new Article();
-		$article->delete('id = ' . $id);
+		$article->delete($id);
 
 		$comment = new ArticleComment();
 		$comment->delete('article_id = ' . $id);

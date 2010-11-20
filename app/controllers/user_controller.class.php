@@ -57,7 +57,9 @@ class UserController extends Controller {
 		}
 		
 		$this->user->login();
-		$this->redirect_to('/blog/index');
+		$return_url = ($session->get('return_url')) ? $session->get('return_url') : '/';
+		$session->delete('return_url');
+		$this->redirect_to($return_url);
 	}
 	
 	public function logout() {

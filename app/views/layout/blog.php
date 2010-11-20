@@ -7,7 +7,6 @@
 <title>phpworks</title>
 <script type="text/javascript">
 $(function() {
-	$('#menu_blog').css("cursor", "pointer");
 	$('#menu_blog').click(function() {
 		location.href="/blog/index";
 	});

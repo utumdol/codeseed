@@ -58,6 +58,11 @@ form {
 	color: #3366cc;
 }
 
+.menu:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 #contents {
 	float: left;
 	width: 100%;
