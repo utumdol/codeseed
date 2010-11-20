@@ -27,13 +27,11 @@
 		}
 		?>
 	</div>
-	<div id="head">
-		<span class="menu"><a href="/blog/index">예제 블로그</a></span>
+	<div id="menu"><a href="/blog/index">예제 블로그</a></div>
+	<div id="message">
+	<?= $flash->get('message'); ?>
 	</div>
 	<div id="contents">
-		<div id="message">
-		<?= $flash->get('message'); ?>
-		</div>
 		<?= $CONTENTS ?>
 	</div>
 	<div id="tail">Powered by PHPWorks</div>

@@ -33,22 +33,31 @@ form {
 	margin: auto;
 }
 
+#login {
+	text-align: right;
+	font-size: 14px;
+}
+
+#head {
+	float: left;
+	width: 100%;
+}
+
+#menu {
+	font-size: 20px;
+	color: #3366cc;
+}
+
 #contents {
 	float: left;
 	width: 100%;
 	margin: auto;
+	padding-top: 10px;
 }
 
 #message {
 	float: left;
 	color: #999;
-}
-
-#head {
-	float: left;
-	font-size: 20px;
-	padding: 10px;
-	color: #3366cc;
 }
 
 #tail {
