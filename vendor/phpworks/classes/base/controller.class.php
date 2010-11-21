@@ -1,6 +1,20 @@
 <?php
 class Controller {
 	public $layout = 'default';
+	
+	protected $session;
+	protected $flash;
+	protected $params;
+
+	public function __construct() {
+		global $session;
+		global $flash;
+		global $params;
+
+		$this->session = $session;
+		$this->flash = $flash;
+		$this->params = $params;
+	}
 
 	public function before($action = '') {
 		// the method which is called before excute actions

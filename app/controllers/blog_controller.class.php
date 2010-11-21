@@ -2,6 +2,7 @@
 class BlogController extends Controller {
 
 	public function __construct() {
+		parent::__construct();
 		$this->layout = 'blog';
 	}
 
@@ -13,15 +14,11 @@ class BlogController extends Controller {
 	}
 
 	public function authorize() {
-		global $session;
-		global $flash;
-		global $params;
-
 		$user = new User();
-		$user = $user->find($session->get('user_id'));
+		$user = $user->find($this->session->get('user_id'));
 		if (is_null($user)) {
-			$flash->add('message', '로그 인이 필요합니다.');
-			$session->save('return_url', $_SERVER['REQUEST_URI']);
+			$this->flash->add('message', '로그 인이 필요합니다.');
+			$this->session->save('return_url', $_SERVER['REQUEST_URI']);
 			$this->redirect_to('/user/login_form');
 		}
 	}
@@ -30,17 +27,13 @@ class BlogController extends Controller {
 	}
 
 	public function post() {
-		global $session;
-		global $params;
-		global $flash;
-
-		$article = new Article($params['article']);
+		$article = new Article($this->params['article']);
 		if ($article->validate()) {
-			$article->user_id = $session->get('user_id');
+			$article->user_id = $this->session->get('user_id');
 			$article->save();
 			$this->redirect_to('/blog/index');
 		} else {
-			$flash->add('message', $article->errors->get_messages());
+			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
 	}
@@ -79,15 +72,12 @@ class BlogController extends Controller {
 	}
 
 	public function update() {
-		global $params;
-		global $flash;
-
-		$article = new Article($params['article']);
+		$article = new Article($this->params['article']);
 		if ($article->validate()) {
 			$article->update();
 			$this->redirect_to('/blog/index');
 		} else {
-			$flash->add('message', $article->errors->get_messages());
+			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
 	}
@@ -103,18 +93,14 @@ class BlogController extends Controller {
 	}
 
 	public function post_comment() {
-		global $flash;
-		global $params;
-		global $session;
-
-		$comment = new ArticleComment($params['article_comment']);
+		$comment = new ArticleComment($this->params['article_comment']);
 		if ($comment->validate()) {
-			$comment->user_id = $session->get('user_id');
+			$comment->user_id = $this->session->get('user_id');
 			$comment->save();
 		} else {
-			$flash->add('message', $comment->errors->get_messages());
+			$this->flash->add('message', $comment->errors->get_messages());
 		}
-		$this->redirect_to('/blog/view/' . $params['article_comment']['article_id']);
+		$this->redirect_to('/blog/view/' . $this->params['article_comment']['article_id']);
 	}
 }
 

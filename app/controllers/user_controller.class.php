@@ -1,17 +1,19 @@
 <?php
 class UserController extends Controller {
 	public $layout = 'blog';
+
+	public function __construct() {
+		parent::__construct();
+		$this->layout = 'blog';
+	}
 	
 	public function register_form() {
 	}
 	
 	public function register() {
-		global $params;
-		global $flash;
-
-		$this->user = new User($params['user']);
+		$this->user = new User($this->params['user']);
 		if (!$this->user->validate()) {
-			$flash->add('message', $this->user->errors->get_messages());
+			$this->flash->add('message', $this->user->errors->get_messages());
 			$this->back();
 		}
 
@@ -46,19 +48,15 @@ class UserController extends Controller {
 	}
 	
 	public function login() {
-		global $params;
-		global $flash;
-		global $session;
-
-		$this->user = new User($params['user']);
+		$this->user = new User($this->params['user']);
 		if (!$this->user->validate_login() || !$this->user->authenticate()) {
-			$flash->add('message', $this->user->errors->get_messages());
+			$this->flash->add('message', $this->user->errors->get_messages());
 			$this->back();
 		}
 		
 		$this->user->login();
-		$return_url = ($session->get('return_url')) ? $session->get('return_url') : '/';
-		$session->delete('return_url');
+		$return_url = ($this->session->get('return_url')) ? $this->session->get('return_url') : '/';
+		$this->session->delete('return_url');
 		$this->redirect_to($return_url);
 	}
 	
