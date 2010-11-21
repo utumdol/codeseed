@@ -1,12 +1,15 @@
 <?php
 class Flash {
 	private $flashes;
+	private $session;
+
+	public function __construct($session) {
+		$this->session = $session;
+	}
 
 	public function load() {
-		global $session;
-
-		if ($session->is_exist('flash')) {
-			$this->flashes = unserialize($session->get('flash'));
+		if ($this->session->is_exist('flash')) {
+			$this->flashes = unserialize($this->session->get('flash'));
 		} else {
 			$this->flashes = array();
 		}
@@ -37,9 +40,7 @@ class Flash {
 	}
 
 	public function save() {
-		global $session;
-
-		$session->save('flash', serialize($this->flashes));
+		$this->session->save('flash', serialize($this->flashes));
 	}
 }
 

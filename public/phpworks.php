@@ -20,7 +20,7 @@ session_start();
 $session = new Session();
 
 // init flash
-$flash = new Flash();
+$flash = new Flash($session);
 $flash->load();
 
 // routing
