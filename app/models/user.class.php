@@ -81,15 +81,15 @@ class User extends Model {
 		return true;
 	}
 
-	public function login() {
+	public function login($session) {
 		$user = $this->find("email = '" . $this->email . "'");
-		$this->session->save('user_id', $user->id);
-		$this->session->save('user_nickname', $user->nickname);
+		$session->save('user_id', $user->id);
+		$session->save('user_nickname', $user->nickname);
 	}
 
-	public function logout() {
-		$this->session->delete('user_id');
-		$this->session->delete('user_nickname');
+	public function logout($session) {
+		$session->delete('user_id');
+		$session->delete('user_nickname');
 	}
 
 	private function create_new_salt() {

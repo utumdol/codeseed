@@ -3,14 +3,9 @@ class Model {
 	private $name;
 	private $table_name;
 
-	protected $session;
-
 	public $errors;
 
 	public function __construct($params = array()) {
-		global $session;
-
-		$this->session = $session;
 		$this->name = get_class($this);
 		$this->table_name = classname_to_tablename($this->name);
 		$this->errors = new Errors();
