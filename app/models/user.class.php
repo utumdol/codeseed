@@ -82,16 +82,14 @@ class User extends Model {
 	}
 
 	public function login() {
-		global $session;
 		$user = $this->find("email = '" . $this->email . "'");
-		$session->save('user_id', $user->id);
-		$session->save('user_nickname', $user->nickname);
+		$this->session->save('user_id', $user->id);
+		$this->session->save('user_nickname', $user->nickname);
 	}
 
 	public function logout() {
-		global $session;
-		$session->delete('user_id');
-		$session->delete('user_nickname');
+		$this->session->delete('user_id');
+		$this->session->delete('user_nickname');
 	}
 
 	private function create_new_salt() {
