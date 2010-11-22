@@ -2,12 +2,19 @@
 class Model {
 	private $name;
 	private $table_name;
+	private $belongs_to_array;
+	private $has_one_array;
+	private $has_many_array;
 
 	public $errors;
 
 	public function __construct($params = array()) {
 		$this->name = get_class($this);
 		$this->table_name = classname_to_tablename($this->name);
+		$this->belongs_to_array = array();
+		$this->has_one_array = array();
+		$this->has_many_array = array();
+
 		$this->errors = new Errors();
 
 		foreach(array_keys($params) as $key) {
@@ -23,13 +30,16 @@ class Model {
 	// DB Association
 	///////////////////////////////////////////////////////////////////////////
 
-	public function belongs_to($association_name, $foreign_key = '', $class_name = '', $conditions = '') {
+	public function belongs_to($table_name, $foreign_key = '') {
+		$this->belongs_to_array[] = new Association($table_name, $foreign_key);
 	}
 
-	public function has_one($association_name, $foreign_key = '', $class_name = '', $conditions = '') {
+	public function has_one($table_name, $foreign_key = '') {
+		$this->has_one_array[] = new Association($table_name, $foreign_key);
 	}
 
-	public function has_many($association_name, $foreign_key = '', $class_name = '', $conditions = '') {
+	public function has_many($table_name, $foreign_key = '') {
+		$this->has_many_array[] = new Association($table_name, $foreign_key);
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -160,6 +170,7 @@ class Model {
 		$values = array();
 		foreach ($fields as $field) {
 			$field_name = $field->name;
+
 			if ($field_name == 'id') {
 				continue;
 			}
