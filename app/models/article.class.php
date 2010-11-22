@@ -1,7 +1,7 @@
 <?php
 class Article extends Model {
 
-	public function before() {
+	public function init() {
 		$this->belongs_to('user');
 		$this->has_many('article_comment');
 	}

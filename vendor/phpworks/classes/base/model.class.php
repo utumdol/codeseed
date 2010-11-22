@@ -20,10 +20,11 @@ class Model {
 		foreach(array_keys($params) as $key) {
 			$this->$key = $params[$key];
 		}
-		$this->before();
+		$this->init();
 	}
 	
-	public function before() {
+	public function init() {
+		// the method which is called after __construct
 	}
 
 	///////////////////////////////////////////////////////////////////////////
