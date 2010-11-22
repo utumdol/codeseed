@@ -64,7 +64,7 @@ class Model {
 		if (is_int(intval($where))) {
 			$where = 'id = ' . $where;
 		}
-		$arr = $this->find_all(array('where' => $where));
+		$arr = $this->find_list(array('where' => $where));
 		if (count($arr) > 0) {
 			return $arr[0];
 		}
@@ -76,7 +76,7 @@ class Model {
 	 *	ex) array('select' => 'a, b', 'where' => 'a = b and c = d', 'group' => 'c', 'page' => 1, 'size' => 10, 'order' => 'a')
 	 * @return model objects array
 	 */
-	public function find_all($arr = array()) {
+	public function find_list($arr = array()) {
 		global $db;
 
 		if (!array_key_exists('select', $arr)) { $arr['select'] = '*'; }
