@@ -13,6 +13,23 @@ class Model {
 		foreach(array_keys($params) as $key) {
 			$this->$key = $params[$key];
 		}
+		$this->before();
+	}
+	
+	public function before() {
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// DB Association
+	///////////////////////////////////////////////////////////////////////////
+
+	public function belongs_to($association_name, $foreign_key = '', $class_name = '', $conditions = '') {
+	}
+
+	public function has_one($association_name, $foreign_key = '', $class_name = '', $conditions = '') {
+	}
+
+	public function has_many($association_name, $foreign_key = '', $class_name = '', $conditions = '') {
 	}
 
 	///////////////////////////////////////////////////////////////////////////
