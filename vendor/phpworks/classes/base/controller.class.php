@@ -14,10 +14,16 @@ class Controller {
 		$this->session = $session;
 		$this->flash = $flash;
 		$this->params = $params;
+
+		$this->init();
 	}
 
 	public function before($action = '') {
 		// the method which is called before excute actions
+	}
+
+	public function init() {
+		// the method which is called after __construct()
 	}
 
 	public function load_view($view) {
