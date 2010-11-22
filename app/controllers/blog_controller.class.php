@@ -1,10 +1,6 @@
 <?php
 class BlogController extends Controller {
-
-	public function __construct() {
-		parent::__construct();
-		$this->layout = 'blog';
-	}
+	public $layout = 'blog';
 
 	public function before($action = '') {
 		if ($action == 'index' || $action == 'view') {

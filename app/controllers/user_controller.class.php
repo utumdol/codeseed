@@ -2,11 +2,6 @@
 class UserController extends Controller {
 	public $layout = 'blog';
 
-	public function __construct() {
-		parent::__construct();
-		$this->layout = 'blog';
-	}
-	
 	public function register_form() {
 	}
 	
