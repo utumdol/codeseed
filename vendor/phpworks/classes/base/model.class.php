@@ -61,7 +61,7 @@ class Model {
 		if (is_null($where)) {
 			return null;
 		}
-		if (is_int(intval($where))) {
+		if (is_numeric($where)) {
 			$where = 'id = ' . $where;
 		}
 		$arr = $this->find_all(array('where' => $where));
