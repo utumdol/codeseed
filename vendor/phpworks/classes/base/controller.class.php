@@ -18,7 +18,7 @@ class Controller {
 		$this->init();
 	}
 
-	public function before($action = '') {
+	public function before_filter($action = '') {
 		// the method which is called before excute actions
 	}
 
@@ -42,7 +42,7 @@ class Controller {
 		throw new SkipProcessing();
 	}
 
-	public function after($action = '') {
+	public function after_filter($action = '') {
 		// the method which is called after excute actions
 	}
 }

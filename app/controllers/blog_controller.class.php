@@ -2,7 +2,7 @@
 class BlogController extends Controller {
 	public $layout = 'blog';
 
-	public function before($action = '') {
+	public function before_filter($action = '') {
 		if ($action == 'index' || $action == 'view') {
 			return;
 		}
