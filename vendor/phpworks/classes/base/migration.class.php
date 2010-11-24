@@ -38,9 +38,9 @@ class Migration {
 		$db->change_column($table_name, $name, $type, $is_null, $size);
 	}
 
-	public function add_index($table_name, $name, $fields) {
+	public function add_index($table_name, $name, $columns) {
 		global $db;
-		$db->add_index($table_name, $name, $fields);
+		$db->add_index($table_name, $name, $columns);
 	}
 
 	public function remove_index($table_name, $name) {

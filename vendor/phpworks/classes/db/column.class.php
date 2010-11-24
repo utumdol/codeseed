@@ -1,5 +1,5 @@
 <?php
-class Field {
+class Column {
 	public $name;
 	public $type;
 }

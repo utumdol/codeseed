@@ -164,11 +164,11 @@ class MySQL {
 	/**
 	 * @return a result object
 	 */
-	public function get_table_schema($table_name) {
+	public function get_table_columns($table_name) {
 		$table = array();
 		$result = $this->execute('SHOW COLUMNS FROM ' . $table_name);
 		while ($row = $this->fetch($result)) {
-			$schema = new Field();
+			$schema = new Column();
 			$schema->name = $row['Field'];
 			$schema->type = $row['Type'];
 			$table[] = $schema;
@@ -242,8 +242,8 @@ class MySQL {
 	/**
 	 * @return true on success, false on failure
 	 */
-	public function add_index($table_name, $name, $fields) {
-		$this->execute("ALTER TABLE $table_name ADD INDEX $name ($fields)");
+	public function add_index($table_name, $name, $columns) {
+		$this->execute("ALTER TABLE $table_name ADD INDEX $name ($columns)");
 	}
 
 	/**

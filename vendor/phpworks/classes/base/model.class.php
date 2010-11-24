@@ -2,6 +2,7 @@
 class Model {
 	private $name;
 	private $table_name;
+
 	private $belongs_to_array;
 	private $has_one_array;
 	private $has_many_array;
@@ -9,6 +10,8 @@ class Model {
 	public $errors;
 
 	public function __construct($params = array()) {
+		global $db;
+
 		$this->name = get_class($this);
 		$this->table_name = classname_to_tablename($this->name);
 		$this->belongs_to_array = array();
@@ -54,27 +57,27 @@ class Model {
 		global $db;
 
 		// load table schema and value setting
-		$fields = $db->get_table_schema($this->table_name);
+		$columns = $db->get_table_columns($this->table_name);
 		$names = array();
 		$values = array();
-		foreach ($fields as $field) {
-			$field_name = $field->name;
+		foreach ($columns as $column) {
+			$column_name = $column->name;
 
-			if ($field_name == 'id') {
+			if ($column_name == 'id') {
 				continue;
 			}
-			if ($field_name == 'created_at') {
-				$this->$field_name = time();
+			if ($column_name == 'created_at') {
+				$this->$column_name = time();
 			}
-			if ($field_name == 'updated_at') {
-				$this->$field_name = time();
+			if ($column_name == 'updated_at') {
+				$this->$column_name = time();
 			}
-			if (!isset($this->$field_name)) {
+			if (!isset($this->$column_name)) {
 				continue;
 			}
 
-			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $db->real_escape_string(trim($this->$field_name)));
+			$names[] = $column_name;
+			$values[] = quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name)));
 		}
 
 		// insert
@@ -166,27 +169,27 @@ class Model {
 		global $db;
 
 		// load table schema and value setting
-		$fields = $db->get_table_schema($this->table_name);
+		$columns = $db->get_table_columns($this->table_name);
 		$names = array();
 		$values = array();
-		foreach ($fields as $field) {
-			$field_name = $field->name;
+		foreach ($columns as $column) {
+			$column_name = $column->name;
 
-			if ($field_name == 'id') {
+			if ($column_name == 'id') {
 				continue;
 			}
-			if ($field_name == 'created_at') {
+			if ($column_name == 'created_at') {
 				continue;
 			}
-			if ($field_name == 'updated_at') {
-				$this->$field_name = time();
+			if ($column_name == 'updated_at') {
+				$this->$column_name = time();
 			}
-			if (!isset($this->$field_name)) {
+			if (!isset($this->$column_name)) {
 				continue;
 			}
 
-			$names[] = $field_name;
-			$values[] = quotes_to_string($field->type, $db->real_escape_string(trim($this->$field_name)));
+			$names[] = $column_name;
+			$values[] = quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name)));
 		}
 
 		// update
