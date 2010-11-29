@@ -28,15 +28,15 @@ class Table {
 	public function delete() {
 	}
 
-	private function get_select_column() {
+	public function get_select_column() {
 		$result = array();
 		foreach($this->columns as $column) {
-			$result[] = $this->name . '__' . $column->name;
+			$result[] = $this->name . '.' . $column->name . ' ' . $this->name . '__' . $column->name;
 		}
 		return csv($result);
 	}
 	
-	private function get_select_result($result) {
+	public function parse_select_result($result) {
 	}
 }
 
