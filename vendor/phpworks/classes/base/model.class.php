@@ -31,19 +31,19 @@ class Model {
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	// DB Association
+	// DB Table
 	///////////////////////////////////////////////////////////////////////////
 
-	public function belongs_to($table_name, $foreign_key = '') {
-		$this->belongs_to_array[] = new Association($table_name, $foreign_key);
+	public function belongs_to($table_name) {
+		$this->belongs_to_array[] = new Table($table_name);
 	}
 
-	public function has_one($table_name, $foreign_key = '') {
-		$this->has_one_array[] = new Association($table_name, $foreign_key);
+	public function has_one($table_name) {
+		$this->has_one_array[] = new Table($table_name);
 	}
 
-	public function has_many($table_name, $foreign_key = '') {
-		$this->has_many_array[] = new Association($table_name, $foreign_key);
+	public function has_many($table_name) {
+		$this->has_many_array[] = new Table($table_name);
 	}
 
 	///////////////////////////////////////////////////////////////////////////

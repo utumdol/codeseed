@@ -57,6 +57,15 @@ ob_end_clean();
 
 require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 
+
+// TODO deletion is needed.
+// for Table driver
+$table = new Table('article_comment');
+$table->get_columns();
+$result = $table->select();
+$arr = $table->parse_result($result);
+print_r($arr);
+
 // close flash
 $flash->add('params', $params); // reserve params for history back
 $flash->clear();
