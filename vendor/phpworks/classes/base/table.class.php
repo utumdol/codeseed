@@ -3,24 +3,24 @@ class Table {
 	private $name;
 	private $columns;
 
-	private $belongs_to_relations;
-	private $has_one_relations;
-	private $has_many_relations;
+	private $belongs_to_relations = array();
+	private $has_one_relations = array();
+	private $has_many_relations = array();
 
 	public function __construct($name) {
 		$this->name = $name;
 	}
 
 	public function belongs_to($name) {
-		$this->belongs_to_array[] = new Table($name);
+		$this->belongs_to_relations[] = new Table($name);
 	}
 
 	public function has_one($name) {
-		$this->has_one_array[] = new Table($name);
+		$this->has_one_relations[] = new Table($name);
 	}
 
 	public function has_many($name) {
-		$this->has_many_array[] = new Table($name);
+		$this->has_many_relations[] = new Table($name);
 	}
 
 	public function get_columns() {
@@ -37,7 +37,8 @@ class Table {
 		/*
 		if (!array_key_exists('select', $arr)) { $arr['select'] = '*'; }
 		*/
-		$arr['select'] = $this->get_select_column();
+		print_r($this->get_select_column());
+		$arr['select'] = csv($this->get_select_column());
 		if (!array_key_exists('from', $arr)) { $arr['from'] = $this->name; }
 		if (!array_key_exists('where', $arr)) { $arr['where'] = ''; }
 		if (!array_key_exists('group', $arr)) { $arr['group'] = ''; }
@@ -73,23 +74,26 @@ class Table {
 		}
 
 		foreach($this->belongs_to_relations as $table) {
-			$result = array_merge($result, $table->get_select_column());
+			$arr = $table->get_select_column();
+			$result = array_merge($result, $arr);
 		}
 
 		foreach($this->has_one_relations as $table) {
-			$result = array_merge($result, $table->get_select_column());
+			$arr = $table->get_select_column();
+			$result = array_merge($result, $arr);
 		}
 
 		foreach($this->has_many_relations as $table) {
-			$result = array_merge($result, $table->get_select_column());
+			$arr = $table->get_select_column();
+			$result = array_merge($result, $arr);
 		}
 
-		return csv($result);
+		return $result;
 	}
 
 	public function get_select_from() {
 	}
-	
+
 	public function parse_result($result) {
 		global $db;
 
@@ -106,7 +110,8 @@ class Table {
 			foreach($this->has_one_relations as $table) {
 				$obj = $table->parse_result_row($row);
 				$foreign_key = $this->name . '_id';
-				$arr[$obj->$foreign_key]->($table->name) = $obj;
+				$property = $table->name;
+				$arr[$obj->$foreign_key]->$property = $obj;
 			}
 
 			foreach($this->has_many_relations as $table) {

@@ -60,11 +60,13 @@ require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 
 // TODO deletion is needed.
 // for Table driver
-$table = new Table('article_comment');
-$table->get_columns();
+$table = new Table('article');
+$table->belongs_to('user');
+$table->has_many('article_comment');
 $result = $table->select();
-$arr = $table->parse_result($result);
-print_r($arr);
+print_r($table->get_select_column());
+print_r($table);
+print_r($result);
 
 // close flash
 $flash->add('params', $params); // reserve params for history back
