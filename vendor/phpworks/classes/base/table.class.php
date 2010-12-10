@@ -53,7 +53,8 @@ class Table {
 
 		$result = $db->select($arr['select'], $arr['from'], $arr['where'],
 				$arr['group'], $offset, $arr['size'], $arr['order']);
-		return $result;
+
+		return $this->parse_result($result);
 	}
 
 	public function update() {
@@ -63,34 +64,72 @@ class Table {
 	}
 
 	public function get_select_column() {
+		// init
+		$this->get_columns();
+
 		$result = array();
 		foreach($this->columns as $column) {
 			$result[] = $this->name . '.' . $column->name . ' ' . $this->name . '__' . $column->name;
 		}
+
+		foreach($this->belongs_to_relations as $table) {
+			$result = array_merge($result, $table->get_select_column());
+		}
+
+		foreach($this->has_one_relations as $table) {
+			$result = array_merge($result, $table->get_select_column());
+		}
+
+		foreach($this->has_many_relations as $table) {
+			$result = array_merge($result, $table->get_select_column());
+		}
+
 		return csv($result);
+	}
+
+	public function get_select_from() {
 	}
 	
 	public function parse_result($result) {
 		global $db;
 
-		$arr = array();	
+		$arr = array();
+		
 		while ($row = $db->fetch($result)) {
-			// $obj = new $this->name; 
-			foreach ($row as $key => $value) {
-				if (is_int($key)) {
-					continue;
-				}
-				$arr[] = $key . ' => ' . $value;
-				// $obj->$key = $value;
+			$obj = $this->parse_result_row($row);
+			$arr[$obj->id] = $obj;
+
+			foreach($this->belongs_to_relations as $table) {
+				$obj = $table->parse_result_row($row);
 			}
-			echobn(csv($arr));
-			// $arr[] = $obj;
+
+			foreach($this->has_one_relations as $table) {
+				$obj = $table->parse_result_row($row);
+				$foreign_key = $this->name . '_id';
+				$arr[$obj->$foreign_key]->($table->name) = $obj;
+			}
+
+			foreach($this->has_many_relations as $table) {
+				$obj = $table->parse_result_row($row);
+			}
 		}
 		$db->free_result($result);
 		return $arr;
 	}
 
 	public function parse_result_row($row) {
+		$classname = tablename_to_classname($this->name);
+		$obj = new $classname;
+		foreach ($row as $temp_key => $value) {
+			if (is_int($temp_key)) {
+				continue;
+			}
+			$keys = explode('__', $temp_key);
+			$tablename = $keys[0];
+			$key = $keys[1];
+			$obj->$key = $value;
+		}
+		return $obj;
 	}
 }
 
