@@ -93,8 +93,9 @@ class Table {
 	public function find_all($arr = array()) {
 		global $db;
 
-		if (!array_key_exists('select', $arr)) { $arr['select'] = csv($this->get_select_column()); }
-		if (!array_key_exists('from', $arr)) { $arr['from'] = $this->get_select_from(); }
+		if (!array_key_exists('include', $arr)) { $arr['include'] = array(); }
+		if (!array_key_exists('select', $arr)) { $arr['select'] = csv($this->get_select_column($arr['include'])); }
+		if (!array_key_exists('from', $arr)) { $arr['from'] = $this->get_select_from($arr['include']); }
 		if (!array_key_exists('where', $arr)) { $arr['where'] = ''; }
 		if (!array_key_exists('group', $arr)) { $arr['group'] = ''; }
 		if (!array_key_exists('page', $arr)) { $arr['page'] = ''; }
@@ -177,20 +178,29 @@ class Table {
 		return $result;
 	}
 
-	private function get_select_column() {
+	private function get_select_column($include = array()) {
 		// init
 		$result = array();
 		$result = array_merge($result, $this->make_select_column($this));
 
 		foreach($this->belongs_to_relations as $table) {
+			if (!in_array($table->name, $include)) {
+				continue;
+			}
 			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_one_relations as $table) {
+			if (!in_array($table->name, $include)) {
+				continue;
+			}
 			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_many_relations as $table) {
+			if (!in_array($table->name, $include)) {
+				continue;
+			}
 			$result = array_merge($result, $this->make_select_column($table));
 		}
 
@@ -208,20 +218,29 @@ class Table {
 		return $result;
 	}
 
-	private function get_select_from() {
+	private function get_select_from($include = array()) {
 		$from = $this->name;
 
 		foreach($this->belongs_to_relations as $table) {
+			if (!in_array($table->name, $include)) {
+				continue;
+			}
 			$from .= ' join ' . $table->name;
 			$from .= ' on ' . $table->name . '.id = ' . $this->name . '.' . $table->name . '_id';
 		}
 
 		foreach($this->has_one_relations as $table) {
+			if (!in_array($table->name, $include)) {
+				continue;
+			}
 			$from .= ' join ' . $table->name;
 			$from .= ' on ' . $table->name . '.' . $this->name . '_id = ' . $this->name . '.id';
 		}
 
 		foreach($this->has_many_relations as $table) {
+			if (!in_array($table->name, $include)) {
+				continue;
+			}
 			$from .= ' left outer join ' . $table->name;
 			$from .= ' on ' . $table->name . '.' . $this->name . '_id = ' . $this->name . '.id';
 		}
@@ -245,18 +264,27 @@ class Table {
 
 			foreach($this->belongs_to_relations as $table) {
 				$relation_obj = $this->parse_result_row($row, $table->name);
+				if ($relation_obj == null) {
+					continue;
+				}
 				$property = $table->name;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_one_relations as $table) {
 				$relation_obj = $this->parse_result_row($row, $table->name);
+				if ($relation_obj == null) {
+					continue;
+				}
 				$property = $table->name;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_many_relations as $table) {
 				$relation_obj = $this->parse_result_row($row, $table->name);
+				if ($relation_obj == null) {
+					continue;
+				}
 				$property = $table->name;
 				if (!isset($obj->$property)) {
 					$obj->$property = array();
