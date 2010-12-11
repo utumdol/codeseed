@@ -1,11 +1,12 @@
 <?php
 class Table {
-	private $name;
-	private $columns;
+	public $name;
+	public $columns;
 
 	private $belongs_to_relations = array();
 	private $has_one_relations = array();
 	private $has_many_relations = array();
+
 
 	public function __construct($name) {
 		$this->name = $name;
@@ -176,34 +177,38 @@ class Table {
 		return $result;
 	}
 
-	public function get_select_column() {
+	private function get_select_column() {
 		// init
-		$this->get_columns();
-
 		$result = array();
-		foreach($this->columns as $column) {
-			$result[] = $this->name . '.' . $column->name . ' ' . $this->name . '__' . $column->name;
-		}
+		$result = array_merge($result, $this->make_select_column($this));
 
 		foreach($this->belongs_to_relations as $table) {
-			$arr = $table->get_select_column();
-			$result = array_merge($result, $arr);
+			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_one_relations as $table) {
-			$arr = $table->get_select_column();
-			$result = array_merge($result, $arr);
+			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_many_relations as $table) {
-			$arr = $table->get_select_column();
-			$result = array_merge($result, $arr);
+			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		return $result;
 	}
 
-	public function get_select_from() {
+	private function make_select_column($table) {
+		$table->get_columns();
+
+		$result = array();
+		foreach($table->columns as $column) {
+			$result[] = $table->name . '.' . $column->name . ' ' . $table->name . '__' . $column->name;
+		}
+
+		return $result;
+	}
+
+	private function get_select_from() {
 		$from = $this->name;
 
 		foreach($this->belongs_to_relations as $table) {
@@ -224,13 +229,13 @@ class Table {
 		return $from;
 	}
 
-	public function parse_result($result) {
+	private function parse_result($result) {
 		global $db;
 
 		$arr = array();
 		
 		while ($row = $db->fetch($result)) {
-			$obj = $this->parse_result_row($row);
+			$obj = $this->parse_result_row($row, $this->name);
 
 			if (isset($old_obj) && $old_obj->id == $obj->id) {
 				$obj = $old_obj;
@@ -239,19 +244,19 @@ class Table {
 			}
 
 			foreach($this->belongs_to_relations as $table) {
-				$relation_obj = $table->parse_result_row($row);
+				$relation_obj = $this->parse_result_row($row, $table->name);
 				$property = $table->name;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_one_relations as $table) {
-				$relation_obj = $table->parse_result_row($row);
+				$relation_obj = $this->parse_result_row($row, $table->name);
 				$property = $table->name;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_many_relations as $table) {
-				$relation_obj = $table->parse_result_row($row);
+				$relation_obj = $this->parse_result_row($row, $table->name);
 				$property = $table->name;
 				if (!isset($obj->$property)) {
 					$obj->$property = array();
@@ -265,18 +270,18 @@ class Table {
 		return $arr;
 	}
 
-	public function parse_result_row($row) {
-		$classname = tablename_to_classname($this->name);
+	private function parse_result_row($row, $tablename) {
+		$classname = tablename_to_classname($tablename);
 		$obj = new $classname;
-		foreach ($row as $temp_key => $value) {
-			if (is_int($temp_key)) {
+		foreach ($row as $temp_column => $value) {
+			if (is_int($temp_column)) {
 				continue;
 			}
-			$keys = explode('__', $temp_key);
-			$tablename = $keys[0];
-			if ($tablename == $this->name) {
-				$key = $keys[1];
-				$obj->$key = $value;
+			$columns = explode('__', $temp_column);
+			$tablename2 = $columns[0];
+			if ($tablename2 == $tablename) {
+				$column = $columns[1];
+				$obj->$column = $value;
 			}
 		}
 		if (!isset($obj->id)) {
