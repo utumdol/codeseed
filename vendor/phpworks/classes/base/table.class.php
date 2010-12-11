@@ -77,7 +77,7 @@ class Table {
 		if (is_numeric($where)) {
 			$where = 'id = ' . $where;
 		}
-		$arr = $this->find_list(array('where' => $where));
+		$arr = $this->find_all(array('where' => $where));
 		if (count($arr) > 0) {
 			return array_shift($arr);
 		}
@@ -89,7 +89,7 @@ class Table {
 	 *	ex) array('select' => 'a, b', 'where' => 'a = b and c = d', 'group' => 'c', 'page' => 1, 'size' => 10, 'order' => 'a')
 	 * @return model objects array
 	 */
-	public function find_list($arr = array()) {
+	public function find_all($arr = array()) {
 		global $db;
 
 		if (!array_key_exists('select', $arr)) { $arr['select'] = csv($this->get_select_column()); }
@@ -231,32 +231,35 @@ class Table {
 		
 		while ($row = $db->fetch($result)) {
 			$obj = $this->parse_result_row($row);
-			$id = $obj->id;
 
-			if (!isset($arr[$obj->id])) {
-				$arr[$obj->id] = $obj;
+			if (isset($old_obj) && $old_obj->id == $obj->id) {
+				$obj = $old_obj;
+			} else {
+				$arr[] = $obj;
 			}
 
 			foreach($this->belongs_to_relations as $table) {
-				$obj = $table->parse_result_row($row);
+				$relation_obj = $table->parse_result_row($row);
 				$property = $table->name;
-				$arr[$id]->$property = $obj;
+				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_one_relations as $table) {
-				$obj = $table->parse_result_row($row);
+				$relation_obj = $table->parse_result_row($row);
 				$property = $table->name;
-				$arr[$id]->$property = $obj;
+				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_many_relations as $table) {
-				$obj = $table->parse_result_row($row);
+				$relation_obj = $table->parse_result_row($row);
 				$property = $table->name;
-				if (!isset($arr[$id]->$property)) {
-					$arr[$id]->$property = array();
+				if (!isset($obj->$property)) {
+					$obj->$property = array();
 				}
-				$arr[$id]->$property = array_merge($arr[$id]->$property, array($obj));
+				$obj->$property = array_merge($obj->$property, array($relation_obj));
 			}
+
+			$old_obj = $obj;
 		}
 		$db->free_result($result);
 		return $arr;
