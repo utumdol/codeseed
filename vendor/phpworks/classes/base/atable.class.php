@@ -1,32 +1,31 @@
 <?php
 class Table {
-	public $name;
+	public $tablename;
 	public $columns;
 
 	private $belongs_to_relations = array();
 	private $has_one_relations = array();
 	private $has_many_relations = array();
 
-
-	public function __construct($name) {
-		$this->name = $name;
+	public function __construct($tablename) {
+		$this->tablename = $tablename;
 	}
 
-	public function belongs_to($name) {
-		$this->belongs_to_relations[] = new Table($name);
+	public function belongs_to($tablename) {
+		$this->belongs_to_relations[] = new Table($tablename);
 	}
 
-	public function has_one($name) {
-		$this->has_one_relations[] = new Table($name);
+	public function has_one($tablename) {
+		$this->has_one_relations[] = new Table($tablename);
 	}
 
-	public function has_many($name) {
-		$this->has_many_relations[] = new Table($name);
+	public function has_many($tablename) {
+		$this->has_many_relations[] = new Table($tablename);
 	}
 
 	public function get_columns() {
 		global $db;
-		$this->columns = $db->get_table_columns($this->name);
+		$this->columns = $db->get_table_columns($this->tablename);
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -40,7 +39,7 @@ class Table {
 		global $db;
 
 		// load table schema and value setting
-		$columns = $db->get_table_columns($this->table_name);
+		$columns = $db->get_table_columns($this->tablename);
 		$names = array();
 		$values = array();
 		foreach ($columns as $column) {
@@ -64,7 +63,7 @@ class Table {
 		}
 
 		// insert
-		$result = $db->insert($this->table_name, $names, $values);
+		$result = $db->insert($this->tablename, $names, $values);
 		return $result;
 	}
 
@@ -121,7 +120,7 @@ class Table {
 		global $db;
 
 		if(is_blank($from)) {
-			$from = $this->table_name;
+			$from = $this->tablename;
 		}
 
 		$result = $db->select('COUNT(*) as cnt', $from, $where);
@@ -139,7 +138,7 @@ class Table {
 		global $db;
 
 		// load table schema and value setting
-		$columns = $db->get_table_columns($this->table_name);
+		$columns = $db->get_table_columns($this->tablename);
 		$names = array();
 		$values = array();
 		foreach ($columns as $column) {
@@ -163,7 +162,7 @@ class Table {
 		}
 
 		// update
-		$result = $db->update($this->table_name, $names, $values, 'id = ' . $this->id);
+		$result = $db->update($this->tablename, $names, $values, 'id = ' . $this->id);
 		return $result;
 	}
 
@@ -174,7 +173,7 @@ class Table {
 		if (is_int(intval($where))) {
 			$where = 'id = ' . $where;
 		}
-		$result = $db->delete($this->table_name, $where);
+		$result = $db->delete($this->tablename, $where);
 		return $result;
 	}
 
@@ -184,21 +183,21 @@ class Table {
 		$result = array_merge($result, $this->make_select_column($this));
 
 		foreach($this->belongs_to_relations as $table) {
-			if (!in_array($table->name, $include)) {
+			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
 			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_one_relations as $table) {
-			if (!in_array($table->name, $include)) {
+			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
 			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_many_relations as $table) {
-			if (!in_array($table->name, $include)) {
+			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
 			$result = array_merge($result, $this->make_select_column($table));
@@ -212,37 +211,37 @@ class Table {
 
 		$result = array();
 		foreach($table->columns as $column) {
-			$result[] = $table->name . '.' . $column->name . ' ' . $table->name . '__' . $column->name;
+			$result[] = $table->tablename . '.' . $column->name . ' ' . $table->tablename . '__' . $column->name;
 		}
 
 		return $result;
 	}
 
 	private function get_select_from($include = array()) {
-		$from = $this->name;
+		$from = $this->tablename;
 
 		foreach($this->belongs_to_relations as $table) {
-			if (!in_array($table->name, $include)) {
+			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$from .= ' join ' . $table->name;
-			$from .= ' on ' . $table->name . '.id = ' . $this->name . '.' . $table->name . '_id';
+			$from .= ' join ' . $table->tablename;
+			$from .= ' on ' . $table->tablename . '.id = ' . $this->tablename . '.' . $table->tablename . '_id';
 		}
 
 		foreach($this->has_one_relations as $table) {
-			if (!in_array($table->name, $include)) {
+			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$from .= ' join ' . $table->name;
-			$from .= ' on ' . $table->name . '.' . $this->name . '_id = ' . $this->name . '.id';
+			$from .= ' join ' . $table->tablename;
+			$from .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
 		}
 
 		foreach($this->has_many_relations as $table) {
-			if (!in_array($table->name, $include)) {
+			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$from .= ' left outer join ' . $table->name;
-			$from .= ' on ' . $table->name . '.' . $this->name . '_id = ' . $this->name . '.id';
+			$from .= ' left outer join ' . $table->tablename;
+			$from .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
 		}
 
 		return $from;
@@ -254,7 +253,7 @@ class Table {
 		$arr = array();
 		
 		while ($row = $db->fetch($result)) {
-			$obj = $this->parse_result_row($row, $this->name);
+			$obj = $this->parse_result_row($row, $this->tablename);
 
 			if (isset($old_obj) && $old_obj->id == $obj->id) {
 				$obj = $old_obj;
@@ -263,29 +262,29 @@ class Table {
 			}
 
 			foreach($this->belongs_to_relations as $table) {
-				$relation_obj = $this->parse_result_row($row, $table->name);
+				$relation_obj = $this->parse_result_row($row, $table->tablename);
 				if ($relation_obj == null) {
 					continue;
 				}
-				$property = $table->name;
+				$property = $table->tablename;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_one_relations as $table) {
-				$relation_obj = $this->parse_result_row($row, $table->name);
+				$relation_obj = $this->parse_result_row($row, $table->tablename);
 				if ($relation_obj == null) {
 					continue;
 				}
-				$property = $table->name;
+				$property = $table->tablename;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_many_relations as $table) {
-				$relation_obj = $this->parse_result_row($row, $table->name);
+				$relation_obj = $this->parse_result_row($row, $table->tablename);
 				if ($relation_obj == null) {
 					continue;
 				}
-				$property = $table->name;
+				$property = $table->tablename;
 				if (!isset($obj->$property)) {
 					$obj->$property = array();
 				}
