@@ -37,8 +37,18 @@ class BlogController extends Controller {
 	public function index($page = '1') {
 		$article = new Article();
 		$page_size = 7;
-		$this->list = $article->find_all(array('include' => array('user', 'article_comment'), 'page' => $page, 'size' => $page_size, 'order' => 'article.id DESC'));
+		$list = $article->find_all(array('select' => 'id', 'page' => $page, 'size' => $page_size, 'order' => 'id DESC'));
+		$ids = $this->get_ids($list);
+		$this->list = $article->find_all(array('include' => array('user', 'article_comment'), 'order' => 'article.id DESC', 'where' => 'article.id in (' . csv($ids). ')'));
 		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
+	}
+
+	private function get_ids($articles) {
+		$result = array();
+		foreach($articles as $article) {
+			$result[] = $article->id;
+		}
+		return $result;
 	}
 
 	public function view($id, $page = '1') {

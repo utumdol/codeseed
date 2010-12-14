@@ -317,6 +317,11 @@ class ActiveRecord {
 				continue;
 			}
 			$columns = explode('__', $temp_column);
+			// if there is no virtual aliases...
+			if (count($columns) < 2) {
+				$columns[1] = $columns[0];
+				$columns[0] = $this->tablename;
+			}
 			$tablename2 = $columns[0];
 			if ($tablename2 == $tablename) {
 				$column = $columns[1];
