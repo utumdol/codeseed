@@ -1,5 +1,5 @@
 <?php
-class Table {
+class ActiveRecord {
 	public $tablename;
 	public $columns;
 
@@ -12,15 +12,15 @@ class Table {
 	}
 
 	public function belongs_to($tablename) {
-		$this->belongs_to_relations[] = new Table($tablename);
+		$this->belongs_to_relations[] = new ActiveRecord($tablename);
 	}
 
 	public function has_one($tablename) {
-		$this->has_one_relations[] = new Table($tablename);
+		$this->has_one_relations[] = new ActiveRecord($tablename);
 	}
 
 	public function has_many($tablename) {
-		$this->has_many_relations[] = new Table($tablename);
+		$this->has_many_relations[] = new ActiveRecord($tablename);
 	}
 
 	public function get_columns() {
@@ -247,6 +247,12 @@ class Table {
 		return $from;
 	}
 
+
+	/**
+	 * parsing query result and return model object
+	 * @param 
+	 * @return model object
+	 */
 	private function parse_result($result) {
 		global $db;
 
@@ -263,30 +269,30 @@ class Table {
 
 			foreach($this->belongs_to_relations as $table) {
 				$relation_obj = $this->parse_result_row($row, $table->tablename);
-				if ($relation_obj == null) {
-					continue;
-				}
+				//if ($relation_obj == null) {
+				//	continue;
+				//}
 				$property = $table->tablename;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_one_relations as $table) {
 				$relation_obj = $this->parse_result_row($row, $table->tablename);
-				if ($relation_obj == null) {
-					continue;
-				}
+				//if ($relation_obj == null) {
+				//	continue;
+				//}
 				$property = $table->tablename;
 				$obj->$property = $relation_obj;
 			}
 
 			foreach($this->has_many_relations as $table) {
 				$relation_obj = $this->parse_result_row($row, $table->tablename);
-				if ($relation_obj == null) {
-					continue;
-				}
 				$property = $table->tablename;
 				if (!isset($obj->$property)) {
 					$obj->$property = array();
+				}
+				if ($relation_obj == null) {
+					continue;
 				}
 				$obj->$property = array_merge($obj->$property, array($relation_obj));
 			}
@@ -297,6 +303,12 @@ class Table {
 		return $arr;
 	}
 
+	/**
+	 * make result row to object
+	 * @param $row - db result row
+	 * @param $tablename - table name
+	 * @return model object or relation model object
+	 */
 	private function parse_result_row($row, $tablename) {
 		$classname = tablename_to_classname($tablename);
 		$obj = new $classname;

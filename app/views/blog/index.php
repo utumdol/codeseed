@@ -6,7 +6,7 @@
 foreach($this->list as $article) {
 ?>
 <div class="list_row">
-	<div class="subject"><a href="/blog/view/<?= $article->id ?>"><?= h($article->subject) ?></a><?= get_comment_count(count($article->article_comment)) ?></div>
+	<div class="subject"><a href="/blog/view/<?= $article->id ?>"><?= h($article->subject) ?></a><?= get_comment_count($article->article_comment) ?></div>
 	<div class="date"><?= date('m-d H:i', $article->updated_at) ?></div>
 </div>
 <?php

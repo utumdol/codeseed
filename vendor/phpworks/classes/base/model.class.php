@@ -1,5 +1,5 @@
 <?php
-class Model extends Table {
+class Model extends ActiveRecord {
 	private $name;
 	public $errors;
 
