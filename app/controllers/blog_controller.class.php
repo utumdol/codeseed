@@ -37,6 +37,8 @@ class BlogController extends Controller {
 	public function index($page = '1') {
 		$article = new Article();
 		$page_size = 7;
+		// TODO page, size => limit, offset으로 변경
+		// TODO find, find_all, find_first => find로 정리할 것
 		$list = $article->find_all(array('select' => 'id', 'page' => $page, 'size' => $page_size, 'order' => 'id DESC'));
 		$ids = $this->get_ids($list);
 		$this->list = $article->find_all(array('include' => array('user', 'article_comment'), 'order' => 'article.id DESC', 'where' => 'article.id in (' . csv($ids). ')'));
@@ -52,6 +54,7 @@ class BlogController extends Controller {
 	}
 
 	public function view($id, $page = '1') {
+		// TODO 하나의 쿼리로 정리할 것
 		$article = new Article();
 		$this->article = $article->find($id);
 
@@ -77,6 +80,7 @@ class BlogController extends Controller {
 
 	public function delete($id) {
 		$article = new Article();
+		// TODO delete parameter도 정리할 것
 		$article->delete($id);
 
 		$comment = new ArticleComment();
