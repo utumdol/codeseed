@@ -97,18 +97,12 @@ class ActiveRecord {
 		if (!array_key_exists('from', $arr)) { $arr['from'] = $this->get_select_from($arr['include']); }
 		if (!array_key_exists('where', $arr)) { $arr['where'] = ''; }
 		if (!array_key_exists('group', $arr)) { $arr['group'] = ''; }
-		if (!array_key_exists('page', $arr)) { $arr['page'] = ''; }
-		if (!array_key_exists('size', $arr)) { $arr['size'] = ''; }
+		if (!array_key_exists('offset', $arr)) { $arr['offset'] = '0'; }
+		if (!array_key_exists('limit', $arr)) { $arr['limit'] = ''; }
 		if (!array_key_exists('order', $arr)) { $arr['order'] = ''; }
 
-		$offset = '';
-		if (array_key_exists('page', $arr) && !is_blank($arr['page'])
-				&& array_key_exists('size', $arr) && !is_blank($arr['size'])) {
-			$offset = ($arr['page'] - 1) * $arr['size'];
-		}
-
 		$result = $db->select($arr['select'], $arr['from'], $arr['where'],
-				$arr['group'], $offset, $arr['size'], $arr['order']);
+				$arr['group'], $arr['offset'], $arr['limit'], $arr['order']);
 
 		return $this->parse_result($result);
 	}

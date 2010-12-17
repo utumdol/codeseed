@@ -104,7 +104,7 @@ class MySQL {
 	/**
 	 * @return a result object
 	 */
-	public function select($select = '*', $table_name, $where = '', $group = '', $offset = '', $size = '', $order = '') {
+	public function select($select = '*', $table_name, $where = '', $group = '', $offset = '', $limit = '', $order = '') {
 		// make condition
 		if (!is_blank($where)) {
 			$where = ' WHERE ' . $where;
@@ -112,10 +112,8 @@ class MySQL {
 		if (!is_blank($order)) {
 			$order = ' ORDER BY ' . $order;
 		}
-		$limit = '';
-		if (!is_blank($offset) && !is_blank($size)) {
-			// $page_start = ($page - 1) * $size;
-			$limit = " LIMIT $offset, $size";
+		if (!is_blank($offset) && !is_blank($limit)) {
+			$limit = " LIMIT $offset, $limit";
 		}
 		if (!is_blank($group)) {
 			$group = ' GROUP BY ' . $group;

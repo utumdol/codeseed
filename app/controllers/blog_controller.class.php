@@ -36,13 +36,13 @@ class BlogController extends Controller {
 
 	public function index($page = '1') {
 		$article = new Article();
-		$page_size = 7;
-		// TODO page, size => limit, offset으로 변경
+		$limit = 7;
+		$offset = ($page - 1) * $limit;
 		// TODO find, find_all, find_first => find로 정리할 것
-		$list = $article->find_all(array('select' => 'id', 'page' => $page, 'size' => $page_size, 'order' => 'id DESC'));
+		$list = $article->find_all(array('select' => 'id', 'offset' => $offset, 'limit' => $limit, 'order' => 'id DESC'));
 		$ids = $this->get_ids($list);
 		$this->list = $article->find_all(array('include' => array('user', 'article_comment'), 'order' => 'article.id DESC', 'where' => 'article.id in (' . csv($ids). ')'));
-		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
+		$this->paging = new Paging($article->count(), $limit, '/blog/index/<page>', $page);
 	}
 
 	private function get_ids($articles) {
