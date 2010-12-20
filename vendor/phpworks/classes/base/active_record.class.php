@@ -68,18 +68,39 @@ class ActiveRecord {
 	}
 
 	/**
-	 * @return a model object or null
+	 * @return array or a model or null
 	 */
 	public function find($where = '') {
+		$arr = array();
 		if (is_null($where)) {
 			return null;
 		}
 		if (is_numeric($where)) {
-			$where = 'id = ' . $where;
+			$arr['where'] = 'id = ' . $where;
 		}
-		$arr = $this->find_all(array('where' => $where));
-		if (count($arr) > 0) {
-			return array_shift($arr);
+		if (is_numeric_array($where)) {
+			$arr['where'] = 'id in (' . csv($where) . ')';
+		}
+		if (is_array($where)) {
+			$arr = $where;
+		}
+		$result = $this->find_all($arr);
+		if (count($result) > 1) {
+			return $result;
+		}
+		if (count($result) == 1) {
+			return $result[0];
+		}
+		return null;
+	}
+
+	/**
+	 * @return return first model
+	 */
+	public function find_first($arr = array()) {
+		$result = find_all($arr);
+		if (count($result) > 0) {
+			return $result[0];
 		}
 		return null;
 	}
