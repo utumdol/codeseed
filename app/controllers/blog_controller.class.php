@@ -56,10 +56,7 @@ class BlogController extends Controller {
 	public function view($id, $page = '1') {
 		// TODO 하나의 쿼리로 정리할 것
 		$article = new Article();
-		$this->article = $article->find($id);
-
-		$comment = new ArticleComment();
-		$this->comment_list = $comment->find_all(array('where' => "article_id = '$id'"));
+		$this->article = $article->find(array('include' => array('user', 'article_comment'), 'where' => 'article.id = ' . $id));
 	}
 
 	public function update_form($id) {

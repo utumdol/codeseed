@@ -1,7 +1,7 @@
 <div class="list_row list_top"><?= h($this->article->subject) ?></div>
 <div class="list_row content"><?= nl2br(h($this->article->content)) ?></div>
 <?php
-foreach ($this->comment_list as $comment) {
+foreach ($this->article->article_comment as $comment) {
 ?>
 <div class="list_row comment"><?= nl2br(h($comment->comment)) ?></div>
 <?php
