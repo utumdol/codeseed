@@ -160,7 +160,12 @@ form {
 }
 
 .list_row .subject {
-	width: 600px;
+	width: 500px;
+	float: left;
+}
+
+.list_row .author {
+	width: 100px;
 	float: left;
 }
 
@@ -170,7 +175,12 @@ form {
 }
 
 .content {
-	padding: 20px 0 20px 0;
+	padding: 0px 0 20px 0;
+}
+
+.content_meta {
+	font-size: 14px;
+	text-align: right;
 }
 
 .comment {

@@ -1,4 +1,5 @@
 <div class="list_row list_top"><?= h($this->article->subject) ?></div>
+<div class="list_row no_bottom content_meta"><?= $this->article->user->nickname ?>, <?= date('Y-m-d H:i:s', $this->article->updated_at) ?></div>
 <div class="list_row content"><?= nl2br(h($this->article->content)) ?></div>
 <?php
 foreach ($this->article->article_comment as $comment) {
