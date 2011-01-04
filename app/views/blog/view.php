@@ -4,7 +4,7 @@
 <?php
 foreach ($this->article->article_comment as $comment) {
 ?>
-<div class="list_row comment"><?= nl2br(h($comment->comment)) ?></div>
+<div class="list_row comment"><?= nl2br(h($comment->comment)) ?> <?= $comment->user_id ?> <?= date('Y-m-d H:i:s', $comment->updated_at) ?></div>
 <?php
 }
 ?>
