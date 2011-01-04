@@ -55,6 +55,24 @@ class BlogController extends Controller {
 	public function view($id, $page = '1') {
 		$article = new Article();
 		$this->article = $article->find(array('include' => array('user', 'article_comment'), 'where' => 'article.id = ' . $id));
+		$user_ids = array();
+		foreach($this->article->article_comment as $comment) {
+			$user_ids[] = $comment->user_id;
+		}
+		$this->users = $this->get_users($user_ids);
+	}
+
+	public function get_users($user_ids) {
+		$result = array();
+		if (empty($user_ids)) {
+			return $result;
+		}
+		$user = new User();
+		$users = $user->find_all(array('where' => 'id in (' . csv($user_ids). ')'));
+		foreach($users as $user) {
+			$result[$user->id] = $user;
+		}
+		return $result;
 	}
 
 	public function update_form($id) {
