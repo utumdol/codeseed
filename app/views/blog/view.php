@@ -7,13 +7,13 @@ $(function() {
 		<?php if ($this->session->get('user_id')) { ?>
 			$('#article_comment_form').submit();
 		<?php } else { ?>
-			location.href="/user/login_form?rurl=" + location.href;	
+			location.href="/user/login_form?return_url=" + location.href;	
 		<?php } ?>
 	});
 	$('#comment_textarea').click(function() {
 		<?php if (!$this->session->get('user_id')) { ?>
 			alert('로그 인이 필요합니다.');
-			location.href="/user/login_form?rurl=" + location.href;	
+			location.href="/user/login_form?return_url=" + location.href;	
 		<?php } ?>
 	});
 });
