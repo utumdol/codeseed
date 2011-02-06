@@ -52,7 +52,7 @@ class UserController extends Controller {
 		$this->user->login($this->session);
 		$return_url = '/';
 		if ($this->session->get('return_url')) {
-			$return_url = $thiss->session->get('return_url');
+			$return_url = $this->session->get('return_url');
 		} else if (array_key_exists('return_url', $this->params)) {
 			$return_url = $this->params['return_url'];
 		}
