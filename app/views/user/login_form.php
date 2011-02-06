@@ -6,6 +6,7 @@ $(function() {
 });
 </script>
 <form class="form" action="/user/login" method="post">
+<input type="hidden" name="return_url" value="<?= get_value_from_array($this->params, array('return_url')); ?>" />
 	<div style="width: 400px; margin: auto; clear: both;">
 	<div class="box" style="width: 100%;">
 	<div class="list_row">
