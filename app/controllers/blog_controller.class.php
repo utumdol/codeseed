@@ -14,8 +14,7 @@ class BlogController extends Controller {
 		$user = $user->find($this->session->get('user_id'));
 		if (is_null($user)) {
 			$this->flash->add('message', '로그 인이 필요합니다.');
-			$this->session->save('return_url', $_SERVER['REQUEST_URI']);
-			$this->redirect_to('/user/login_form');
+			$this->redirect_to('/user/login_form?return_url=' . $_SERVER['REQUEST_URI']);
 		}
 	}
 
@@ -57,26 +56,13 @@ class BlogController extends Controller {
 	}
 
 	public function view($id, $page = '1') {
+		// get article
 		$article = new Article();
-		$this->article = $article->find(array('include' => array('user', 'article_comment'), 'where' => 'article.id = ' . $id));
-		$user_ids = array();
-		foreach($this->article->article_comment as $comment) {
-			$user_ids[] = $comment->user_id;
-		}
-		$this->users = $this->get_users($user_ids);
-	}
+		$this->article = $article->find(array('include' => array('user'), 'where' => 'article.id = ' . $id));
 
-	public function get_users($user_ids) {
-		$result = array();
-		if (empty($user_ids)) {
-			return $result;
-		}
-		$user = new User();
-		$users = $user->find_all(array('where' => 'id in (' . csv($user_ids). ')'));
-		foreach($users as $user) {
-			$result[$user->id] = $user;
-		}
-		return $result;
+		// get article comment
+		$article_comment = new ArticleComment();
+		$this->article_comment = $article_comment->find(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id));
 	}
 
 	public function update_form($id) {
