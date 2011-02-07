@@ -62,7 +62,7 @@ class BlogController extends Controller {
 
 		// get article comment
 		$article_comment = new ArticleComment();
-		$this->article_comment = $article_comment->find(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id));
+		$this->article_comment = $article_comment->find(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
 	}
 
 	public function update_form($id) {

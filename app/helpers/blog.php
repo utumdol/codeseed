@@ -7,3 +7,14 @@ function get_comment_count($comments) {
 	return '';
 }
 
+function get_date($timestamp) {
+	return date('Y-m-d H:i:s', $timestamp);
+}
+
+function get_delete_comment_button($user_id, $writer_id) {
+	if ($user_id == $writer_id) {
+		return '[삭제]';
+	}
+	return '';
+}
+
