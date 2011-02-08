@@ -18,10 +18,10 @@ $(function() {
 <div class="list_row content"><?= nl2br(h($this->article->content)) ?></div>
 <?php if (is_array($this->article_comment)) foreach ($this->article_comment as $comment) { ?>
 <div class="list_row comment">
-	<div style="float:left; width: 10%; padding: 5px;"><?= $comment->user->nickname ?></div>
-	<div style="float:left; width: 65%; border-left: solid 1px #ccc; padding: 5px;"><?= nl2br(h($comment->comment)) ?></div>
-	<div style="float:left; padding: 5px;"><?= get_delete_comment_button($this->session->get('user_id'), $comment->user->id, $comment->id) ?></div>
-	<div style="float:left; padding: 5px;"><?= get_date($comment->updated_at) ?></div>
+	<div style="float:left; width: 10%; padding: 0 5px;"><?= $comment->user->nickname ?></div>
+	<div style="float:left; width: 65%; border-left: solid 1px #ccc; padding: 0 5px;"><?= nl2br(h($comment->comment)) ?></div>
+	<div style="float:left; padding: 0 5px;"><?= get_delete_comment_button($this->session->get('user_id'), $comment->user->id, $comment->id) ?></div>
+	<div style="float:left; padding: 0 5px;"><?= get_date($comment->updated_at) ?></div>
 </div>
 <?php } ?>
 <form action="/blog/post_comment" method="post" id="article_comment_form">
