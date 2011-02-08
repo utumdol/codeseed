@@ -101,5 +101,12 @@ class BlogController extends Controller {
 		}
 		$this->redirect_to('/blog/view/' . $this->params['article_comment']['article_id']);
 	}
+
+	public function delete_comment($id) {
+		$comment = new ArticleComment();
+		$comment->delete($id);
+
+		$this->back();
+	}
 }
 
