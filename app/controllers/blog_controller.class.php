@@ -68,9 +68,24 @@ class BlogController extends Controller {
 	public function update_form($id) {
 		$article = new Article();
 		$this->article = $article->find($id);
+
+		// validation
+		if (!$this->article->validation_update($this->session->get('user_id'))) {
+			$this->flash->add('message', $this->article->errors->get_messages());
+			$this->back();
+		}
 	}
 
 	public function update() {
+		$article = new Article();
+		$article = $article->find($this->params['article']['id']);
+
+		// validation
+		if (!$article->validation_update($this->session->get('user_id'))) {
+			$this->flash->add('message', $article->errors->get_messages());
+			$this->back();
+		}
+
 		$article = new Article($this->params['article']);
 		if ($article->validate()) {
 			$article->update();
@@ -83,6 +98,14 @@ class BlogController extends Controller {
 
 	public function delete($id) {
 		$article = new Article();
+
+		// validation
+		$article = $article->find($id);
+		if (!$article->validation_delete($this->session->get('user_id'))) {
+			$this->flash->add('message', $article->errors->get_messages());
+			$this->back();
+		}
+
 		$article->delete($id);
 
 		$comment = new ArticleComment();
