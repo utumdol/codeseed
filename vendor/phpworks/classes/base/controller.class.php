@@ -35,6 +35,7 @@ class Controller {
 			$this->redirect_to($_SERVER['HTTP_REFERER']);
 		}
 		echo '<script type="text/javascript">history.back();</script>';
+		throw new SkipProcessing();
 	}
 
 	public function redirect_to($where) {

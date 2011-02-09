@@ -62,7 +62,7 @@ class BlogController extends Controller {
 
 		// get article comment
 		$article_comment = new ArticleComment();
-		$this->article_comment = $article_comment->find(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
+		$this->comment = $article_comment->find_all(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
 	}
 
 	public function update_form($id) {
@@ -127,8 +127,15 @@ class BlogController extends Controller {
 
 	public function delete_comment($id) {
 		$comment = new ArticleComment();
-		$comment->delete($id);
 
+		// validation
+		$comment = $comment->find($id);
+		if (!$comment->validation_delete($this->session->get('user_id'))) {
+			$this->flash->add('message', $comment->errors->get_messages());
+			$this->back();
+		}
+
+		$comment->delete($id);
 		$this->back();
 	}
 }
