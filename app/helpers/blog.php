@@ -11,8 +11,8 @@ function get_date($timestamp) {
 	return date('Y-m-d H:i', $timestamp);
 }
 
-function get_delete_comment_button($user_id, $writer_id, $comment_id) {
-	if ($user_id == $writer_id) {
+function get_delete_comment_button($writer_id, $comment_id) {
+	if (get_user_id() == $writer_id) {
 		return "<a href=\"/blog/delete_comment/{$comment_id}\" class=\"delete_button\">x</a>";
 	}
 	return '&nbsp;';

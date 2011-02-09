@@ -11,7 +11,7 @@ class BlogController extends Controller {
 
 	public function authorize() {
 		$user = new User();
-		$user = $user->find($this->session->get('user_id'));
+		$user = $user->find($this->get_user_id());
 		if (is_null($user)) {
 			$this->flash->add('message', '로그 인이 필요합니다.');
 			$this->redirect_to('/user/login_form?return_url=' . $_SERVER['REQUEST_URI']);
@@ -24,7 +24,7 @@ class BlogController extends Controller {
 	public function post() {
 		$article = new Article($this->params['article']);
 		if ($article->validate()) {
-			$article->user_id = $this->session->get('user_id');
+			$article->user_id = $this->get_user_id();
 			$article->save();
 			$this->redirect_to('/blog/index');
 		} else {
@@ -70,7 +70,7 @@ class BlogController extends Controller {
 		$this->article = $article->find($id);
 
 		// validation
-		if (!$this->article->validation_update($this->session->get('user_id'))) {
+		if (!$this->article->validation_update($this->get_user_id())) {
 			$this->flash->add('message', $this->article->errors->get_messages());
 			$this->back();
 		}
@@ -81,7 +81,7 @@ class BlogController extends Controller {
 		$article = $article->find($this->params['article']['id']);
 
 		// validation
-		if (!$article->validation_update($this->session->get('user_id'))) {
+		if (!$article->validation_update($this->get_user_id())) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
@@ -101,7 +101,7 @@ class BlogController extends Controller {
 
 		// validation
 		$article = $article->find($id);
-		if (!$article->validation_delete($this->session->get('user_id'))) {
+		if (!$article->validation_delete($this->get_user_id())) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
@@ -117,7 +117,7 @@ class BlogController extends Controller {
 	public function post_comment() {
 		$comment = new ArticleComment($this->params['article_comment']);
 		if ($comment->validate()) {
-			$comment->user_id = $this->session->get('user_id');
+			$comment->user_id = $this->get_user_id();
 			$comment->save();
 		} else {
 			$this->flash->add('message', $comment->errors->get_messages());
@@ -130,13 +130,17 @@ class BlogController extends Controller {
 
 		// validation
 		$comment = $comment->find($id);
-		if (!$comment->validation_delete($this->session->get('user_id'))) {
+		if (!$comment->validation_delete($this->get_user_id())) {
 			$this->flash->add('message', $comment->errors->get_messages());
 			$this->back();
 		}
 
 		$comment->delete($id);
 		$this->back();
+	}
+
+	private function get_user_id() {
+		return $this->session->get('user_id');
 	}
 }
 
