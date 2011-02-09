@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(function() {
 	$('#button_cancel').click(function() {
-		location.href="/blog/index";
+		history.back();
 	})
 });
 </script>

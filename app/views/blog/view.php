@@ -37,7 +37,7 @@ $(function() {
 </form>
 <div class="menu_area">
 	<span>[<a href="/blog/index">목록으로</a>]</span>
-	<?php if ($this->session->get('user_id')) { ?>
+	<?php if ($this->article->is_writer($this->session->get('user_id'))) { ?>
 	<span>[<a href="/blog/update_form/<?= $this->article->id ?>">수정하기</a>]</span>
 	<span>[<a href="/blog/delete/<?= $this->article->id ?>" class="delete_button">삭제하기</a>]</span>
 	<?php } ?>
