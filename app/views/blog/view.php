@@ -22,7 +22,7 @@ $(function() {
 <div class="list_row list_top"><?= h($this->article->subject) ?></div>
 <div class="list_row no_bottom content_meta"><?= $this->article->user->nickname ?> <?= get_date($this->article->updated_at) ?></div>
 <div class="list_row content"><?= nl2br(h($this->article->content)) ?></div>
-<?php if (is_array($this->article_comment)) foreach ($this->article_comment as $comment) { ?>
+<?php if (is_array($this->comment)) foreach ($this->comment as $comment) { ?>
 <div class="list_row comment">
 	<div style="float:left; width: 10%; padding: 0 5px;"><?= $comment->user->nickname ?></div>
 	<div style="float:left; width: 65%; border-left: solid 1px #ccc; padding: 0 5px;"><?= nl2br(h($comment->comment)) ?></div>
@@ -37,7 +37,7 @@ $(function() {
 </form>
 <div class="menu_area">
 	<span>[<a href="/blog/index">목록으로</a>]</span>
-	<?php if ($this->session->get('user_id')) { ?>
+	<?php if ($this->article->is_writer($this->session->get('user_id'))) { ?>
 	<span>[<a href="/blog/update_form/<?= $this->article->id ?>">수정하기</a>]</span>
 	<span>[<a href="/blog/delete/<?= $this->article->id ?>" class="delete_button">삭제하기</a>]</span>
 	<?php } ?>

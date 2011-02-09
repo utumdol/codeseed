@@ -57,15 +57,6 @@ ob_end_clean();
 
 require_once(VIEW_DIR . '/layout/' . $controller->layout . '.php');
 
-
-// TODO deletion is needed.
-// for ActiveRecord driver
-//$table = new ActiveRecord('article');
-//$table->belongs_to('user');
-//$table->has_many('article_comment');
-//$result = $table->find_all(array('order' => 'article.id desc', 'include' => array('user', 'article_comment')));
-//print_r($result[0]);
-
 // close flash
 $flash->add('params', $params); // reserve params for history back
 $flash->clear();
