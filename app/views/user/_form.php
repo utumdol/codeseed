@@ -1,3 +1,10 @@
+<script type="text/javascript">
+$(function() {
+	$('#email').keyup(function() {
+		$('#nickname').val($('#email').val().split('@')[0]);
+	})
+});
+</script>
 <div class="list_row list_top">
 	<div class="form_subject">이메일</div>
 	<div class="input_area"><input type="text" class="input" id="email" name="user[email]" value="<?= h(get_value($this, array('user', 'email'))) ?>" /></div>

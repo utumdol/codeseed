@@ -1,8 +1,5 @@
 <script type="text/javascript">
 $(function() {
-	$('#email').keyup(function() {
-		$('#nickname').val($('#email').val().split('@')[0]);
-	})
 	$('#button_cancel').click(function() {
 		history.back();
 	});
