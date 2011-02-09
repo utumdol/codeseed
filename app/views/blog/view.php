@@ -3,9 +3,11 @@ $(function() {
 	$('.delete_button').click(function() {
 		return confirm('정말 삭제하시겠습니까?');
 	});
-	$('#comment_textarea').keydown(function() {
+	$('#comment_textarea').keyup(function(event) {
 		<?php if (!is_user_login()) { ?>
+			$('#comment_textarea').blur();
 			alert('로그 인이 필요합니다.');
+			$('#comment_textarea').val('');
 			location.href="/user/login_form?return_url=<?= $_SERVER['REQUEST_URI'] ?>";	
 		<?php } ?>
 	});
