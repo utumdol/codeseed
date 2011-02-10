@@ -3,6 +3,7 @@ $(function() {
 	$('#button_cancel').click(function() {
 		history.back();
 	});
+	$('#email').focus();
 });
 </script>
 <form class="form" action="/user/login" method="post">
