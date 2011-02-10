@@ -11,7 +11,7 @@ $(function() {
 	});
 });
 </script>
-<form class="form" action="/user/register" method="post">
+<form class="form" action="/user/update" method="post">
 <?php
 $this->load_view('/user/_form');
 ?>

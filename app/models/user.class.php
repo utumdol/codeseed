@@ -59,6 +59,18 @@ class User extends Model {
 		return true;
 	}
 
+	public function validate_update($user_id) {
+		if ($this->id = $user_id) {
+			$this->errors->add('본인만 자신의 정보를 수정하거나 탈퇴할 수 있습니다.');
+			return false;
+		}
+		return true;
+	}
+
+	public function validate_leave($user_id) {
+		return $this->validate_update($user_id);
+	}
+
 	public function register() {
 		$this->create_new_salt();
 		$this->encrypt_password($this->password, $this->salt);

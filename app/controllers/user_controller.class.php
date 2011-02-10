@@ -2,6 +2,23 @@
 class UserController extends Controller {
 	public $layout = 'blog';
 
+	public function before_filter($action = '') {
+		if (is_start_with($action, 'register') || is_start_with($action, 'login')) {
+			return;
+		}
+		$this->authorize();
+	}
+
+	// TODO The duplication of the BlogController->auhorize();
+	public function authorize() {
+		$user = new User();
+		$user = $user->find($this->get_user_id());
+		if (is_null($user)) {
+			$this->flash->add('message', '로그 인이 필요합니다.');
+			$this->redirect_to('/user/login_form?return_url=' . $_SERVER['REQUEST_URI']);
+		}
+	}
+
 	public function register_form() {
 	}
 	
@@ -23,16 +40,17 @@ class UserController extends Controller {
 	
 	public function update_form() {
 		$user = new User();
-		$this->user = $user->find($this->session->get('user_id'));
+		$this->user = $user->find($this->get_user_id());
 
 		// validation
-		if (false) {
+		if ($this->user->validate_update($this->get_user_id())) {
 			$this->flash->add('message', $this->user->errors->get_messages());
 			$this->back();
 		}
 	}
 	
 	public function update() {
+		echobn("난 뭐지?");
 	}
 	
 	public function update_result() {
@@ -66,6 +84,10 @@ class UserController extends Controller {
 		$this->user = new User();
 		$this->user->logout($this->session);
 		$this->redirect_to('/blog/index');
+	}
+
+	private function get_user_id() {
+		return $this->session->get('user_id');
 	}
 }
 
