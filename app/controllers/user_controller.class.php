@@ -22,6 +22,14 @@ class UserController extends Controller {
 	}
 	
 	public function update_form() {
+		$user = new User();
+		$this->user = $user->find($this->session->get('user_id'));
+
+		// validation
+		if (false) {
+			$this->flash->add('message', $this->user->errors->get_messages());
+			$this->back();
+		}
 	}
 	
 	public function update() {
