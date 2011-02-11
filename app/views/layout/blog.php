@@ -17,7 +17,7 @@ $(function() {
 <div id="wrap">
 	<div id="login">
 		<?php
-		if (is_user_login()) {
+		if (is_user_logged()) {
 		?>
 		<?= $session->get('user_nickname'); ?>님 환영합니다.
 		|

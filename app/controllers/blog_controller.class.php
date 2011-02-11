@@ -11,7 +11,7 @@ class BlogController extends Controller {
 
 	public function authorize() {
 		$user = new User();
-		$user = $user->find($this->get_user_id());
+		$user = $user->find($this->get_login_id());
 		if (is_null($user)) {
 			$this->flash->add('message', '로그 인이 필요합니다.');
 			$this->redirect_to('/user/login_form?return_url=' . $_SERVER['REQUEST_URI']);
@@ -24,7 +24,7 @@ class BlogController extends Controller {
 	public function post() {
 		$article = new Article($this->params['article']);
 		if ($article->validate()) {
-			$article->user_id = $this->get_user_id();
+			$article->user_id = $this->get_login_id();
 			$article->save();
 			$this->redirect_to('/blog/index');
 		} else {
@@ -61,8 +61,8 @@ class BlogController extends Controller {
 		$this->article = $article->find(array('include' => array('user'), 'where' => 'article.id = ' . $id));
 
 		// get article comment
-		$article_comment = new ArticleComment();
-		$this->comment = $article_comment->find_all(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
+		$comment = new ArticleComment();
+		$this->comment = $comment->find_all(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
 	}
 
 	public function update_form($id) {
@@ -70,7 +70,7 @@ class BlogController extends Controller {
 		$this->article = $article->find($id);
 
 		// validation
-		if (!$this->article->validation_update($this->get_user_id())) {
+		if (!$this->article->validation_update($this->get_login_id())) {
 			$this->flash->add('message', $this->article->errors->get_messages());
 			$this->back();
 		}
@@ -81,19 +81,19 @@ class BlogController extends Controller {
 		$article = $article->find($this->params['article']['id']);
 
 		// validation
-		if (!$article->validation_update($this->get_user_id())) {
+		if (!$article->validation_update($this->get_login_id())) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
 
 		$article = new Article($this->params['article']);
-		if ($article->validate()) {
-			$article->update();
-			$this->redirect_to('/blog/index');
-		} else {
+		if (!$article->validate()) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
+
+		$article->update();
+		$this->redirect_to('/blog/index');
 	}
 
 	public function delete($id) {
@@ -101,7 +101,7 @@ class BlogController extends Controller {
 
 		// validation
 		$article = $article->find($id);
-		if (!$article->validation_delete($this->get_user_id())) {
+		if (!$article->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
@@ -117,7 +117,7 @@ class BlogController extends Controller {
 	public function post_comment() {
 		$comment = new ArticleComment($this->params['article_comment']);
 		if ($comment->validate()) {
-			$comment->user_id = $this->get_user_id();
+			$comment->user_id = $this->get_login_id();
 			$comment->save();
 		} else {
 			$this->flash->add('message', $comment->errors->get_messages());
@@ -130,7 +130,7 @@ class BlogController extends Controller {
 
 		// validation
 		$comment = $comment->find($id);
-		if (!$comment->validation_delete($this->get_user_id())) {
+		if (!$comment->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $comment->errors->get_messages());
 			$this->back();
 		}
@@ -139,7 +139,7 @@ class BlogController extends Controller {
 		$this->back();
 	}
 
-	private function get_user_id() {
+	private function get_login_id() {
 		return $this->session->get('user_id');
 	}
 }

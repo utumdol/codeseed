@@ -4,7 +4,7 @@ $(function() {
 		return confirm('정말 삭제하시겠습니까?');
 	});
 	$('#comment_textarea').keyup(function(event) {
-		<?php if (!is_user_login()) { ?>
+		<?php if (!is_user_logged()) { ?>
 			$('#comment_textarea').blur();
 			alert('로그 인이 필요합니다.');
 			$('#comment_textarea').val('');
@@ -12,7 +12,7 @@ $(function() {
 		<?php } ?>
 	});
 	$('#submit_comment').click(function() {
-		<?php if (is_user_login()) { ?>
+		<?php if (is_user_logged()) { ?>
 			$('#article_comment_form').submit();
 		<?php } else { ?>
 			alert('로그 인이 필요합니다.');
@@ -39,7 +39,7 @@ $(function() {
 </form>
 <div class="menu_area">
 	<span>[<a href="/blog/index">목록으로</a>]</span>
-	<?php if ($this->article->is_writer(get_user_id())) { ?>
+	<?php if ($this->article->is_writer(get_login_id())) { ?>
 	<span>[<a href="/blog/update_form/<?= $this->article->id ?>">수정하기</a>]</span>
 	<span>[<a href="/blog/delete/<?= $this->article->id ?>" class="delete_button">삭제하기</a>]</span>
 	<?php } ?>

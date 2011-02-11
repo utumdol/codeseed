@@ -12,7 +12,7 @@ function get_date($timestamp) {
 }
 
 function get_delete_comment_button($writer_id, $comment_id) {
-	if (get_user_id() == $writer_id) {
+	if (get_login_id() == $writer_id) {
 		return "<a href=\"/blog/delete_comment/{$comment_id}\" class=\"delete_button\">x</a>";
 	}
 	return '&nbsp;';
