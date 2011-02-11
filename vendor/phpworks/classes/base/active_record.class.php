@@ -185,7 +185,7 @@ class ActiveRecord {
 		global $db;
 
 		// make condition
-		if (is_int(intval($where))) {
+		if (is_numeric($where)) {
 			$where = 'id = ' . $where;
 		}
 		$result = $db->delete($this->tablename, $where);

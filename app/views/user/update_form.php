@@ -6,7 +6,7 @@ $(function() {
 	$('#button_leave').click(function() {
 		var result = confirm("정말 탈퇴하시겠습니까?\n등록하신 글들도 모두 함께 삭제가 됩니다.");
 		if (result) {
-			location.href = "/user/delete/<?= ''// $this->user->id ?>";
+			location.href = "/user/leave/<?= ''// $this->user->id ?>";
 		}
 	});
 });

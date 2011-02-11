@@ -56,6 +56,7 @@ class MySQL {
 	}
 
 	public function execute($query) {
+		// echobn($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
 			throw new ProcessingError('Could not run query: ' . $this->error());

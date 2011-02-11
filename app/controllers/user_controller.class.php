@@ -3,7 +3,7 @@ class UserController extends Controller {
 	public $layout = 'blog';
 
 	public function before_filter($action = '') {
-		if (is_start_with($action, 'register') || is_start_with($action, 'login')) {
+		if (is_start_with($action, 'register') || is_start_with($action, 'login') || $action == 'leave_success') {
 			return;
 		}
 		$this->authorize();
@@ -54,35 +54,50 @@ class UserController extends Controller {
 		$user->login($this->session);
 		$this->redirect_to('/user/update_success/' . $user->nickname);
 	}
-	
+
 	public function update_success($nickname) {
-		$this->register_success($this->get_login_id());
+		$this->register_success($nickname);
 	}
-	
-	public function leave_form() {
-	}
-	
+
 	public function leave() {
+		// delete article_comment
+		$comment = new ArticleComment();
+		$comment->delete('user_id = ' . $this->get_login_id());
+		
+		// delete article
+		// TODO but it can't delete it's comments.
+		// TODO asssociation deletion is needed.
+		$article = new Article();
+		$article->delete('user_id = '. $this->get_login_id());
+
+		// delete user
+		$user = new User();
+		$user = $user->find($this->get_login_id());
+		$user->delete($this->get_login_id());
+
+		$user->logout($this->session);
+		$this->redirect_to('/user/leave_success/' . $user->nickname);
 	}
-	
-	public function leave_result() {
+
+	public function leave_success($nickname) {
+		$this->register_success($nickname);
 	}
 
 	public function login_form() {
 	}
-	
+
 	public function login() {
 		$user = new User($this->params['user']);
 		if (!$user->validate_login() || !$user->authenticate()) {
 			$this->flash->add('message', $user->errors->get_messages());
 			$this->back();
 		}
-		
+
 		$user->login($this->session);
 		$return_url = (array_key_exists('return_url', $this->params) && !empty($this->params['return_url'])) ? $this->params['return_url'] : '/';
 		$this->redirect_to($return_url);
 	}
-	
+
 	public function logout() {
 		$user = new User();
 		$user->logout($this->session);
