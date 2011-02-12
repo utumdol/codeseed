@@ -23,14 +23,13 @@ class BlogController extends Controller {
 
 	public function post() {
 		$article = new Article($this->params['article']);
-		if ($article->validate()) {
-			$article->user_id = $this->get_login_id();
-			$article->save();
-			$this->redirect_to('/blog/index');
-		} else {
+		if (!$article->validate()) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
 		}
+		$article->user_id = $this->get_login_id();
+		$article->save();
+		$this->redirect_to('/blog/index');
 	}
 
 	public function index($page = '1') {
