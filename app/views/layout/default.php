@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="/stylesheets/default.css" media="all" rel="stylesheet" type="text/css" />
 <script src="/javascripts/jquery.js" type="text/javascript"></script>
-<title>phpworks</title>
+<title>PHPWorks</title>
 </head>
 <body>
 <div id="contents">
