@@ -12,7 +12,7 @@ define('CNTR_DIR', APP_DIR . '/controllers');
 define('MODEL_DIR', APP_DIR . '/models');
 define('VIEW_DIR', APP_DIR . '/views');
 define('HELP_DIR', APP_DIR . '/helpers');
-define('MIGR_DIR', ROOT_DIR . '/db/migrate');
+define('MIGR_DIR', APP_DIR . '/db/migrate');
 
 define('BR', '<br/>');
 define('NL', "\n");
