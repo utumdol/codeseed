@@ -1,6 +1,6 @@
 <?php
 // include system init 
-require_once(dirname(__FILE__) . '/../config/environment.php');
+require_once(dirname(__FILE__) . '/../vendor/phpworks/classes/base/context.class.php');
 
 // init params
 $params = array_merge($_GET, $_POST);
