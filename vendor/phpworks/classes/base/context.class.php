@@ -34,6 +34,11 @@ class Context {
 		return Context::$instance;
 	}
 
+	// just init context
+	public static function init() {
+		Context::get_instance();
+	}
+
 	private function include_library() {
 		require_once($this->config->sys_functions . '/system.php');
 

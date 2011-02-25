@@ -3,7 +3,7 @@
 require_once(dirname(__FILE__) . '/../vendor/phpworks/classes/base/context.class.php');
 
 // init context
-Context::get_instance();
+Context::init();
 
 // init params
 $params = array_merge($_GET, $_POST);
