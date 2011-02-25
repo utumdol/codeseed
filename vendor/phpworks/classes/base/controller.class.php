@@ -27,7 +27,7 @@ class Controller {
 	}
 
 	public function load_view($view) {
-		require(VIEW_DIR . '/' . $view . '.php');
+		require(Config::get_instance()->view_dir . '/' . $view . '.php');
 	}
 
 	public function back() {

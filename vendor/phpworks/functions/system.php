@@ -1,9 +1,9 @@
 <?php
 function parse_request_uri($uri) {
-	if(strpos($uri, ROOT_FILE) == 1) {
+	if(strpos($uri, Config::get_instance()->root_file) == 1) {
 		$uri = substr($uri, 1);
 	} else {
-		$uri = ROOT_FILE . $uri;
+		$uri = Config::get_instance()->root_file . $uri;
 	}
 	return explode('/', $uri);
 }

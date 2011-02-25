@@ -1,7 +1,7 @@
 <?php
 function get_db() {
-	$dbms = DBMS;
-	$db = new $dbms(DBHOST, DBUSER, DBPASSWD, DBNAME);
+	$dbms = Config::get_instance()->db;
+	$db = new $dbms(Config::get_instance()->db_host, Config::get_instance()->db_user, Config::get_instance()->db_password, Config::get_instance()->db_name);
 	return $db;
 }
 

@@ -7,7 +7,7 @@ class Config {
 
 	// init environment
 	public $mode = 'dev'; // dev, test, real
-	public static $is_debug = true;
+	public static $is_debug = false;
 
 	// for session cryption. you can change it.
 	public $crypt_key = 'a2c$%^*()';
@@ -20,28 +20,28 @@ class Config {
 	private function __construct() {
 		switch($this->mode) {
 			case 'dev':
-				$this->dao = 'MySql';
-				$this->dao_id = 'root';
-				$this->dao_password = '';
-				$this->dao_db = 'phpworks2';
-				$this->dao_host = 'localhost';
-				$this->dao_port = '3306';
+				$this->db = 'MySql';
+				$this->db_user = 'root';
+				$this->db_password = '';
+				$this->db_name = 'phpworks';
+				$this->db_host = 'localhost';
+				$this->db_port = '3306';
 				break;
 			case 'test':
-				$this->dao = 'MySql';
-				$this->dao_id = 'root';
-				$this->dao_password = '';
-				$this->dao_db = 'phpworks';
-				$this->dao_host = 'localhost';
-				$this->dao_port = '3306';
+				$this->db = 'MySql';
+				$this->db_user = 'root';
+				$this->db_password = '';
+				$this->db_name = 'phpworks';
+				$this->db_host = 'localhost';
+				$this->db_port = '3306';
 				break;
 			case 'real';
-				$this->dao = 'MySql';
-				$this->dao_id = 'root';
-				$this->dao_password = '';
-				$this->dao_db = 'phpworks';
-				$this->dao_host = 'localhost';
-				$this->dao_port = '3306';
+				$this->db = 'MySql';
+				$this->db_user = 'root';
+				$this->db_password = '';
+				$this->db_name = 'phpworks';
+				$this->db_host = 'localhost';
+				$this->db_port = '3306';
 				break;
 		}
 
@@ -85,16 +85,16 @@ class Config {
 	}
 
 	// default model repository.
-	public $dao;
-	public $dao_id;
-	public $dao_password;
-	public $dao_db;
-	public $dao_host; // not necessary
-	public $dao_port; // not necessary
+	public $db;
+	public $db_user;
+	public $db_password;
+	public $db_name;
+	public $db_host; // not necessary
+	public $db_port; // not necessary
 
 	// system directory
 	private $root_dir;
-	private $root_file;
+	public $root_file;
 	private $sys_dir;
 	public $sys_classes;
 	public $sys_functions;
