@@ -19,7 +19,7 @@ class Context {
 		$this->get = $_GET;
 		$this->post = $_POST;
 		$this->server = $_SERVER;
-		$this->config = Config::get_instance();
+		$this->config = Config::get();
 		$this->params = array_merge($this->get, $this->post);
 
 		$this->include_library();

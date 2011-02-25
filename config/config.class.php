@@ -53,7 +53,7 @@ class Config {
 
 	// singleton implementation
 	private static $instance;
-	public static function get_instance() {
+	public static function get() {
 		if (empty(Config::$instance)) {
 			Config::$instance = new Config();
 		}
@@ -111,7 +111,7 @@ class Config {
 
 // for debugging
 if (Config::$is_debug) {
-	$config = Config::get_instance();
+	$config = Config::get();
 	print_r($config);
 }
 
