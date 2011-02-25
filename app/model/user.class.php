@@ -127,7 +127,7 @@ class User extends Model {
 	}
 
 	private function encrypt_password($password, $salt) {
-		$this->hashed_password = sha1($password . CRYPT_KEY . $salt);
+		$this->hashed_password = sha1($password . Config::get_instance()->crypt_key . $salt);
 		return $this->hashed_password;
 	}
 }
