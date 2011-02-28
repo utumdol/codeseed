@@ -53,11 +53,19 @@ class Config {
 
 	// singleton implementation
 	private static $instance;
-	public static function get() {
+	public static function get_instance() {
 		if (empty(Config::$instance)) {
 			Config::$instance = new Config();
 		}
 		return Config::$instance;
+	}
+	// the alias of get_instance
+	public static function get() {
+		return Config::get_instance();
+	}
+	// just init Config
+	public static function init() {
+		Config::get_instance();
 	}
 
 	private function set_system_directory() {
@@ -107,11 +115,5 @@ class Config {
 	public $view_dir;
 	public $help_dir;
 	public $migr_dir;
-}
-
-// for debugging
-if (Config::$is_debug) {
-	$config = Config::get();
-	print_r($config);
 }
 

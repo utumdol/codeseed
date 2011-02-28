@@ -1,9 +1,6 @@
 <?php
 // include system init 
-require_once(dirname(__FILE__) . '/../vendor/phpworks/classes/base/context.class.php');
-
-// init context
-Context::init();
+require_once(dirname(__FILE__) . '/../config/init.php');
 
 // init params
 $params = array_merge($_GET, $_POST);

@@ -1,9 +1,6 @@
 <?php
-// include system init
-require_once(dirname(__FILE__) . '/../vendor/phpworks/classes/base/context.class.php');
-
-// init context
-Context::init();
+// include system init 
+require_once(dirname(__FILE__) . '/../config/init.php');
 
 // connect db connection
 $db = get_db();

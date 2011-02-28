@@ -1,7 +1,4 @@
 <?php
-// include system init 
-require_once(dirname(__FILE__) . '/../../../../config/config.class.php');
-
 /**
  * User Context
  * @author utumdol
@@ -10,7 +7,6 @@ class Context {
 	private $get;
 	private $post;
 	private $server;
-	private $config;
 	private $params;
 	private $session;
 	private $flash;
@@ -19,9 +15,9 @@ class Context {
 		$this->get = $_GET;
 		$this->post = $_POST;
 		$this->server = $_SERVER;
-		$this->config = Config::get();
 		$this->params = array_merge($this->get, $this->post);
 
+		Config::init();
 		$this->include_library();
 	}
 
@@ -33,32 +29,30 @@ class Context {
 		}
 		return Context::$instance;
 	}
-
+	// the alias of get_instance
+	public static function get() {
+		return Context::get_instance();
+	}
 	// just init context
 	public static function init() {
 		Context::get_instance();
 	}
 
+
 	private function include_library() {
-		require_once($this->config->sys_functions . '/system.php');
+		require_once(Config::get()->sys_functions . '/system.php');
 
 		// include all system helpers
-		require_once_dir($this->config->sys_functions);
+		require_once_dir(Config::get()->sys_functions);
 		// include required system classes
-		require_once_dir($this->config->sys_classes);
+		require_once_dir(Config::get()->sys_classes);
 
 		// include all application configs
-		require_once_dir($this->config->conf_dir);
+		require_once_dir(Config::get()->conf_dir);
 		// include default application helper
-		require_once($this->config->help_dir . '/application.php');
+		require_once(Config::get()->help_dir . '/application.php');
 		// include all application models
-		require_once_dir($this->config->model_dir);
+		require_once_dir(Config::get()->model_dir);
 	}
-}
-
-// for debugging
-if (Config::$is_debug) {
-	$globals = Context::get_instance();
-	print_r($globals);
 }
 

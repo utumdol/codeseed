@@ -1,10 +1,6 @@
 <?php
-// include system init
-require_once(dirname(__FILE__) . '/../vendor/phpworks/classes/base/context.class.php');
-
-// init context
-Context::init();
-
+// include system init 
+require_once(dirname(__FILE__) . '/../config/init.php');
 
 // init
 $INTEND_VERSION = isset($argv[1]) ? $argv[1] : '99991231235959';
