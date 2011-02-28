@@ -4,12 +4,12 @@
  * @author utumdol
  */
 class Context {
-	private $get;
-	private $post;
-	private $server;
-	private $params;
-	private $session;
-	private $flash;
+	public $get;
+	public $post;
+	public $server;
+	public $params;
+	public $session;
+	public $flash;
 
 	private function __construct() {
 		$this->get = $_GET;

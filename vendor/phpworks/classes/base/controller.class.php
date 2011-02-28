@@ -31,8 +31,8 @@ class Controller {
 	}
 
 	public function back() {
-		if (!empty($_SERVER['HTTP_REFERER'])) {
-			$this->redirect_to($_SERVER['HTTP_REFERER']);
+		if (!empty(Context::get()->server['HTTP_REFERER'])) {
+			$this->redirect_to(Context::get()->server['HTTP_REFERER']);
 		}
 		echo '<script type="text/javascript">history.back();</script>';
 		throw new SkipProcessing();

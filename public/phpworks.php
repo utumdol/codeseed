@@ -24,7 +24,7 @@ $flash = new Flash($session);
 $flash->load();
 
 // routing
-$path = parse_request_uri($_SERVER['PATH_INFO']);
+$path = parse_request_uri(Context::get()->server['PATH_INFO']);
 if (empty($path[1])) { $path[1] = Config::get()->default_controller; }
 if (empty($path[2])) { $path[2] = Config::get()->default_action; }
 $controller_path = $path[1];

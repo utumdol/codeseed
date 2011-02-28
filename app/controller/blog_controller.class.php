@@ -14,7 +14,7 @@ class BlogController extends Controller {
 		$user = $user->find($this->get_login_id());
 		if (is_null($user)) {
 			$this->flash->add('message', '로그 인이 필요합니다.');
-			$this->redirect_to('/user/login_form?return_url=' . $_SERVER['REQUEST_URI']);
+			$this->redirect_to('/user/login_form?return_url=' . Context::get()->server['REQUEST_URI']);
 		}
 	}
 
