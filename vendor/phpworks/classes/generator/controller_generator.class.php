@@ -1,6 +1,6 @@
 <?php
 class ControllerGenerator extends Generator {
-	public $path = CNTR_DIR;
+	public $path;
 	public $template = '<?php
 class <class>Controller extends Controller {
 	<functions>
@@ -15,6 +15,7 @@ class <class>Controller extends Controller {
 
 	public function __construct($name, $functions = array()) {
 		parent::__construct($name);
+		$this->path = Config::get()->ctrl_dir;
 		$this->functions = $functions;
 	}
 

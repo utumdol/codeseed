@@ -1,6 +1,9 @@
 <?php
 // include system init 
-require_once(dirname(__FILE__) . '/../config/environment.php');
+require_once(dirname(__FILE__) . '/../vendor/phpworks/classes/base/context.class.php');
+
+// init context
+Context::init();
 
 //validation if there are enough parameters
 if ($argc < 3) {
@@ -23,7 +26,7 @@ $name = $argv[0];
 array_shift($argv);
 $params = $argv;
 
-if (!file_exists(SYS_CLASSES . '/generator/' . $kind . '_generator.class.php')) {
+if (!file_exists(Config::get()->sys_classes. '/generator/' . $kind . '_generator.class.php')) {
 	echonl("No " . $kind . ' generator exist.');
 	exit(0);
 }

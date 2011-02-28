@@ -1,6 +1,6 @@
 <?php
 class ViewGenerator extends Generator {
-	public $path = VIEW_DIR;
+	public $path;
 	public $template = '<h1><dir>#<view></h1>
 <div>Find me in app/views/<dir>/<view>.php</div>
 
@@ -9,6 +9,7 @@ class ViewGenerator extends Generator {
 
 	public function __construct($dir, $name) {
 		parent::__construct($name);
+		$this->path = Config::get()->view_dir;
 		$this->dir = $dir;
 		$this->name = $name;
 	}

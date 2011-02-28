@@ -93,7 +93,7 @@ class Config {
 	public $db_port; // not necessary
 
 	// system directory
-	private $root_dir;
+	public $root_dir;
 	public $root_file;
 	private $sys_dir;
 	public $sys_classes;

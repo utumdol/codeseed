@@ -1,12 +1,17 @@
 <?php
 class ModelGenerator extends Generator {
-	public $path = MODEL_DIR;
+	public $path;
 	public $template = '<?php
 class <class> extends Model {
 
 }
 
 ';
+
+	public function __construct($name, $from = '') {
+		parent::__construct($name);
+		$this->path = Config::get()->model_dir;
+	}
 
 	public function generate() {
 		$this->validation();

@@ -1,6 +1,6 @@
 <?php
 class MigrationGenerator extends Generator {
-	public $path = MIGR_DIR;
+	public $path;
 	public $template = '<?php
 class <class> extends Migration {
 	public function up() {
@@ -30,6 +30,7 @@ class Create<class> extends Migration {
 
 	public function __construct($name, $from = '') {
 		parent::__construct($name);
+		$this->path = Config::get()->migr_dir;
 		$this->from = $from;
 		if ($this->from == 'model') {
 			$this->template = $this->table_template;

@@ -1,6 +1,10 @@
 <?php
-// include system init 
-require_once(dirname(__FILE__) . '/../config/environment.php');
+// include system init
+require_once(dirname(__FILE__) . '/../vendor/phpworks/classes/base/context.class.php');
+
+// init context
+Context::init();
+
 
 // init
 $INTEND_VERSION = isset($argv[1]) ? $argv[1] : '99991231235959';
@@ -24,7 +28,7 @@ if ($schema_version->count() == 0) {
 $schema_version = $schema_version->find();
 
 // read migration files...
-$files = get_files(MIGR_DIR);
+$files = get_files(Config::get()->migr_dir);
 if ($INTEND_VERSION >= $schema_version->version) {
 	sort($files);
 	$direction = 'UP';
