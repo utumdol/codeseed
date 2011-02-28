@@ -4,6 +4,7 @@
  * @author utumdol
  */
 class Context {
+	public $db;
 	public $get;
 	public $post;
 	public $server;
@@ -19,6 +20,7 @@ class Context {
 
 		Config::init();
 		$this->include_library();
+		$this->db = $this->init_db();
 	}
 
 	// singleton implementation
@@ -38,7 +40,6 @@ class Context {
 		Context::get_instance();
 	}
 
-
 	private function include_library() {
 		require_once(Config::get()->sys_functions . '/system.php');
 
@@ -53,6 +54,12 @@ class Context {
 		require_once(Config::get()->help_dir . '/application.php');
 		// include all application models
 		require_once_dir(Config::get()->model_dir);
+	}
+
+	private function init_db() {
+		$dbms = Config::get()->db;
+		$db = new $dbms(Config::get()->db_host, Config::get()->db_user, Config::get()->db_password, Config::get()->db_name);
+		return $db;
 	}
 }
 
