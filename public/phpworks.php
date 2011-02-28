@@ -6,7 +6,7 @@ require_once(dirname(__FILE__) . '/../config/init.php');
 $params = array_merge($_GET, $_POST);
 
 // connect db connection
-$db = get_db();
+$db = Context::get()->db;
 $db->connect();
 
 // init session

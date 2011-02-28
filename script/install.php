@@ -3,7 +3,7 @@
 require_once(dirname(__FILE__) . '/../config/init.php');
 
 // connect db connection
-$db = get_db();
+$db = Config::get()->db;
 $db->connect();
 
 // init table
@@ -20,4 +20,7 @@ if (!in_array('schema_version', $tables)) {
 	$migration = new CreateSchemaVersion();
 	$migration->up();
 }
+
+// close db connection
+$db->close();
 

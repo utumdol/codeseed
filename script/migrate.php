@@ -13,7 +13,7 @@ function print_migration_status($direction, $classname, $version) {
 }
 
 // connect db connection
-$db = get_db();
+$db = Context::get()->db;
 $db->connect();
 
 $schema_version = new SchemaVersion();
