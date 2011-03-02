@@ -4,8 +4,6 @@ class Model extends ActiveRecord {
 	public $errors;
 
 	public function __construct($params = array()) {
-		global $db;
-
 		$this->name = get_class($this);
 		parent::__construct(classname_to_tablename($this->name));
 		$this->errors = new Errors();

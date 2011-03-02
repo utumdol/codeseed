@@ -21,6 +21,8 @@ class Context {
 		Config::init();
 		$this->include_library();
 		$this->db = $this->init_db();
+		$this->session = $this->init_session();
+		$this->flash = $this->init_flash();
 	}
 
 	// singleton implementation
@@ -39,20 +41,15 @@ class Context {
 	public static function init() {
 		Context::get_instance();
 	}
-
+	
+	// include system and application library
 	private function include_library() {
 		require_once(Config::get()->sys_functions . '/system.php');
-
-		// include all system helpers
 		require_once_dir(Config::get()->sys_functions);
-		// include required system classes
 		require_once_dir(Config::get()->sys_classes);
 
-		// include all application configs
 		require_once_dir(Config::get()->conf_dir);
-		// include default application helper
 		require_once(Config::get()->help_dir . '/application.php');
-		// include all application models
 		require_once_dir(Config::get()->model_dir);
 	}
 
@@ -60,6 +57,18 @@ class Context {
 		$dbms = Config::get()->db;
 		$db = new $dbms(Config::get()->db_host, Config::get()->db_user, Config::get()->db_password, Config::get()->db_name);
 		return $db;
+	}
+
+	private function init_session() {
+		session_set_save_handler(
+				array('DbSession', 'open'), array('DbSession', 'close'),
+				array('DbSession', 'read'), array('DbSession', 'write'),
+				array('DbSession', 'destroy'), array('DbSession', 'clean'));
+		return new Session();
+	}
+
+	private function init_flash() {
+		return new Flash($this->session);
 	}
 }
 

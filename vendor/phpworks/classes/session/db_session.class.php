@@ -1,5 +1,5 @@
 <?php
-class DbSessionHandler {
+class DbSession {
 
 	public static function open() {
 		return true;

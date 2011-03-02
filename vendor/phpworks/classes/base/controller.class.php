@@ -7,13 +7,9 @@ class Controller {
 	protected $params;
 
 	public function __construct() {
-		global $session;
-		global $flash;
-		global $params;
-
-		$this->session = $session;
-		$this->flash = $flash;
-		$this->params = $params;
+		$this->session = Context::get()->session;
+		$this->flash = Context::get()->flash;
+		$this->params = Context::get()->params;
 
 		$this->init();
 	}

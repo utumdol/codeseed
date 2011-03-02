@@ -24,7 +24,7 @@ class ActiveRecord {
 	}
 
 	public function get_columns() {
-		global $db;
+		$db = Context::get()->db;
 		$this->columns = $db->get_table_columns($this->tablename);
 	}
 
@@ -36,7 +36,7 @@ class ActiveRecord {
 	 * @return true on success, false on failure
 	 */
 	public function save() {
-		global $db;
+		$db = Context::get()->db;
 
 		// load table schema and value setting
 		$columns = $db->get_table_columns($this->tablename);
@@ -111,7 +111,7 @@ class ActiveRecord {
 	 * @return model objects array
 	 */
 	public function find_all($arr = array()) {
-		global $db;
+		$db = Context::get()->db;
 
 		if (!array_key_exists('include', $arr)) { $arr['include'] = array(); }
 		if (!array_key_exists('select', $arr)) { $arr['select'] = csv($this->get_select_column($arr['include'])); }
@@ -132,7 +132,7 @@ class ActiveRecord {
 	 * @return int
 	 */
 	public function count($where = '', $from = '') {
-		global $db;
+		$db = Context::get()->db;
 
 		if(is_blank($from)) {
 			$from = $this->tablename;
@@ -150,7 +150,7 @@ class ActiveRecord {
 
 
 	public function update() {
-		global $db;
+		$db = Context::get()->db;
 
 		// load table schema and value setting
 		$columns = $db->get_table_columns($this->tablename);
@@ -182,7 +182,7 @@ class ActiveRecord {
 	}
 
 	public function delete($where = '') {
-		global $db;
+		$db = Context::get()->db;
 
 		// make condition
 		if (is_numeric($where)) {
@@ -269,7 +269,7 @@ class ActiveRecord {
 	 * @return model object
 	 */
 	private function parse_result($result) {
-		global $db;
+		$db = Context::get()->db;
 
 		$arr = array();
 		

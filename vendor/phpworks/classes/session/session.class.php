@@ -12,9 +12,11 @@ class Session {
 		return null;
 	}
 
+	/*
 	public function update($key, $value) {
 		$this->save($key, $value);
 	}
+	*/
 
 	public function delete($key) {
 		unset($_SESSION[$key]);
