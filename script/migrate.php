@@ -16,15 +16,15 @@ function print_migration_status($direction, $classname, $version) {
 $db = Context::get()->db;
 $db->connect();
 
-if (SchemaVersion::count() == 0) {
-	$schema_version = new SchemaVersion();
+$schema_version = new SchemaVersion();
+if ($schema_version->count() == 0) {
 	$schema_version->version = 0;
 	$schema_version->save();
 }
+$schema_version = $schema_version->find();
 
 // read migration files...
 $files = get_files(Config::get()->migr_dir);
-$schema_version = SchemaVersion::find_first();
 if ($INTEND_VERSION >= $schema_version->version) {
 	sort($files);
 	$direction = 'UP';

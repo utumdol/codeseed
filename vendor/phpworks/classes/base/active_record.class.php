@@ -70,7 +70,7 @@ class ActiveRecord {
 	/**
 	 * @return array or a model or null
 	 */
-	public static function find($where = '') {
+	public function find($where = '') {
 		$arr = array();
 		if (is_null($where)) {
 			return null;
@@ -84,11 +84,7 @@ class ActiveRecord {
 		if (is_array($where)) {
 			$arr = $where;
 		}
-
-		$modelname = get_called_class();
-		$model = new $modelname;
-
-		$result = $model->find_all($arr);
+		$result = $this->find_all($arr);
 		if (count($result) > 1) {
 			return $result;
 		}
@@ -101,11 +97,8 @@ class ActiveRecord {
 	/**
 	 * @return return first model
 	 */
-	public static function find_first($arr = array()) {
-		$modelname = get_called_class();
-		$model = new $modelname;
-
-		$result = $model->find_all($arr);
+	public function find_first($arr = array()) {
+		$result = find_all($arr);
 		if (count($result) > 0) {
 			return $result[0];
 		}
@@ -117,15 +110,12 @@ class ActiveRecord {
 	 *	ex) array('select' => 'a, b', 'where' => 'a = b and c = d', 'group' => 'c', 'page' => 1, 'size' => 10, 'order' => 'a')
 	 * @return model objects array
 	 */
-	public static function find_all($arr = array()) {
+	public function find_all($arr = array()) {
 		$db = Context::get()->db;
 
-		$modelname = get_called_class();
-		$model = new $modelname;
-
 		if (!array_key_exists('include', $arr)) { $arr['include'] = array(); }
-		if (!array_key_exists('select', $arr)) { $arr['select'] = csv($model->get_select_column($arr['include'])); }
-		if (!array_key_exists('from', $arr)) { $arr['from'] = $model->get_select_from($arr['include']); }
+		if (!array_key_exists('select', $arr)) { $arr['select'] = csv($this->get_select_column($arr['include'])); }
+		if (!array_key_exists('from', $arr)) { $arr['from'] = $this->get_select_from($arr['include']); }
 		if (!array_key_exists('where', $arr)) { $arr['where'] = ''; }
 		if (!array_key_exists('group', $arr)) { $arr['group'] = ''; }
 		if (!array_key_exists('offset', $arr)) { $arr['offset'] = '0'; }
@@ -135,17 +125,17 @@ class ActiveRecord {
 		$result = $db->select($arr['select'], $arr['from'], $arr['where'],
 				$arr['group'], $arr['offset'], $arr['limit'], $arr['order']);
 
-		return $model->parse_result($result);
+		return $this->parse_result($result);
 	}
 
 	/**
 	 * @return int
 	 */
-	public static function count($where = '', $from = '') {
+	public function count($where = '', $from = '') {
 		$db = Context::get()->db;
 
 		if(is_blank($from)) {
-			$from = classname_to_tablename(get_called_class());
+			$from = $this->tablename;
 		}
 
 		$result = $db->select('COUNT(*) as cnt', $from, $where);

@@ -96,7 +96,7 @@ class User extends Model {
 	}
 
 	public function authenticate() {
-		$user = User::find(array('where' => "email = '" . $this->email . "'"));
+		$user = $this->find(array('where' => "email = '" . $this->email . "'"));
 
 		if (is_null($user)) {
 			$this->errors->add('가입되지 않은 이메일 주소입니다.');
@@ -112,7 +112,7 @@ class User extends Model {
 	}
 
 	public function login($session) {
-		$user = User::find(array('where' => "email = '" . $this->email . "'"));
+		$user = $this->find(array('where' => "email = '" . $this->email . "'"));
 		$session->save('user_id', $user->id);
 		$session->save('user_nickname', $user->nickname);
 	}
