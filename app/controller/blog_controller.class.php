@@ -10,8 +10,7 @@ class BlogController extends Controller {
 	}
 
 	public function authorize() {
-		$user = new User();
-		$user = $user->find($this->get_login_id());
+		$user = User::find($this->get_login_id());
 		if (is_null($user)) {
 			$this->flash->add('message', '로그 인이 필요합니다.');
 			$this->redirect_to('/user/login_form?return_url=' . Context::get()->server['REQUEST_URI']);
@@ -33,17 +32,16 @@ class BlogController extends Controller {
 	}
 
 	public function index($page = '1') {
-		$article = new Article();
 		$limit = 7;
 		$offset = ($page - 1) * $limit;
-		$list = $article->find_all(array('select' => 'id', 'offset' => $offset, 'limit' => $limit, 'order' => 'id DESC'));
+		$list = Article::find_all(array('select' => 'id', 'offset' => $offset, 'limit' => $limit, 'order' => 'id DESC'));
 		$ids = $this->get_ids($list);
 		$where = '';
 		if (is_array($ids) && count($ids) > 0) {
 			$where = 'article.id in (' . csv($ids) . ')';
 		}
-		$this->list = $article->find_all(array('include' => array('user', 'article_comment'), 'order' => 'article.id DESC', 'where' => $where));
-		$this->paging = new Paging($article->count(), $limit, '/blog/index/<page>', $page);
+		$this->list = Article::find_all(array('include' => array('user', 'article_comment'), 'order' => 'article.id DESC', 'where' => $where));
+		$this->paging = new Paging(Article::count(), $limit, '/blog/index/<page>', $page);
 	}
 
 	private function get_ids($articles) {
@@ -56,17 +54,14 @@ class BlogController extends Controller {
 
 	public function view($id, $page = '1') {
 		// get article
-		$article = new Article();
-		$this->article = $article->find(array('include' => array('user'), 'where' => 'article.id = ' . $id));
+		$this->article = Article::find(array('include' => array('user'), 'where' => 'article.id = ' . $id));
 
 		// get article comment
-		$comment = new ArticleComment();
-		$this->comment = $comment->find_all(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
+		$this->comment = ArticleComment::find_all(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
 	}
 
 	public function update_form($id) {
-		$article = new Article();
-		$this->article = $article->find($id);
+		$this->article = Article::find($id);
 
 		// validation
 		if (!$this->article->validation_update($this->get_login_id())) {
@@ -76,8 +71,7 @@ class BlogController extends Controller {
 	}
 
 	public function update() {
-		$article = new Article();
-		$article = $article->find($this->params['article']['id']);
+		$article = Article::find($this->params['article']['id']);
 
 		// validation
 		if (!$article->validation_update($this->get_login_id())) {
@@ -96,10 +90,8 @@ class BlogController extends Controller {
 	}
 
 	public function delete($id) {
-		$article = new Article();
-
 		// validation
-		$article = $article->find($id);
+		$article = Article::find($id);
 		if (!$article->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
@@ -125,10 +117,8 @@ class BlogController extends Controller {
 	}
 
 	public function delete_comment($id) {
-		$comment = new ArticleComment();
-
 		// validation
-		$comment = $comment->find($id);
+		$comment = ArticleComment::find($id);
 		if (!$comment->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $comment->errors->get_messages());
 			$this->back();

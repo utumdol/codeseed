@@ -10,8 +10,7 @@ class DbSession {
 	}
 
 	public static function read($session_id) {
-		$sessions = new Sessions();
-		$s = $sessions->find(array('where' => "session_id = '$session_id'"));
+		$s = Sessions::find(array('where' => "session_id = '$session_id'"));
 		if (is_null($s)) {
 			return '';	
 		}
@@ -29,7 +28,7 @@ class DbSession {
 		$sessions = new Sessions();
 		$sessions->session_id = $session_id;
 		$sessions->data = $data;
-		$s = $sessions->find(array('where' => "session_id = '$session_id'"));
+		$s = Sessions::find(array('where' => "session_id = '$session_id'"));
 		if (is_null($s)) {
 			return $sessions->save();
 		}
