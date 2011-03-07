@@ -2,7 +2,7 @@
 class ModelGenerator extends Generator {
 	public $path;
 	public $template = '<?php
-class <class> extends Model {
+class <class> extends ActiveRecord {
 
 }
 

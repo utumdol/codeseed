@@ -1,5 +1,5 @@
 <?php
-class ActiveRecord {
+class ActiveRecord extends Model {
 	public $tablename;
 	public $columns;
 
@@ -7,20 +7,27 @@ class ActiveRecord {
 	private $has_one_relations = array();
 	private $has_many_relations = array();
 
-	public function __construct($tablename) {
-		$this->tablename = $tablename;
+	public function __construct($params = array()) {
+		parent::__construct($params);
+		$this->tablename = classname_to_tablename($this->name);
 	}
 
 	public function belongs_to($tablename) {
-		$this->belongs_to_relations[] = new ActiveRecord($tablename);
+		$active_record = new ActiveRecord();
+		$active_record->tablename = $tablename;
+		$this->belongs_to_relations[] = $active_record;
 	}
 
 	public function has_one($tablename) {
-		$this->has_one_relations[] = new ActiveRecord($tablename);
+		$active_record = new ActiveRecord();
+		$active_record->tablename = $tablename;
+		$this->has_one_relations[] = $active_record;
 	}
 
 	public function has_many($tablename) {
-		$this->has_many_relations[] = new ActiveRecord($tablename);
+		$active_record = new ActiveRecord();
+		$active_record->tablename = $tablename;
+		$this->has_many_relations[] = $active_record;
 	}
 
 	public function get_columns() {

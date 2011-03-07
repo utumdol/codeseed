@@ -1,4 +1,4 @@
 <?php
-class SchemaVersion extends Model {
+class SchemaVersion extends ActiveRecord {
 }
 

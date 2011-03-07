@@ -1,5 +1,5 @@
 <?php
-class Sessions extends Model {
+class Sessions extends ActiveRecord {
 
 }
 

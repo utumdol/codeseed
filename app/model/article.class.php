@@ -1,5 +1,5 @@
 <?php
-class Article extends Model {
+class Article extends ActiveRecord {
 
 	public function init() {
 		$this->belongs_to('user');

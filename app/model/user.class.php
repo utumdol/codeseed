@@ -1,5 +1,5 @@
 <?php
-class User extends Model {
+class User extends ActiveRecord {
 
 	public function validate() {
 		if (is_blank($this->email)) {
