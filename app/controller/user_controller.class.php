@@ -1,6 +1,9 @@
 <?php
 class UserController extends Controller {
-	public $layout = 'blog';
+
+	public function init() {
+		$this->layout = 'blog';
+	}
 
 	public function before_filter($action = '') {
 		if (is_start_with($action, 'register') || is_start_with($action, 'login') || $action == 'leave_success') {

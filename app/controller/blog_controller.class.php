@@ -1,6 +1,9 @@
 <?php
 class BlogController extends Controller {
-	public $layout = 'blog';
+
+	public function init() {
+		$this->layout = 'blog';
+	}
 
 	public function before_filter($action = '') {
 		if ($action == 'index' || $action == 'view') {
