@@ -10,13 +10,6 @@ class Controller {
 		$this->session = Context::get()->session;
 		$this->flash = Context::get()->flash;
 		$this->params = Context::get()->params;
-
-		$this->init();
-	}
-
-	public function init() {
-		// the method which is called after __construct();
-		$this->layout = 'default';
 	}
 
 	public function before_filter($action = '') {

@@ -1,7 +1,8 @@
 <?php
 class UserController extends Controller {
 
-	public function init() {
+	public function __construct() {
+		parent::__construct();
 		$this->layout = 'blog';
 	}
 
