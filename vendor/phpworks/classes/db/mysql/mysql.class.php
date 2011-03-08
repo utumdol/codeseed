@@ -1,5 +1,5 @@
 <?php
-class MySQL {
+class Mysql {
 	private $conn;
 
 	private $host;
