@@ -40,13 +40,13 @@ class BlogController extends Controller {
 		$article = new Article();
 		$limit = 7;
 		$offset = ($page - 1) * $limit;
-		$list = $article->find_all(array('select' => 'id', 'offset' => $offset, 'limit' => $limit, 'order' => 'id DESC'));
+		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find2("all");
 		$ids = $this->get_ids($list);
 		$where = '';
 		if (is_array($ids) && count($ids) > 0) {
 			$where = 'article.id in (' . csv($ids) . ')';
 		}
-		$this->list = $article->find_all(array('include' => array('user', 'article_comment'), 'order' => 'article.id DESC', 'where' => $where));
+		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($where)->find2("all");
 		$this->paging = new Paging($article->count(), $limit, '/blog/index/<page>', $page);
 	}
 

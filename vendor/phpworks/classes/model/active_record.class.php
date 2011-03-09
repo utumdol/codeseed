@@ -7,9 +7,12 @@ class ActiveRecord extends Model {
 	private $has_one_relations = array();
 	private $has_many_relations = array();
 
+	private $query;
+
 	public function __construct($params = array()) {
 		parent::__construct($params);
 		$this->tablename = classname_to_tablename($this->name);
+		$this->query = new Query();
 	}
 
 	public function belongs_to($tablename) {
@@ -33,6 +36,66 @@ class ActiveRecord extends Model {
 	public function get_columns() {
 		$db = Context::get()->db;
 		$this->columns = $db->get_table_columns($this->tablename);
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// DB Query
+	///////////////////////////////////////////////////////////////////////////
+
+	public function select($select) {
+		$this->query->select($select);
+		return $this;
+	}
+
+	public function from($from) {
+		$this->query->from($from);
+		return $this;
+	}
+
+	public function join($join, $on = '') {
+		$this->query->join($join, $on);
+		return $this;
+	}
+
+	public function where($where) {
+		$this->query->where($where);
+		return $this;
+	}
+
+	public function group($group, $having ='') {
+		$this->query->group($group, $having);
+		return $this;
+	}
+
+	public function order($order) {
+		$this->query->order($order);
+		return $this;
+	}
+
+	public function limit($param1, $param2= '') {
+		$this->query->limit($param1, $param2);
+		return $this;
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// new ORM
+	///////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * @param $option 'first', 'all'
+	 */
+	public function find2($option = 'first') {
+		$db = Context::get()->db;
+
+		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
+		if (empty($this->query->from)) { $this->query->from = $this->get_select_from($this->query->joins); }
+
+		$result = $db->select($this->query->select, $this->query->from, $this->query->where,
+				$this->query->group, $this->query->offset, $this->query->limit, $this->query->order);
+
+		$this->query = new Query();
+
+		return $this->parse_result($result);
 	}
 
 	///////////////////////////////////////////////////////////////////////////
