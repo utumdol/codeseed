@@ -78,7 +78,7 @@ class ActiveRecord extends Model {
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	// new ORM
+	// DB Processing
 	///////////////////////////////////////////////////////////////////////////
 
 	/**
@@ -109,10 +109,6 @@ class ActiveRecord extends Model {
 		}
 		return $result;
 	}
-
-	///////////////////////////////////////////////////////////////////////////
-	// DB Processing
-	///////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * @return true on success, false on failure
@@ -152,24 +148,9 @@ class ActiveRecord extends Model {
 	/**
 	 * @return int
 	 */
-	public function count(/* $where = '', $from = '' */) {
+	public function count() {
 		$obj = $this->select('1 id, COUNT(*) as cnt')->find();
 		return $obj->cnt;
-
-		/*
-		if(is_blank($from)) {
-			$from = $this->tablename;
-		}
-
-		$result = $db->select('COUNT(*) as cnt', $from, $where);
-
-		while ($row = $db->fetch($result)) {
-			$total = $row['cnt'];
-		}
-
-		$db->free_result($result);
-		return $total;
-		*/
 	}
 
 
@@ -215,6 +196,10 @@ class ActiveRecord extends Model {
 		$result = $db->delete($this->tablename, $where);
 		return $result;
 	}
+
+	//////////////////////////////////////////////////////////////////////////////
+	// DB Processing Helpers
+	//////////////////////////////////////////////////////////////////////////////
 
 	private function get_select_column($include = array()) {
 		// init
