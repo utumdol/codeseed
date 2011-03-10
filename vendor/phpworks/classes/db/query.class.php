@@ -36,7 +36,7 @@ class Query {
 		}
 		// '$where' is the array of ids?
 		if (is_numeric_array($where)) {
-			$this->where = "id IN ({ cvs($where) })";
+			$this->where = 'id IN (' . cvs($where) . ')';
 			return;
 		}
 		// etc
