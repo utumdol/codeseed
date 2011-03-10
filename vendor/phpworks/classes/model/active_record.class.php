@@ -86,7 +86,7 @@ class ActiveRecord extends Model {
 	 * @return when $option is 'first', then returns object or null.
 	 *			when $option is 'all', then returns array.
 	 */
-	public function find2($option = 'first') {
+	public function find($option = 'first') {
 		$db = Context::get()->db;
 
 		// init query
@@ -147,67 +147,6 @@ class ActiveRecord extends Model {
 		// insert
 		$result = $db->insert($this->tablename, $names, $values);
 		return $result;
-	}
-
-	/**
-	 * @return array or a model or null
-	 */
-	public function find($where = '') {
-		$arr = array();
-		if (is_null($where)) {
-			return null;
-		}
-		if (is_numeric($where)) {
-			$arr['where'] = 'id = ' . $where;
-		}
-		if (is_numeric_array($where)) {
-			$arr['where'] = 'id in (' . csv($where) . ')';
-		}
-		if (is_array($where)) {
-			$arr = $where;
-		}
-		$result = $this->find_all($arr);
-		if (count($result) > 1) {
-			return $result;
-		}
-		if (count($result) == 1) {
-			return $result[0];
-		}
-		return null;
-	}
-
-	/**
-	 * @return return first model
-	 */
-	public function find_first($arr = array()) {
-		$result = find_all($arr);
-		if (count($result) > 0) {
-			return $result[0];
-		}
-		return null;
-	}
-
-	/**
-	 * @params array.<br />
-	 *	ex) array('select' => 'a, b', 'where' => 'a = b and c = d', 'group' => 'c', 'page' => 1, 'size' => 10, 'order' => 'a')
-	 * @return model objects array
-	 */
-	public function find_all($arr = array()) {
-		$db = Context::get()->db;
-
-		if (!array_key_exists('include', $arr)) { $arr['include'] = array(); }
-		if (!array_key_exists('select', $arr)) { $arr['select'] = csv($this->get_select_column($arr['include'])); }
-		if (!array_key_exists('from', $arr)) { $arr['from'] = $this->get_select_from($arr['include']); }
-		if (!array_key_exists('where', $arr)) { $arr['where'] = ''; }
-		if (!array_key_exists('group', $arr)) { $arr['group'] = ''; }
-		if (!array_key_exists('offset', $arr)) { $arr['offset'] = '0'; }
-		if (!array_key_exists('limit', $arr)) { $arr['limit'] = ''; }
-		if (!array_key_exists('order', $arr)) { $arr['order'] = ''; }
-
-		$result = $db->select($arr['select'], $arr['from'], $arr['where'],
-				$arr['group'], $arr['offset'], $arr['limit'], $arr['order']);
-
-		return $this->parse_result($result);
 	}
 
 	/**

@@ -29,6 +29,17 @@ class Query {
 	}
 
 	public function where($where) {
+		// '$where' is id?
+		if (is_numeric($where)) {
+			$this->where = "id = {$where}";
+			return;
+		}
+		// '$where' is the array of ids?
+		if (is_numeric_array($where)) {
+			$this->where = "id IN ({ cvs($where) })";
+			return;
+		}
+		// etc
 		$this->where = $where;
 	}
 

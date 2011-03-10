@@ -41,7 +41,7 @@ class UserController extends Controller {
 	
 	public function update_form() {
 		$user = new User();
-		$this->user = $user->where("id = {$this->get_login_id()}")->find2();
+		$this->user = $user->where($this->get_login_id())->find();
 	}
 
 	public function update() {
@@ -74,7 +74,7 @@ class UserController extends Controller {
 
 		// delete user
 		$user = new User();
-		$user = $user->where("id = {$this->get_login_id()}")->find2();
+		$user = $user->where($this->get_login_id())->find();
 		$user->delete($this->get_login_id());
 
 		$user->logout($this->session);

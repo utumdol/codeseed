@@ -38,13 +38,13 @@ class BlogController extends Controller {
 		$article = new Article();
 		$limit = 7;
 		$offset = ($page - 1) * $limit;
-		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find2("all");
+		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find("all");
 		$ids = $this->get_ids($list);
 		$where = '';
 		if (is_array($ids) && count($ids) > 0) {
 			$where = 'article.id in (' . csv($ids) . ')';
 		}
-		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($where)->find2("all");
+		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($where)->find("all");
 		$this->paging = new Paging($article->count(), $limit, '/blog/index/<page>', $page);
 	}
 
@@ -59,16 +59,16 @@ class BlogController extends Controller {
 	public function view($id, $page = '1') {
 		// get article
 		$article = new Article();
-		$this->article = $article->join('user')->where("article.id = {$id}")->find2();
+		$this->article = $article->join('user')->where("article.id = {$id}")->find();
 
 		// get article comment
 		$comment = new ArticleComment();
-		$this->comment = $comment->join('user')->where("article_comment.article_id = {$id}")->order('article_comment.id')->find2('all');
+		$this->comment = $comment->join('user')->where("article_comment.article_id = {$id}")->order('article_comment.id')->find('all');
 	}
 
 	public function update_form($id) {
 		$article = new Article();
-		$this->article = $article->where("id = {$id}")->find2();
+		$this->article = $article->where($id)->find();
 
 		// validation
 		if (!$this->article->validation_update($this->get_login_id())) {
@@ -79,7 +79,7 @@ class BlogController extends Controller {
 
 	public function update() {
 		$article = new Article();
-		$article = $article->where("id = {$this->params['article']['id']}")->find2();
+		$article = $article->where($this->params['article']['id'])->find();
 
 		// validation
 		if (!$article->validation_update($this->get_login_id())) {
@@ -101,7 +101,7 @@ class BlogController extends Controller {
 		$article = new Article();
 
 		// validation
-		$article = $article->where("id = {$id}")->find2();
+		$article = $article->where($id)->find();
 		if (!$article->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
@@ -130,7 +130,7 @@ class BlogController extends Controller {
 		$comment = new ArticleComment();
 
 		// validation
-		$comment = $comment->where("id = {$id}")->find2();
+		$comment = $comment->where($id)->find();
 		if (!$comment->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $comment->errors->get_messages());
 			$this->back();
