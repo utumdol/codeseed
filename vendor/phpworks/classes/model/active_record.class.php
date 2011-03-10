@@ -152,9 +152,11 @@ class ActiveRecord extends Model {
 	/**
 	 * @return int
 	 */
-	public function count($where = '', $from = '') {
-		$db = Context::get()->db;
+	public function count(/* $where = '', $from = '' */) {
+		$obj = $this->select('1 id, COUNT(*) as cnt')->find();
+		return $obj->cnt;
 
+		/*
 		if(is_blank($from)) {
 			$from = $this->tablename;
 		}
@@ -167,6 +169,7 @@ class ActiveRecord extends Model {
 
 		$db->free_result($result);
 		return $total;
+		*/
 	}
 
 
