@@ -15,9 +15,7 @@ class UserController extends Controller {
 
 	// TODO duplication code. refers to BlogController's authorize()
 	public function authorize() {
-		$user = new User();
-		$user = $user->find($this->get_login_id());
-		if (is_null($user)) {
+		if (is_null($this->get_login_id())) {
 			$this->flash->add('message', '로그 인이 필요합니다.');
 			$this->redirect_to('/user/login_form?return_url=' . Context::get()->server['REQUEST_URI']);
 		}
@@ -43,7 +41,7 @@ class UserController extends Controller {
 	
 	public function update_form() {
 		$user = new User();
-		$this->user = $user->find($this->get_login_id());
+		$this->user = $user->where("id = {$this->get_login_id()}")->find2();
 	}
 
 	public function update() {
@@ -76,7 +74,7 @@ class UserController extends Controller {
 
 		// delete user
 		$user = new User();
-		$user = $user->find($this->get_login_id());
+		$user = $user->where("id = {$this->get_login_id()}")->find2();
 		$user->delete($this->get_login_id());
 
 		$user->logout($this->session);

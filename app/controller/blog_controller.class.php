@@ -14,9 +14,7 @@ class BlogController extends Controller {
 	}
 
 	public function authorize() {
-		$user = new User();
-		$user = $user->find($this->get_login_id());
-		if (is_null($user)) {
+		if (is_null($this->get_login_id())) {
 			$this->flash->add('message', '로그 인이 필요합니다.');
 			$this->redirect_to('/user/login_form?return_url=' . Context::get()->server['REQUEST_URI']);
 		}
@@ -61,16 +59,16 @@ class BlogController extends Controller {
 	public function view($id, $page = '1') {
 		// get article
 		$article = new Article();
-		$this->article = $article->find(array('include' => array('user'), 'where' => 'article.id = ' . $id));
+		$this->article = $article->join('user')->where("article.id = {$id}")->find2();
 
 		// get article comment
 		$comment = new ArticleComment();
-		$this->comment = $comment->find_all(array('include' => array('user'), 'where' => 'article_comment.article_id = ' . $id, 'order' => 'article_comment.id'));
+		$this->comment = $comment->join('user')->where("article_comment.article_id = {$id}")->order('article_comment.id')->find2('all');
 	}
 
 	public function update_form($id) {
 		$article = new Article();
-		$this->article = $article->find($id);
+		$this->article = $article->where("id = {$id}")->find2();
 
 		// validation
 		if (!$this->article->validation_update($this->get_login_id())) {
@@ -81,7 +79,7 @@ class BlogController extends Controller {
 
 	public function update() {
 		$article = new Article();
-		$article = $article->find($this->params['article']['id']);
+		$article = $article->where("id = {$this->params['article']['id']}")->find2();
 
 		// validation
 		if (!$article->validation_update($this->get_login_id())) {
@@ -103,7 +101,7 @@ class BlogController extends Controller {
 		$article = new Article();
 
 		// validation
-		$article = $article->find($id);
+		$article = $article->where("id = {$id}")->find2();
 		if (!$article->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
@@ -132,7 +130,7 @@ class BlogController extends Controller {
 		$comment = new ArticleComment();
 
 		// validation
-		$comment = $comment->find($id);
+		$comment = $comment->where("id = {$id}")->find2();
 		if (!$comment->validation_delete($this->get_login_id())) {
 			$this->flash->add('message', $comment->errors->get_messages());
 			$this->back();

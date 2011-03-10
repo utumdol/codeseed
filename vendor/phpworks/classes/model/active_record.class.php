@@ -82,20 +82,32 @@ class ActiveRecord extends Model {
 	///////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @param $option 'first', 'all'
+	 * @param $option 'first' or 'all'
+	 * @return when $option is 'first', then returns object or null.
+	 *			when $option is 'all', then returns array.
 	 */
 	public function find2($option = 'first') {
 		$db = Context::get()->db;
 
+		// init query
 		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
 		if (empty($this->query->from)) { $this->query->from = $this->get_select_from($this->query->joins); }
+		if ($option == 'first') {
+			$this->query->limit = 1;
+		}
 
+		// get result
 		$result = $db->select($this->query->select, $this->query->from, $this->query->where,
 				$this->query->group, $this->query->offset, $this->query->limit, $this->query->order);
-
+		// clean up query object
 		$this->query = new Query();
 
-		return $this->parse_result($result);
+		// return result
+		$result = $this->parse_result($result);
+		if ($option == 'first') {
+			return ((count($result) > 0) ? $result[0] : null);
+		}
+		return $result;
 	}
 
 	///////////////////////////////////////////////////////////////////////////
