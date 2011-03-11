@@ -102,24 +102,29 @@ class Mysql {
 	}
 
 	/**
+	 * @query Query object
 	 * @return a result object
 	 */
-	public function select($select = '*', $table_name, $where = '', $group = '', $offset = '', $limit = '', $order = '') {
+	public function select($query) {
 		// make condition
-		if (!is_blank($where)) {
-			$where = ' WHERE ' . $where;
+		$where = '';
+		if (!is_blank($query->where)) {
+			$where = ' WHERE ' . $query->where;
 		}
-		if (!is_blank($order)) {
-			$order = ' ORDER BY ' . $order;
+		$order = '';
+		if (!is_blank($query->order)) {
+			$order = ' ORDER BY ' . $query->order;
 		}
-		if (!is_blank($offset) && !is_blank($limit)) {
-			$limit = " LIMIT $offset, $limit";
+		$limit = '';
+		if (!is_blank($query->offset) && !is_blank($query->limit)) {
+			$limit = " LIMIT $query->offset, $query->limit";
 		}
-		if (!is_blank($group)) {
-			$group = ' GROUP BY ' . $group;
+		$group = '';
+		if (!is_blank($query->group)) {
+			$group = ' GROUP BY ' . $query->group;
 		}
 
-		$result = $this->execute('SELECT ' . $select . ' FROM ' . $table_name . $where . $group . $order . $limit);
+		$result = $this->execute('SELECT ' . $query->select . ' FROM ' . $query->from . $query->join . $where . $group . $order . $limit);
 		return $result;
 	}
 

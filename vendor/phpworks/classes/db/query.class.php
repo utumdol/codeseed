@@ -15,6 +15,10 @@ class Query {
 	public $having = '';
 	public $order = '';
 
+	public function __construct($from) {
+		$this->from = $from;
+	}
+
 	public function select($select) {
 		$this->select = $select;
 	}
@@ -29,6 +33,10 @@ class Query {
 	}
 
 	public function where($where) {
+		// '$where' is empty?
+		if (empty($where)) {
+			return;
+		}
 		// '$where' is id?
 		if (is_numeric($where)) {
 			$this->where = "id = {$where}";

@@ -12,7 +12,7 @@ class ActiveRecord extends Model {
 	public function __construct($params = array()) {
 		parent::__construct($params);
 		$this->tablename = classname_to_tablename($this->name);
-		$this->query = new Query();
+		$this->query = new Query($this->tablename);
 	}
 
 	public function belongs_to($tablename) {
@@ -91,16 +91,16 @@ class ActiveRecord extends Model {
 
 		// init query
 		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
-		if (empty($this->query->from)) { $this->query->from = $this->get_select_from($this->query->joins); }
+		if (empty($this->query->join)) { $this->query->join = $this->make_join($this->query->joins); }
 		if ($option == 'first') {
 			$this->query->limit = 1;
 		}
 
 		// get result
-		$result = $db->select($this->query->select, $this->query->from, $this->query->where,
-				$this->query->group, $this->query->offset, $this->query->limit, $this->query->order);
-		// clean up query object
-		$this->query = new Query();
+		$result = $db->select($this->query);
+
+		// cleans up query object
+		$this->query = new Query($this->tablename);
 
 		// return result
 		$result = $this->parse_result($result);
@@ -241,36 +241,35 @@ class ActiveRecord extends Model {
 		return $result;
 	}
 
-	private function get_select_from($include = array()) {
-		$from = $this->tablename;
+	private function make_join($include = array()) {
+		$join = '';
 
 		foreach($this->belongs_to_relations as $table) {
 			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$from .= ' join ' . $table->tablename;
-			$from .= ' on ' . $table->tablename . '.id = ' . $this->tablename . '.' . $table->tablename . '_id';
+			$join .= ' join ' . $table->tablename;
+			$join .= ' on ' . $table->tablename . '.id = ' . $this->tablename . '.' . $table->tablename . '_id';
 		}
 
 		foreach($this->has_one_relations as $table) {
 			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$from .= ' join ' . $table->tablename;
-			$from .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
+			$join .= ' join ' . $table->tablename;
+			$join .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
 		}
 
 		foreach($this->has_many_relations as $table) {
 			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$from .= ' left outer join ' . $table->tablename;
-			$from .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
+			$join .= ' left outer join ' . $table->tablename;
+			$join .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
 		}
 
-		return $from;
+		return $join;
 	}
-
 
 	/**
 	 * parsing query result and return model object
