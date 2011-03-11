@@ -39,12 +39,12 @@ class Query {
 		}
 		// '$where' is id?
 		if (is_numeric($where)) {
-			$this->where = "id = {$where}";
+			$this->where = "{$this->from}.id = {$where}";
 			return;
 		}
 		// '$where' is the array of ids?
 		if (is_numeric_array($where)) {
-			$this->where = 'id IN (' . cvs($where) . ')';
+			$this->where = "{$this->from}.id IN (" . csv($where) . ')';
 			return;
 		}
 		// etc
