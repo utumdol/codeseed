@@ -8,6 +8,7 @@ class Query {
 	public $from = '';
 	public $offset = '0';
 	public $limit = '';
+	public $join = '';
 	public $joins = array();
 	public $ons = array();
 	public $where = '';

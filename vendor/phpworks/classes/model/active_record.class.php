@@ -95,7 +95,7 @@ class ActiveRecord extends Model {
 
 		// init query
 		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
-		if (empty($this->query->join)) { $this->query->join = $this->make_join($this->query->joins); }
+		if (!empty($this->query->joins)) { $this->query->join = $this->make_join($this->query->joins); }
 		if ($option == 'first') {
 			$this->query->limit = 1;
 		}
@@ -208,27 +208,27 @@ class ActiveRecord extends Model {
 	// DB Processing Helpers
 	//////////////////////////////////////////////////////////////////////////////
 
-	private function get_select_column($include = array()) {
+	private function get_select_column($joins = array()) {
 		// init
 		$result = array();
 		$result = array_merge($result, $this->make_select_column($this));
 
 		foreach($this->belongs_to_relations as $table) {
-			if (!in_array($table->tablename, $include)) {
+			if (!in_array($table->tablename, $joins)) {
 				continue;
 			}
 			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_one_relations as $table) {
-			if (!in_array($table->tablename, $include)) {
+			if (!in_array($table->tablename, $joins)) {
 				continue;
 			}
 			$result = array_merge($result, $this->make_select_column($table));
 		}
 
 		foreach($this->has_many_relations as $table) {
-			if (!in_array($table->tablename, $include)) {
+			if (!in_array($table->tablename, $joins)) {
 				continue;
 			}
 			$result = array_merge($result, $this->make_select_column($table));
@@ -248,11 +248,11 @@ class ActiveRecord extends Model {
 		return $result;
 	}
 
-	private function make_join($include = array()) {
+	private function make_join($joins = array()) {
 		$join = '';
 
 		foreach($this->belongs_to_relations as $table) {
-			if (!in_array($table->tablename, $include)) {
+			if (!in_array($table->tablename, $joins)) {
 				continue;
 			}
 			$join .= ' JOIN ' . $table->tablename;
@@ -260,7 +260,7 @@ class ActiveRecord extends Model {
 		}
 
 		foreach($this->has_one_relations as $table) {
-			if (!in_array($table->tablename, $include)) {
+			if (!in_array($table->tablename, $joins)) {
 				continue;
 			}
 			$join .= ' JOIN ' . $table->tablename;
@@ -268,7 +268,7 @@ class ActiveRecord extends Model {
 		}
 
 		foreach($this->has_many_relations as $table) {
-			if (!in_array($table->tablename, $include)) {
+			if (!in_array($table->tablename, $joins)) {
 				continue;
 			}
 			$join .= ' LEFT OUTER JOIN ' . $table->tablename;
