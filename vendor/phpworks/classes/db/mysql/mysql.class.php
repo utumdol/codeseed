@@ -102,7 +102,7 @@ class Mysql {
 	}
 
 	/**
-	 * @query Query object
+	 * @param $query Query object
 	 * @return a result object
 	 */
 	public function select($query) {
@@ -150,16 +150,18 @@ class Mysql {
 	}
 
 	/**
+	 * @param $query Query object
 	 * @return true on success, false on failure
 	 */
-	public function delete($table_name, $where = '') {
-		if (!is_blank($where)) {
-			$where = ' WHERE ' . $where;
+	public function delete($query) {
+		// make condition
+		$where = '';
+		if (!is_blank($query->where)) {
+			$where = ' WHERE ' . $query->where;
 		}
 
 		// delete
-		$query = 'DELETE FROM ' . $table_name . $where;
-		$result = $this->execute($query);
+		$result = $this->execute('DELETE FROM ' . $query->from . $where);
 
 		return $result;
 	}

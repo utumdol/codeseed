@@ -1,4 +1,8 @@
 <?php
+/**
+ * DB Table Mapper.<br/>
+ * It supports for the associations of the tables.
+ */
 class ActiveRecord extends Model {
 	public $tablename;
 	public $columns;
@@ -111,6 +115,29 @@ class ActiveRecord extends Model {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function count() {
+		$obj = $this->select('1 id, COUNT(*) as cnt')->find();
+		return $obj->cnt;
+	}
+
+	/**
+	 * @return true on success, false on failure
+	 */
+	public function delete() {
+		$db = Context::get()->db;
+
+		// delete
+		$result = $db->delete($this->query);
+
+		// cleans up query object
+		$this->query = new Query($this->tablename);
+
+		return $result;
+	}
+
+	/**
 	 * @return true on success, false on failure
 	 */
 	public function save() {
@@ -145,15 +172,6 @@ class ActiveRecord extends Model {
 		return $result;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function count() {
-		$obj = $this->select('1 id, COUNT(*) as cnt')->find();
-		return $obj->cnt;
-	}
-
-
 	public function update() {
 		$db = Context::get()->db;
 
@@ -183,17 +201,6 @@ class ActiveRecord extends Model {
 
 		// update
 		$result = $db->update($this->tablename, $names, $values, 'id = ' . $this->id);
-		return $result;
-	}
-
-	public function delete($where = '') {
-		$db = Context::get()->db;
-
-		// make condition
-		if (is_numeric($where)) {
-			$where = 'id = ' . $where;
-		}
-		$result = $db->delete($this->tablename, $where);
 		return $result;
 	}
 
@@ -248,24 +255,24 @@ class ActiveRecord extends Model {
 			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$join .= ' join ' . $table->tablename;
-			$join .= ' on ' . $table->tablename . '.id = ' . $this->tablename . '.' . $table->tablename . '_id';
+			$join .= ' JOIN ' . $table->tablename;
+			$join .= ' ON ' . $table->tablename . '.id = ' . $this->tablename . '.' . $table->tablename . '_id';
 		}
 
 		foreach($this->has_one_relations as $table) {
 			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$join .= ' join ' . $table->tablename;
-			$join .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
+			$join .= ' JOIN ' . $table->tablename;
+			$join .= ' ON ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
 		}
 
 		foreach($this->has_many_relations as $table) {
 			if (!in_array($table->tablename, $include)) {
 				continue;
 			}
-			$join .= ' left outer join ' . $table->tablename;
-			$join .= ' on ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
+			$join .= ' LEFT OUTER JOIN ' . $table->tablename;
+			$join .= ' ON ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
 		}
 
 		return $join;

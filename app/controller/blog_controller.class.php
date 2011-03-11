@@ -35,9 +35,10 @@ class BlogController extends Controller {
 	}
 
 	public function index($page = '1') {
-		$article = new Article();
-		$limit = 7;
+		$limit = 7;	// page size
 		$offset = ($page - 1) * $limit;
+
+		$article = new Article();
 		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find("all");
 		$ids = $this->get_ids($list);
 
@@ -104,10 +105,12 @@ class BlogController extends Controller {
 			$this->back();
 		}
 
-		$article->delete($id);
+		// delete article
+		$article->where($id)->delete();
 
+		// delete article comment
 		$comment = new ArticleComment();
-		$comment->delete('article_id = ' . $id);
+		$comment->where("article_id = {$id}")->delete();
 
 		$this->redirect_to('/blog/index');
 	}
@@ -133,7 +136,7 @@ class BlogController extends Controller {
 			$this->back();
 		}
 
-		$comment->delete($id);
+		$comment->where($id)->delete();
 		$this->back();
 	}
 
