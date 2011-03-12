@@ -34,18 +34,26 @@ class BlogController extends Controller {
 		$this->redirect_to('/blog/index');
 	}
 
+	/**
+	 * show list
+	 */
 	public function index($page = '1') {
 		$limit = 7;	// page size
 		$offset = ($page - 1) * $limit;
 
+		// get id(s) in the page
 		$article = new Article();
 		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find("all");
 		$ids = $article->parse_result_id($list);
 
+		// get articles in the page
 		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($ids)->find("all");
 		$this->paging = new Paging($article->count(), $limit, '/blog/index/<page>', $page);
 	}
 
+	/**
+	 * show article
+	 */
 	public function view($id, $page = '1') {
 		// get article
 		$article = new Article();
