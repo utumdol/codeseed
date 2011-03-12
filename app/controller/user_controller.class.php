@@ -62,20 +62,12 @@ class UserController extends Controller {
 	}
 
 	public function leave() {
-		// delete article_comment
-		$comment = new ArticleComment();
-		$comment->where('user_id = ' . $this->get_login_id())->delete();
-		
-		// delete article
-		// TODO but it can't delete it's comments.
-		// TODO asssociation deletion is needed.
-		$article = new Article();
-		$article->where('user_id = ' . $this->get_login_id())->delete();
-
-		// delete user
+		// get nickname to say good bye.
 		$user = new User();
 		$user = $user->where($this->get_login_id())->find();
-		$user->where($this->get_login_id())->delete();
+
+		// delete user, article, and article_comment
+		$user->join('article')->join('article_comment')->where($this->get_login_id())->delete();
 
 		$user->logout($this->session);
 		$this->redirect_to('/user/leave_success/' . $user->nickname);
