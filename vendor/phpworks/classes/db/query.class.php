@@ -39,13 +39,8 @@ class Query {
 			return;
 		}
 		// '$where' is id?
-		if (is_numeric($where)) {
-			$this->where = "{$this->from}.id = {$where}";
-			return;
-		}
-		// '$where' is the array of ids?
-		if (is_numeric_array($where)) {
-			$this->where = "{$this->from}.id IN (" . csv($where) . ')';
+		if (is_numeric($where) || is_numeric_array($where)) {
+			$this->where = "{$this->from}.id" . Query::make_id_condition($where);
 			return;
 		}
 		// etc
@@ -68,6 +63,13 @@ class Query {
 		}
 		$this->offset = $param1;
 		$this->limit = $param2;
+	}
+
+	public static function make_id_condition($id) {
+		if (is_array($id)) {
+			return " IN (" . csv($id) . ')';
+		}
+		return " = {$id}";
 	}
 }
 

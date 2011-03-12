@@ -128,8 +128,26 @@ class ActiveRecord extends Model {
 	public function delete() {
 		$db = Context::get()->db;
 
+		// reserve original query object because find() cleans up $this->query.
+		$orgin_query = $this->query;
+		$this->query = new Query($this->tablename);
+
+		// find id(s) to delete
+		$result = $this->select("id")->where($orgin_query->where)->find("all");
+		$ids = $this->parse_result_id($result);
+
+		// recover original query object
+		$this->query = $orgin_query;
+
+		// delete the records of the associated tables.
+		foreach($this->query->joins as $join) {
+			$query = new Query($join);
+			$query->where("{$join}.{$this->tablename}_id" . Query::make_id_condition($ids));
+			$result &= $db->delete($query);
+		}
+
 		// delete
-		$result = $db->delete($this->query);
+		$result &= $db->delete($this->query);
 
 		// cleans up query object
 		$this->query = new Query($this->tablename);
@@ -362,6 +380,17 @@ class ActiveRecord extends Model {
 			return null;
 		}
 		return $obj;
+	}
+
+	/**
+	 * return id array from result
+	 */
+	public function parse_result_id($result) {
+		$ids = array();
+		foreach($result as $row) {
+			$ids[] = $row->id;
+		}
+		return $ids;
 	}
 }
 

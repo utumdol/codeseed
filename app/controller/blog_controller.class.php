@@ -40,24 +40,16 @@ class BlogController extends Controller {
 
 		$article = new Article();
 		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find("all");
-		$ids = $this->get_ids($list);
+		$ids = $article->parse_result_id($list);
 
 		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($ids)->find("all");
 		$this->paging = new Paging($article->count(), $limit, '/blog/index/<page>', $page);
 	}
 
-	private function get_ids($articles) {
-		$result = array();
-		foreach($articles as $article) {
-			$result[] = $article->id;
-		}
-		return $result;
-	}
-
 	public function view($id, $page = '1') {
 		// get article
 		$article = new Article();
-		$this->article = $article->join('user')->where("article.id = {$id}")->find();
+		$this->article = $article->join('user')->where($id)->find();
 
 		// get article comment
 		$comment = new ArticleComment();
@@ -105,12 +97,8 @@ class BlogController extends Controller {
 			$this->back();
 		}
 
-		// delete article
-		$article->where($id)->delete();
-
-		// delete article comment
-		$comment = new ArticleComment();
-		$comment->where("article_id = {$id}")->delete();
+		// delete article and article_comment
+		$article->join('article_comment')->where($id)->delete();
 
 		$this->redirect_to('/blog/index');
 	}
