@@ -44,7 +44,7 @@ class BlogController extends Controller {
 		// get id(s) in the page
 		$article = new Article();
 		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find("all");
-		$ids = $article->parse_result_id($list);
+		$ids = $article->get_ids_from_result($list);
 
 		// get articles in the page
 		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($ids)->find("all");

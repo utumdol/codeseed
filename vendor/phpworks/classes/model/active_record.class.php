@@ -134,7 +134,7 @@ class ActiveRecord extends Model {
 
 		// find id(s) to delete
 		$result = $this->select("id")->where($orgin_query->where)->find("all");
-		$ids = $this->parse_result_id($result);
+		$ids = $this->get_ids_from_result($result);
 
 		// recover original query object
 		$this->query = $orgin_query;
@@ -385,7 +385,7 @@ class ActiveRecord extends Model {
 	/**
 	 * return id array from result
 	 */
-	public function parse_result_id($result) {
+	public function get_ids_from_result($result) {
 		$ids = array();
 		foreach($result as $row) {
 			$ids[] = $row->id;
