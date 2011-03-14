@@ -16,6 +16,13 @@ class Query {
 	public $having = '';
 	public $order = '';
 
+	// for insert
+	public $into;
+	public $values = array();
+
+	// for update
+	public $sets = array();
+
 	public function __construct($from) {
 		$this->from = $from;
 	}
@@ -63,6 +70,19 @@ class Query {
 		}
 		$this->offset = $param1;
 		$this->limit = $param2;
+	}
+
+	public function into($into) {
+		$this->into = $into;
+	}
+
+	public function values($values) {
+		$this->values = $values;
+	}
+
+	public function set($set, $value) {
+		$this->sets[] = $set;
+		$this->values[] = $value;
 	}
 
 	public static function make_id_condition($id) {
