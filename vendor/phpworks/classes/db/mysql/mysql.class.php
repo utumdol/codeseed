@@ -93,16 +93,6 @@ class Mysql {
 	///////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @return true on success, false on failure
-	 */
-	public function insert($table_name, $names = array(), $values = array()) {
-		$query = 'INSERT INTO ' . $table_name . ' (' . implode(', ', $names) . ') VALUES (' . implode(', ', $values) . ')';
-		$result = $this->execute($query);
-
-		return $result;
-	}
-
-	/**
 	 * @param $query Query object
 	 * @return a result object
 	 */
@@ -130,27 +120,6 @@ class Mysql {
 	}
 
 	/**
-	 * @return true on success, false on failure
-	 */
-	public function update($table_name, $names = array(), $values = array(), $where = '') {
-		if (!is_blank($where)) {
-			$where = ' WHERE ' . $where;
-		}
-
-		$paris = array();
-		$i = 0;
-		foreach($names as $name) {
-			$value = $values[$i++];
-			$pairs[] = "$name  = $value";
-		}
-
-		$query = 'UPDATE ' . $table_name . ' SET ' . implode(', ', $pairs) . $where;
-		$result = $this->execute($query);
-
-		return $result;
-	}
-
-	/**
 	 * @param $query Query object
 	 * @return true on success, false on failure
 	 */
@@ -163,6 +132,36 @@ class Mysql {
 
 		// delete
 		$result = $this->execute('DELETE FROM ' . $query->from . $where);
+
+		return $result;
+	}
+
+	/**
+	 * @return true on success, false on failure
+	 */
+	public function insert($query) {
+		$result = $this->execute('INSERT INTO ' . $query->from . ' (' . implode(', ', $query->column_names) . ') VALUES (' . implode(', ', $query->values) . ')');
+
+		return $result;
+	}
+
+	/**
+	 * @return true on success, false on failure
+	 */
+	public function update($query) {
+		$where = '';
+		if (!is_blank($query->where)) {
+			$where = ' WHERE ' . $query->where;
+		}
+
+		$paris = array();
+		$i = 0;
+		foreach($query->column_names as $name) {
+			$value = $query->values[$i++];
+			$pairs[] = "$name  = $value";
+		}
+
+		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where);
 
 		return $result;
 	}

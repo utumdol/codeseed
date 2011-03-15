@@ -16,12 +16,9 @@ class Query {
 	public $having = '';
 	public $order = '';
 
-	// for insert
-	public $into;
+	// for insert and update
+	public $column_names = array();
 	public $values = array();
-
-	// for update
-	public $sets = array();
 
 	public function __construct($from) {
 		$this->from = $from;
@@ -72,16 +69,8 @@ class Query {
 		$this->limit = $param2;
 	}
 
-	public function into($into) {
-		$this->into = $into;
-	}
-
-	public function values($values) {
-		$this->values = $values;
-	}
-
-	public function set($set, $value) {
-		$this->sets[] = $set;
+	public function set($column_name, $value) {
+		$this->column_names[] = $column_name;
 		$this->values[] = $value;
 	}
 

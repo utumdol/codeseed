@@ -81,6 +81,10 @@ class ActiveRecord extends Model {
 		return $this;
 	}
 
+	public function set($column_name, $value) {
+		$this->query->set($column_name, $value);
+	}
+
 	///////////////////////////////////////////////////////////////////////////
 	// DB Processing
 	///////////////////////////////////////////////////////////////////////////
@@ -181,12 +185,15 @@ class ActiveRecord extends Model {
 				continue;
 			}
 
-			$names[] = $column_name;
-			$values[] = quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name)));
+			$this->query->set($column_name, quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name))));
 		}
 
 		// insert
-		$result = $db->insert($this->tablename, $names, $values);
+		$result = $db->insert($this->query);
+
+		// cleans up query object
+		$this->query = new Query($this->tablename);
+
 		return $result;
 	}
 
@@ -213,12 +220,16 @@ class ActiveRecord extends Model {
 				continue;
 			}
 
-			$names[] = $column_name;
-			$values[] = quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name)));
+			$this->query->set($column_name, quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name))));
 		}
 
 		// update
-		$result = $db->update($this->tablename, $names, $values, 'id = ' . $this->id);
+		$this->query->where($this->id);
+		$result = $db->update($this->query);
+
+		// cleans up query object
+		$this->query = new Query($this->tablename);
+
 		return $result;
 	}
 
