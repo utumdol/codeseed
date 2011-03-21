@@ -55,13 +55,34 @@ class Mysql {
 		mysqli_close($this->conn);
 	}
 
-	public function execute($query) {
+	public function execute($query, $params = '') {
 		// echobn($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
 			throw new ProcessingError('Could not run query: ' . $this->error());
 		}
 		return $result;
+	}
+
+	public function split_params($params = '') {
+		return preg_split('/\s*,\s*/', $params);
+	}
+
+	public function escape_string($params = array()) {
+		$result = array();
+		foreach($params as $param) {
+			$quote = '';
+			if ($this->is_string_param($param)) {
+				$quote = "'";
+			}
+			$param = stripslashes(preg_replace("/^'(.*)'$/", '$1', $param));
+			$result[] = $quote . $this->real_escape_string($param) . $quote;
+		}
+		return $result;
+	}
+
+	private function is_string_param($param) {
+		return preg_match("/^'.*'$/", $param);
 	}
 
 	public function fetch($result) {
@@ -76,8 +97,8 @@ class Mysql {
 		return mysqli_error($this->conn);
 	}
 
-	public function real_escape_string($escapestr) {
-		return mysqli_real_escape_string($this->conn, $escapestr);
+	public function real_escape_string($str) {
+		return mysqli_real_escape_string($this->conn, $str);
 	}
 
 	public function get_type($type) {
@@ -259,3 +280,10 @@ class Mysql {
 	}
 }
 
+/*
+$db = Context::get()->db;
+$db->connect();
+
+$arr = $db->split_params("'a', 'b', 'c', 'd', 'Hello', 'World', 'Hi\' Everyone?', '^.*$', 1, 2, 3, 4567");
+print_r($db->escape_string($arr));
+*/
