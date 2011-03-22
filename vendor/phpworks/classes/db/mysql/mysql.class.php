@@ -55,7 +55,8 @@ class Mysql {
 		mysqli_close($this->conn);
 	}
 
-	public function execute($query, $params = '') {
+	public function execute($query, $params = array()) {
+		$query = $this->bind_params($query, $this->escape_string($params));
 		// echobn($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
@@ -64,25 +65,27 @@ class Mysql {
 		return $result;
 	}
 
-	public function split_params($params = '') {
-		return preg_split('/\s*,\s*/', $params);
-	}
-
 	public function escape_string($params = array()) {
 		$result = array();
 		foreach($params as $param) {
 			$quote = '';
-			if ($this->is_string_param($param)) {
+			if (is_string($param)) {
 				$quote = "'";
 			}
-			$param = stripslashes(preg_replace("/^'(.*)'$/", '$1', $param));
 			$result[] = $quote . $this->real_escape_string($param) . $quote;
 		}
 		return $result;
 	}
 
-	private function is_string_param($param) {
-		return preg_match("/^'.*'$/", $param);
+	public function bind_params($query, $params = array()) {
+		$result = '';
+		$querys = explode('?', $query);
+		for ($i = 0; $i < count($querys) - 1; $i++) {
+			$result .= $querys[$i];
+			$result .= $params[$i];
+		}
+		$result .= $querys[$i]; // add last one
+		return $result;
 	}
 
 	public function fetch($result) {
@@ -284,6 +287,7 @@ class Mysql {
 $db = Context::get()->db;
 $db->connect();
 
-$arr = $db->split_params("'a', 'b', 'c', 'd', 'Hello', 'World', 'Hi\' Everyone?', '^.*$', 1, 2, 3, 4567");
-print_r($db->escape_string($arr));
+$arr = array('a', 'hello, world', "I'm wonsug", '^.*$', 1, 4567, true, "Hello\", everyone?");
+$arr = $db->escape_string($arr);
+echo $db->bind_params("insert into article values(?, ?, ?, ?, ?, ?, ?, ?)", $arr);
 */
