@@ -78,6 +78,9 @@ class Mysql {
 	}
 
 	public function bind_params($query, $params = array()) {
+		if (empty($params)) {
+			return $query;
+		}
 		$result = '';
 		$querys = explode('?', $query);
 		for ($i = 0; $i < count($querys) - 1; $i++) {
