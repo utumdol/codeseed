@@ -166,27 +166,29 @@ class ActiveRecord extends Model {
 	public function save() {
 		$db = Context::get()->db;
 
-		// load table schema and value setting
-		$columns = $db->get_table_columns($this->tablename);
-		$names = array();
-		$values = array();
-		foreach ($columns as $column) {
-			$column_name = $column->name;
+		if (empty($this->query->column_names)) {
+			// load table schema and value setting
+			$columns = $db->get_table_columns($this->tablename);
+			$names = array();
+			$values = array();
+			foreach ($columns as $column) {
+				$column_name = $column->name;
 
-			if ($column_name == 'id') {
-				continue;
-			}
-			if ($column_name == 'created_at') {
-				$this->$column_name = time();
-			}
-			if ($column_name == 'updated_at') {
-				$this->$column_name = time();
-			}
-			if (!isset($this->$column_name)) {
-				continue;
-			}
+				if ($column_name == 'id') {
+					continue;
+				}
+				if ($column_name == 'created_at') {
+					$this->$column_name = time();
+				}
+				if ($column_name == 'updated_at') {
+					$this->$column_name = time();
+				}
+				if (!isset($this->$column_name)) {
+					continue;
+				}
 
-			$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
+				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
+			}
 		}
 
 		// insert
@@ -201,29 +203,31 @@ class ActiveRecord extends Model {
 	public function update() {
 		$db = Context::get()->db;
 
-		// load table schema and value setting
-		$columns = $db->get_table_columns($this->tablename);
-		$names = array();
-		$values = array();
-		foreach ($columns as $column) {
-			$column_name = $column->name;
+		if (empty($this->query->column_names)) {
+			// load table schema and value setting
+			$columns = $db->get_table_columns($this->tablename);
+			$names = array();
+			$values = array();
+			foreach ($columns as $column) {
+				$column_name = $column->name;
 
-			if ($column_name == 'id') {
-				continue;
-			}
-			if ($column_name == 'created_at') {
-				continue;
-			}
-			if ($column_name == 'updated_at') {
-				$this->$column_name = time();
-			}
-			if (!isset($this->$column_name)) {
-				continue;
-			}
+				if ($column_name == 'id') {
+					continue;
+				}
+				if ($column_name == 'created_at') {
+					continue;
+				}
+				if ($column_name == 'updated_at') {
+					$this->$column_name = time();
+				}
+				if (!isset($this->$column_name)) {
+					continue;
+				}
 
-			$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
+				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
+			}
+			$this->query->where($this->id);
 		}
-		$this->query->where($this->id);
 
 		// update
 		$result = $db->update($this->query);
