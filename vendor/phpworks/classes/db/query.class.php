@@ -16,6 +16,8 @@ class Query {
 	public $having = '';
 	public $order = '';
 
+	public $params = array();
+
 	// for insert and update
 	public $column_names = array();
 	public $values = array();
@@ -71,7 +73,8 @@ class Query {
 
 	public function set($column_name, $value) {
 		$this->column_names[] = $column_name;
-		$this->values[] = $value;
+		$this->values[] = '?';
+		$this->params[] = $value;
 	}
 
 	public static function make_id_condition($id) {

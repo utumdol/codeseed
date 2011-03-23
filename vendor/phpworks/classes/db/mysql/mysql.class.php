@@ -34,6 +34,20 @@ class Mysql {
 		'timestamp' => '',
 	);
 
+	private $type_functions = array(
+		'BLOB' => 'strval',
+		'TINYINT' => 'intval',
+		'DATE' => 'strval',
+		'DATETIME' => 'strval',
+		'DECIMAL' => 'floatval',
+		'FLOAT' => 'floatval',
+		'INT' => 'intval',
+		'VARCHAR' => 'strval',
+		'TEXT' => 'strval',
+		'TIME' => 'strval',
+		'TIMESTAMP' => 'strval',
+	);
+
 	public function __construct($host, $user, $passwd, $name) {
 		$this->host = $host;
 		$this->user = $user;
@@ -115,6 +129,11 @@ class Mysql {
 		return $this->sizes[strtolower($type)];
 	}
 
+	public function get_value($type, $value) {
+		$func = $this->type_functions[strtoupper(preg_replace('/\(\d*\)/', '', $type))];
+		return call_user_func($func, $value);
+	}
+
 	///////////////////////////////////////////////////////////////////////////
 	// DML
 	///////////////////////////////////////////////////////////////////////////
@@ -167,8 +186,7 @@ class Mysql {
 	 * @return true on success, false on failure
 	 */
 	public function insert($query) {
-		$result = $this->execute('INSERT INTO ' . $query->from . ' (' . implode(', ', $query->column_names) . ') VALUES (' . implode(', ', $query->values) . ')');
-
+		$result = $this->execute('INSERT INTO ' . $query->from . ' (' . implode(', ', $query->column_names) . ') VALUES (' . implode(', ', $query->values) . ')', $query->params);
 		return $result;
 	}
 
@@ -181,15 +199,14 @@ class Mysql {
 			$where = ' WHERE ' . $query->where;
 		}
 
-		$paris = array();
+		$pairs = array();
 		$i = 0;
 		foreach($query->column_names as $name) {
 			$value = $query->values[$i++];
 			$pairs[] = "$name  = $value";
 		}
 
-		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where);
-
+		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where, $query->params);
 		return $result;
 	}
 

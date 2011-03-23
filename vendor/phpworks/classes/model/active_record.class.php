@@ -83,6 +83,7 @@ class ActiveRecord extends Model {
 
 	public function set($column_name, $value) {
 		$this->query->set($column_name, $value);
+		return $this;
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -185,7 +186,7 @@ class ActiveRecord extends Model {
 				continue;
 			}
 
-			$this->query->set($column_name, quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name))));
+			$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
 		}
 
 		// insert
@@ -220,11 +221,11 @@ class ActiveRecord extends Model {
 				continue;
 			}
 
-			$this->query->set($column_name, quotes_to_string($column->type, $db->real_escape_string(trim($this->$column_name))));
+			$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
 		}
+		$this->query->where($this->id);
 
 		// update
-		$this->query->where($this->id);
 		$result = $db->update($this->query);
 
 		// cleans up query object
