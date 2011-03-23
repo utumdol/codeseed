@@ -20,6 +20,7 @@ class Mysql {
 		'time' => 'TIME',
 		'timestamp' => 'DATETIME',
 	);
+
 	private $sizes = array(
 		'binary' => '',
 		'boolean' => '1',
@@ -34,7 +35,7 @@ class Mysql {
 		'timestamp' => '',
 	);
 
-	private $type_functions = array(
+	private $value_functions = array(
 		'BLOB' => 'strval',
 		'TINYINT' => 'intval',
 		'DATE' => 'strval',
@@ -86,7 +87,7 @@ class Mysql {
 			if (is_string($param)) {
 				$quote = "'";
 			}
-			$result[] = $quote . $this->real_escape_string($param) . $quote;
+			$result[] = $quote . mysqli_real_escape_string($this->conn, $param) . $quote;
 		}
 		return $result;
 	}
@@ -117,10 +118,6 @@ class Mysql {
 		return mysqli_error($this->conn);
 	}
 
-	public function real_escape_string($str) {
-		return mysqli_real_escape_string($this->conn, $str);
-	}
-
 	public function get_type($type) {
 		return $this->types[strtolower($type)];
 	}
@@ -130,7 +127,7 @@ class Mysql {
 	}
 
 	public function get_value($type, $value) {
-		$func = $this->type_functions[strtoupper(preg_replace('/\(\d*\)/', '', $type))];
+		$func = $this->value_functions[strtoupper(preg_replace('/\(\d*\)/', '', $type))];
 		return call_user_func($func, $value);
 	}
 
@@ -303,11 +300,3 @@ class Mysql {
 	}
 }
 
-/*
-$db = Context::get()->db;
-$db->connect();
-
-$arr = array('a', 'hello, world', "I'm wonsug", '^.*$', 1, 4567, true, "Hello\", everyone?");
-$arr = $db->escape_string($arr);
-echo $db->bind_params("insert into article values(?, ?, ?, ?, ?, ?, ?, ?)", $arr);
-*/
