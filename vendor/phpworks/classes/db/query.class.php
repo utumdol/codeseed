@@ -34,12 +34,13 @@ class Query {
 		$this->from = $from;
 	}
 
-	public function join($join, $on = '') {
+	public function join($join, $on = '', $params = array()) {
 		$this->joins[] = $join;
 		$this->ons[] = $on;
+		$this->params = array_merge($this->params, $params);
 	}
 
-	public function where($where) {
+	public function where($where, $params = array()) {
 		// '$where' is empty?
 		if (empty($where)) {
 			return;
@@ -51,11 +52,13 @@ class Query {
 		}
 		// etc
 		$this->where = $where;
+		$this->params = array_merge($this->params, $params);
 	}
 
-	public function group($group, $having ='') {
+	public function group($group, $having ='', $params = array()) {
 		$this->group = $group;
 		$this->having = $having;
+		$this->params = array_merge($this->params, $param1);
 	}
 
 	public function order($order) {
@@ -64,11 +67,14 @@ class Query {
 
 	public function limit($param1, $param2 = '') {
 		if (strlen($param2) == 0) {
-			$this->limit = $param1;
+			$this->limit = '?';
+			$this->params[] = $param1;
 			return;
 		}
-		$this->offset = $param1;
-		$this->limit = $param2;
+		$this->offset = '?';
+		$this->limit = '?';
+		$this->params[] = $param1;
+		$this->params[] = $param2;
 	}
 
 	public function set($column_name, $value) {

@@ -56,18 +56,18 @@ class ActiveRecord extends Model {
 		return $this;
 	}
 
-	public function join($join, $on = '') {
-		$this->query->join($join, $on);
+	public function join($join, $on = '', $params = array()) {
+		$this->query->join($join, $on, $params);
 		return $this;
 	}
 
-	public function where($where) {
-		$this->query->where($where);
+	public function where($where, $params = array()) {
+		$this->query->where($where, $params);
 		return $this;
 	}
 
-	public function group($group, $having ='') {
-		$this->query->group($group, $having);
+	public function group($group, $having ='', $params = array()) {
+		$this->query->group($group, $having, $params);
 		return $this;
 	}
 

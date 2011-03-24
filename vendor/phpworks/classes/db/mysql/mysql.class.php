@@ -72,7 +72,6 @@ class Mysql {
 
 	public function execute($query, $params = array()) {
 		$query = $this->bind_params($query, $this->escape_string($params));
-		// echobn($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
 			throw new ProcessingError('Could not run query: ' . $this->error());
@@ -158,7 +157,7 @@ class Mysql {
 			$group = ' GROUP BY ' . $query->group;
 		}
 
-		$result = $this->execute('SELECT ' . $query->select . ' FROM ' . $query->from . $query->join . $where . $group . $order . $limit);
+		$result = $this->execute('SELECT ' . $query->select . ' FROM ' . $query->from . $query->join . $where . $group . $order . $limit, $query->params);
 		return $result;
 	}
 
