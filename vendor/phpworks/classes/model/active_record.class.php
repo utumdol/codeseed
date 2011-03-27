@@ -7,9 +7,9 @@ class ActiveRecord extends Model {
 	public $tablename;
 	public $columns;
 
-	private $belongs_to_relations = array();
-	private $has_one_relations = array();
-	private $has_many_relations = array();
+	public $belongs_to_relations = array();
+	public $has_one_relations = array();
+	public $has_many_relations = array();
 
 	private $query;
 
@@ -57,7 +57,7 @@ class ActiveRecord extends Model {
 	}
 
 	public function join($join, $on = '', $params = array()) {
-		$this->query->join($join, $on, $params);
+		$this->query->join($this, $join, $on, $params);
 		return $this;
 	}
 
@@ -100,7 +100,6 @@ class ActiveRecord extends Model {
 
 		// init query
 		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
-		if (!empty($this->query->joins)) { $this->query->join = $this->make_join($this->query->joins); }
 		if ($option == 'first') {
 			$this->query->limit = 1;
 		}
@@ -280,36 +279,6 @@ class ActiveRecord extends Model {
 		}
 
 		return $result;
-	}
-
-	private function make_join($joins = array()) {
-		$join = '';
-
-		foreach($this->belongs_to_relations as $table) {
-			if (!in_array($table->tablename, $joins)) {
-				continue;
-			}
-			$join .= ' JOIN ' . $table->tablename;
-			$join .= ' ON ' . $table->tablename . '.id = ' . $this->tablename . '.' . $table->tablename . '_id';
-		}
-
-		foreach($this->has_one_relations as $table) {
-			if (!in_array($table->tablename, $joins)) {
-				continue;
-			}
-			$join .= ' JOIN ' . $table->tablename;
-			$join .= ' ON ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
-		}
-
-		foreach($this->has_many_relations as $table) {
-			if (!in_array($table->tablename, $joins)) {
-				continue;
-			}
-			$join .= ' LEFT OUTER JOIN ' . $table->tablename;
-			$join .= ' ON ' . $table->tablename . '.' . $this->tablename . '_id = ' . $this->tablename . '.id';
-		}
-
-		return $join;
 	}
 
 	/**

@@ -10,7 +10,6 @@ class Query {
 	public $limit = '';
 	public $join = '';
 	public $joins = array();
-	public $ons = array();
 	public $where = '';
 	public $group = '';
 	public $having = '';
@@ -34,10 +33,46 @@ class Query {
 		$this->from = $from;
 	}
 
-	public function join($join, $on = '', $params = array()) {
+	public function join($model, $join, $on = '', $params = array()) {
 		$this->joins[] = $join;
-		$this->ons[] = $on;
 		$this->params = array_merge($this->params, $params);
+
+		// make join
+		foreach($model->belongs_to_relations as $relation) {
+			if ($relation->tablename == $join) {
+				$this->join .= ' JOIN ' . $relation->tablename;
+				if (empty($on)) {
+					$this->join .= ' ON ' . $relation->tablename . '.id = ' . $model->tablename . '.' . $relation->tablename . '_id';
+				} else {
+					$this->join .= ' ON ' . $on;
+				}
+				return;
+			}
+		}
+
+		foreach($model->has_one_relations as $relation) {
+			if ($relation->tablename == $join) {
+				$this->join .= ' JOIN ' . $relation->tablename;
+				if (empty($on)) {
+					$this->join .= ' ON ' . $relation->tablename . '.' . $model->tablename . '_id = ' . $model->tablename . '.id';
+				} else {
+					$this->join .= ' ON ' . $on;
+				}
+				return;
+			}
+		}
+
+		foreach($model->has_many_relations as $relation) {
+			if ($relation->tablename == $join) {
+				$this->join .= ' LEFT OUTER JOIN ' . $relation->tablename;
+				if (empty($on)) {
+					$this->join .= ' ON ' . $relation->tablename . '.' . $model->tablename . '_id = ' . $model->tablename . '.id';
+				} else {
+					$this->join .= ' ON ' . $on;
+				}
+				return;
+			}
+		}
 	}
 
 	public function where($where, $params = array()) {
