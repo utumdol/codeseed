@@ -61,7 +61,7 @@ class BlogController extends Controller {
 
 		// get article comment
 		$comment = new ArticleComment();
-		$this->comment = $comment->join('user')->where("article_comment.article_id = {$id}")->order('article_comment.id')->find('all');
+		$this->comment = $comment->join('user')->where("article_comment.article_id = ?", array($id))->order('article_comment.id')->find('all');
 	}
 
 	public function update_form($id) {
