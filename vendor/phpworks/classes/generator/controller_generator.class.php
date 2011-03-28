@@ -2,7 +2,7 @@
 class ControllerGenerator extends Generator {
 	public $path;
 	public $template = '<?php
-class <class>Controller extends Controller {
+class <class>Controller extends ApplicationController {
 	<functions>
 }
 
@@ -24,14 +24,18 @@ class <class>Controller extends Controller {
 		$this->generate_path();
 		$this->generate_file();
 
+		// make application controller
+		$generator = new ApplicationController();
+		$generator->generate();
+
 		// make helper
-		$view_generator = new HelperGenerator($this->name);
-		$view_generator->generate();
+		$generator = new HelperGenerator($this->name);
+		$generator->generate();
 
 		// make view
 		foreach($this->functions as $function) {
-			$view_generator = new ViewGenerator($this->name, $function);
-			$view_generator->generate();
+			$generator = new ViewGenerator($this->name, $function);
+			$generator->generate();
 		}
 	}
 

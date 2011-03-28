@@ -32,8 +32,6 @@ try {
 	$classname = filename_to_classname($kind) . 'Generator';
 	$generator = new $classname($name, $params);
 	$generator->generate();
-} catch (ValidationError $e) {
-	echonl($e->getMessage());
 } catch (ProcessingError $e) {
 	echonl($e->getMessage());
 } catch (Exception $e) {

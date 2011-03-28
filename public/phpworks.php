@@ -40,8 +40,6 @@ try {
 	}
 } catch (SkipProcessing $e) {
 	// nothing to do
-} catch (ValidationError $e) {
-	echo $e->getMessage();
 } catch (ProcessingError $e) {
 	echo $e->getMessage();
 } catch (Exception $e) {

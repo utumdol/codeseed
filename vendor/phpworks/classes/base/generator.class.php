@@ -16,7 +16,8 @@ class Generator {
 
 	public function validation() {
 		if (file_exists($this->get_path() . '/' . $this->get_filename())) {
-			throw new ValidationError(abbr_path($this->get_path() . '/' . $this->get_filename()) . ' is already exists.');
+			echonl(abbr_path($this->get_path() . '/' . $this->get_filename()) . ' is already exists.');
+			return false;
 		}
 	}
 
