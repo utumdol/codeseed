@@ -11,7 +11,7 @@ class ApplicationController extends Controller {
 
 ';
 
-	public function __construct()) {
+	public function __construct() {
 		parent::__construct('application');
 		$this->path = Config::get()->ctrl_dir;
 	}
