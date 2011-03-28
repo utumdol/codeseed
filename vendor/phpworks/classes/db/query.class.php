@@ -87,6 +87,11 @@ class Query {
 		}
 		// etc
 		$this->where = $where;
+
+		// make params
+		if (!is_array($params)) {
+			$params = array($params);
+		}
 		$this->params = array_merge($this->params, $params);
 	}
 
