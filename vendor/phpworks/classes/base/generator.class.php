@@ -19,6 +19,7 @@ class Generator {
 			echonl(abbr_path($this->get_path() . '/' . $this->get_filename()) . ' is already exists.');
 			return false;
 		}
+		return true;
 	}
 
 	public function get_path() {
