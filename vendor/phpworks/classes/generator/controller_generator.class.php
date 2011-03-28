@@ -25,7 +25,7 @@ class <class>Controller extends ApplicationController {
 		$this->generate_file();
 
 		// make application controller
-		$generator = new ApplicationController();
+		$generator = new ApplicationControllerGenerator();
 		$generator->generate();
 
 		// make helper
