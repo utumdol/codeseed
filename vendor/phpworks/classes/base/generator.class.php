@@ -9,7 +9,9 @@ class Generator {
 	}
 
 	public function generate() {
-		$this->validation();
+		if (!$this->validation()) {
+			return;
+		}
 		$this->generate_path();
 		$this->generate_file();
 	}
