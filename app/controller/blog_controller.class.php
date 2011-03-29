@@ -1,23 +1,11 @@
 <?php
-class BlogController extends Controller {
-
-	public function __construct() {
-		parent::__construct();
-		$this->layout = 'blog';
-	}
+class BlogController extends ApplicationController {
 
 	public function before_filter($action = '') {
 		if ($action == 'index' || $action == 'view') {
 			return;
 		}
 		$this->authorize();
-	}
-
-	public function authorize() {
-		if (is_null($this->get_login_id())) {
-			$this->flash->add('message', '로그 인이 필요합니다.');
-			$this->redirect_to('/user/login_form?return_url=' . Context::get()->server['REQUEST_URI']);
-		}
 	}
 
 	public function post_form() {
@@ -134,10 +122,6 @@ class BlogController extends Controller {
 
 		$comment->where($id)->delete();
 		$this->back();
-	}
-
-	private function get_login_id() {
-		return $this->session->get('user_id');
 	}
 }
 

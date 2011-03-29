@@ -49,6 +49,7 @@ class Context {
 		require_once_dir(Config::get()->sys_classes);
 
 		require_once_dir(Config::get()->conf_dir);
+		require_once(Config::get()->ctrl_dir . '/application_controller.class.php');
 		require_once(Config::get()->help_dir . '/application.php');
 		require_once_dir(Config::get()->model_dir);
 	}

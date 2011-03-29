@@ -1,24 +1,11 @@
 <?php
-class UserController extends Controller {
-
-	public function __construct() {
-		parent::__construct();
-		$this->layout = 'blog';
-	}
+class UserController extends ApplicationController {
 
 	public function before_filter($action = '') {
 		if (is_start_with($action, 'register') || is_start_with($action, 'login') || $action == 'leave_success') {
 			return;
 		}
 		$this->authorize();
-	}
-
-	// TODO duplication code. refers to BlogController's authorize()
-	public function authorize() {
-		if (is_null($this->get_login_id())) {
-			$this->flash->add('message', '로그 인이 필요합니다.');
-			$this->redirect_to('/user/login_form?return_url=' . Context::get()->server['REQUEST_URI']);
-		}
 	}
 
 	public function register_form() {
@@ -96,11 +83,6 @@ class UserController extends Controller {
 		$user = new User();
 		$user->logout($this->session);
 		$this->redirect_to('/blog/index');
-	}
-
-	// TODO duplication code. refers to BlogController's get_login_id()
-	private function get_login_id() {
-		return $this->session->get('user_id');
 	}
 }
 
