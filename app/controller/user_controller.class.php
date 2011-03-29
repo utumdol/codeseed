@@ -1,6 +1,11 @@
 <?php
 class UserController extends ApplicationController {
 
+	public function __construct() {
+		parent::__construct();
+		$this->layout = 'blog';
+	}
+
 	public function before_filter($action = '') {
 		if (is_start_with($action, 'register') || is_start_with($action, 'login') || $action == 'leave_success') {
 			return;

@@ -1,6 +1,11 @@
 <?php
 class BlogController extends ApplicationController {
 
+	public function __construct() {
+		parent::__construct();
+		$this->layout = 'blog';
+	}
+
 	public function before_filter($action = '') {
 		if ($action == 'index' || $action == 'view') {
 			return;

@@ -3,7 +3,7 @@ class ApplicationController extends Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->layout = 'blog';
+		$this->layout = 'default';
 	}
 
 	public function authorize() {
