@@ -65,10 +65,12 @@ class Context {
 	}
 
 	private function init_session() {
-		session_set_save_handler(
-				array('DbSession', 'open'), array('DbSession', 'close'),
-				array('DbSession', 'read'), array('DbSession', 'write'),
-				array('DbSession', 'destroy'), array('DbSession', 'clean'));
+		if (Config::get()->use_db_session) {
+			session_set_save_handler(
+					array('DbSession', 'open'), array('DbSession', 'close'),
+					array('DbSession', 'read'), array('DbSession', 'write'),
+					array('DbSession', 'destroy'), array('DbSession', 'clean'));
+		}
 		return new Session();
 	}
 

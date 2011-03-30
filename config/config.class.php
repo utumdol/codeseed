@@ -11,8 +11,6 @@ class Config {
 		'test' => array('phpworks.testhost'),
 		'real' => array('phpworks.realhost')
 	);
-	public static $debug_level; // all, trace, debug, info, warn, error, fatal, off
-	public $mode; // dev, test, real
 
 	// for session cryption. you can change it.
 	public $crypt_key = 'a2c$%^*()';
@@ -32,6 +30,8 @@ class Config {
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
+				$this->use_db_session = true;
+				$this->log_level = 'debug';
 				break;
 			case 'test':
 				$this->db = 'MySql';
@@ -40,6 +40,8 @@ class Config {
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
+				$this->use_db_session = false;
+				$this->log_level = 'debug';
 				break;
 			case 'real';
 				$this->db = 'MySql';
@@ -48,12 +50,18 @@ class Config {
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
+				$this->use_db_session = false;
+				$this->log_level = 'warn';
 				break;
 		}
 		$this->set_system_directory();
 		$this->set_app_directory();
 		$this->set_base_define();
 	}
+
+	public $use_db_session;
+	public $debug_level; // all, trace, debug, info, warn, error, fatal, off
+	public $mode; // dev, test, real
 
 	// singleton implementation
 	private static $instance;
