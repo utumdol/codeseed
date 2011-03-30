@@ -6,8 +6,13 @@
 class Config {
 
 	// init environment
-	public $mode = 'dev'; // dev, test, real
-	public static $is_debug = false;
+	public $hostnames = array(
+		'dev' => array('localhost', 'phpworks.locahost', 'utumdol-laptop'),
+		'test' => array('phpworks.testhost'),
+		'real' => array('phpworks.realhost')
+	);
+	public static $debug_level; // all, trace, debug, info, warn, error, fatal, off
+	public $mode; // dev, test, real
 
 	// for session cryption. you can change it.
 	public $crypt_key = 'a2c$%^*()';
@@ -18,6 +23,7 @@ class Config {
 
 	// default model repository. you can change it.
 	private function __construct() {
+		$this->set_mode();
 		switch($this->mode) {
 			case 'dev':
 				$this->db = 'MySql';
@@ -44,11 +50,9 @@ class Config {
 				$this->db_port = '3306';
 				break;
 		}
-
 		$this->set_system_directory();
 		$this->set_app_directory();
 		$this->set_base_define();
-
 	}
 
 	// singleton implementation
@@ -90,6 +94,16 @@ class Config {
 		define('BR', '<br/>');
 		define('NL', "\n");
 		define('BN', BR . NL);
+	}
+
+	private function set_mode() {
+		$hostname = php_uname('n');
+		foreach($this->hostnames as $mode => $hostnames) {
+			if (in_array($hostname, $hostnames)) {
+				$this->mode = $mode;
+				break;
+			}
+		}
 	}
 
 	// default model repository.
