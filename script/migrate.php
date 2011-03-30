@@ -2,6 +2,9 @@
 // include system init 
 require_once(dirname(__FILE__) . '/../config/init.php');
 
+// init default tables
+require_once(dirname(__FILE__) . '/install.php');
+
 // init
 $INTEND_VERSION = isset($argv[1]) ? $argv[1] : '99991231235959';
 
@@ -73,4 +76,9 @@ for($i = 0; $i < count($files); $i++) {
 
 // close db connection
 $db->close();
+
+// remove all clearly
+if ($INTEND_VERSION == 0) {
+	require_once(dirname(__FILE__) . '/uninstall.php');
+}
 
