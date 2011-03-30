@@ -11,7 +11,7 @@ class DbSession {
 
 	public static function read($session_id) {
 		$sessions = new Sessions();
-		$s = $sessions->where("session_id = '{$session_id}'")->find();
+		$s = $sessions->where("session_id = ?", $session_id)->find();
 		if (is_null($s)) {
 			return '';	
 		}
@@ -29,7 +29,7 @@ class DbSession {
 		$sessions = new Sessions();
 		$sessions->session_id = $session_id;
 		$sessions->data = $data;
-		$s = $sessions->where("session_id = '{$session_id}'")->find();
+		$s = $sessions->where("session_id = ?", $session_id)->find();
 		if (is_null($s)) {
 			return $sessions->save();
 		}
@@ -39,13 +39,13 @@ class DbSession {
 
 	public static function destroy($session_id) {
 		$sessions = new Sessions();
-		return $sessions->where("session_id = '$session_id'")->delete();
+		return $sessions->where("session_id = ?", $session_id)->delete();
 	}
 
 	public static function clean($max) {
 		$sessions = new Sessions();
 		$old = time() - $max;
-		return $sessions->where("updated_at < '$old'")->delete();
+		return $sessions->where("updated_at < ?", $old)->delete();
 	}
 }
 
