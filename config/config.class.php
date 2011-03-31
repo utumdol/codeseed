@@ -51,17 +51,13 @@ class Config {
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
 				$this->use_db_session = false;
-				$this->log_level = 'warn';
+				$this->log_level = 'info';
 				break;
 		}
 		$this->set_system_directory();
 		$this->set_app_directory();
 		$this->set_base_define();
 	}
-
-	public $use_db_session;
-	public $debug_level; // all, trace, debug, info, warn, error, fatal, off
-	public $mode; // dev, test, real
 
 	// singleton implementation
 	private static $instance;
@@ -86,6 +82,7 @@ class Config {
 		$this->sys_dir = $this->root_dir . '/vendor/phpworks';
 		$this->sys_classes = $this->sys_dir . '/classes';
 		$this->sys_functions = $this->sys_dir . '/functions';
+		$this->log_dir = $this->root_dir . '/log';
 	}
 
 	private function set_app_directory() {
@@ -137,5 +134,11 @@ class Config {
 	public $view_dir;
 	public $help_dir;
 	public $migr_dir;
+
+	// etc
+	public $use_db_session;
+	public $log_dir;
+	public $log_level; // all, trace, debug, info, warn, error, fatal, off
+	public $mode; // dev, test, real
 }
 

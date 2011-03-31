@@ -72,6 +72,7 @@ class Mysql {
 
 	public function execute($query, $params = array()) {
 		$query = $this->bind_params($query, $this->escape_string($params));
+		Log::get()->debug($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
 			throw new ProcessingError('Could not run query: ' . $this->error());

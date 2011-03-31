@@ -11,6 +11,7 @@ class Context {
 	public $params;
 	public $session;
 	public $flash;
+	public $log;
 
 	private function __construct() {
 		$this->get = $_GET;
@@ -23,6 +24,7 @@ class Context {
 		$this->db = $this->init_db();
 		$this->session = $this->init_session();
 		$this->flash = $this->init_flash();
+		$this->log = $this->init_log();
 	}
 
 	// singleton implementation
@@ -76,6 +78,11 @@ class Context {
 
 	private function init_flash() {
 		return new Flash($this->session);
+	}
+
+	private function init_log() {
+		$filename = Config::get()->log_dir . '/' . Config::get()->mode . '.log';
+		return Log::get_instance(Config::get()->log_level, $filename);
 	}
 }
 

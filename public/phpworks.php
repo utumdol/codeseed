@@ -19,6 +19,7 @@ $flash = Context::get()->flash;
 $flash->load();
 
 // routing
+Log::get()->info(Context::get()->server['REQUEST_METHOD'] . ' ' . Context::get()->server['PATH_INFO']);
 $path = parse_request_uri(Context::get()->server['PATH_INFO']);
 if (empty($path[1])) { $path[1] = Config::get()->default_controller; }
 if (empty($path[2])) { $path[2] = Config::get()->default_action; }
