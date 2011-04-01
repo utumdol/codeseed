@@ -6,6 +6,12 @@ require_once(dirname(__FILE__) . '/../config/init.php');
 $db = Context::get()->db;
 $db->connect();
 
+// init log dir
+if (!file_exists(Config::get()->log_dir)) {
+	$migration = new CreateLogDirectory();
+	$migration->up();
+}
+
 // init table
 $tables = $db->get_tables();
 

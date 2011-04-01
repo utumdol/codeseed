@@ -40,7 +40,7 @@ class Config {
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
-				$this->use_db_session = false;
+				$this->use_db_session = true;
 				$this->log_level = 'debug';
 				break;
 			case 'real';
@@ -50,7 +50,7 @@ class Config {
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
-				$this->use_db_session = false;
+				$this->use_db_session = true;
 				$this->log_level = 'info';
 				break;
 		}

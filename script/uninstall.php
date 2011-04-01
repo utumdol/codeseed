@@ -21,6 +21,12 @@ if (in_array('schema_version', $tables)) {
 	$migration->down();
 }
 
+// remove log dir
+if (file_exists(Config::get()->log_dir)) {
+	$migration = new CreateLogDirectory();
+	$migration->down();
+}
+
 // close db connection
 $db->close();
 

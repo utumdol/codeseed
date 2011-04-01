@@ -27,6 +27,7 @@ class Log {
 		}
 		return Log::$instance;
 	}
+
 	public static function get() {
 		return Log::$instance;
 	}
@@ -56,12 +57,22 @@ class Log {
 	}
 
 	private function log($level, $message) {
-		if ($this->log_levels[$level] >= $this->log_levels[$this->log_level]) {
-			$message = date('Y-m-d H:i:s') . ' [' . strtoupper($level) . '] ' . $message . "\n";
-			$f = fopen($this->filename, 'a');
-			fwrite($f, $message, strlen($message)); 
-			fclose($f);
+		if ($this->log_levels[$level] < $this->log_levels[$this->log_level]) {
+			return;
 		}
+		$message = date('Y-m-d H:i:s') . ' [' . strtoupper($level) . '] ' . $message . "\n";
+		$this->touch();
+		$f = fopen($this->filename, 'a');
+		fwrite($f, $message, strlen($message)); 
+		fclose($f);
+	}
+
+	private function touch() {
+		if (file_exists($this->filename)) {
+			return;
+		}
+		touch($this->filename);
+		chmod($this->filename, 0666);
 	}
 }
 

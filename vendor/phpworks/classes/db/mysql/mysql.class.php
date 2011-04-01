@@ -58,7 +58,7 @@ class Mysql {
 
 	public function connect() {
 		if (!function_exists('mysqli_connect')) {
-			throw new ProcessingError('[FATAL] class mysqli_connect doesn\'t exist: no MySQL interface');
+			throw new ProcessingError('class mysqli_connect doesn\'t exist: no MySQL interface');
 		}
 		$this->conn = mysqli_connect($this->host, $this->user, $this->passwd, $this->name);
 		if (mysqli_connect_error()) {
