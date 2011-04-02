@@ -59,6 +59,14 @@ class Config {
 		$this->set_base_define();
 	}
 
+	// local settings
+	//$admin_name = '';
+	//$admin_email = '';
+
+	///////////////////////////////////////////////////////////////////////////
+	// You don't need to change the below setttings
+	///////////////////////////////////////////////////////////////////////////
+
 	// singleton implementation
 	private static $instance;
 	public static function get_instance() {

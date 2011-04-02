@@ -72,12 +72,12 @@ class User extends ActiveRecord {
 			return false;
 		}
 
-		if ($this->where("id != ? AND email = ?", array($user_id, $this->email))->count() > 0) {
+		if ($this->where("id != ? AND email = ?", $user_id, $this->email)->count() > 0) {
 			$this->errors->add('이미 등록되어 있는 이메일 주소입니다.');
 			return false;
 		}
 
-		if ($this->where("id != ? AND nickname = ?", array($user_id, $this->nickname))->count() > 0) {
+		if ($this->where("id != ? AND nickname = ?", $user_id, $this->nickname)->count() > 0) {
 			$this->errors->add('동일한 별명이 이미 사용되고 있습니다. 다른 별명을 입력해 주세요.');
 			return false;
 		}

@@ -56,17 +56,37 @@ class ActiveRecord extends Model {
 		return $this;
 	}
 
-	public function join($join, $on = '', $params = array()) {
+	public function join(/* variable arguments */) {
+		$join = func_get_arg(0);
+		if (func_num_args() == 1) {
+			$on = '';
+			$params = array();
+		} else {
+			$on = func_get_arg(1);
+			$params = array_slice(func_get_args(), 2);
+		}
+
 		$this->query->join($this, $join, $on, $params);
 		return $this;
 	}
 
-	public function where($where, $params = array()) {
+	public function where(/* variable arguments */) {
+		$where = func_get_arg(0);
+		$params = array_slice(func_get_args(), 1);
 		$this->query->where($where, $params);
 		return $this;
 	}
 
 	public function group($group, $having ='', $params = array()) {
+		$group = func_get_arg(0);
+		if (func_num_args() == 1) {
+			$having = '';
+			$params = array();
+		} else {
+			$having = func_get_arg(1);
+			$params = array_slice(func_get_args(), 2);
+		}
+
 		$this->query->group($group, $having, $params);
 		return $this;
 	}
