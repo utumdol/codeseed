@@ -60,8 +60,8 @@ class Config {
 	}
 
 	// local settings
-	//$admin_name = '';
-	//$admin_email = '';
+	//public $admin_name = '';
+	//public $admin_email = '';
 
 	///////////////////////////////////////////////////////////////////////////
 	// You don't need to change the below setttings
