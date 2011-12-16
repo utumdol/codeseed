@@ -15,7 +15,7 @@ class ActiveRecord extends Model {
 
 	public function __construct($params = array()) {
 		parent::__construct($params);
-		$this->tablename = classname_to_tablename($this->name);
+		$this->tablename = classname_to_tablename($this->model_name);
 		$this->query = new Query($this->tablename);
 	}
 
