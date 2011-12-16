@@ -8,8 +8,8 @@ class Flash {
 	}
 
 	public function load() {
-		if ($this->session->is_exist('flash')) {
-			$this->flashes = unserialize($this->session->get('flash'));
+		if ($this->session->is_exist('flashes')) {
+			$this->flashes = unserialize($this->session->get('flashes'));
 		} else {
 			$this->flashes = array();
 		}
@@ -40,7 +40,7 @@ class Flash {
 	}
 
 	public function save() {
-		$this->session->save('flash', serialize($this->flashes));
+		$this->session->save('flashes', serialize($this->flashes));
 	}
 }
 
