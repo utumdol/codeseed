@@ -7,7 +7,7 @@ class Config {
 
 	// init environment
 	public $hostnames = array(
-		'dev' => array('localhost', 'phpworks.locahost', 'utumdol-laptop'),
+		'dev' => array('phpworks.locahost', 'localhost'),
 		'test' => array('phpworks.testhost'),
 		'real' => array('phpworks.realhost')
 	);
@@ -25,7 +25,7 @@ class Config {
 		switch($this->mode) {
 			case 'dev':
 				$this->db = 'MySql';
-				$this->db_user = 'root';
+				$this->db_user = 'phpworks';
 				$this->db_password = '';
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
@@ -35,7 +35,7 @@ class Config {
 				break;
 			case 'test':
 				$this->db = 'MySql';
-				$this->db_user = 'root';
+				$this->db_user = 'phpworks';
 				$this->db_password = '';
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
@@ -45,7 +45,7 @@ class Config {
 				break;
 			case 'real';
 				$this->db = 'MySql';
-				$this->db_user = 'root';
+				$this->db_user = 'phpworks';
 				$this->db_password = '';
 				$this->db_name = 'phpworks';
 				$this->db_host = 'localhost';
