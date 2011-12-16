@@ -147,6 +147,6 @@ class Config {
 	public $use_db_session;
 	public $log_dir;
 	public $log_level; // all, trace, debug, info, warn, error, fatal, off
-	public $mode; // dev, test, real
+	public $mode = 'dev'; // dev, test, real
 }
 
