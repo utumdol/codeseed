@@ -12,6 +12,15 @@ class Model {
 		}
 		$this->init();
 	}
+
+	/**
+	 * 'new' keyword alternative.
+	 * it supports after php 5.3.0
+	 */
+	public static function neo() {
+		$class_name = get_called_class();
+		return new $class_name;
+	}
 	
 	public function init() {
 		// the method which is called after __construct
