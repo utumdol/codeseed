@@ -1,9 +1,9 @@
 <?php
 function parse_request_uri($uri) {
-	if(strpos($uri, Config::get()->root_file) == 1) {
+	if(strpos($uri, Config::one()->root_file) == 1) {
 		$uri = substr($uri, 1);
 	} else {
-		$uri = Config::get()->root_file . $uri;
+		$uri = Config::one()->root_file . $uri;
 	}
 	return explode('/', $uri);
 }
@@ -37,6 +37,6 @@ function require_once_dir($dir) {
 }
 
 function abbr_path($path) {
-	return str_replace(Config::get()->root_dir . '/', '', $path);
+	return str_replace(Config::one()->root_dir . '/', '', $path);
 }
 

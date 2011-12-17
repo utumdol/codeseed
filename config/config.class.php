@@ -76,7 +76,7 @@ class Config {
 		return Config::$instance;
 	}
 	// the alias of get_instance
-	public static function get() {
+	public static function one() {
 		return Config::get_instance();
 	}
 	// just init Config

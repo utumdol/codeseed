@@ -21,12 +21,12 @@ $flash->load();
 // routing
 Log::get()->debug(Context::get()->server['REQUEST_METHOD'] . ' ' . Context::get()->server['PATH_INFO']);
 $path = parse_request_uri(Context::get()->server['PATH_INFO']);
-if (empty($path[1])) { $path[1] = Config::get()->default_controller; }
-if (empty($path[2])) { $path[2] = Config::get()->default_action; }
+if (empty($path[1])) { $path[1] = Config::one()->default_controller; }
+if (empty($path[2])) { $path[2] = Config::one()->default_action; }
 $controller_path = $path[1];
 $action_path = $path[2];
-require_once(Config::get()->help_dir . '/' . $controller_path . '.php');
-require_once(Config::get()->ctrl_dir . '/' . $controller_path . '_controller.class.php');
+require_once(Config::one()->help_dir . '/' . $controller_path . '.php');
+require_once(Config::one()->ctrl_dir . '/' . $controller_path . '_controller.class.php');
 $controller_name = filename_to_classname($controller_path . '_controller');
 $controller = new $controller_name();
 
@@ -36,7 +36,7 @@ try {
 	call_user_func_array(array($controller, 'before_filter'), array_slice($path, 2));
 	call_user_func_array(array($controller, $action_path), array_slice($path, 3));
 	call_user_func_array(array($controller, 'after_filter'), array_slice($path, 2));
-	if (file_exists(Config::get()->view_dir . '/' . $controller_path . '/' . $action_path . '.php')) {
+	if (file_exists(Config::one()->view_dir . '/' . $controller_path . '/' . $action_path . '.php')) {
 		call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
 	}
 } catch (SkipProcessing $e) {
@@ -49,7 +49,7 @@ try {
 $CONTENTS = ob_get_contents();
 ob_end_clean();
 
-require_once(Config::get()->view_dir . '/layout/' . $controller->layout . '.php');
+require_once(Config::one()->view_dir . '/layout/' . $controller->layout . '.php');
 
 // close flash
 $flash->add('params', $params); // reserve params for history back

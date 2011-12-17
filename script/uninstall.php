@@ -22,7 +22,7 @@ if (in_array('schema_version', $tables)) {
 }
 
 // remove log dir
-if (file_exists(Config::get()->log_dir)) {
+if (file_exists(Config::one()->log_dir)) {
 	$migration = new CreateLogDirectory();
 	$migration->down();
 }

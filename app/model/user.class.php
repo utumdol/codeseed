@@ -127,7 +127,7 @@ class User extends ActiveRecord {
 	}
 
 	private function encrypt_password($password, $salt) {
-		$this->hashed_password = sha1($password . Config::get()->crypt_key . $salt);
+		$this->hashed_password = sha1($password . Config::one()->crypt_key . $salt);
 		return $this->hashed_password;
 	}
 }

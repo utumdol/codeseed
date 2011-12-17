@@ -10,7 +10,7 @@ class <class> extends ActiveRecord {
 
 	public function __construct($name, $from = '') {
 		parent::__construct($name);
-		$this->path = Config::get()->model_dir;
+		$this->path = Config::one()->model_dir;
 	}
 
 	public function generate() {

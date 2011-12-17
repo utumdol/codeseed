@@ -23,7 +23,7 @@ $name = $argv[0];
 array_shift($argv);
 $params = $argv;
 
-if (!file_exists(Config::get()->sys_classes. '/generator/' . $kind . '_generator.class.php')) {
+if (!file_exists(Config::one()->sys_classes. '/generator/' . $kind . '_generator.class.php')) {
 	echonl("No " . $kind . ' generator exist.');
 	exit(0);
 }

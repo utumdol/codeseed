@@ -7,7 +7,7 @@ $db = Context::get()->db;
 $db->connect();
 
 // init log dir
-if (!file_exists(Config::get()->log_dir)) {
+if (!file_exists(Config::one()->log_dir)) {
 	$migration = new CreateLogDirectory();
 	$migration->up();
 }
