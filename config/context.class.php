@@ -36,7 +36,7 @@ class Context {
 		return Context::$instance;
 	}
 	// the alias of get_instance
-	public static function get() {
+	public static function one() {
 		return Context::get_instance();
 	}
 	// just init context

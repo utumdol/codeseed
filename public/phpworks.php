@@ -6,21 +6,21 @@ require_once(dirname(__FILE__) . '/../config/init.php');
 $params = array_merge($_GET, $_POST);
 
 // connect db connection
-$db = Context::get()->db;
+$db = Context::one()->db;
 $db->connect();
 
 session_start();
 
 // init session
-$session = Context::get()->session;
+$session = Context::one()->session;
 
 // init flash
-$flash = Context::get()->flash;
+$flash = Context::one()->flash;
 $flash->load();
 
 // routing
-Log::get()->debug(Context::get()->server['REQUEST_METHOD'] . ' ' . Context::get()->server['PATH_INFO']);
-$path = parse_request_uri(Context::get()->server['PATH_INFO']);
+Log::get()->debug(Context::one()->server['REQUEST_METHOD'] . ' ' . Context::one()->server['PATH_INFO']);
+$path = parse_request_uri(Context::one()->server['PATH_INFO']);
 if (empty($path[1])) { $path[1] = Config::one()->default_controller; }
 if (empty($path[2])) { $path[2] = Config::one()->default_action; }
 $controller_path = $path[1];

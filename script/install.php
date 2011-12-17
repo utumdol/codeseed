@@ -3,7 +3,7 @@
 require_once(dirname(__FILE__) . '/../config/init.php');
 
 // connect db connection
-$db = Context::get()->db;
+$db = Context::one()->db;
 $db->connect();
 
 // init log dir

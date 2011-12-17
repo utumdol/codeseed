@@ -1,6 +1,6 @@
 <?php
 function get_value($obj, $props = array()) {
-	$flash = Context::get()->flash;
+	$flash = Context::one()->flash;
 
 	// 먼저 flash에 저장된 값을 반환한다.
 	$old_params = get_value_from_array($flash->get('params'), $props);

@@ -38,7 +38,7 @@ class ActiveRecord extends Model {
 	}
 
 	public function get_columns() {
-		$db = Context::get()->db;
+		$db = Context::one()->db;
 		$this->columns = $db->get_table_columns($this->tablename);
 	}
 
@@ -116,7 +116,7 @@ class ActiveRecord extends Model {
 	 *			when $option is 'all', then returns array.
 	 */
 	public function find($option = 'first') {
-		$db = Context::get()->db;
+		$db = Context::one()->db;
 
 		// init query
 		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
@@ -150,7 +150,7 @@ class ActiveRecord extends Model {
 	 * @return true on success, false on failure
 	 */
 	public function delete() {
-		$db = Context::get()->db;
+		$db = Context::one()->db;
 
 		// reserve original query object because find() cleans up $this->query.
 		$orgin_query = $this->query;
@@ -183,7 +183,7 @@ class ActiveRecord extends Model {
 	 * @return true on success, false on failure
 	 */
 	public function save() {
-		$db = Context::get()->db;
+		$db = Context::one()->db;
 
 		if (empty($this->query->column_names)) {
 			// load table schema and value setting
@@ -220,7 +220,7 @@ class ActiveRecord extends Model {
 	}
 
 	public function update() {
-		$db = Context::get()->db;
+		$db = Context::one()->db;
 
 		if (empty($this->query->column_names)) {
 			// load table schema and value setting
@@ -307,7 +307,7 @@ class ActiveRecord extends Model {
 	 * @return model object
 	 */
 	private function parse_result($result) {
-		$db = Context::get()->db;
+		$db = Context::one()->db;
 
 		$arr = array();
 		

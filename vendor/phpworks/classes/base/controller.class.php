@@ -7,9 +7,9 @@ class Controller {
 	protected $params;
 
 	public function __construct() {
-		$this->session = Context::get()->session;
-		$this->flash = Context::get()->flash;
-		$this->params = Context::get()->params;
+		$this->session = Context::one()->session;
+		$this->flash = Context::one()->flash;
+		$this->params = Context::one()->params;
 	}
 
 	public function before_filter($action = '') {
@@ -21,8 +21,8 @@ class Controller {
 	}
 
 	public function back() {
-		if (!empty(Context::get()->server['HTTP_REFERER'])) {
-			$this->redirect_to(Context::get()->server['HTTP_REFERER']);
+		if (!empty(Context::one()->server['HTTP_REFERER'])) {
+			$this->redirect_to(Context::one()->server['HTTP_REFERER']);
 		}
 		echo '<script type="text/javascript">history.back();</script>';
 		throw new SkipProcessing();
