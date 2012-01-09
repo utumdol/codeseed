@@ -17,7 +17,7 @@ class UserController extends ApplicationController {
 	}
 	
 	public function register() {
-		$user = new User(Context::_post('user'));
+		$user = new User(_post('user'));
 		if (!$user->validate_register()) {
 			$this->flash->add('message', $user->errors->get_messages());
 			$this->back();
@@ -38,7 +38,7 @@ class UserController extends ApplicationController {
 
 	public function update() {
 		// validation
-		$user = new User(Context::_post('user'));
+		$user = new User(_post('user'));
 		$user->id = $this->get_login_id();
 		if (!$user->validate_update($this->get_login_id())) {
 			$this->flash->add('message', $user->errors->get_messages());
@@ -73,14 +73,14 @@ class UserController extends ApplicationController {
 	}
 
 	public function login() {
-		$user = new User(Context::_post('user'));
+		$user = new User(_post('user'));
 		if (!$user->validate_login() || !$user->authenticate()) {
 			$this->flash->add('message', $user->errors->get_messages());
 			$this->back();
 		}
 
 		$user->login($this->session);
-		$return_url = Context::_get('return_url');
+		$return_url = _get('return_url');
 		if (empty($return_url)) {
 			$return_url = '/';
 		}

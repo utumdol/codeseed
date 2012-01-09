@@ -19,7 +19,7 @@ class Controller {
 	}
 
 	public function back() {
-		$http_referer = Context::_server('HTTP_REFERER');
+		$http_referer = _server('HTTP_REFERER');
 		if (!empty($http_referer)) {
 			$this->redirect_to($http_referer);
 		}

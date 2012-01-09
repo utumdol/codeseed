@@ -35,24 +35,32 @@ class Context {
 		Context::get_instance();
 	}
 
-	// get from $_GET
+	/**
+	 * alias of $_GET[arg1][arg2][arg3][...]
+	 */
 	public static function _get(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_GET, func_get_args()); // means $_GET[arg1][arg2][arg3][...]
+		return get_array_value($_GET, parse_array_args(func_get_args()));
 	}
 
-	// get from $_POST
+	/**
+	 * alias of $_POST[arg1][arg2][arg3][...]
+	 */
 	public static function _post(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_POST, func_get_args()); // means $_POST[arg1][arg2][arg3][...]
+		return get_array_value($_POST, parse_array_args(func_get_args()));
 	}
 
-	// get from $_FILES
+	/**
+	 * alias of $_FILES[arg1][arg2][arg3][...]
+	 */
 	public static function _files(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_FILES, func_get_args()); // means $_FILES[arg1][arg2][arg3][...]
+		return get_array_value($_FILES, parse_array_args(func_get_args()));
 	}
 
-	// get from $_SERVER
+	/**
+	 * alias of $_SERVER[arg1][arg2][arg3][...]
+	 */
 	public static function _server(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_SERVER, func_get_args()); // means $_SERVER[arg1][arg2][arg3][...]
+		return get_array_value($_SERVER, parse_array_args(func_get_args()));
 	}
 
 	// include system and application library
