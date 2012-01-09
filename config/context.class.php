@@ -5,21 +5,11 @@
  */
 class Context {
 	public $db;
-	public $get;
-	public $post;
-	public $server;
-	public $params;
 	public $session;
 	public $flash;
 	public $log;
 
 	private function __construct() {
-		$this->get = $_GET;
-		$this->post = $_POST;
-		$this->files = $_FILES;
-		$this->server = $_SERVER;
-		$this->params = array_merge($this->get, $this->post);
-
 		Config::init();
 		$this->include_library();
 		$this->db = $this->init_db();
@@ -64,18 +54,6 @@ class Context {
 	public static function _server(/* arg1, arg2, arg3, ... */) {
 		return get_array_value($_SERVER, func_get_args()); // means $_SERVER[arg1][arg2][arg3][...]
 	}
-
-	// get from $_GET or $_POST
-	/*
-	public static function _params(arg1, arg2, arg3, ...) {
-		$args = func_get_args();
-		$result = Context::_get($args);
-		if (!is_null($result)) {
-			return $result;
-		}
-		return Context::_post($args);
-	}
-	*/
 
 	// include system and application library
 	private function include_library() {
