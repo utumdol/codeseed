@@ -46,44 +46,33 @@ class Context {
 	}
 
 	// get from $_GET
-	public static function get($key = '') {
-		if (in_array($key, $_GET)) {
-			return $_GET[$key];
-		}
-		return null;
+	public static function get(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_GET, $func_get_arg()); // means $_GET[arg1][arg2][arg3][...]
 	}
 
 	// get from $_POST
-	public static function post($key = '') {
-		if (in_array($key, $_POST)) {
-			return $_POST[$key];
-		}
-		return null;
+	public static function post(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_POST, $func_get_arg()); // means $_POST[arg1][arg2][arg3][...]
 	}
 
 	// get from $_FILES
-	public static function files($key = '') {
-		if (in_array($key, $_FILES)) {
-			return $_FILES[$key];
-		}
-		return null;
+	public static function files(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_FILES, $func_get_arg()); // means $_FILES[arg1][arg2][arg3][...]
 	}
 
 	// get from $_SERVER
-	public static function server($key = '') {
-		if (in_array($key, $_SERVER)) {
-			return $_SERVER[$key];
-		}
-		return null;
+	public static function server(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_SERVER, $func_get_arg()); // means $_SERVER[arg1][arg2][arg3][...]
 	}
 
 	// get from $_GET or $_POST
-	public static function param($key = '') {
-		$result = Context::get($key);
+	public static function params(/* arg1, arg2, arg3, ... */) {
+		$args = func_get_arg();
+		$result = Context::get($args);
 		if (!is_null($result)) {
 			return $result;
 		}
-		return Context::post($key);
+		return Context::post($args);
 	}
 
 	// include system and application library
