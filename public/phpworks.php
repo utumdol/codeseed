@@ -2,9 +2,6 @@
 // include system init 
 require_once(dirname(__FILE__) . '/../config/init.php');
 
-// init params
-$params = array_merge($_GET, $_POST);
-
 // connect db connection
 $db = Context::one()->db;
 $db->connect();
@@ -19,8 +16,8 @@ $flash = Context::one()->flash;
 $flash->load();
 
 // routing
-Log::get()->debug(Context::one()->server['REQUEST_METHOD'] . ' ' . Context::one()->server['PATH_INFO']);
-$path = parse_request_uri(Context::one()->server['PATH_INFO']);
+Log::get()->debug(Context::_server('REQUEST_METHOD') . ' ' . Context::_server('PATH_INFO'));
+$path = parse_request_uri(Context::_server('PATH_INFO'));
 if (empty($path[1])) { $path[1] = Config::one()->default_controller; }
 if (empty($path[2])) { $path[2] = Config::one()->default_action; }
 $controller_path = $path[1];
@@ -52,7 +49,7 @@ ob_end_clean();
 require_once(Config::one()->view_dir . '/layout/' . $controller->layout . '.php');
 
 // close flash
-$flash->add('params', $params); // reserve params for history back
+$flash->add('old_params', array_merge($_GET, $_POST)); // reserve params for history back
 $flash->clear();
 $flash->save();
 

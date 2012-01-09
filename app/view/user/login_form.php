@@ -7,7 +7,7 @@ $(function() {
 });
 </script>
 <form class="form" action="/user/login" method="post">
-<input type="hidden" name="return_url" value="<?= get_array_value($this->params, array('return_url')); ?>" />
+<input type="hidden" name="return_url" value="<?= Context::_get('return_url') ?>" />
 	<div style="width: 400px; margin: auto; clear: both;">
 	<div class="box" style="width: 100%;">
 	<div class="list_row">

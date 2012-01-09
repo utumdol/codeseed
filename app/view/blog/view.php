@@ -8,7 +8,7 @@ $(function() {
 			$('#comment_textarea').blur();
 			alert('로그 인이 필요합니다.');
 			$('#comment_textarea').val('');
-			location.href="/user/login_form?return_url=<?= Context::one()->server['REQUEST_URI'] ?>";
+			location.href="/user/login_form?return_url=<?= Context::_server('REQUEST_URI') ?>";
 		<?php } ?>
 	});
 	$('#submit_comment').click(function() {
@@ -16,7 +16,7 @@ $(function() {
 			$('#article_comment_form').submit();
 		<?php } else { ?>
 			alert('로그 인이 필요합니다.');
-			location.href="/user/login_form?return_url=<?= Context::one()->server['REQUEST_URI'] ?>";
+			location.href="/user/login_form?return_url=<?= Context::_server('REQUEST_URI') ?>";
 		<?php } ?>
 	});
 });

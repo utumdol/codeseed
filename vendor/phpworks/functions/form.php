@@ -4,7 +4,7 @@ function get_object_property($obj, $props = array()) {
 	$flash = Context::one()->flash;
 
 	// 먼저 flash에 저장된 값을 반환한다.
-	$old_params = get_array_value($flash->get('params'), $props);
+	$old_params = get_array_value($flash->get('old_params'), $props);
 	if (isset($old_params)) {
 		return $old_params;
 	}
