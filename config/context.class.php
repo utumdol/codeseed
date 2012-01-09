@@ -46,34 +46,36 @@ class Context {
 	}
 
 	// get from $_GET
-	public static function get(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_GET, $func_get_arg()); // means $_GET[arg1][arg2][arg3][...]
+	public static function _get(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_GET, func_get_args()); // means $_GET[arg1][arg2][arg3][...]
 	}
 
 	// get from $_POST
-	public static function post(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_POST, $func_get_arg()); // means $_POST[arg1][arg2][arg3][...]
+	public static function _post(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_POST, func_get_args()); // means $_POST[arg1][arg2][arg3][...]
 	}
 
 	// get from $_FILES
-	public static function files(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_FILES, $func_get_arg()); // means $_FILES[arg1][arg2][arg3][...]
+	public static function _files(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_FILES, func_get_args()); // means $_FILES[arg1][arg2][arg3][...]
 	}
 
 	// get from $_SERVER
-	public static function server(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_SERVER, $func_get_arg()); // means $_SERVER[arg1][arg2][arg3][...]
+	public static function _server(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_SERVER, func_get_args()); // means $_SERVER[arg1][arg2][arg3][...]
 	}
 
 	// get from $_GET or $_POST
-	public static function params(/* arg1, arg2, arg3, ... */) {
-		$args = func_get_arg();
-		$result = Context::get($args);
+	/*
+	public static function _params(arg1, arg2, arg3, ...) {
+		$args = func_get_args();
+		$result = Context::_get($args);
 		if (!is_null($result)) {
 			return $result;
 		}
-		return Context::post($args);
+		return Context::_post($args);
 	}
+	*/
 
 	// include system and application library
 	private function include_library() {

@@ -17,7 +17,7 @@ class BlogController extends ApplicationController {
 	}
 
 	public function post() {
-		$article = new Article($this->params['article']);
+		$article = new Article(Context::_post('article'));
 		if (!$article->validate()) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
@@ -70,7 +70,7 @@ class BlogController extends ApplicationController {
 
 	public function update() {
 		$article = new Article();
-		$article = $article->where($this->params['article']['id'])->find();
+		$article = $article->where(Context::_post('article', 'id'))->find();
 
 		// validation
 		if (!$article->validation_update($this->get_login_id())) {
@@ -78,7 +78,7 @@ class BlogController extends ApplicationController {
 			$this->back();
 		}
 
-		$article = new Article($this->params['article']);
+		$article = new Article(Context::_post('article'));
 		if (!$article->validate()) {
 			$this->flash->add('message', $article->errors->get_messages());
 			$this->back();
@@ -105,14 +105,14 @@ class BlogController extends ApplicationController {
 	}
 
 	public function post_comment() {
-		$comment = new ArticleComment($this->params['article_comment']);
+		$comment = new ArticleComment(Context::_post('article_comment'));
 		if ($comment->validate()) {
 			$comment->user_id = $this->get_login_id();
 			$comment->save();
 		} else {
 			$this->flash->add('message', $comment->errors->get_messages());
 		}
-		$this->redirect_to('/blog/view/' . $this->params['article_comment']['article_id']);
+		$this->redirect_to('/blog/view/' . Context::_post('article_comment', 'article_id'));
 	}
 
 	public function delete_comment($id) {
