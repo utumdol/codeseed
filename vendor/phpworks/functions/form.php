@@ -1,9 +1,10 @@
 <?php
-function get_value($obj, $props = array()) {
+// get value from object recursively
+function get_object_property($obj, $props = array()) {
 	$flash = Context::one()->flash;
 
 	// 먼저 flash에 저장된 값을 반환한다.
-	$old_params = get_value_from_array($flash->get('params'), $props);
+	$old_params = get_array_value($flash->get('params'), $props);
 	if (isset($old_params)) {
 		return $old_params;
 	}
@@ -24,20 +25,5 @@ function get_value($obj, $props = array()) {
 		}
 	}
 	return $obj;
-}
-
-function get_value_from_array($arr, $props = array()) {
-	if ($arr == null) {
-		return null;
-	}
-
-	foreach($props as $prop) {
-		if (array_key_exists($prop, $arr)) {
-			$arr = $arr[$prop];
-		} else {
-			return null;
-		}
-	}
-	return $arr;
 }
 

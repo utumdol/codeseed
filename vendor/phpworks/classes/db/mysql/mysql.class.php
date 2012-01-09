@@ -126,7 +126,7 @@ class Mysql {
 		return $this->sizes[strtolower($type)];
 	}
 
-	public function get_value($type, $value) {
+	public function get_object_property($type, $value) {
 		$func = $this->value_functions[strtoupper(preg_replace('/\(\d*\)/', '', $type))];
 		return call_user_func($func, $value);
 	}

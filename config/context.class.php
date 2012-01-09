@@ -16,6 +16,7 @@ class Context {
 	private function __construct() {
 		$this->get = $_GET;
 		$this->post = $_POST;
+		$this->files = $_FILES;
 		$this->server = $_SERVER;
 		$this->params = array_merge($this->get, $this->post);
 
@@ -43,7 +44,48 @@ class Context {
 	public static function init() {
 		Context::get_instance();
 	}
-	
+
+	// get from $_GET
+	public static function get($key = '') {
+		if (in_array($key, $_GET)) {
+			return $_GET[$key];
+		}
+		return null;
+	}
+
+	// get from $_POST
+	public static function post($key = '') {
+		if (in_array($key, $_POST)) {
+			return $_POST[$key];
+		}
+		return null;
+	}
+
+	// get from $_FILES
+	public static function files($key = '') {
+		if (in_array($key, $_FILES)) {
+			return $_FILES[$key];
+		}
+		return null;
+	}
+
+	// get from $_SERVER
+	public static function server($key = '') {
+		if (in_array($key, $_SERVER)) {
+			return $_SERVER[$key];
+		}
+		return null;
+	}
+
+	// get from $_GET or $_POST
+	public static function param($key = '') {
+		$result = Context::get($key);
+		if (!is_null($result)) {
+			return $result;
+		}
+		return Context::post($key);
+	}
+
 	// include system and application library
 	private function include_library() {
 		require_once(Config::one()->sys_functions . '/system.php');

@@ -206,7 +206,7 @@ class ActiveRecord extends Model {
 					continue;
 				}
 
-				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
+				$this->query->set($column_name, $db->get_object_property($column->type, $this->$column_name));
 			}
 		}
 
@@ -243,7 +243,7 @@ class ActiveRecord extends Model {
 					continue;
 				}
 
-				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
+				$this->query->set($column_name, $db->get_object_property($column->type, $this->$column_name));
 			}
 			$this->query->where($this->id);
 		}
