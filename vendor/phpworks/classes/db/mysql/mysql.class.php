@@ -126,8 +126,8 @@ class Mysql {
 		return $this->sizes[strtolower($type)];
 	}
 
-	public function get_object_property($type, $value) {
-		$func = $this->value_functions[strtoupper(preg_replace('/\(\d*\)/', '', $type))];
+	public function get_value($type, $value) {
+		$func = $this->value_functions[strtoupper(preg_replace('/\([\d,]*\)/', '', $type))];
 		return call_user_func($func, $value);
 	}
 
@@ -157,8 +157,12 @@ class Mysql {
 		if (!is_blank($query->group)) {
 			$group = ' GROUP BY ' . $query->group;
 		}
+		$having = '';
+		if (!is_blank($query->having)) {
+			$having = ' HAVING ' . $query->having;
+		}
 
-		$result = $this->execute('SELECT ' . $query->select . ' FROM ' . $query->from . $query->join . $where . $group . $order . $limit, $query->params);
+		$result = $this->execute('SELECT ' . $query->select . ' FROM ' . $query->from . $query->join . $where . $group . $having . $order . $limit, $query->params);
 		return $result;
 	}
 
@@ -174,7 +178,7 @@ class Mysql {
 		}
 
 		// delete
-		$result = $this->execute('DELETE FROM ' . $query->from . $where);
+		$result = $this->execute('DELETE FROM ' . $query->from . $where, $query->params);
 
 		return $result;
 	}
@@ -259,12 +263,13 @@ class Mysql {
 	/**
 	 * @return true on success, false on failure
 	 */
-	public function add_column($table_name, $name, $type, $is_null = true, $size = null) {
+	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null) {
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 
 		$new_type = $this->get_type($type);
 		$new_size = (empty($size)) ? $this->get_size($type) : $size;
 		$new_size = is_blank($new_size) ? $new_size : "($new_size)";
-		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $new_type$new_size $not_null");
+		$default = (is_null($default)) ? '' : 'DEFAULT ' . $default;
+		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $new_type$new_size $default $not_null");
 	}
 
 	/**
@@ -288,8 +293,9 @@ class Mysql {
 	/**
 	 * @return true on success, false on failure
 	 */
-	public function add_index($table_name, $name, $columns) {
-		$this->execute("ALTER TABLE $table_name ADD INDEX $name ($columns)");
+	public function add_index($table_name, $name, $columns, $is_unique) {
+		$unique = ($is_unique) ? 'UNIQUE' : '';
+		$this->execute("ALTER TABLE $table_name ADD $unique INDEX $name ($columns)");
 	}
 
 	/**

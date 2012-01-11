@@ -14,8 +14,8 @@ class Migration {
 		Context::one()->db->rename_table($old_name, $new_name);
 	}
 
-	public function add_column($table_name, $name, $type, $is_null = true, $size = null) {
-		Context::one()->db->add_column($table_name, $name, $type, $is_null, $size);
+	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null) {
+		Context::one()->db->add_column($table_name, $name, $type, $is_null, $size, $default);
 	}
 
 	public function remove_column($table_name, $name) {
@@ -31,8 +31,8 @@ class Migration {
 		Context::one()->db->change_column($table_name, $name, $type, $is_null, $size);
 	}
 
-	public function add_index($table_name, $name, $columns) {
-		Context::one()->db->add_index($table_name, $name, $columns);
+	public function add_index($table_name, $name, $columns, $is_unique = false) {
+		Context::one()->db->add_index($table_name, $name, $columns, $is_unique);
 	}
 
 	public function remove_index($table_name, $name) {
