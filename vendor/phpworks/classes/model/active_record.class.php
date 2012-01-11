@@ -73,11 +73,15 @@ class ActiveRecord extends Model {
 	public function where(/* variable arguments */) {
 		$where = func_get_arg(0);
 		$params = array_slice(func_get_args(), 1);
+		if (count($params) > 0 && is_array($params[0])) {
+			$params = $params[0];
+		}
 		$this->query->where($where, $params);
 		return $this;
 	}
 
 	public function group($group, $having ='', $params = array()) {
+		/*
 		$group = func_get_arg(0);
 		if (func_num_args() == 1) {
 			$having = '';
@@ -86,6 +90,7 @@ class ActiveRecord extends Model {
 			$having = func_get_arg(1);
 			$params = array_slice(func_get_args(), 2);
 		}
+		*/
 
 		$this->query->group($group, $having, $params);
 		return $this;
@@ -153,15 +158,16 @@ class ActiveRecord extends Model {
 		$db = Context::one()->db;
 
 		// reserve original query object because find() cleans up $this->query.
-		$orgin_query = $this->query;
+		$origin_query = $this->query;
+
 		$this->query = new Query($this->tablename);
 
 		// find id(s) to delete
-		$result = $this->select("id")->where($orgin_query->where)->find("all");
+		$result = $this->select("id")->where($origin_query->where, $origin_query->params)->find("all");
 		$ids = $this->get_ids_from_result($result);
 
 		// recover original query object
-		$this->query = $orgin_query;
+		$this->query = $origin_query;
 
 		// delete the records of the associated tables.
 		foreach($this->query->joins as $join) {
@@ -206,7 +212,7 @@ class ActiveRecord extends Model {
 					continue;
 				}
 
-				$this->query->set($column_name, $db->get_object_property($column->type, $this->$column_name));
+				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
 			}
 		}
 
@@ -243,7 +249,7 @@ class ActiveRecord extends Model {
 					continue;
 				}
 
-				$this->query->set($column_name, $db->get_object_property($column->type, $this->$column_name));
+				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
 			}
 			$this->query->where($this->id);
 		}

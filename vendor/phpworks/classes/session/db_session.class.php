@@ -42,7 +42,7 @@ class DbSession {
 		return $sessions->where("session_id = ?", $session_id)->delete();
 	}
 
-	public static function clean($max) {
+	public static function clean($max = 0) {
 		$sessions = new Sessions();
 		$old = time() - $max;
 		return $sessions->where("updated_at < ?", $old)->delete();
