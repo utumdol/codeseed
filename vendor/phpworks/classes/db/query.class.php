@@ -77,7 +77,7 @@ class Query {
 
 	public function where($where, $params = array()) {
 		// '$where' is empty?
-		if (empty($where)) {
+		if (!is_array($where) && empty($where)) {
 			return;
 		}
 		// '$where' is id?
@@ -98,7 +98,7 @@ class Query {
 	public function group($group, $having ='', $params = array()) {
 		$this->group = $group;
 		$this->having = $having;
-		$this->params = array_merge($this->params, $param1);
+		$this->params = array_merge($this->params, $params);
 	}
 
 	public function order($order) {
@@ -124,10 +124,14 @@ class Query {
 	}
 
 	public static function make_id_condition($id) {
-		if (is_array($id)) {
-			return " IN (" . csv($id) . ')';
+		if (!is_array($id)) {
+			return " = {$id}";
 		}
-		return " = {$id}";
+		if (empty($id)) {
+			// always nothing
+			return " = 1 AND 0 = 1";
+		}
+		return " IN (" . csv($id) . ')';
 	}
 }
 
