@@ -24,11 +24,16 @@ class Controller {
 			$this->redirect_to($http_referer);
 		}
 		echo '<script type="text/javascript">history.back();</script>';
-		throw new SkipProcessing();
+		$this->skip_processing();
 	}
 
 	public function redirect_to($where) {
 		echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
+		$this->skip_processing();
+	}
+
+	// TODO how about rename skip_view to exit
+	public function skip_processing() {
 		throw new SkipProcessing();
 	}
 
