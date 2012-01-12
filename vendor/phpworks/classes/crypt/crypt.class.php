@@ -17,7 +17,7 @@ class Crypt {
 		$this->algorithm = $algorithm;
 		$this->mode = $mode;
 		$this->random_source = $random_source;
-		$this->key = sha1(Config::one()->crypt_key);
+		$this->key = sha1(Config::get('crypt_key'));
 	}
 
 	public function encrypt($data) {

@@ -3,11 +3,11 @@
 require_once(dirname(__FILE__) . '/../config/init.php');
 
 // connect db connection
-$db = Context::one()->db;
+$db = Context::get('db');
 $db->connect();
 
 // init log dir
-if (!file_exists(Config::one()->log_dir)) {
+if (!file_exists(Config::get('log_dir'))) {
 	$migration = new CreateLogDirectory();
 	$migration->up();
 }

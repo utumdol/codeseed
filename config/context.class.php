@@ -4,10 +4,10 @@
  * @author utumdol
  */
 class Context {
-	public $db;
-	public $session;
-	public $flash;
-	public $log;
+	private $db;
+	private $session;
+	private $flash;
+	private $log;
 
 	private function __construct() {
 		Config::init();
@@ -26,10 +26,12 @@ class Context {
 		}
 		return self::$instance;
 	}
-	// the alias of get_instance
-	public static function one() {
-		return self::get_instance();
+
+	// attribute accessor
+	public static function get($prop) {
+		return self::get_instance()->$prop;
 	}
+
 	// just init context
 	public static function init() {
 		self::get_instance();
@@ -65,30 +67,30 @@ class Context {
 
 	// include system and application library
 	private function include_library() {
-		require_once(Config::one()->sys_functions . '/system.php');
-		require_once_dir(Config::one()->sys_functions);
-		require_once_dir(Config::one()->sys_classes);
+		require_once(Config::get('sys_functions') . '/system.php');
+		require_once_dir(Config::get('sys_functions'));
+		require_once_dir(Config::get('sys_classes'));
 
-		require_once_dir(Config::one()->conf_dir);
-		if (file_exists(Config::one()->ctrl_dir . '/application_controller.class.php')) {
-			require_once(Config::one()->ctrl_dir . '/application_controller.class.php');
+		require_once_dir(Config::get('conf_dir'));
+		if (file_exists(Config::get('ctrl_dir') . '/application_controller.class.php')) {
+			require_once(Config::get('ctrl_dir') . '/application_controller.class.php');
 		}
-		if (file_exists(Config::one()->help_dir . '/application.php')) {
-			require_once(Config::one()->help_dir . '/application.php');
+		if (file_exists(Config::get('help_dir') . '/application.php')) {
+			require_once(Config::get('help_dir') . '/application.php');
 		}
-		if (file_exists(Config::one()->model_dir)) {
-			require_once_dir(Config::one()->model_dir);
+		if (file_exists(Config::get('model_dir'))) {
+			require_once_dir(Config::get('model_dir'));
 		}
 	}
 
 	private function init_db() {
-		$dbms = Config::one()->db;
-		$db = new $dbms(Config::one()->db_host, Config::one()->db_user, Config::one()->db_password, Config::one()->db_name);
+		$dbms = Config::get('db');
+		$db = new $dbms(Config::get('db_host'), Config::get('db_user'), Config::get('db_password'), Config::get('db_name'));
 		return $db;
 	}
 
 	private function init_session() {
-		if (Config::one()->use_db_session) {
+		if (Config::get('use_db_session')) {
 			session_set_save_handler(
 					array('DbSession', 'open'), array('DbSession', 'close'),
 					array('DbSession', 'read'), array('DbSession', 'write'),
@@ -102,8 +104,8 @@ class Context {
 	}
 
 	private function init_log() {
-		$filename = Config::one()->log_dir . '/' . Config::one()->mode . '.log';
-		return Log::get_instance(Config::one()->log_level, $filename);
+		$filename = Config::get('log_dir') . '/' . Config::get('mode') . '.log';
+		return Log::get_instance(Config::get('log_level'), $filename);
 	}
 }
 

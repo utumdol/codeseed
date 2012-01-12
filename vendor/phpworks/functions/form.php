@@ -16,7 +16,7 @@ function get_default(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) 
 	}
 
 	// return old value first.
-	$flash = Context::one()->flash;
+	$flash = Context::get('flash');
 	$old_params = get_array_value($flash->get('old_params'), $props);
 	if (isset($old_params)) {
 		return $old_params;

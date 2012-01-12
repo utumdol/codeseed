@@ -9,7 +9,7 @@ class ViewGenerator extends Generator {
 
 	public function __construct($dir, $name) {
 		parent::__construct($name);
-		$this->path = Config::one()->view_dir;
+		$this->path = Config::get('view_dir');
 		$this->dir = $dir;
 		$this->name = $name;
 	}

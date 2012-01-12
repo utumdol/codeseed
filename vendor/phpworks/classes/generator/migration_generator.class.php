@@ -30,7 +30,7 @@ class Create<class> extends Migration {
 
 	public function __construct($name, $from = '') {
 		parent::__construct($name);
-		$this->path = Config::one()->migr_dir;
+		$this->path = Config::get('migr_dir');
 		$this->from = $from;
 		if ($this->from == 'model') {
 			$this->template = $this->table_template;

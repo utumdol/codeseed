@@ -6,8 +6,8 @@ class Controller {
 	protected $flash;
 
 	public function __construct() {
-		$this->session = Context::one()->session;
-		$this->flash = Context::one()->flash;
+		$this->session = Context::get('session');
+		$this->flash = Context::get('flash');
 	}
 
 	public function before_filter($action = '') {
@@ -15,7 +15,7 @@ class Controller {
 	}
 
 	public function load_view($view) {
-		require(Config::one()->view_dir . '/' . $view . '.php');
+		require(Config::get('view_dir') . '/' . $view . '.php');
 	}
 
 	public function back() {

@@ -16,7 +16,7 @@ function print_migration_status($direction, $classname, $version) {
 }
 
 // connect db connection
-$db = Context::one()->db;
+$db = Context::get('db');
 $db->connect();
 
 $schema_version = new SchemaVersion();
@@ -27,7 +27,7 @@ if ($schema_version->count() == 0) {
 $schema_version = $schema_version->find();
 
 // read migration files...
-$files = get_files(Config::one()->migr_dir);
+$files = get_files(Config::get('migr_dir'));
 if ($INTEND_VERSION >= $schema_version->version) {
 	sort($files);
 	$direction = 'UP';

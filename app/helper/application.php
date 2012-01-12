@@ -11,6 +11,6 @@ function is_user_logged() {
  * get user id logged in
  */
 function get_login_id() {
-	return Context::one()->session->get('user_id');
+	return Context::get('session')->get('user_id');
 }
 

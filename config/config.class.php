@@ -6,18 +6,18 @@
 class Config {
 
 	// init environment
-	public $hostnames = array(
+	private $hostnames = array(
 		'dev' => array('phpworks.locahost', 'localhost'),
 		'test' => array('phpworks.testhost'),
 		'real' => array('phpworks.realhost')
 	);
 
 	// for session cryption. you can change it.
-	public $crypt_key = 'a2c$%^*()';
+	private $crypt_key = 'a2c$%^*()';
 
 	// default routing. you can change it.
-	public $default_controller = 'blog';
-	public $default_action = 'index';
+	private $default_controller = 'blog';
+	private $default_action = 'index';
 
 	// default model repository. you can change it.
 	private function __construct() {
@@ -60,8 +60,8 @@ class Config {
 	}
 
 	// local settings
-	//public $admin_name = '';
-	//public $admin_email = '';
+	//private $admin_name = '';
+	//private $admin_email = '';
 
 	///////////////////////////////////////////////////////////////////////////
 	// You don't need to change the below setttings
@@ -75,10 +75,12 @@ class Config {
 		}
 		return self::$instance;
 	}
-	// the alias of get_instance
-	public static function one() {
-		return self::get_instance();
+
+	// attribute accessor
+	public static function get($prop) {
+		return self::get_instance()->$prop;
 	}
+	
 	// just init Config
 	public static function init() {
 		self::get_instance();
@@ -120,33 +122,33 @@ class Config {
 	}
 
 	// default model repository.
-	public $db;
-	public $db_user;
-	public $db_password;
-	public $db_name;
-	public $db_host; // not necessary
-	public $db_port; // not necessary
+	private $db;
+	private $db_user;
+	private $db_password;
+	private $db_name;
+	private $db_host; // not necessary
+	private $db_port; // not necessary
 
 	// system directory
-	public $root_dir;
-	public $root_file;
+	private $root_dir;
+	private $root_file;
 	private $sys_dir;
-	public $sys_classes;
-	public $sys_functions;
+	private $sys_classes;
+	private $sys_functions;
 
 	// app directory
-	public $app_dir;
-	public $conf_dir;
-	public $ctrl_dir;
-	public $model_dir;
-	public $view_dir;
-	public $help_dir;
-	public $migr_dir;
+	private $app_dir;
+	private $conf_dir;
+	private $ctrl_dir;
+	private $model_dir;
+	private $view_dir;
+	private $help_dir;
+	private $migr_dir;
 
 	// etc
-	public $use_db_session;
-	public $log_dir;
-	public $log_level; // all, trace, debug, info, warn, error, fatal, off
-	public $mode = 'dev'; // dev, test, real
+	private $use_db_session;
+	private $log_dir;
+	private $log_level; // all, trace, debug, info, warn, error, fatal, off
+	private $mode = 'dev'; // dev, test, real
 }
 
