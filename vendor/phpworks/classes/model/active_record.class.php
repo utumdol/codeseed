@@ -318,7 +318,7 @@ class ActiveRecord extends Model {
 		$arr = array();
 		
 		while ($row = $db->fetch($result)) {
-			Log::one()->debug('[' . join($row, ', ') . ']');
+			Log::debug('[' . join($row, ', ') . ']');
 			$obj = $this->parse_result_row($row, $this->tablename);
 
 			if (isset($old_obj) && $old_obj->id == $obj->id) {

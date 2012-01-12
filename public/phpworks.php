@@ -16,7 +16,7 @@ $flash = Context::one()->flash;
 $flash->load();
 
 // routing
-Log::one()->debug(_server('REQUEST_METHOD') . ' ' . _server('PATH_INFO'));
+Log::debug(_server('REQUEST_METHOD') . ' ' . _server('PATH_INFO'));
 $path = parse_request_uri(_server('PATH_INFO'));
 if (empty($path[1])) { $path[1] = Config::one()->default_controller; }
 if (empty($path[2])) { $path[2] = Config::one()->default_action; }
@@ -39,9 +39,9 @@ try {
 } catch (SkipProcessing $e) {
 	// nothing to do
 } catch (ProcessingError $e) {
-	Log::one()->error($e->getMessage());
+	Log::error($e->getMessage());
 } catch (Exception $e) {
-	Log::one()->error($e->getMessage());
+	Log::error($e->getMessage());
 }
 $CONTENTS = ob_get_contents();
 ob_end_clean();

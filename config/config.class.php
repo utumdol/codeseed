@@ -70,18 +70,18 @@ class Config {
 	// singleton implementation
 	private static $instance;
 	public static function get_instance() {
-		if (empty(Config::$instance)) {
-			Config::$instance = new Config();
+		if (empty(self::$instance)) {
+			self::$instance = new Config();
 		}
-		return Config::$instance;
+		return self::$instance;
 	}
 	// the alias of get_instance
 	public static function one() {
-		return Config::get_instance();
+		return self::get_instance();
 	}
 	// just init Config
 	public static function init() {
-		Config::get_instance();
+		self::get_instance();
 	}
 
 	private function set_system_directory() {

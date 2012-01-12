@@ -21,39 +21,36 @@ class Log {
 
 	// singleton implementation
 	private static $instance;
-	public static function get_instance($log_level, $filename) {
-		if (empty(Log::$instance)) {
-			Log::$instance = new Log($log_level, $filename);
+	public static function get_instance() {
+		if (empty(self::$instance)) {
+			$filename = Config::one()->log_dir . '/' . Config::one()->mode . '.log';
+			self::$instance = new Log(Config::one()->log_level, $filename);
 		}
-		return Log::$instance;
+		return self::$instance;
 	}
 
-	public static function one() {
-		return Log::$instance;
+	public static function trace($message) {
+		self::get_instance()->log('trace', $message);
 	}
 
-	public function trace($message) {
-		$this->log('trace', $message);
+	public static function debug($message) {
+		self::get_instance()->log('debug', $message);
 	}
 
-	public function debug($message) {
-		$this->log('debug', $message);
+	public static function info($message) {
+		self::get_instance()->log('info', $message);
 	}
 
-	public function info($message) {
-		$this->log('info', $message);
+	public static function warn($message) {
+		self::get_instance()->log('warn', $message);
 	}
 
-	public function warn($message) {
-		$this->log('warn', $message);
+	public static function error($message) {
+		self::get_instance()->log('error', $message);
 	}
 
-	public function error($message) {
-		$this->log('error', $message);
-	}
-
-	public function fatal($message) {
-		$this->log('fatal', $message);
+	public static function fatal($message) {
+		self::get_instance()->log('fatal', $message);
 	}
 
 	private function log($level, $message) {

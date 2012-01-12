@@ -15,24 +15,24 @@ class Context {
 		$this->db = $this->init_db();
 		$this->session = $this->init_session();
 		$this->flash = $this->init_flash();
-		$this->log = $this->init_log();
+		$this->log = Log::get_instance();
 	}
 
 	// singleton implementation
 	private static $instance;
 	public static function get_instance() {
-		if (empty(Context::$instance)) {
-			Context::$instance = new Context();
+		if (empty(self::$instance)) {
+			self::$instance = new Context();
 		}
-		return Context::$instance;
+		return self::$instance;
 	}
 	// the alias of get_instance
 	public static function one() {
-		return Context::get_instance();
+		return self::get_instance();
 	}
 	// just init context
 	public static function init() {
-		Context::get_instance();
+		self::get_instance();
 	}
 
 	/**
@@ -99,11 +99,6 @@ class Context {
 
 	private function init_flash() {
 		return new Flash($this->session);
-	}
-
-	private function init_log() {
-		$filename = Config::one()->log_dir . '/' . Config::one()->mode . '.log';
-		return Log::get_instance(Config::one()->log_level, $filename);
 	}
 }
 
