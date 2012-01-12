@@ -1,6 +1,5 @@
 <?php
 class Log {
-
 	private $log_levels = array(
 		'all' => 1,
 		'trace' => 2,
@@ -21,36 +20,35 @@ class Log {
 
 	// singleton implementation
 	private static $instance;
-	public static function get_instance() {
+	public static function get_instance($log_level = '', $filename = '') {
 		if (empty(self::$instance)) {
-			$filename = Config::one()->log_dir . '/' . Config::one()->mode . '.log';
-			self::$instance = new Log(Config::one()->log_level, $filename);
+			self::$instance = new Log($log_level, $filename);
 		}
 		return self::$instance;
 	}
 
 	public static function trace($message) {
-		self::get_instance()->log('trace', $message);
+		self::$instance->log('trace', $message);
 	}
 
 	public static function debug($message) {
-		self::get_instance()->log('debug', $message);
+		self::$instance->log('debug', $message);
 	}
 
 	public static function info($message) {
-		self::get_instance()->log('info', $message);
+		self::$instance->log('info', $message);
 	}
 
 	public static function warn($message) {
-		self::get_instance()->log('warn', $message);
+		self::$instance->log('warn', $message);
 	}
 
 	public static function error($message) {
-		self::get_instance()->log('error', $message);
+		self::$instance->log('error', $message);
 	}
 
 	public static function fatal($message) {
-		self::get_instance()->log('fatal', $message);
+		self::$instance->log('fatal', $message);
 	}
 
 	private function log($level, $message) {

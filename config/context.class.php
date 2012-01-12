@@ -15,7 +15,7 @@ class Context {
 		$this->db = $this->init_db();
 		$this->session = $this->init_session();
 		$this->flash = $this->init_flash();
-		$this->log = Log::get_instance();
+		$this->log = $this->init_log();
 	}
 
 	// singleton implementation
@@ -99,6 +99,11 @@ class Context {
 
 	private function init_flash() {
 		return new Flash($this->session);
+	}
+
+	private function init_log() {
+		$filename = Config::one()->log_dir . '/' . Config::one()->mode . '.log';
+		return Log::get_instance(Config::one()->log_level, $filename);
 	}
 }
 
