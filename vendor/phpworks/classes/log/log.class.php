@@ -28,7 +28,7 @@ class Log {
 		return Log::$instance;
 	}
 
-	public static function get() {
+	public static function one() {
 		return Log::$instance;
 	}
 

@@ -35,3 +35,23 @@ function tablename_to_filename($tablename) {
 	return $tablename;
 }
 
+// get value from object recursively
+function get_object_property($obj, $props = array()) {
+	if (empty($obj) || empty($props)) {
+		return null;
+	}
+
+	if (!is_array($props)) {
+		$props = array($props);
+	}
+
+	foreach($props as $prop) {
+		if (property_exists($obj, $prop)) {
+			$obj = $obj->$prop;
+		} else {
+			return null;
+		}
+	}
+	return $obj;
+}
+

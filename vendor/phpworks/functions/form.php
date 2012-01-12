@@ -1,29 +1,28 @@
 <?php
-// get value from object recursively
-function get_object_property($obj, $props = array()) {
+/**
+ * get default value for form.<br/>
+ * get_default($obj, $prop1, $prop2, ...) means $obj->prop1->prop2.
+ * get_default($arr, $idx1, $idx2, ...) means $arr[$idx1][$idx2].
+ */
+#function get_default($obj, $props = array()) {
+function get_default(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) {
+	// return old value first.
 	$flash = Context::one()->flash;
-
-	// 먼저 flash에 저장된 값을 반환한다.
 	$old_params = get_array_value($flash->get('old_params'), $props);
 	if (isset($old_params)) {
 		return $old_params;
 	}
 
-	if (empty($obj) || empty($props)) {
+	$args = func_get_args();
+	if (empty($args)) {
 		return null;
 	}
-
-	if (!is_array($props)) {
-		$props = array($props);
+	if (is_array($args[0])) {
+		return get_array_value($args[0], array_slice($args, 1));
 	}
-
-	foreach($props as $prop) {
-		if (property_exists($obj, $prop)) {
-			$obj = $obj->$prop;
-		} else {
-			return null;
-		}
+	if (is_object($args[0])) {
+		return get_object_property($args[0], array_slice($args, 1));
 	}
-	return $obj;
+	return null;
 }
 
