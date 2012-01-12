@@ -12,7 +12,7 @@ function get_files($dir) {
 	$result = array();
 	$files = scandir($dir);
 	foreach($files as $file) {
-		// skip unix hidden file which is start '.'
+		// skip unix hidden files started by '.'
 		if (preg_match('/^\..*$/', $file)) {
 			continue;
 		}
