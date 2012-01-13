@@ -2,7 +2,7 @@
 // include system init 
 require_once(dirname(__FILE__) . '/../config/init.php');
 
-//validation if there are enough parameters
+// validate there are enough parameters
 if ($argc < 3) {
 	echonl("Usage:");
 	echonl("\t`php script/generate.php model model_name`");
