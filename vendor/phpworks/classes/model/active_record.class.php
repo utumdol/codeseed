@@ -147,7 +147,7 @@ class ActiveRecord extends Model {
 	 * @return int
 	 */
 	public function count() {
-		$obj = $this->select('1 id, COUNT(*) as cnt')->find();
+		$obj = $this->select('COUNT(*) as cnt')->find();
 		return $obj->cnt;
 	}
 
@@ -319,7 +319,7 @@ class ActiveRecord extends Model {
 		
 		while ($row = $db->fetch($result)) {
 			Log::debug('[' . join($row, ', ') . ']');
-			$obj = $this->parse_result_row($row, $this->tablename);
+			$obj = $this->make_object($row, $this->tablename);
 
 			if (isset($old_obj) && $old_obj->id == $obj->id) {
 				$obj = $old_obj;
@@ -328,7 +328,7 @@ class ActiveRecord extends Model {
 			}
 
 			foreach($this->belongs_to_relations as $table) {
-				$relation_obj = $this->parse_result_row($row, $table->tablename);
+				$relation_obj = $this->make_object($row, $table->tablename);
 				//if ($relation_obj == null) {
 				//	continue;
 				//}
@@ -337,7 +337,7 @@ class ActiveRecord extends Model {
 			}
 
 			foreach($this->has_one_relations as $table) {
-				$relation_obj = $this->parse_result_row($row, $table->tablename);
+				$relation_obj = $this->make_object($row, $table->tablename);
 				//if ($relation_obj == null) {
 				//	continue;
 				//}
@@ -346,7 +346,7 @@ class ActiveRecord extends Model {
 			}
 
 			foreach($this->has_many_relations as $table) {
-				$relation_obj = $this->parse_result_row($row, $table->tablename);
+				$relation_obj = $this->make_object($row, $table->tablename);
 				$property = $table->tablename;
 				if (!isset($obj->$property)) {
 					$obj->$property = array();
@@ -364,34 +364,38 @@ class ActiveRecord extends Model {
 	}
 
 	/**
-	 * make result row to object
+	 * make one result row to one object
 	 * @param $row - db result row
 	 * @param $tablename - table name
 	 * @return model object or relation model object
 	 */
-	private function parse_result_row($row, $tablename) {
+	private function make_object($row, $tablename) {
 		$classname = tablename_to_classname($tablename);
 		$obj = new $classname;
-		foreach ($row as $temp_column => $value) {
-			if (is_int($temp_column)) {
+		$has_property = false;
+		foreach ($row as $column => $value) {
+			if (is_int($column)) {
 				continue;
 			}
-			$columns = explode('__', $temp_column);
+			$aliases = explode('__', $column);
 			// if there is no virtual aliases...
-			if (count($columns) < 2) {
-				$columns[1] = $columns[0];
-				$columns[0] = $this->tablename;
+			if (count($aliases) < 2) {
+				$aliases[1] = $aliases[0];
+				$aliases[0] = $this->tablename;
 			}
-			$tablename2 = $columns[0];
-			if ($tablename2 == $tablename) {
-				$column = $columns[1];
-				$obj->$column = $value;
+			$tablename_alias = $aliases[0];
+			if ($tablename_alias == $tablename) {
+				$column_alias = $aliases[1];
+				$obj->$column_alias = $value;
+				if (!is_null($value)) {
+					$has_property = true;
+				}
 			}
 		}
-		if (!isset($obj->id)) {
-			return null;
+		if ($has_property) {
+			return $obj;
 		}
-		return $obj;
+		return null;
 	}
 
 	/**
