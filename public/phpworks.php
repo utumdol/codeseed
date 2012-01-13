@@ -35,7 +35,7 @@ try {
 	if (file_exists(Config::get('view_dir') . '/' . $controller_path . '/' . $action_path . '.php')) {
 		call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
 	}
-} catch (SkipProcessing $e) {
+} catch (SkipAfter $e) {
 	// nothing to do
 } catch (ProcessingError $e) {
 	Log::error($e->getMessage());

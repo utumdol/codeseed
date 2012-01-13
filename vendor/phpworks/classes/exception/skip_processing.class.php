@@ -1,4 +1,4 @@
 <?php
-class SkipProcessing extends Exception {
+class SkipAfter extends Exception {
 }
 
