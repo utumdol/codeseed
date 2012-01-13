@@ -65,7 +65,7 @@ class Context {
 		return get_array_value($_SERVER, parse_array_args(func_get_args()));
 	}
 
-	// include system and application library
+	// include system and application default library
 	private function include_library() {
 		require_once(Config::get('sys_functions') . '/system.php');
 		require_once_dir(Config::get('sys_functions'));
