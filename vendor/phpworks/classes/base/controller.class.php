@@ -27,12 +27,40 @@ class Controller {
 		$this->skip_processing();
 	}
 
+	/**
+	 * redirect<br/>
+	 * ex) $this->redirect_to('/blog/index');
+	 */
 	public function redirect_to($where) {
 		echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
 		$this->skip_processing();
 	}
 
-	// TODO how about rename skip_view to exit
+	/**
+	 * forward<br/>
+	 * ex) $this->forward_to('/blog/index/1');
+	 */
+	public function forward_to($where) {
+		$path = parse_request_uri($where);
+		$controller_path = $path[1];
+		$action_path = $path[2];
+		require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
+		$controller_name = filename_to_classname($controller_path . '_controller');
+		$controller = new $controller_name();
+		
+		call_user_func_array(array($controller, 'before_filter'), array_slice($path, 2));
+		call_user_func_array(array($controller, $action_path), array_slice($path, 3));
+		call_user_func_array(array($controller, 'after_filter'), array_slice($path, 2));
+		if (file_exists(Config::get('view_dir') . '/' . $controller_path . '/' . $action_path . '.php')) {
+			call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
+		}
+		$this->skip_processing();
+	}
+
+	/**
+	 * skip after processing and display view.
+	 * but 'return' keyword in the action will display view.
+	 */
 	public function skip_processing() {
 		throw new SkipProcessing();
 	}
