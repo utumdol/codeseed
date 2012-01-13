@@ -41,11 +41,12 @@ function abbr_path($path) {
 }
 
 /**
- * auto load class
+ * auto load class.
  */
 function __autoload($class_name) {
 	if (is_end_with($class_name, 'Controller')) {
 		require_once(Config::get('ctrl_dir') . '/' . classname_to_filename($class_name) . '.class.php');
+		return;
 	}
 	require_once(Config::get('model_dir') . '/' . classname_to_filename($class_name) . '.class.php');
 }
