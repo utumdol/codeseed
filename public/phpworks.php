@@ -23,8 +23,6 @@ if (empty($path[2])) { $path[2] = Config::get('default_action'); }
 $controller_path = $path[1];
 $action_path = $path[2];
 require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
-// include controller by __autoload function
-//require_once(Config::get('ctrl_dir') . '/' . $controller_path . '_controller.class.php');
 $controller_name = filename_to_classname($controller_path . '_controller');
 $controller = new $controller_name();
 

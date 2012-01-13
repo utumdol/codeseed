@@ -78,12 +78,6 @@ class Context {
 		if (file_exists(Config::get('help_dir') . '/application.php')) {
 			require_once(Config::get('help_dir') . '/application.php');
 		}
-		// app controller and model are included by __autoload function
-		/*
-		if (file_exists(Config::get('model_dir'))) {
-			require_once_dir(Config::get('model_dir'));
-		}
-		*/
 	}
 
 	private function init_db() {

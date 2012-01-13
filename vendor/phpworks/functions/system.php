@@ -41,7 +41,7 @@ function abbr_path($path) {
 }
 
 /**
- * auto load class.
+ * include app controller and model automatically
  */
 function __autoload($class_name) {
 	if (is_end_with($class_name, 'Controller')) {
