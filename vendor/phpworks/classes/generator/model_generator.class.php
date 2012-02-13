@@ -1,6 +1,7 @@
 <?php
 class ModelGenerator extends Generator {
 	public $path;
+	public $extention = '.class.php';
 	public $template = '<?php
 class <class> extends ActiveRecord {
 
@@ -22,10 +23,6 @@ class <class> extends ActiveRecord {
 
 		$migration_generator = new MigrationGenerator($this->name, 'model');
 		$migration_generator->generate();
-	}
-
-	public function get_filename() {
-		return classname_to_filename($this->name) . '.class.php';
 	}
 
 	public function get_contents() {

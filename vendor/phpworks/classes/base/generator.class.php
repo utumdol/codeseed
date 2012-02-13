@@ -2,6 +2,7 @@
 class Generator {
 	public $name = '';
 	public $path = '';
+	public $extention = '.php';
 	public $template = '';
 
 	public function __construct($name) {
@@ -29,7 +30,7 @@ class Generator {
 	}
 
 	public function get_filename() {
-		return classname_to_filename($this->name) . '.php';
+		return classname_to_filename($this->name) . $this->extention;
 	}
 
 	public function get_contents() {

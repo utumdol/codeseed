@@ -101,6 +101,7 @@ class Config {
 		$this->ctrl_dir = $this->app_dir . '/controller';
 		$this->model_dir = $this->app_dir . '/model';
 		$this->view_dir = $this->app_dir . '/view';
+		$this->layout_dir = $this->view_dir . '/layout';
 		$this->help_dir = $this->app_dir . '/helper';
 		$this->migr_dir = $this->app_dir . '/migrate';
 	}
@@ -142,6 +143,7 @@ class Config {
 	private $ctrl_dir;
 	private $model_dir;
 	private $view_dir;
+	private $layout_dir;
 	private $help_dir;
 	private $migr_dir;
 

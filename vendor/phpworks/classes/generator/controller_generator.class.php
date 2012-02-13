@@ -1,6 +1,7 @@
 <?php
 class ControllerGenerator extends Generator {
 	public $path;
+	public $extention = '_controller.calss.php';
 	public $template = '<?php
 class <class>Controller extends ApplicationController {
 	<functions>
@@ -39,10 +40,6 @@ class <class>Controller extends ApplicationController {
 			$generator = new ViewGenerator(classname_to_filename($this->name), $function);
 			$generator->generate();
 		}
-	}
-
-	public function get_filename() {
-		return classname_to_filename($this->name) . '_controller.class.php';
 	}
 
 	public function get_functions_contents() {
