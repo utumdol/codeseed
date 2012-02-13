@@ -25,7 +25,7 @@ class <class> extends ActiveRecord {
 	}
 
 	public function get_filename() {
-		return $this->name . '.class.php';
+		return classname_to_filename($this->name) . '.class.php';
 	}
 
 	public function get_contents() {

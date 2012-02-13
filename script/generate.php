@@ -5,13 +5,13 @@ require_once(dirname(__FILE__) . '/../config/init.php');
 // validate there are enough parameters
 if ($argc < 3) {
 	echonl("Usage:");
-	echonl("\t`php script/generate.php model model_name`");
-	echonl("\t`php script/generate.php migration migration_name`");
-	echonl("\t`php script/generate.php controller controller_name action_name1 action_name2 ...`");
+	echonl("\t`php script/generate.php model ModelName`");
+	echonl("\t`php script/generate.php migration MigrationName`");
+	echonl("\t`php script/generate.php controller ControllerName action_name1 action_name2 ...`");
 	echonl("Example:");
-	echonl("\t`php script/generate.php model user`");
-	echonl("\t`php script/generate.php migration add_price`");
-	echonl("\t`php script/generate.php controller login logout`");
+	echonl("\t`php script/generate.php model User`");
+	echonl("\t`php script/generate.php migration AddPrice`");
+	echonl("\t`php script/generate.php controller Welcome login logout`");
 	exit(0);
 }
 

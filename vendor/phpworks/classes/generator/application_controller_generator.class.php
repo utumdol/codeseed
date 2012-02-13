@@ -30,7 +30,7 @@ class ApplicationController extends Controller {
 	}
 
 	public function get_filename() {
-		return $this->name . '_controller.class.php';
+		return classname_to_filename($this->name) . '_controller.class.php';
 	}
 }
 

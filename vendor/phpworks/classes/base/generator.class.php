@@ -29,7 +29,7 @@ class Generator {
 	}
 
 	public function get_filename() {
-		return $this->name . '.php';
+		return classname_to_filename($this->name) . '.php';
 	}
 
 	public function get_contents() {

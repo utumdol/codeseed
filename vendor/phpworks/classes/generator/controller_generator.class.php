@@ -36,13 +36,13 @@ class <class>Controller extends ApplicationController {
 
 		// make view
 		foreach($this->functions as $function) {
-			$generator = new ViewGenerator($this->name, $function);
+			$generator = new ViewGenerator(classname_to_filename($this->name), $function);
 			$generator->generate();
 		}
 	}
 
 	public function get_filename() {
-		return $this->name . '_controller.class.php';
+		return classname_to_filename($this->name) . '_controller.class.php';
 	}
 
 	public function get_functions_contents() {
@@ -54,7 +54,7 @@ class <class>Controller extends ApplicationController {
 	}
 
 	public function get_contents() {
-		$class = tablename_to_classname($this->name);
+		$class = $this->name;
 		$functions = $this->get_functions_contents();
 		$result = str_replace('<class>', $class, $this->template);
 		$result = str_replace('<functions>', $functions, $result);
