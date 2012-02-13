@@ -25,7 +25,7 @@ class LayoutGenerator extends Generator {
 	}
 
 	public function get_contents() {
-		$class = filename_to_classname($this->name);
+		$class = underscore_to_camelcase($this->name);
 		$result = str_replace('<class>', $class, $this->template);
 		return $result;
 	}

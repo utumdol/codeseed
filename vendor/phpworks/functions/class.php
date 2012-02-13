@@ -1,11 +1,11 @@
 <?php
-function filename_to_classname($filename) {
+function underscore_to_camelcase($filename) {
 	$result = str_replace('_', ' ', $filename);
 	$result = ucwords($result);
 	return str_replace(' ', '', $result);
 }
 
-function classname_to_filename($classname) {
+function camelcase_to_underscore($classname) {
 	$arr = str_split($classname);
 	$arr[0] = strtolower($arr[0]);
 	$result = '';
@@ -17,22 +17,6 @@ function classname_to_filename($classname) {
 		}
 	}
 	return $result;
-}
-
-function classname_to_tablename($classname) {
-	return classname_to_filename($classname);
-}
-
-function tablename_to_classname($tablename) {
-	return filename_to_classname($tablename);
-}
-
-function filename_to_tablename($filename) {
-	return $filename;
-}
-
-function tablename_to_filename($tablename) {
-	return $tablename;
 }
 
 // get value from object recursively

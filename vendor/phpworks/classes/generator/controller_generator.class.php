@@ -46,7 +46,7 @@ class <class>Controller extends ApplicationController {
 
 		// make view
 		foreach($this->functions as $function) {
-			$generator = new ViewGenerator(classname_to_filename($this->name), $function);
+			$generator = new ViewGenerator(camelcase_to_underscore($this->name), $function);
 			$generator->generate();
 		}
 	}
@@ -60,8 +60,8 @@ class <class>Controller extends ApplicationController {
 	}
 
 	public function get_contents() {
-		$class = filename_to_classname($this->name);
-		$filename = classname_to_filename($this->name);
+		$class = underscore_to_camelcase($this->name);
+		$filename = camelcase_to_underscore($this->name);
 		$functions = $this->get_functions_contents();
 		$result = str_replace('<class>', $class, $this->template);
 		$result = str_replace('<filename>', $filename, $result);

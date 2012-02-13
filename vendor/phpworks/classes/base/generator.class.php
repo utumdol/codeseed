@@ -30,7 +30,7 @@ class Generator {
 	}
 
 	public function get_filename() {
-		return classname_to_filename($this->name) . $this->extention;
+		return camelcase_to_underscore($this->name) . $this->extention;
 	}
 
 	public function get_contents() {
