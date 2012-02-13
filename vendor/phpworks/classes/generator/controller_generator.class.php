@@ -1,9 +1,14 @@
 <?php
 class ControllerGenerator extends Generator {
 	public $path;
-	public $extention = '_controller.calss.php';
+	public $extention = '_controller.class.php';
 	public $template = '<?php
 class <class>Controller extends ApplicationController {
+
+	public function __construct() {
+		parent::__construct();
+		$this->layout = \'<filename>\';
+	}
 	<functions>
 }
 
@@ -35,6 +40,10 @@ class <class>Controller extends ApplicationController {
 		$generator = new HelperGenerator($this->name);
 		$generator->generate();
 
+		// make layout
+		$generator = new LayoutGenerator($this->name);
+		$generator->generate();
+
 		// make view
 		foreach($this->functions as $function) {
 			$generator = new ViewGenerator(classname_to_filename($this->name), $function);
@@ -51,9 +60,11 @@ class <class>Controller extends ApplicationController {
 	}
 
 	public function get_contents() {
-		$class = $this->name;
+		$class = filename_to_classname($this->name);
+		$filename = classname_to_filename($this->name);
 		$functions = $this->get_functions_contents();
 		$result = str_replace('<class>', $class, $this->template);
+		$result = str_replace('<filename>', $filename, $result);
 		$result = str_replace('<functions>', $functions, $result);
 		return $result;
 	}
