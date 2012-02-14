@@ -1,6 +1,6 @@
 <?php
 class MigrationGenerator extends Generator {
-	public $template = '<?php
+	protected $template = '<?php
 class <class> extends Migration {
 	public function up() {
 

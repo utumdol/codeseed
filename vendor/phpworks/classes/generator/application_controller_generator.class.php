@@ -1,6 +1,6 @@
 <?php
 class ApplicationControllerGenerator extends Generator {
-	public $template = '<?php
+	protected $template = '<?php
 class ApplicationController extends Controller {
 
 	public function __construct() {

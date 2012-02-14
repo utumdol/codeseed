@@ -1,7 +1,7 @@
 <?php
 class ModelGenerator extends Generator {
-	public $extention = '.class.php';
-	public $template = '<?php
+	protected $extention = '.class.php';
+	protected $template = '<?php
 class <class> extends ActiveRecord {
 
 }

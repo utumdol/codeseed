@@ -1,9 +1,9 @@
 <?php
 class Generator {
-	public $name = '';
-	public $path = '';
-	public $extention = '.php';
-	public $template = '';
+	protected $name = '';
+	protected $path = '';
+	protected $extention = '.php';
+	protected $template = '';
 
 	public function __construct($name) {
 		$this->name = $name;

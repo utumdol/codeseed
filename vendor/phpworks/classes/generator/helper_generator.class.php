@@ -1,6 +1,6 @@
 <?php
 class HelperGenerator extends Generator {
-	public $template = '<?php
+	protected $template = '<?php
 
 ';
 

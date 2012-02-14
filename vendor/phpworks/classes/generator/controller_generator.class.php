@@ -1,7 +1,7 @@
 <?php
 class ControllerGenerator extends Generator {
-	public $extention = '_controller.class.php';
-	public $template = '<?php
+	protected $extention = '_controller.class.php';
+	protected $template = '<?php
 class <class>Controller extends ApplicationController {
 
 	public function __construct() {
@@ -12,7 +12,7 @@ class <class>Controller extends ApplicationController {
 }
 
 ';
-	public $function_template = '
+	private $function_template = '
 	public function <function>() {
 	}
 	';
