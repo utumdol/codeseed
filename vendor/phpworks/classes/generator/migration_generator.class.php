@@ -1,6 +1,5 @@
 <?php
 class MigrationGenerator extends Generator {
-	public $path;
 	public $template = '<?php
 class <class> extends Migration {
 	public function up() {

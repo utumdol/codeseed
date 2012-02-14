@@ -1,6 +1,5 @@
 <?php
 class ControllerGenerator extends Generator {
-	public $path;
 	public $extention = '_controller.class.php';
 	public $template = '<?php
 class <class>Controller extends ApplicationController {

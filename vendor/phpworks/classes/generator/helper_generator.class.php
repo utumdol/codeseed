@@ -1,6 +1,5 @@
 <?php
 class HelperGenerator extends Generator {
-	public $path;
 	public $template = '<?php
 
 ';

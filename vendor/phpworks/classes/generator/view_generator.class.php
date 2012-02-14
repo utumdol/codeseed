@@ -1,6 +1,5 @@
 <?php
 class ViewGenerator extends Generator {
-	public $path;
 	public $template = '<h1><dir>#<view></h1>
 <div>Find me in app/view/<dir>/<view>.php</div>
 
