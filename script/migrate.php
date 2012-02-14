@@ -42,7 +42,7 @@ for($i = 0; $i < count($files); $i++) {
 	if (!empty($matches)) {
 		$version = $matches[1];
 		$filename = $matches[2];
-		$classname = underscore_to_camelcase($filename);
+		$classname = under_to_camel($filename);
 
 		if ($direction == 'UP' && $version > $schema_version->version && $version <= $INTEND_VERSION) {
 			require_once($file);

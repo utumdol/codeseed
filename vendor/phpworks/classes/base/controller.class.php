@@ -45,7 +45,7 @@ class Controller {
 		$controller_path = $path[1];
 		$action_path = $path[2];
 		require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
-		$controller_name = underscore_to_camelcase($controller_path . '_controller');
+		$controller_name = under_to_camel($controller_path . '_controller');
 		$controller = new $controller_name();
 		
 		call_user_func_array(array($controller, 'before_filter'), array_slice($path, 2));

@@ -30,7 +30,7 @@ class ApplicationController extends Controller {
 	}
 
 	public function get_filename() {
-		return camelcase_to_underscore($this->name) . '_controller.class.php';
+		return camel_to_under($this->name) . '_controller.class.php';
 	}
 }
 

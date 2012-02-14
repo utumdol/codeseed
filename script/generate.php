@@ -29,7 +29,7 @@ if (!file_exists(Config::get('sys_classes'). '/generator/' . $kind . '_generator
 }
 
 try {
-	$classname = underscore_to_camelcase($kind) . 'Generator';
+	$classname = under_to_camel($kind) . 'Generator';
 	$generator = new $classname($name, $params);
 	$generator->generate();
 } catch (ProcessingError $e) {

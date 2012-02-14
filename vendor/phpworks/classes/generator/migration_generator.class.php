@@ -40,14 +40,14 @@ class Create<class> extends Migration {
 	public function get_filename() {
 		$this_time = date('YmdHis');
 		if ($this->from == 'model') {
-			return $this_time . '_create_' . camelcase_to_underscore($this->name) . '.class.php';
+			return $this_time . '_create_' . camel_to_under($this->name) . '.class.php';
 		}
-		return $this_time . '_' . camelcase_to_underscore($this->name) . '.class.php';
+		return $this_time . '_' . camel_to_under($this->name) . '.class.php';
 	}
 
 	public function get_contents() {
-		$table = camelcase_to_underscore($this->name);
-		$class = underscore_to_camelcase($this->name);
+		$table = camel_to_under($this->name);
+		$class = under_to_camel($this->name);
 		$result = str_replace('<table>', $table, $this->template);
 		$result = str_replace('<class>', $class, $result);
 		return $result;

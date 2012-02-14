@@ -26,7 +26,7 @@ class <class> extends ActiveRecord {
 	}
 
 	public function get_contents() {
-		$class = underscore_to_camelcase($this->name);
+		$class = under_to_camel($this->name);
 		$result = str_replace('<class>', $class, $this->template);
 		return $result;
 	}

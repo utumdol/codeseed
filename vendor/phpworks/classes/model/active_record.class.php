@@ -15,7 +15,7 @@ class ActiveRecord extends Model {
 
 	public function __construct($params = array()) {
 		parent::__construct($params);
-		$this->tablename = camelcase_to_underscore($this->model_name);
+		$this->tablename = camel_to_under($this->model_name);
 		$this->query = new Query($this->tablename);
 	}
 
@@ -370,7 +370,7 @@ class ActiveRecord extends Model {
 	 * @return model object or relation model object
 	 */
 	private function make_object($row, $tablename) {
-		$classname = underscore_to_camelcase($tablename);
+		$classname = under_to_camel($tablename);
 		$obj = new $classname;
 		$has_property = false;
 		foreach ($row as $column => $value) {

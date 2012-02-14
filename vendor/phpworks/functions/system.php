@@ -45,9 +45,9 @@ function abbr_path($path) {
  */
 function __autoload($class_name) {
 	if (is_end_with($class_name, 'Controller')) {
-		require_once(Config::get('ctrl_dir') . '/' . camelcase_to_underscore($class_name) . '.class.php');
+		require_once(Config::get('ctrl_dir') . '/' . camel_to_under($class_name) . '.class.php');
 		return;
 	}
-	require_once(Config::get('model_dir') . '/' . camelcase_to_underscore($class_name) . '.class.php');
+	require_once(Config::get('model_dir') . '/' . camel_to_under($class_name) . '.class.php');
 }
 

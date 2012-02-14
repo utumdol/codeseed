@@ -1,11 +1,17 @@
 <?php
-function underscore_to_camelcase($filename) {
+/**
+ * change underscore notation to camlecase notation
+ */
+function under_to_camel($filename) {
 	$result = str_replace('_', ' ', $filename);
 	$result = ucwords($result);
 	return str_replace(' ', '', $result);
 }
 
-function camelcase_to_underscore($classname) {
+/**
+ * change camelcase notation to underscore notation
+ */
+function camel_to_under($classname) {
 	$arr = str_split($classname);
 	$arr[0] = strtolower($arr[0]);
 	$result = '';
