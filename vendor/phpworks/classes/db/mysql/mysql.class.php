@@ -278,7 +278,6 @@ class Mysql {
 			$new_size = "($new_size)";
 		}
 
-		$new_size = (empty($scale)) ? 
 		$default = (is_null($default)) ? '' : 'DEFAULT ' . $default;
 		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $new_type$new_size $default $not_null");
 	}
