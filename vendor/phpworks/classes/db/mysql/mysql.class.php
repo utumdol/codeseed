@@ -261,13 +261,24 @@ class Mysql {
 	}
 
 	/**
+	 * @param $scale the number of digits to the right of the decimal point
 	 * @return true on success, false on failure
 	 */
-	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null) {
+	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
 		$not_null = ($is_null) ? '' : 'NOT NULL'; 
 		$new_type = $this->get_type($type);
 		$new_size = (empty($size)) ? $this->get_size($type) : $size;
-		$new_size = is_blank($new_size) ? $new_size : "($new_size)";
+
+		// support the size of decimal type
+		if ($type == 'decimal' && !is_null($scale)) {
+			$new_size .= ", $scale";
+		}
+
+		if (!is_blank($new_size)) {
+			$new_size = "($new_size)";
+		}
+
+		$new_size = (empty($scale)) ? 
 		$default = (is_null($default)) ? '' : 'DEFAULT ' . $default;
 		$this->execute("ALTER TABLE $table_name ADD COLUMN $name $new_type$new_size $default $not_null");
 	}

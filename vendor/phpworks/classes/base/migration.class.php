@@ -14,8 +14,11 @@ class Migration {
 		Context::get('db')->rename_table($old_name, $new_name);
 	}
 
-	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null) {
-		Context::get('db')->add_column($table_name, $name, $type, $is_null, $size, $default);
+	/**
+	 * @param $scale the number of digits to the right of the decimal point
+	 */
+	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
+		Context::get('db')->add_column($table_name, $name, $type, $is_null, $size, $default, $scale);
 	}
 
 	public function remove_column($table_name, $name) {
