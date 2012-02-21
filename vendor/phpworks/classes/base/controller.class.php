@@ -24,7 +24,7 @@ class Controller {
 			$this->redirect_to($http_referer);
 		}
 		echo '<script type="text/javascript">history.back();</script>';
-		$this->skip_after();
+		$this->skip();
 	}
 
 	/**
@@ -33,7 +33,7 @@ class Controller {
 	 */
 	public function redirect_to($where) {
 		echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
-		$this->skip_after();
+		$this->skip();
 	}
 
 	/**
@@ -54,15 +54,15 @@ class Controller {
 		if (file_exists(Config::get('view_dir') . '/' . $controller_path . '/' . $action_path . '.php')) {
 			call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
 		}
-		$this->skip_after();
+		$this->skip();
 	}
 
 	/**
 	 * skip after processing and display view.
 	 * but 'return' keyword in the action will display view.
 	 */
-	public function skip_after() {
-		throw new SkipAfter();
+	public function skip() {
+		throw new Skip();
 	}
 
 	public function after_filter($action = '') {
