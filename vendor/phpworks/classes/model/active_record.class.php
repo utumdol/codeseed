@@ -5,6 +5,7 @@
  */
 class ActiveRecord extends Model {
 	public $tablename;
+	public $foregin_key;
 	public $columns;
 
 	public $belongs_to_relations = array();
@@ -19,21 +20,28 @@ class ActiveRecord extends Model {
 		$this->query = new Query($this->tablename);
 	}
 
-	public function belongs_to($tablename) {
+	// I reference $tablename
+	// I.$tablename_id = $tablename.id
+	public function belongs_to($tablename, $foregin_key = null) {
 		$active_record = new ActiveRecord();
 		$active_record->tablename = $tablename;
+		$active_record->foregin_key = $foregin_key;
 		$this->belongs_to_relations[] = $active_record;
 	}
 
-	public function has_one($tablename) {
+	// $tablename reference me
+	// $tablename.me_id = me.id
+	public function has_one($tablename, $foregin_key = null) {
 		$active_record = new ActiveRecord();
 		$active_record->tablename = $tablename;
+		$active_record->foregin_key = $foregin_key;
 		$this->has_one_relations[] = $active_record;
 	}
 
-	public function has_many($tablename) {
+	public function has_many($tablename, $foregin_key = null) {
 		$active_record = new ActiveRecord();
 		$active_record->tablename = $tablename;
+		$active_record->foregin_key = $foregin_key;
 		$this->has_many_relations[] = $active_record;
 	}
 
@@ -125,9 +133,11 @@ class ActiveRecord extends Model {
 
 		// init query
 		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
+		/*
 		if ($option == 'first') {
 			$this->query->limit = 1;
 		}
+		*/
 
 		// get result
 		$result = $db->select($this->query);
@@ -152,11 +162,20 @@ class ActiveRecord extends Model {
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function is_exists() {
+		return ($this->count() > 0);
+	}
+
+	/**
 	 * @return true on success, false on failure
 	 */
 	public function delete() {
 		$db = Context::get('db');
 
+		// disable join delete. it confuse me a little.
+		/* 
 		// reserve original query object because find() cleans up $this->query.
 		$origin_query = $this->query;
 
@@ -177,7 +196,11 @@ class ActiveRecord extends Model {
 		}
 
 		// delete
-		$result &= $db->delete($this->query);
+		//$result &= $db->delete($this->query);
+		*/
+
+		// delete
+		$result = $db->delete($this->query);
 
 		// cleans up query object
 		$this->query = new Query($this->tablename);
@@ -208,7 +231,7 @@ class ActiveRecord extends Model {
 				if ($column_name == 'updated_at') {
 					$this->$column_name = time();
 				}
-				if (!isset($this->$column_name)) {
+				if (!property_exists($this, $column_name)) {
 					continue;
 				}
 
@@ -245,7 +268,7 @@ class ActiveRecord extends Model {
 				if ($column_name == 'updated_at') {
 					$this->$column_name = time();
 				}
-				if (!isset($this->$column_name)) {
+				if (!property_exists($this, $column_name)) {
 					continue;
 				}
 
@@ -401,10 +424,15 @@ class ActiveRecord extends Model {
 	/**
 	 * return id array from result
 	 */
-	public function get_ids_from_result($result) {
+	public static function get_ids_from_result($result, $prop = 'id') {
 		$ids = array();
+		
+		if (empty($result)) {
+			return $ids;
+		}
+		
 		foreach($result as $row) {
-			$ids[] = $row->id;
+			$ids[] = $row->$prop;
 		}
 		return $ids;
 	}

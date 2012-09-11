@@ -36,7 +36,7 @@ function get_object_property($obj, $props = array()) {
 	}
 
 	foreach($props as $prop) {
-		if (property_exists($obj, $prop)) {
+		if (is_object($obj) && property_exists($obj, $prop)) {
 			$obj = $obj->$prop;
 		} else {
 			return null;

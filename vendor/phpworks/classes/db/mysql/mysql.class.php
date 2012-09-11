@@ -8,45 +8,48 @@ class Mysql {
 	private $name;
 
 	private $types = array(
-		'binary' => 'BLOB',
-		'boolean' => 'TINYINT',
-		'date' => 'DATE',
-		'datetime' => 'DATETIME',
-		'decimal' => 'DECIMAL',
-		'float' => 'FLOAT',
-		'integer' => 'INT',
-		'string' => 'VARCHAR',
-		'text' => 'TEXT',
-		'time' => 'TIME',
-		'timestamp' => 'DATETIME',
+			'binary' => 'BLOB',
+			'boolean' => 'TINYINT',
+			'date' => 'DATE',
+			'datetime' => 'DATETIME',
+			'decimal' => 'DECIMAL',
+			'float' => 'FLOAT',
+			'integer' => 'INT',
+			'string' => 'VARCHAR',
+			'text' => 'TEXT',
+			'time' => 'TIME',
+			'timestamp' => 'DATETIME',
+			'enum' => 'ENUM'
 	);
 
 	private $sizes = array(
-		'binary' => '',
-		'boolean' => '1',
-		'date' => '',
-		'datetime' => '',
-		'decimal' => '',
-		'float' => '',
-		'integer' => '11',
-		'string' => '255',
-		'text' => '',
-		'time' => '',
-		'timestamp' => '',
+			'binary' => '',
+			'boolean' => '1',
+			'date' => '',
+			'datetime' => '',
+			'decimal' => '',
+			'float' => '',
+			'integer' => '11',
+			'string' => '255',
+			'text' => '',
+			'time' => '',
+			'timestamp' => '',
+			'enum' => ''
 	);
 
 	private $value_functions = array(
-		'BLOB' => 'strval',
-		'TINYINT' => 'intval',
-		'DATE' => 'strval',
-		'DATETIME' => 'strval',
-		'DECIMAL' => 'floatval',
-		'FLOAT' => 'floatval',
-		'INT' => 'intval',
-		'VARCHAR' => 'strval',
-		'TEXT' => 'strval',
-		'TIME' => 'strval',
-		'TIMESTAMP' => 'strval',
+			'BLOB' => 'strval',
+			'TINYINT' => 'intval',
+			'DATE' => 'strval',
+			'DATETIME' => 'strval',
+			'DECIMAL' => 'floatval',
+			'FLOAT' => 'floatval',
+			'INT' => 'intval',
+			'VARCHAR' => 'strval',
+			'TEXT' => 'strval',
+			'TIME' => 'strval',
+			'TIMESTAMP' => 'strval',
+			'ENUM' => 'strval'
 	);
 
 	public function __construct($host, $user, $passwd, $name) {
@@ -71,7 +74,7 @@ class Mysql {
 	}
 
 	public function execute($query, $params = array()) {
-		$query = $this->bind_params($query, $this->escape_string($params));
+		$query = $this->bind_params($query, $this->escape_array($params));
 		Log::debug($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
@@ -80,19 +83,28 @@ class Mysql {
 		return $result;
 	}
 
-	public function escape_string($params = array()) {
+	private function escape_array($params = array()) {
 		$result = array();
 		foreach($params as $param) {
+			if (is_null($param)) {
+				$result[] = 'null';
+				continue;
+			}
+
 			$quote = '';
 			if (is_string($param)) {
 				$quote = "'";
 			}
-			$result[] = $quote . mysqli_real_escape_string($this->conn, $param) . $quote;
+			$result[] = $quote . $this->escape_string($param) . $quote;
 		}
 		return $result;
 	}
 
-	public function bind_params($query, $params = array()) {
+	public function escape_string($param) {
+		return mysqli_real_escape_string($this->conn, $param);
+	}
+
+	private function bind_params($query, $params = array()) {
 		if (empty($params)) {
 			return $query;
 		}
@@ -127,7 +139,11 @@ class Mysql {
 	}
 
 	public function get_value($type, $value) {
-		$func = $this->value_functions[strtoupper(preg_replace('/\([\d,]*\)/', '', $type))];
+		if (is_null($value)) {
+			return null;
+		}
+
+		$func = $this->value_functions[strtoupper(preg_replace('/\(.*\)/', '', $type))]; // remove '(...)' in type string.
 		return call_user_func($func, $value);
 	}
 
@@ -265,7 +281,7 @@ class Mysql {
 	 * @return true on success, false on failure
 	 */
 	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
-		$not_null = ($is_null) ? '' : 'NOT NULL'; 
+		$not_null = ($is_null) ? '' : 'NOT NULL';
 		$new_type = $this->get_type($type);
 		$new_size = (empty($size)) ? $this->get_size($type) : $size;
 
@@ -293,10 +309,19 @@ class Mysql {
 	 * @return true on success, false on failure
 	 */
 	public function change_column($table_name, $name, $type, $is_null = true, $size = null) {
-		$not_null = ($is_null) ? '' : 'NOT NULL'; 
+		$not_null = ($is_null) ? '' : 'NOT NULL';
 		$new_type = $this->get_type($type);
 		$new_size = (empty($size)) ? $this->get_size($type) : $size;
-		$new_size = is_blank($new_size) ? $new_size : "($new_size)";
+
+		// support the size of decimal type
+		if ($type == 'decimal' && !is_null($scale)) {
+			$new_size .= ", $scale";
+		}
+
+		if (!is_blank($new_size)) {
+			$new_size = "($new_size)";
+		}
+
 		$this->execute("ALTER TABLE $table_name MODIFY $name $new_type$new_size $not_null");
 	}
 

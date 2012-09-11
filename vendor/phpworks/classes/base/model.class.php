@@ -7,8 +7,10 @@ class Model {
 		$this->model_name = get_class($this);
 		$this->errors = new Errors();
 
-		foreach(array_keys($params) as $key) {
-			$this->$key = $params[$key];
+ 		if (!empty($params)) {
+			foreach(array_keys($params) as $key) {
+				$this->$key = $params[$key];
+			} 
 		}
 		$this->init();
 	}

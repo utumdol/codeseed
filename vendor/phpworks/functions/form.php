@@ -33,3 +33,19 @@ function get_default(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) 
 	return null;
 }
 
+function input_radio($name, $values = array(), $checked_value = '') {
+	foreach($values as $value) {
+		$checked = ($value == $checked_value) ? 'checked="checked" ' : '';
+		echonl("<input type=\"radio\" name=\"{$name}\" value=\"{$value}\" {$checked}/>");
+	}
+}
+
+function input_select($name, $options = array(), $selected_value = '',  $id = '') {
+	echonl("<select name=\"{$name}\" id=\"{$id}\">");
+	foreach($options as $value => $html) {
+		$selected = ($value == $selected_value) ? 'selected="selected" ' : '';
+		echonl("<option value=\"{$value}\" {$selected}>{$html}</option>");
+	}
+	echonl("</select>");
+}
+

@@ -7,9 +7,9 @@ class Config {
 
 	// init environment
 	private $hostnames = array(
-		'dev' => array('phpworks.locahost', 'localhost'),
-		'test' => array('phpworks.testhost'),
-		'real' => array('phpworks.realhost')
+		'dev' => array('dev_host'),
+		'test' => array('test_hostname'),
+		'real' => array('real_hostname')
 	);
 
 	// for session cryption. you can change it.
@@ -27,21 +27,23 @@ class Config {
 				$this->db = 'MySql';
 				$this->db_user = 'phpworks';
 				$this->db_password = '';
-				$this->db_name = 'phpworks';
+				$this->db_name = 'phpworks_dev';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
 				$this->use_db_session = true;
 				$this->log_level = 'debug';
+				$this->http_host = 'dev.example.com';
 				break;
 			case 'test':
 				$this->db = 'MySql';
 				$this->db_user = 'phpworks';
 				$this->db_password = '';
-				$this->db_name = 'phpworks';
+				$this->db_name = 'phpworks_test';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
 				$this->use_db_session = true;
 				$this->log_level = 'debug';
+				$this->http_host = 'test.example.com';
 				break;
 			case 'real';
 				$this->db = 'MySql';
@@ -52,6 +54,7 @@ class Config {
 				$this->db_port = '3306';
 				$this->use_db_session = true;
 				$this->log_level = 'info';
+				$this->http_host = 'www.example.com';
 				break;
 		}
 		$this->set_system_directory();
@@ -80,7 +83,7 @@ class Config {
 	public static function get($prop) {
 		return self::get_instance()->$prop;
 	}
-	
+
 	// just init Config
 	public static function init() {
 		self::get_instance();
@@ -89,10 +92,12 @@ class Config {
 	private function set_system_directory() {
 		$this->root_dir = realpath(dirname(__FILE__) . '/..');
 		$this->root_file = basename($_SERVER['SCRIPT_FILENAME']);
-		$this->sys_dir = $this->root_dir . '/vendor/phpworks';
+		$this->vendor_dir = $this->root_dir . '/vendor';
+		$this->sys_dir = $this->vendor_dir . '/phpworks';
 		$this->sys_classes = $this->sys_dir . '/classes';
 		$this->sys_functions = $this->sys_dir . '/functions';
 		$this->log_dir = $this->root_dir . '/log';
+		$this->upload_dir = $this->root_dir . '/upload';
 	}
 
 	private function set_app_directory() {
@@ -108,8 +113,10 @@ class Config {
 
 	private function set_base_define() {
 		define('BR', '<br/>');
+		define('CR', "\r");
 		define('NL', "\n");
 		define('BN', BR . NL);
+		define('CL', CR . NL);
 	}
 
 	private function set_mode() {
@@ -152,5 +159,7 @@ class Config {
 	private $log_dir;
 	private $log_level; // all, trace, debug, info, warn, error, fatal, off
 	private $mode = 'dev'; // dev, test, real
+	private $http_host;
+	private $max_upload_size = 10485760; // bytes
 }
 

@@ -1,12 +1,14 @@
 <?php
+/**
+ * encoding html tags
+ */
 function h($str) {
 	return htmlentities($str, ENT_QUOTES, 'UTF-8');
 }
 
-function break_off($str, $length, $tail = '...') {
-	if (mb_strlen($str, 'UTF-8') > $length) {
-		return trim(mb_substr($str, 0, $length, 'UTF-8')) . $tail;
-	}
-	return $str;
+/**
+ * make new line characters to space
+ */
+function plain_nl($str = '') {
+	return str_replace(array("\r\n", "\n"), " ", $str);
 }
-

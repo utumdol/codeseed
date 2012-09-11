@@ -29,3 +29,13 @@ function get_array_value($arr, $props = array()) {
 	return $arr;
 }
 
+function array_merge_values(/* arr1, arr2, arr3, ... */) {
+	$result = array();
+	foreach(func_get_args() as $arr) {
+		foreach($arr as $key => $value) {
+			$result[] = $value;
+		}
+	}
+	return $result;
+}
+

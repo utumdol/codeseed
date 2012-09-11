@@ -1,7 +1,9 @@
 <?php
 class Controller {
 	public $layout;
-	
+	public $controller_name; // $controller_name is automatically set in the router(phpworks.php) or forward_to method.
+	public $action_name; // $action_name is automatically set in the router(phpworks.php) or forward_to method.
+
 	protected $session;
 	protected $flash;
 
@@ -10,7 +12,7 @@ class Controller {
 		$this->flash = Context::get('flash');
 	}
 
-	public function before_filter($action = '') {
+	public function before_filter() {
 		// the method which is called before excute actions
 	}
 
@@ -32,7 +34,9 @@ class Controller {
 	 * ex) $this->redirect_to('/blog/index');
 	 */
 	public function redirect_to($where) {
-		echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
+		$this->layout = 'blank';
+		echo '<script type="text/javascript">window.location.href="' . $where . '"</script>';
+		//echo '<meta http-equiv="refresh" content="0; URL=' . $where . '">';
 		$this->skip();
 	}
 
@@ -41,16 +45,22 @@ class Controller {
 	 * ex) $this->forward_to('/blog/index/1');
 	 */
 	public function forward_to($where) {
+		// parse path
 		$path = parse_request_uri($where);
 		$controller_path = $path[1];
 		$action_path = $path[2];
 		require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
 		$controller_name = under_to_camel($controller_path . '_controller');
 		$controller = new $controller_name();
-		
-		call_user_func_array(array($controller, 'before_filter'), array_slice($path, 2));
+
+		// set action name
+		$controller->controller_name = $controller_name;
+		$controller->action_name = $action_path;
+
+		// execute request
+		call_user_func(array($controller, 'before_filter'));
 		call_user_func_array(array($controller, $action_path), array_slice($path, 3));
-		call_user_func_array(array($controller, 'after_filter'), array_slice($path, 2));
+		call_user_func(array($controller, 'after_filter'));
 		if (file_exists(Config::get('view_dir') . '/' . $controller_path . '/' . $action_path . '.php')) {
 			call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
 		}
@@ -65,7 +75,7 @@ class Controller {
 		throw new Skip();
 	}
 
-	public function after_filter($action = '') {
+	public function after_filter() {
 		// the method which is called after excute actions
 	}
 }
