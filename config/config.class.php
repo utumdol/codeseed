@@ -7,7 +7,7 @@ class Config {
 
 	// init environment
 	private $hostnames = array(
-		'dev' => array('dev_host', 'utumdol-Vostro-460'),
+		'dev' => array('dev_hostname'),
 		'test' => array('test_hostname'),
 		'real' => array('real_hostname')
 	);
