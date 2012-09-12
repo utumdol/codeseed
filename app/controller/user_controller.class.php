@@ -23,6 +23,7 @@ class UserController extends ApplicationController {
 			$this->back();
 		}
 		$user->register();
+		$user->login($this->session);
 		$this->redirect_to('/user/register_success/' . $user->nickname);
 	}
 
