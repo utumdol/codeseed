@@ -6,8 +6,8 @@ class UserController extends ApplicationController {
 		$this->layout = 'blog';
 	}
 
-	public function before_filter($action = '') {
-		if (is_start_with($action, 'register') || is_start_with($action, 'login') || $action == 'leave_success') {
+	public function before_filter() {
+		if (is_start_with($this->action_name, 'register') || is_start_with($this->action_name, 'login') || $this->action_name == 'leave_success') {
 			return;
 		}
 		$this->authorize();

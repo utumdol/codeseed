@@ -6,8 +6,8 @@ class BlogController extends ApplicationController {
 		$this->layout = 'blog';
 	}
 
-	public function before_filter($action = '') {
-		if ($action == 'index' || $action == 'view') {
+	public function before_filter() {
+		if ($this->action_name == 'index' || $this->action_name == 'view') {
 			return;
 		}
 		$this->authorize();
