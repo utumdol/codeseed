@@ -80,7 +80,7 @@ body {
 	<?= $CONTENTS ?>
 	<hr>
 	<footer>
-	<p>powered by codeseed</p>
+	<p>Powered by codeseed</p>
 	</footer>
 </div>
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
