@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteCond $1 !^(index\.php|phpworks\.php|html|images|pictures|stylesheets|javascripts|robots\.txt|favicon\.ico)
-RewriteRule ^(.*)$ /phpworks.php/$1 [L]
+RewriteCond $1 !^(index\.php|codeseed\.php|html|images|pictures|stylesheets|javascripts|robots\.txt|favicon\.ico)
+RewriteRule ^(.*)$ /codeseed.php/$1 [L]
 php_flag magic_quotes_gpc Off
 

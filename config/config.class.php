@@ -25,9 +25,9 @@ class Config {
 		switch($this->mode) {
 			case 'dev':
 				$this->db = 'MySql';
-				$this->db_user = 'phpworks';
+				$this->db_user = 'codeseed';
 				$this->db_password = '';
-				$this->db_name = 'phpworks_dev';
+				$this->db_name = 'codeseed';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
 				$this->use_db_session = true;
@@ -36,9 +36,9 @@ class Config {
 				break;
 			case 'test':
 				$this->db = 'MySql';
-				$this->db_user = 'phpworks';
+				$this->db_user = 'codeseed';
 				$this->db_password = '';
-				$this->db_name = 'phpworks_test';
+				$this->db_name = 'codeseed';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
 				$this->use_db_session = true;
@@ -47,9 +47,9 @@ class Config {
 				break;
 			case 'real';
 				$this->db = 'MySql';
-				$this->db_user = 'phpworks';
+				$this->db_user = 'codeseed';
 				$this->db_password = '';
-				$this->db_name = 'phpworks';
+				$this->db_name = 'codeseed';
 				$this->db_host = 'localhost';
 				$this->db_port = '3306';
 				$this->use_db_session = true;
@@ -93,7 +93,7 @@ class Config {
 		$this->root_dir = realpath(dirname(__FILE__) . '/..');
 		$this->root_file = basename($_SERVER['SCRIPT_FILENAME']);
 		$this->vendor_dir = $this->root_dir . '/vendor';
-		$this->sys_dir = $this->vendor_dir . '/phpworks';
+		$this->sys_dir = $this->vendor_dir . '/codeseed';
 		$this->sys_classes = $this->sys_dir . '/classes';
 		$this->sys_functions = $this->sys_dir . '/functions';
 		$this->log_dir = $this->root_dir . '/log';

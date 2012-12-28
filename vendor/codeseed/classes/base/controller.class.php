@@ -1,8 +1,8 @@
 <?php
 class Controller {
 	public $layout;
-	public $controller_name; // $controller_name is automatically set in the router(phpworks.php) or forward_to method.
-	public $action_name; // $action_name is automatically set in the router(phpworks.php) or forward_to method.
+	public $controller_name; // $controller_name is automatically set in the router(codeseed.php) or forward_to method.
+	public $action_name; // $action_name is automatically set in the router(codeseed.php) or forward_to method.
 
 	protected $session;
 	protected $flash;

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="/stylesheets/blog.css" media="all" rel="stylesheet" type="text/css" />
 <script src="/javascripts/jquery.js" type="text/javascript"></script>
-<title>PHPWorks</title>
+<title>codeseed</title>
 <script type="text/javascript">
 $(function() {
 	$('#menu_blog').click(function() {
@@ -43,7 +43,7 @@ $(function() {
 	<div id="contents">
 		<?= $CONTENTS ?>
 	</div>
-	<div id="tail">Powered by PHPWorks</div>
+	<div id="tail">Powered by codeseed</div>
 </div>
 </body>
 </html>
