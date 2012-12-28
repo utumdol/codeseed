@@ -24,6 +24,13 @@ function _post(/* arg1, arg2, arg3, ... */) {
 }
 
 /**
+ * alias of Context::_request(arg1, arg2, arg3, ...)
+ */
+function _request(/* arg1, arg2, arg3, ... */) {
+	return Context::_request(func_get_args());
+}
+
+/**
  * alias of Context::_files(arg1, arg2, arg3, ...)
  */
 function _files(/* arg1, arg2, arg3, ... */) {

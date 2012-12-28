@@ -52,6 +52,13 @@ class Context {
 	}
 
 	/**
+	 * alias of $_REQUEST[arg1][arg2][arg3][...]
+	 */
+	public static function _request(/* arg1, arg2, arg3, ... */) {
+		return get_array_value($_REQUEST, parse_array_args(func_get_args()));
+	}
+
+	/**
 	 * alias of $_FILES[arg1][arg2][arg3][...]
 	 */
 	public static function _files(/* arg1, arg2, arg3, ... */) {
