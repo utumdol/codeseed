@@ -79,7 +79,7 @@ class Query {
 
 	public function where($where, $params = array()) {
 		// '$where' is empty?
-		if (!is_array($where) && empty($where)) {
+		if (!is_array($where) && is_blank($where)) {
 			return;
 		}
 		// '$where' is id?
