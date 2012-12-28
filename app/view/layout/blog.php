@@ -1,50 +1,89 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="/stylesheets/blog.css" media="all" rel="stylesheet" type="text/css" />
-<script src="/javascripts/jquery.js" type="text/javascript"></script>
+<meta charset="utf-8">
 <title>codeseed</title>
-<script type="text/javascript">
-$(function() {
-	$('#menu_blog').click(function() {
-		location.href="/blog/index";
-	});
-});
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+body {
+	padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+	padding-bottom: 40px;
+}
+</style>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-responsive.min.css" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!-- Le fav and touch icons -->
+<!--
+<link rel="shortcut icon" href="/bootstrap/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bootstrap/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bootstrap/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bootstrap/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="/bootstrap/ico/apple-touch-icon-57-precomposed.png">
+-->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
 <body>
-<div id="wrap">
-	<div id="login">
-		<?php
-		if (is_user_logged()) {
-		?>
-		<?= $session->get('user_nickname'); ?>님 환영합니다.
-		|
-		<a href="/user/logout">로그 아웃</a>
-		|
-		<a href="/user/update_form">나의 정보수정</a>
-		<?php
-		} else {
-		?>
-		<a href="/user/login_form">로그 인</a>
-		|
-		<a href="/user/register_form">회원가입</a>
-		<?php
-		}
-		?>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="/">예제 블로그</a>
+			<div class="nav-collapse collapse">
+				<!--
+				<ul class="nav">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+				-->
+				<?php
+				if (is_user_logged()) {
+				?>
+				<ul class="nav pull-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= Context::get('session')->get('user_nickname') ?>님, 반갑습니다. <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/user/update_form">내 정보 수정</a></li>
+							<li class="divider"></li>
+							<li><a href="/user/logout">로그아웃</a></li>
+						</ul>
+					</li>
+				</ul>
+				<?php
+				} else {
+				?>
+				<p class="navbar-text pull-right">
+					<a href="/user/login_form" class="btn btn-mini">로그인</a>
+					<a href="/user/register_form" class="btn btn-mini">회원가입</a>
+				</p>
+				<?php 
+				}
+				?>
+			</div><!--/.nav-collapse -->
+		</div>
 	</div>
-	<div id="menus">
-		<div id="menu_blog" class="menu on">예제 블로그</div>
-	</div>
-	<div id="message">
-	<?= $flash->get('message'); ?>
-	</div>
-	<div id="contents">
-		<?= $CONTENTS ?>
-	</div>
-	<div id="tail">Powered by codeseed</div>
 </div>
+<div class="container">
+	<div id="message">
+		<?= $flash->get('message'); ?>
+	</div>
+	<?= $CONTENTS ?>
+	<hr>
+	<footer>
+	<p>powered by codeseed</p>
+	</footer>
+</div>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 
