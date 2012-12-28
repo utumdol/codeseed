@@ -1,4 +1,6 @@
 <?php
+$start_microtime = microtime(true);
+
 // include system init 
 require_once(dirname(__FILE__) . '/../config/init.php');
 
@@ -6,6 +8,9 @@ require_once(dirname(__FILE__) . '/../config/init.php');
 $db = Context::get('db');
 $db->connect();
 
+// ie8 and safari session problem
+//header('P3P: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+//header('P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"');
 session_start();
 
 // init session
@@ -62,4 +67,6 @@ session_write_close();
 
 // close db connection
 $db->close();
+$end_microtime = microtime(true);
+Log::debug('TOTAL EXCUTION TIME: ' . ($end_microtime - $start_microtime) . 's');
 
