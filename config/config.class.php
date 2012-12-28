@@ -4,13 +4,7 @@
  * @author utumdol
  */
 class Config {
-
 	// init environment
-	private $hostnames = array(
-		'dev' => array('dev_hostname'),
-		'test' => array('test_hostname'),
-		'real' => array('real_hostname')
-	);
 
 	// for session cryption. you can change it.
 	private $crypt_key = 'a2c$%^*()';
@@ -21,42 +15,16 @@ class Config {
 
 	// default model repository. you can change it.
 	private function __construct() {
-		$this->set_mode();
-		switch($this->mode) {
-			case 'dev':
-				$this->db = 'MySql';
-				$this->db_user = 'codeseed';
-				$this->db_password = '';
-				$this->db_name = 'codeseed';
-				$this->db_host = 'localhost';
-				$this->db_port = '3306';
-				$this->use_db_session = true;
-				$this->log_level = 'debug';
-				$this->http_host = 'dev.example.com';
-				break;
-			case 'test':
-				$this->db = 'MySql';
-				$this->db_user = 'codeseed';
-				$this->db_password = '';
-				$this->db_name = 'codeseed';
-				$this->db_host = 'localhost';
-				$this->db_port = '3306';
-				$this->use_db_session = true;
-				$this->log_level = 'debug';
-				$this->http_host = 'test.example.com';
-				break;
-			case 'real';
-				$this->db = 'MySql';
-				$this->db_user = 'codeseed';
-				$this->db_password = '';
-				$this->db_name = 'codeseed';
-				$this->db_host = 'localhost';
-				$this->db_port = '3306';
-				$this->use_db_session = true;
-				$this->log_level = 'info';
-				$this->http_host = 'www.example.com';
-				break;
-		}
+		$this->db = 'MySql';
+		$this->db_user = 'codeseed';
+		$this->db_password = '';
+		$this->db_name = 'codeseed';
+		$this->db_host = 'localhost';
+		$this->db_port = '3306';
+		$this->use_db_session = true;
+		$this->log_level = 'debug';
+		$this->http_host = 'www.example.com';
+
 		$this->set_system_directory();
 		$this->set_app_directory();
 		$this->set_base_define();
@@ -117,16 +85,6 @@ class Config {
 		define('NL', "\n");
 		define('BN', BR . NL);
 		define('CL', CR . NL);
-	}
-
-	private function set_mode() {
-		$hostname = php_uname('n');
-		foreach($this->hostnames as $mode => $hostnames) {
-			if (in_array($hostname, $hostnames)) {
-				$this->mode = $mode;
-				break;
-			}
-		}
 	}
 
 	// default model repository.
