@@ -8,7 +8,7 @@ class ApplicationController extends Controller {
 
 	public function authorize() {
 		if (is_null($this->get_login_id())) {
-			$this->flash->add('message', '로그 인이 필요합니다.');
+			$this->flash->add('message_error', '로그 인이 필요합니다.');
 			$this->redirect_to('/user/login_form?return_url=' . _server('REQUEST_URI'));
 		}
 	}

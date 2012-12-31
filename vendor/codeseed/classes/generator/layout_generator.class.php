@@ -51,9 +51,24 @@ body {
 	</div>
 </div>
 <div class="container">
-	<div id="message">
-		<?= $flash->get("message"); ?>
-	</div>
+	<?php if (!is_blank($flash->get("message_success"))) { ?>
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<?= $flash->get("message_success"); ?>
+		</div>
+	<?php } ?>
+	<?php if (!is_blank($flash->get("message_info"))) { ?>
+		<div class="alert alert-info">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<?= $flash->get("message_info"); ?>
+		</div>
+	<?php } ?>
+	<?php if (!is_blank($flash->get("message_error"))) { ?>
+		<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<?= $flash->get("message_error"); ?>
+		</div>
+	<?php } ?>
 	<?= $CONTENTS ?>
 	<hr>
 	<footer>

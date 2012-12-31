@@ -19,7 +19,7 @@ class UserController extends ApplicationController {
 	public function register() {
 		$user = new User(_post('user'));
 		if (!$user->validate_register()) {
-			$this->flash->add('message', $user->errors->get_messages());
+			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
 		$user->register();
@@ -42,16 +42,14 @@ class UserController extends ApplicationController {
 		$user = new User(_post('user'));
 		$user->id = $this->get_login_id();
 		if (!$user->validate_update($this->get_login_id())) {
-			$this->flash->add('message', $user->errors->get_messages());
+			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
-		$user->update();
+		$user->update();		
 		$user->login($this->session);
-		$this->redirect_to('/user/update_success/' . $user->nickname);
-	}
 
-	public function update_success($nickname) {
-		$this->register_success($nickname);
+		$this->flash->add('message_success', '성공적으로 수정 되었습니다!');
+		$this->redirect_to('/user/update_form');
 	}
 
 	public function leave() {
@@ -76,7 +74,7 @@ class UserController extends ApplicationController {
 	public function login() {
 		$user = new User(_post('user'));
 		if (!$user->validate_login() || !$user->authenticate()) {
-			$this->flash->add('message', $user->errors->get_messages());
+			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
 

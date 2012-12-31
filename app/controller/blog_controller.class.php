@@ -19,7 +19,7 @@ class BlogController extends ApplicationController {
 	public function post() {
 		$article = new Article(_post('article'));
 		if (!$article->validate()) {
-			$this->flash->add('message', $article->errors->get_messages());
+			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
 		$article->user_id = $this->get_login_id();
@@ -63,7 +63,7 @@ class BlogController extends ApplicationController {
 
 		// validation
 		if (!$this->article->validation_update($this->get_login_id())) {
-			$this->flash->add('message', $this->article->errors->get_messages());
+			$this->flash->add('message_error', $this->article->errors->get_messages());
 			$this->back();
 		}
 	}
@@ -74,13 +74,13 @@ class BlogController extends ApplicationController {
 
 		// validation
 		if (!$article->validation_update($this->get_login_id())) {
-			$this->flash->add('message', $article->errors->get_messages());
+			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
 
 		$article = new Article(_post('article'));
 		if (!$article->validate()) {
-			$this->flash->add('message', $article->errors->get_messages());
+			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
 
@@ -94,7 +94,7 @@ class BlogController extends ApplicationController {
 		// validation
 		$article = $article->where($id)->find();
 		if (!$article->validation_delete($this->get_login_id())) {
-			$this->flash->add('message', $article->errors->get_messages());
+			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
 
@@ -110,7 +110,7 @@ class BlogController extends ApplicationController {
 			$comment->user_id = $this->get_login_id();
 			$comment->save();
 		} else {
-			$this->flash->add('message', $comment->errors->get_messages());
+			$this->flash->add('message_error', $comment->errors->get_messages());
 		}
 		$this->redirect_to('/blog/view/' . _post('article_comment', 'article_id'));
 	}
@@ -121,7 +121,7 @@ class BlogController extends ApplicationController {
 		// validation
 		$comment = $comment->where($id)->find();
 		if (!$comment->validation_delete($this->get_login_id())) {
-			$this->flash->add('message', $comment->errors->get_messages());
+			$this->flash->add('message_error', $comment->errors->get_messages());
 			$this->back();
 		}
 
