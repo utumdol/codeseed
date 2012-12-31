@@ -6,7 +6,7 @@
 	<?php $this->load_view('/blog/_form') ?>
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary">수정하기</button>
-		<button type="reset" class="btn" onclick="history.back()">취소하기</button>
+		<button type="reset" class="btn" onclick="history.back()">취소</button>
 	</div>
 </form>
 
