@@ -50,7 +50,7 @@ body {
 </div>
 <div class="container">
 	<div id="message">
-		<?= $flash->get('message'); ?>
+		<?= $flash->get("message"); ?>
 	</div>
 	<?= $CONTENTS ?>
 	<hr>
