@@ -1,7 +1,7 @@
 <?php
 class LayoutGenerator extends Generator {
 	protected $template = '<!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 <meta charset="utf-8">
 <title>codeseed</title>

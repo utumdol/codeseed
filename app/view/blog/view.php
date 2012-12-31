@@ -1,34 +1,45 @@
 <div class="page-header">
-	<h2><?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?></h2>
+	<h2>
+		<?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?>
+		<small>by <?= $this->article->user->nickname ?> at <?= get_date($this->article->updated_at) ?>
+		<div class="btn-group pull-right" data-toggle="buttons-radio">
+			<a class="btn" href="/blog/index">목록</a>
+			<?php if ($this->article->is_writer(get_login_id())) { ?>
+			<a class="btn" href="/blog/update_form/<?= $this->article->id ?>">수정</a>
+			<a class="btn" href="/blog/delete/<?= $this->article->id ?>" id="delete_button">삭제</a>
+			<?php } ?>
+		</div>
+		</small>
+	</h2>
 </div>
 <p class="lead"><?= nl2br(h($this->article->content)) ?></p>
 
+<table class="table table-hover">
+	<tbody>
+		<?php foreach ($this->comment as $comment) { ?>
+		<tr>
+			<td class="span10"><?= nl2br(h($comment->comment)) ?></td>
+			<td class="span2">by <?= $comment->user->nickname ?><br/>
+			at <?= get_date($comment->updated_at) ?>
+			<?= get_delete_comment_button($comment->user->id, $comment->id) ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
+</table>
 
-
-<div class="list_row no_bottom content_meta"><?= $this->article->user->nickname ?> <?= get_date($this->article->updated_at) ?></div>
-<?php foreach ($this->comment as $comment) { ?>
-<div class="list_row comment">
-	<div style="float:left; width: 10%; padding: 0 5px;"><?= $comment->user->nickname ?></div>
-	<div style="float:left; width: 65%; border-left: solid 1px #ccc; padding: 0 5px;"><?= nl2br(h($comment->comment)) ?></div>
-	<div style="float:left; padding: 0 5px;"><?= get_delete_comment_button($comment->user->id, $comment->id) ?></div>
-	<div style="float:left; padding: 0 5px;"><?= get_date($comment->updated_at) ?></div>
-</div>
-<?php } ?>
 <form action="/blog/post_comment" method="post" id="article_comment_form">
-<input type="hidden" name="article_comment[article_id]" value="<?= $this->article->id ?>" />
-<textarea class="input-xxlarge" id="comment_textarea" name="article_comment[comment]"></textarea>
-<div class="button_area"><input type="button" class="button" id="submit_comment" value="댓글달기" /></div>
+	<input type="hidden" name="article_comment[article_id]" value="<?= $this->article->id ?>">
+	<div class="row-fluid">
+	<div class="span10"><textarea class="span12" rows="5" id="comment_textarea" name="article_comment[comment]" placeholder="댓글을 입력해 주세요."></textarea></div>
+	<div class="span2"><input type="button" class="btn" id="submit_comment" value="댓글달기"></div>
+	</div>
 </form>
-<div class="menu_area">
-	<span>[<a href="/blog/index">목록으로</a>]</span>
-	<?php if ($this->article->is_writer(get_login_id())) { ?>
-	<span>[<a href="/blog/update_form/<?= $this->article->id ?>">수정하기</a>]</span>
-	<span>[<a href="/blog/delete/<?= $this->article->id ?>" class="delete_button">삭제하기</a>]</span>
-	<?php } ?>
-</div>
+
+<div class="clearfix"></div>
+
 <script type="text/javascript">
 $(function() {
-	$('.delete_button').click(function() {
+	$('#delete_button').click(function() {
 		return confirm('정말 삭제하시겠습니까?');
 	});
 	$('#comment_textarea').keyup(function(event) {
