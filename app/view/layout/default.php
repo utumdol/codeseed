@@ -67,9 +67,7 @@ body {
 			<?= $flash->get("message_error"); ?>
 		</div>
 	<?php } ?>
-
 	<?= $CONTENTS ?>
-
 	<hr>
 	<footer>
 	<p>&copy; Company 2012</p>

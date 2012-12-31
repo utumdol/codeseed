@@ -92,9 +92,7 @@ body {
 			<?= $flash->get('message_error'); ?>
 		</div>
 	<?php } ?>
-
 	<?= $CONTENTS ?>
-
 	<hr>
 	<footer>
 	<p>powered by codeseed</p>

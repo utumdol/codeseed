@@ -7,7 +7,7 @@
 <div class="control-group">
 	<label class="control-label" for="input_nickname">별명*</label>
 	<div class="controls">
-		<input type="text" name="user[nickname]" id="input_nickname" placeholder="비밀번호" value="<?= get_default($this, 'user', 'nickname') ?>">
+		<input type="text" name="user[nickname]" id="input_nickname" placeholder="별명" value="<?= get_default($this, 'user', 'nickname') ?>">
 	</div>
 </div>
 <div class="control-group">
