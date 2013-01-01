@@ -1,8 +1,3 @@
-<!--
-<div class="page-header">
-	<h2>수정하기</h2>
-</div>
--->
 <form class="form-horizontal" method="post" action="/blog/update">
 	<input type="hidden" name="article[id]" value="<?= $this->article->id ?>" />
 	<?php $this->load_view('/blog/_form') ?>

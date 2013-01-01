@@ -1,38 +1,44 @@
 <div class="page-header">
 	<div class="row-fluid">
-		<div class="span2 btn-group pull-right" data-toggle="buttons-radio">
+		<h4 class="span10">
+			<?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?>
+			<small>
+				by <?= $this->article->user->nickname ?> <?= get_date($this->article->updated_at) ?>
+			</small>
+		</h4>
+		<div class="span2 btn-group pagination-right" data-toggle="buttons-radio">
 			<a class="btn" href="/blog/index">목록</a>
 			<?php if ($this->article->is_writer(get_login_id())) { ?>
 			<a class="btn" href="/blog/update_form/<?= $this->article->id ?>">수정</a>
 			<a class="btn" href="/blog/delete/<?= $this->article->id ?>" id="delete_button">삭제</a>
 			<?php } ?>
 		</div>
-		<h2 class="span10">
-			<?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?>
-			<small>
-				by <?= $this->article->user->nickname ?> at <?= get_date($this->article->updated_at) ?>
-			</small>
-		</h2>
 	</div>
 </div>
-<p class="lead"><?= nl2br(h($this->article->content)) ?></p>
+<p><?= nl2br(h($this->article->content)) ?></p>
+<ul class="thumbnails">
 <?php foreach ($this->comment as $comment) { ?>
-	<div class="row-fluid show-grid">
-		<div class="span8">
-			<?= nl2br(h($comment->comment)) ?>
-			<?= get_delete_comment_button($comment->user->id, $comment->id) ?>
-		</div>
-		<div class="span4 pagination-right">
-				by <?= $comment->user->nickname ?>
-				at <?= get_date($comment->updated_at) ?>
-		</div>
-	</div>
-<?php } ?>
+		<li class="span12 thumbnail">
+			<div class="row-fluid">
+				<div class="span10">
+					<?= nl2br(h($comment->comment)) ?>
+					<?= get_delete_comment_button($comment->user->id, $comment->id) ?>
+				</div>
+				<small class="span2 pagination-right">
+					by <?= $comment->user->nickname ?>
+					<?= get_date($comment->updated_at) ?>
+				</small>
+			</div>
+		</li>
+	<?php } ?>
+</ul>
 <form action="/blog/post_comment" method="post" id="article_comment_form">
 	<input type="hidden" name="article_comment[article_id]" value="<?= $this->article->id ?>">
 	<div class="row-fluid">
-	<div class="span11"><textarea class="span12" rows="5" id="comment_textarea" name="article_comment[comment]" placeholder="댓글을 입력해 주세요."></textarea></div>
-	<div class="span1"><input type="button" class="btn" id="submit_comment" value="댓글달기"></div>
+		<div class="span12"><textarea class="span12" rows="5" id="comment_textarea" name="article_comment[comment]" placeholder="댓글을 입력해 주세요."></textarea></div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12"><input type="button" class="btn span12" id="submit_comment" value="댓글달기"></div>
 	</div>
 </form>
 <script type="text/javascript">
