@@ -230,13 +230,17 @@ class Mysql {
 	 * @return a table columns array
 	 */
 	public function get_table_columns($table_name) {
+		// init
 		$table = array();
+		$cache_name = _server('HTTP_HOST') . '_' . $table_name;
 
-		$cache = apc_fetch($table_name);
+		// load table schema from cache
+		$cache = apc_fetch($cache_name);
 		if ($cache !== false) {
 			return $cache;
 		}
 
+		// load table schema from db
 		$result = $this->execute('SHOW COLUMNS FROM ' . $table_name);
 		while ($row = $this->fetch($result)) {
 			$schema = new Column();
@@ -246,7 +250,8 @@ class Mysql {
 		}
 		$this->free_result($result);
 
-		apc_store($table_name, $table);
+		// store table schema into cache
+		apc_store($cache_name, $table);
 		return $table;
 	}
 
