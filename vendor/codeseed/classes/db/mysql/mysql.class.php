@@ -195,7 +195,6 @@ class Mysql {
 
 		// delete
 		$result = $this->execute('DELETE FROM ' . $query->from . $where, $query->params);
-
 		return $result;
 	}
 
@@ -228,10 +227,16 @@ class Mysql {
 	}
 
 	/**
-	 * @return a result object
+	 * @return a table columns array
 	 */
 	public function get_table_columns($table_name) {
 		$table = array();
+
+		$cache = apc_fetch($table_name);
+		if ($cache !== false) {
+			return $cache;
+		}
+
 		$result = $this->execute('SHOW COLUMNS FROM ' . $table_name);
 		while ($row = $this->fetch($result)) {
 			$schema = new Column();
@@ -240,6 +245,8 @@ class Mysql {
 			$table[] = $schema;
 		}
 		$this->free_result($result);
+
+		apc_store($table_name, $table);
 		return $table;
 	}
 

@@ -21,7 +21,7 @@ class Config {
 		$this->db_name = 'codeseed';
 		$this->db_host = 'localhost';
 		$this->db_port = '3306';
-		$this->use_db_session = true;
+		$this->use_db_session = false;
 		$this->log_level = 'debug';
 		$this->http_host = 'www.example.com';
 
@@ -64,8 +64,10 @@ class Config {
 		$this->sys_dir = $this->vendor_dir . '/codeseed';
 		$this->sys_classes = $this->sys_dir . '/classes';
 		$this->sys_functions = $this->sys_dir . '/functions';
+
 		$this->log_dir = $this->root_dir . '/log';
 		$this->upload_dir = $this->root_dir . '/upload';
+		$this->tmp_dir =  $this->root_dir . '/tmp';
 	}
 
 	private function set_app_directory() {
@@ -118,6 +120,8 @@ class Config {
 	private $log_level; // all, trace, debug, info, warn, error, fatal, off
 	private $mode = 'dev'; // dev, test, real
 	private $http_host;
+	private $upload_dir;
 	private $max_upload_size = 10485760; // bytes
+	private $tmp_dir;
 }
 

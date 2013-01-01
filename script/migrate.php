@@ -77,6 +77,9 @@ for($i = 0; $i < count($files); $i++) {
 // close db connection
 $db->close();
 
+// cache refresh
+require_once(dirname(__FILE__) . '/refresh.php');
+
 // remove all clearly
 if ($INTEND_VERSION == 0) {
 	require_once(dirname(__FILE__) . '/uninstall.php');

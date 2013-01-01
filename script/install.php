@@ -7,8 +7,20 @@ $db = Context::get('db');
 $db->connect();
 
 // init log dir
+if (!file_exists(Config::get('upload_dir'))) {
+	$migration = new CreateUploadDirectory();
+	$migration->up();
+}
+
+// init log dir
 if (!file_exists(Config::get('log_dir'))) {
 	$migration = new CreateLogDirectory();
+	$migration->up();
+}
+
+// init tmp dir
+if (!file_exists(Config::get('tmp_dir'))) {
+	$migration = new CreateTmpDirectory();
 	$migration->up();
 }
 

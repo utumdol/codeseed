@@ -16,6 +16,7 @@ class Context {
 		$this->session = $this->init_session();
 		$this->flash = $this->init_flash();
 		$this->log = $this->init_log();
+		$this->init_cache();
 	}
 
 	// singleton implementation
@@ -110,6 +111,20 @@ class Context {
 	private function init_log() {
 		$filename = Config::get('log_dir') . '/' . Config::get('mode') . '.log';
 		return Log::get_instance(Config::get('log_level'), $filename);
+	}
+
+	private function init_cache() {
+		if (!file_exists(Config::get('tmp_dir') . '/restart.txt')) {
+			return;
+		}
+
+		if (apc_clear_cache('user')) {
+			Log::info("apc_clear_cache success");
+		} else {
+			Log::info("apc_clear_cache success fail");
+		}
+
+		unlink(Config::get('tmp_dir') . '/restart.txt');
 	}
 }
 
