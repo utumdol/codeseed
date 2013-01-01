@@ -1,11 +1,5 @@
 <div class="page-header">
 	<div class="row-fluid">
-		<h2 class="span10">
-			<?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?>
-			<small>
-				by <?= $this->article->user->nickname ?> at <?= get_date($this->article->updated_at) ?>
-			</small>
-		</h2>
 		<div class="span2 btn-group pull-right" data-toggle="buttons-radio">
 			<a class="btn" href="/blog/index">목록</a>
 			<?php if ($this->article->is_writer(get_login_id())) { ?>
@@ -13,16 +7,24 @@
 			<a class="btn" href="/blog/delete/<?= $this->article->id ?>" id="delete_button">삭제</a>
 			<?php } ?>
 		</div>
+		<h2 class="span10">
+			<?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?>
+			<small>
+				by <?= $this->article->user->nickname ?> at <?= get_date($this->article->updated_at) ?>
+			</small>
+		</h2>
 	</div>
 </div>
 <p class="lead"><?= nl2br(h($this->article->content)) ?></p>
 <?php foreach ($this->comment as $comment) { ?>
 	<div class="row-fluid show-grid">
-		<div class="span11"><?= nl2br(h($comment->comment)) ?></div>
-		<div class="span1">
-			by <?= $comment->user->nickname ?>
-			at <?= get_date($comment->updated_at) ?>
+		<div class="span8">
+			<?= nl2br(h($comment->comment)) ?>
 			<?= get_delete_comment_button($comment->user->id, $comment->id) ?>
+		</div>
+		<div class="span4 pagination-right">
+				by <?= $comment->user->nickname ?>
+				at <?= get_date($comment->updated_at) ?>
 		</div>
 	</div>
 <?php } ?>
