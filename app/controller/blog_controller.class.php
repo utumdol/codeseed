@@ -31,17 +31,17 @@ class BlogController extends ApplicationController {
 	 * show list
 	 */
 	public function index($page = '1') {
-		$limit = 7;	// page size
-		$offset = ($page - 1) * $limit;
+		$page_size = 5;	// page size
+		$offset = ($page - 1) * $page_size;
 
 		// get id(s) in the page
 		$article = new Article();
-		$list = $article->select("id")->limit($offset, $limit)->order("id DESC")->find("all");
+		$list = $article->select("id")->limit($offset, $page_size)->order("id DESC")->find("all");
 		$ids = $article->get_ids_from_result($list);
 
 		// get articles in the page
 		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($ids)->find("all");
-		$this->paging = new Paging($article->count(), $limit, '/blog/index/<page>', $page);
+		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
 	}
 
 	/**
