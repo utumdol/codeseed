@@ -1,8 +1,8 @@
 <div class="page-header">
 	<div class="row-fluid">
-		<h4 class="span10">
-			<?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?>
-		</h4>
+		<div class="span10">
+			<h4><?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?></h4>
+		</div>
 		<div class="span2 btn-group pagination-right" data-toggle="buttons-radio">
 			<a class="btn" href="/blog/index">목록</a>
 			<?php if ($this->article->is_writer(get_login_id())) { ?>
