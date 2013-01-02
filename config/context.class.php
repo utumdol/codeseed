@@ -109,7 +109,7 @@ class Context {
 	}
 
 	private function init_log() {
-		$filename = Config::get('log_dir') . '/' . Config::get('mode') . '.log';
+		$filename = Config::get('log_dir') . '/application.log';
 		return Log::get_instance(Config::get('log_level'), $filename);
 	}
 

@@ -23,7 +23,6 @@ class Config {
 		$this->db_port = '3306';
 		$this->use_db_session = false;
 		$this->log_level = 'debug';
-		$this->http_host = 'www.example.com';
 
 		$this->set_system_directory();
 		$this->set_app_directory();
@@ -118,8 +117,6 @@ class Config {
 	private $use_db_session;
 	private $log_dir;
 	private $log_level; // all, trace, debug, info, warn, error, fatal, off
-	private $mode = 'dev'; // dev, test, real
-	private $http_host;
 	private $upload_dir;
 	private $max_upload_size = 10485760; // bytes
 	private $tmp_dir;
