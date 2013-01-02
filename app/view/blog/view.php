@@ -2,9 +2,6 @@
 	<div class="row-fluid">
 		<h4 class="span10">
 			<?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?>
-			<small>
-				by <?= $this->article->user->nickname ?> <?= get_date($this->article->updated_at) ?>
-			</small>
 		</h4>
 		<div class="span2 btn-group pagination-right" data-toggle="buttons-radio">
 			<a class="btn" href="/blog/index">목록</a>
@@ -16,6 +13,11 @@
 	</div>
 </div>
 <p><?= nl2br(h($this->article->content)) ?></p>
+<div class="page-header">
+	<h4 class="pagination-right">
+		<small>by <?= $this->article->user->nickname ?> <?= get_date($this->article->updated_at) ?></small>
+	</h4>
+</div>
 <ul class="thumbnails">
 <?php foreach ($this->comment as $comment) { ?>
 		<li class="span12 thumbnail">
