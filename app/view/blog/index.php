@@ -13,4 +13,3 @@ $this->load_view('layout/_paging');
 ?>
 <p><a href="/blog/post_form" class="btn btn-primary pull-right">새글쓰기</a></p>
 <div class="clearfix"></div>
-

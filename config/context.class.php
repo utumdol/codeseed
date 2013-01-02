@@ -38,41 +38,6 @@ class Context {
 		self::get_instance();
 	}
 
-	/**
-	 * alias of $_GET[arg1][arg2][arg3][...]
-	 */
-	public static function _get(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_GET, parse_array_args(func_get_args()));
-	}
-
-	/**
-	 * alias of $_POST[arg1][arg2][arg3][...]
-	 */
-	public static function _post(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_POST, parse_array_args(func_get_args()));
-	}
-
-	/**
-	 * alias of $_REQUEST[arg1][arg2][arg3][...]
-	 */
-	public static function _request(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_REQUEST, parse_array_args(func_get_args()));
-	}
-
-	/**
-	 * alias of $_FILES[arg1][arg2][arg3][...]
-	 */
-	public static function _files(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_FILES, parse_array_args(func_get_args()));
-	}
-
-	/**
-	 * alias of $_SERVER[arg1][arg2][arg3][...]
-	 */
-	public static function _server(/* arg1, arg2, arg3, ... */) {
-		return get_array_value($_SERVER, parse_array_args(func_get_args()));
-	}
-
 	// include system and application default library
 	private function include_library() {
 		require_once(Config::get('sys_functions') . '/system.php');
