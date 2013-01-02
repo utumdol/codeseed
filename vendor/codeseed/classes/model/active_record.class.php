@@ -168,6 +168,17 @@ class ActiveRecord extends Model {
 		return ($this->count() > 0);
 	}
 
+	public static function find_by_sql($query = '') {
+		$results = array();
+		$db = Context::get('db');
+		$result = $db->execute($query);
+		while($row = $db->fetch($result)) {
+			$results[] = $row;
+		}
+		$db->free_result($result);
+		return $results;
+	}
+
 	/**
 	 * @return true on success, false on failure
 	 */
