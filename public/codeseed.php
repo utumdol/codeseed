@@ -40,7 +40,7 @@ ob_start();
 try {
 	// execute request
 	call_user_func(array($controller, 'before_filter'));
-	call_user_func_array(array($controller, $action_path), array_slice($path, 3));
+	call_user_func_array(array($controller, $action_path), refine_params(array_slice($path, 3)));
 	call_user_func(array($controller, 'after_filter'));
 	if (file_exists(Config::get('view_dir') . '/' . $controller_path . '/' . $action_path . '.php')) {
 		call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
