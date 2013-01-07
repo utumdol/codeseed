@@ -185,31 +185,6 @@ class ActiveRecord extends Model {
 	public function delete() {
 		$db = Context::get('db');
 
-		// disable join delete. it confuse me a little.
-		/* 
-		// reserve original query object because find() cleans up $this->query.
-		$origin_query = $this->query;
-
-		$this->query = new Query($this->tablename);
-
-		// find id(s) to delete
-		$result = $this->select("id")->where($origin_query->where, $origin_query->params)->find("all");
-		$ids = $this->get_ids_from_result($result);
-
-		// recover original query object
-		$this->query = $origin_query;
-
-		// delete the records of the associated tables.
-		foreach($this->query->joins as $join) {
-			$query = new Query($join);
-			$query->where("{$join}.{$this->tablename}_id" . Query::make_id_condition($ids));
-			$result &= $db->delete($query);
-		}
-
-		// delete
-		//$result &= $db->delete($this->query);
-		*/
-
 		// delete
 		$result = $db->delete($this->query);
 
@@ -285,7 +260,9 @@ class ActiveRecord extends Model {
 
 				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
 			}
-			$this->query->where($this->id);
+			if (property_exists($this, 'id')) {
+				$this->query->where($this->id);
+			}
 		}
 
 		// update
