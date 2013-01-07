@@ -37,7 +37,7 @@ class BlogController extends ApplicationController {
 		// get id(s) in the page
 		$article = new Article();
 		$list = $article->select("id")->limit($offset, $page_size)->order("id DESC")->find("all");
-		$ids = $article->get_ids_from_result($list);
+		$ids = extract_property($list);
 
 		// get articles in the page
 		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($ids)->find("all");

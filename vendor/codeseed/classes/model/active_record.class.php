@@ -408,21 +408,5 @@ class ActiveRecord extends Model {
 		}
 		return null;
 	}
-
-	/**
-	 * return id array from result
-	 */
-	public static function get_ids_from_result($result, $prop = 'id') {
-		$ids = array();
-		
-		if (empty($result)) {
-			return $ids;
-		}
-		
-		foreach($result as $row) {
-			$ids[] = $row->$prop;
-		}
-		return $ids;
-	}
 }
 

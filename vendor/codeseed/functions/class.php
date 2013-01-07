@@ -45,3 +45,16 @@ function get_object_property($obj, $props = array()) {
 	return $obj;
 }
 
+function extract_property($objs, $prop = 'id') {
+	$props = array();
+
+	if (empty($objs)) {
+		return $props;
+	}
+
+	foreach($objs as $obj) {
+		$props[] = $obj->$prop;
+	}
+	return $props;
+}
+
