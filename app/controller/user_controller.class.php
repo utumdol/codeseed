@@ -15,7 +15,7 @@ class UserController extends ApplicationController {
 
 	public function register_form() {
 	}
-	
+
 	public function register() {
 		$user = new User(_post('user'));
 		if (!$user->validate_register()) {
@@ -31,7 +31,7 @@ class UserController extends ApplicationController {
 		$this->user = new User();
 		$this->user->nickname = $nickname;
 	}
-	
+
 	public function update_form() {
 		$user = new User();
 		$this->user = $user->where($this->get_login_id())->find();
@@ -45,7 +45,7 @@ class UserController extends ApplicationController {
 			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
-		$user->update();		
+		$user->update();
 		$user->login($this->session);
 
 		$this->flash->add('message_success', '성공적으로 수정 되었습니다!');

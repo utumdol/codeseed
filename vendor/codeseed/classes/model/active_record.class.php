@@ -322,14 +322,14 @@ class ActiveRecord extends Model {
 
 	/**
 	 * parsing query result and return model object
-	 * @param 
+	 * @param
 	 * @return model object
 	 */
 	private function parse_result($result) {
 		$db = Context::get('db');
 
 		$arr = array();
-		
+
 		while ($row = $db->fetch($result)) {
 			Log::debug('[' . join($row, ', ') . ']');
 			$obj = $this->make_object($row, $this->tablename);

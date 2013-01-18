@@ -66,7 +66,7 @@ body {
 					<a href="/user/login_form" class="btn btn-mini">로그인</a>
 					<a href="/user/register_form" class="btn btn-mini">회원가입</a>
 				</p>
-				<?php 
+				<?php
 				}
 				?>
 			</div><!--/.nav-collapse -->

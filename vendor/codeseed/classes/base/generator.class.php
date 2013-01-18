@@ -51,7 +51,7 @@ class Generator {
 		$content = $this->get_contents();
 		echonl('generate ' . abbr_path($this->get_path()) . '/' . $filename);
 		$f = fopen($this->get_path() . '/' . $filename, 'w');
-		fwrite($f, $content, strlen($content)); 
+		fwrite($f, $content, strlen($content));
 		fclose($f);
 	}
 }

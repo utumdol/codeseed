@@ -1,7 +1,7 @@
 <?php
-// include system init 
+// include system init
 require_once(dirname(__FILE__) . '/../config/init.php');
 
-// refresh cache 
+// refresh cache
 touch(Config::get('tmp_dir') . '/restart.txt');
 

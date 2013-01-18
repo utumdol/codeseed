@@ -2,7 +2,7 @@
 	<h2>회원정보수정</h2>
 </div>
 <form class="form-horizontal" method="post" action="/user/update">
-	<?php $this->load_view('/user/_form') ?>	
+	<?php $this->load_view('/user/_form') ?>
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary">회원정보수정</button>
 		<button type="reset" class="btn">취소</button>

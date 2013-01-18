@@ -10,7 +10,7 @@ class Model {
  		if (!empty($params)) {
 			foreach(array_keys($params) as $key) {
 				$this->$key = $params[$key];
-			} 
+			}
 		}
 		$this->init();
 	}
@@ -23,7 +23,7 @@ class Model {
 		$class_name = get_called_class();
 		return new $class_name;
 	}
-	
+
 	public function init() {
 		// the method which is called after __construct
 	}

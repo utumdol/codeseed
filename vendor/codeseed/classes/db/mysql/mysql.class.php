@@ -103,7 +103,7 @@ class Mysql {
 		if (is_string($param)) {
 			return $quotes . $this->escape_string($param) . $quotes;
 		}
-		return $this->escape_string($param); 
+		return $this->escape_string($param);
 	}
 
 	public function escape_string($param) {
@@ -305,14 +305,7 @@ class Mysql {
 	/**
 	 * @return true on success, false on failure
 	 */
-	public function remove_column($table_name, $name) {
-		$this->execute("ALTER TABLE $table_name DROP COLUMN $name");
-	}
-
-	/**
-	 * @return true on success, false on failure
-	 */
-	public function change_column($table_name, $name, $type, $is_null = true, $size = null) {
+	public function change_column($table_name, $name, $new_name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
 		$not_null = ($is_null) ? '' : 'NOT NULL';
 		$new_type = $this->get_type($type);
 		$new_size = (empty($size)) ? $this->get_size($type) : $size;
@@ -326,7 +319,36 @@ class Mysql {
 			$new_size = "($new_size)";
 		}
 
-		$this->execute("ALTER TABLE $table_name MODIFY $name $new_type$new_size $not_null");
+		$default = (is_null($default)) ? '' : 'DEFAULT ' . $default;
+		$this->execute("ALTER TABLE $table_name CHANGE $name $new_name $new_type$new_size $default $not_null");
+	}
+
+	/**
+	 * @return true on success, false on failure
+	 */
+	public function modify_column($table_name, $name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
+		$not_null = ($is_null) ? '' : 'NOT NULL';
+		$new_type = $this->get_type($type);
+		$new_size = (empty($size)) ? $this->get_size($type) : $size;
+
+		// support the size of decimal type
+		if ($type == 'decimal' && !is_null($scale)) {
+			$new_size .= ", $scale";
+		}
+
+		if (!is_blank($new_size)) {
+			$new_size = "($new_size)";
+		}
+
+		$default = (is_null($default)) ? '' : 'DEFAULT ' . $default;
+		$this->execute("ALTER TABLE $table_name MODIFY $name $new_type$new_size $default $not_null");
+	}
+
+	/**
+	 * @return true on success, false on failure
+	 */
+	public function remove_column($table_name, $name) {
+		$this->execute("ALTER TABLE $table_name DROP COLUMN $name");
 	}
 
 	/**

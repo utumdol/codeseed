@@ -2,10 +2,10 @@
 class CreateArticle extends Migration {
 	public function up() {
 		$this->create_table('article');
-		$this->add_column('article', 'subject', 'text', false);
-		$this->add_column('article', 'content', 'text', false);
-		$this->add_column('article', 'created_at', 'integer', false);
-		$this->add_column('article', 'updated_at', 'integer', false);
+		$this->add_column(array('table' => 'article', 'name' => 'subject', 'type' => 'text', 'is_null' => false));
+		$this->add_column(array('table' => 'article', 'name' => 'content', 'type' => 'text', 'is_null' => false));
+		$this->add_column(array('table' => 'article', 'name' => 'created_at', 'type' => 'integer', 'is_null' => false));
+		$this->add_column(array('table' => 'article', 'name' => 'updated_at', 'type' => 'integer', 'is_null' => false));
 	}
 
 	public function down() {

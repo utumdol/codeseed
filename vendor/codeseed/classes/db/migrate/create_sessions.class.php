@@ -2,9 +2,9 @@
 class CreateSessions extends Migration {
 	public function up() {
 		$this->create_table('sessions');
-		$this->add_column('sessions', 'session_id', 'string', false, '32');
-		$this->add_column('sessions', 'data', 'text');
-		$this->add_column('sessions', 'updated_at', 'integer');
+		$this->add_column(array('table' => 'sessions', 'name' => 'session_id', 'type' => 'string', 'is_null' => false, 'size' => '32'));
+		$this->add_column(array('table' => 'sessions', 'name' => 'data', 'type' => 'text'));
+		$this->add_column(array('table' => 'sessions', 'name' => 'updated_at', 'type' => 'integer'));
 		$this->add_index('sessions', 'sessions', 'session_id');
 	}
 

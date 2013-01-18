@@ -22,7 +22,7 @@
 		<input type="password" name="user[repassword]" id="input_repassword" placeholder="비밀번호 확인" value="<?= get_default($this, 'user', 'repassword') ?>">
 	</div>
 </div>
-		
+
 <script type="text/javascript">
 function make_nickname() {
 	$('#input_nickname').val($('#input_email').val().split('@')[0]);

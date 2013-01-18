@@ -8,7 +8,7 @@ function text_mail($to, $subject, $message, $from = 'codeseed <noreply@codeseed.
 	$headers[] = "X-Mailer: PHP/".phpversion();
 
 	mb_internal_encoding('UTF-8');
-	mb_send_mail($to, $subject, $message, implode(NL, $headers));	
+	mb_send_mail($to, $subject, $message, implode(NL, $headers));
 }
 
 function html_mail($to, $subject, $message, $from = 'codeseed <noreply@codeseed.io>') {
@@ -21,6 +21,6 @@ function html_mail($to, $subject, $message, $from = 'codeseed <noreply@codeseed.
 	$headers[] = "X-Mailer: PHP/".phpversion();
 
 	mb_internal_encoding('UTF-8');
-	mb_send_mail($to, $subject, $message, implode(NL, $headers));	
+	mb_send_mail($to, $subject, $message, implode(NL, $headers));
 }
 

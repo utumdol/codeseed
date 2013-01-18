@@ -1,5 +1,5 @@
 <?php
-// include system init 
+// include system init
 require_once(dirname(__FILE__) . '/config.class.php');
 require_once(dirname(__FILE__) . '/context.class.php');
 

@@ -1,5 +1,5 @@
 <?php
-// include system init 
+// include system init
 require_once(dirname(__FILE__) . '/../config/init.php');
 
 // connect db connection

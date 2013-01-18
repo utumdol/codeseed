@@ -13,7 +13,7 @@ class DbSession {
 		$sessions = new Sessions();
 		$s = $sessions->where("session_id = ?", $session_id)->find();
 		if (is_null($s)) {
-			return '';	
+			return '';
 		}
 
 		// decryption

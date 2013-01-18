@@ -58,7 +58,7 @@ class Log {
 		$message = date('Y-m-d H:i:s') . ' [' . strtoupper($level) . '] ' . $message . "\n";
 		$this->touch();
 		$f = fopen($this->filename, 'a');
-		fwrite($f, $message, strlen($message)); 
+		fwrite($f, $message, strlen($message));
 		fclose($f);
 	}
 
