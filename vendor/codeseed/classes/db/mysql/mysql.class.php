@@ -211,7 +211,7 @@ class Mysql {
 		$i = 0;
 		foreach($query->column_names as $name) {
 			$value = $query->values[$i++];
-			$pairs[] = "$name  = $value";
+			$pairs[] = "$name = $value";
 		}
 
 		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where);
