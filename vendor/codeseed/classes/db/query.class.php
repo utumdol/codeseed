@@ -15,8 +15,6 @@ class Query {
 	public $having = '';
 	public $order = '';
 
-	public $params = array();
-
 	// for insert and update
 	public $column_names = array();
 	public $values = array();
@@ -38,7 +36,7 @@ class Query {
 	 */
 	public function join($model, $join, $on = '', $params = array()) {
 		$this->joins[] = $join;
-		$this->params = array_merge($this->params, $params);
+		$on = Context::get('db')->bind_params($on, $params);
 
 		foreach($model->belongs_to_relations as $relation) {
 			if ($relation->tablename == $join) {
@@ -88,19 +86,12 @@ class Query {
 			return;
 		}
 		// etc
-		$this->where = $where;
-
-		// make params
-		if (!is_array($params)) {
-			$params = array($params);
-		}
-		$this->params = array_merge($this->params, $params);
+		$this->where = Context::get('db')->bind_params($where, $params);
 	}
 
 	public function group($group, $having ='', $params = array()) {
 		$this->group = $group;
-		$this->having = $having;
-		$this->params = array_merge($this->params, $params);
+		$this->having = Context::get('db')->bind_params($where, $params);
 	}
 
 	public function order($order) {
@@ -109,20 +100,16 @@ class Query {
 
 	public function limit($param1, $param2 = '') {
 		if (strlen($param2) == 0) {
-			$this->limit = '?';
-			$this->params[] = $param1;
+			$this->limit = Context::get('db')->make_value($param1);
 			return;
 		}
-		$this->offset = '?';
-		$this->limit = '?';
-		$this->params[] = $param1;
-		$this->params[] = $param2;
+		$this->offset = Context::get('db')->make_value($param1);
+		$this->limit = Context::get('db')->make_value($param2);
 	}
 
 	public function set($column_name, $value) {
 		$this->column_names[] = $column_name;
-		$this->values[] = '?';
-		$this->params[] = $value;
+		$this->values[] = Context::get('db')->make_value($value);
 	}
 
 	public static function make_id_condition($id) {

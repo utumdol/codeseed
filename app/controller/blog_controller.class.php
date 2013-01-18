@@ -62,7 +62,7 @@ class BlogController extends ApplicationController {
 		$this->article = $article->where($id)->find();
 
 		// validation
-		if (!$this->article->validation_update($this->get_login_id())) {
+		if (!$this->article->validate_update($this->get_login_id())) {
 			$this->flash->add('message_error', $this->article->errors->get_messages());
 			$this->back();
 		}
@@ -73,7 +73,7 @@ class BlogController extends ApplicationController {
 		$article = $article->where(_post('article', 'id'))->find();
 
 		// validation
-		if (!$article->validation_update($this->get_login_id())) {
+		if (!$article->validate_update($this->get_login_id())) {
 			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
@@ -120,7 +120,7 @@ class BlogController extends ApplicationController {
 
 		// validation
 		$comment = $comment->where($id)->find();
-		if (!$comment->validation_delete($this->get_login_id())) {
+		if (!$comment->validate_delete($this->get_login_id())) {
 			$this->flash->add('message_error', $comment->errors->get_messages());
 			$this->back();
 		}

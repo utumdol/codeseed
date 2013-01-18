@@ -9,7 +9,6 @@ class Migration {
 		Context::get('db')->drop_table($table_name);
 	}
 
-	// TODO
 	public function rename_table($old_name, $new_name) {
 		Context::get('db')->rename_table($old_name, $new_name);
 	}
@@ -25,7 +24,6 @@ class Migration {
 		Context::get('db')->remove_column($table_name, $name);
 	}
 
-	// TODO
 	public function rename_column($table_name, $old_name, $new_name) {
 		Context::get('db')->rename_column($table_name, $old_name, $new_name);
 	}

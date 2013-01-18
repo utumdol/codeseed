@@ -73,8 +73,7 @@ class Mysql {
 		mysqli_close($this->conn);
 	}
 
-	public function execute($query, $params = array()) {
-		$query = $this->bind_params($query, $this->escape_array($params));
+	public function execute($query) {
 		Log::debug($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
@@ -83,39 +82,32 @@ class Mysql {
 		return $result;
 	}
 
-	private function escape_array($params = array()) {
-		$result = array();
-		foreach($params as $param) {
-			if (is_null($param)) {
-				$result[] = 'null';
-				continue;
-			}
-
-			$quote = '';
-			if (is_string($param)) {
-				$quote = "'";
-			}
-			$result[] = $quote . $this->escape_string($param) . $quote;
-		}
-		return $result;
-	}
-
-	public function escape_string($param) {
-		return mysqli_real_escape_string($this->conn, $param);
-	}
-
-	private function bind_params($query, $params = array()) {
+	public function bind_params($query, $params = array()) {
 		if (empty($params)) {
 			return $query;
+		}
+		if (!is_array($params)) {
+			$params = array($params);
 		}
 		$result = '';
 		$querys = explode('?', $query);
 		for ($i = 0; $i < count($querys) - 1; $i++) {
 			$result .= $querys[$i];
-			$result .= $params[$i];
+			$result .= $this->make_value($params[$i]);
 		}
 		$result .= $querys[$i]; // add last one
 		return $result;
+	}
+
+	public function make_value($param, $quotes = "'") {
+		if (is_string($param)) {
+			return $quotes . $this->escape_string($param) . $quotes;
+		}
+		return $this->escape_string($param); 
+	}
+
+	public function escape_string($param) {
+		return mysqli_real_escape_string($this->conn, $param);
 	}
 
 	public function fetch($result) {
@@ -178,7 +170,7 @@ class Mysql {
 			$having = ' HAVING ' . $query->having;
 		}
 
-		$result = $this->execute('SELECT ' . $query->select . ' FROM ' . $query->from . $query->join . $where . $group . $having . $order . $limit, $query->params);
+		$result = $this->execute('SELECT ' . $query->select . ' FROM ' . $query->from . $query->join . $where . $group . $having . $order . $limit);
 		return $result;
 	}
 
@@ -194,7 +186,7 @@ class Mysql {
 		}
 
 		// delete
-		$result = $this->execute('DELETE FROM ' . $query->from . $where, $query->params);
+		$result = $this->execute('DELETE FROM ' . $query->from . $where);
 		return $result;
 	}
 
@@ -202,7 +194,7 @@ class Mysql {
 	 * @return true on success, false on failure
 	 */
 	public function insert($query) {
-		$result = $this->execute('INSERT INTO ' . $query->from . ' (' . implode(', ', $query->column_names) . ') VALUES (' . implode(', ', $query->values) . ')', $query->params);
+		$result = $this->execute('INSERT INTO ' . $query->from . ' (' . implode(', ', $query->column_names) . ') VALUES (' . implode(', ', $query->values) . ')');
 		return $result;
 	}
 
@@ -222,7 +214,7 @@ class Mysql {
 			$pairs[] = "$name  = $value";
 		}
 
-		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where, $query->params);
+		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where);
 		return $result;
 	}
 

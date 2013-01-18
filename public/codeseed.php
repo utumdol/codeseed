@@ -68,5 +68,5 @@ session_write_close();
 // close db connection
 $db->close();
 $end_microtime = microtime(true);
-Log::debug('TOTAL EXCUTION TIME: ' . ($end_microtime - $start_microtime) . 's');
+Log::debug('TOTAL EXECUTION TIME: ' . ($end_microtime - $start_microtime) . 's');
 

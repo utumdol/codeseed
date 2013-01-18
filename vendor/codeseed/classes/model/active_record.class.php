@@ -114,10 +114,12 @@ class ActiveRecord extends Model {
 		return $this;
 	}
 
+	/*
 	public function set($column_name, $value) {
 		$this->query->set($column_name, $value);
 		return $this;
 	}
+	*/
 
 	///////////////////////////////////////////////////////////////////////////
 	// DB Processing
@@ -203,8 +205,8 @@ class ActiveRecord extends Model {
 		if (empty($this->query->column_names)) {
 			// load table schema and value setting
 			$columns = $db->get_table_columns($this->tablename);
-			$names = array();
-			$values = array();
+			//$names = array();
+			//$values = array();
 			foreach ($columns as $column) {
 				$column_name = $column->name;
 
@@ -240,8 +242,8 @@ class ActiveRecord extends Model {
 		if (empty($this->query->column_names)) {
 			// load table schema and value setting
 			$columns = $db->get_table_columns($this->tablename);
-			$names = array();
-			$values = array();
+			//$names = array();
+			//$values = array();
 			foreach ($columns as $column) {
 				$column_name = $column->name;
 
