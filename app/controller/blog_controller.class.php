@@ -93,7 +93,7 @@ class BlogController extends ApplicationController {
 
 		// validation
 		$article = $article->where($id)->find();
-		if (!$article->validation_delete($this->get_login_id())) {
+		if (!$article->validate_delete($this->get_login_id())) {
 			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
