@@ -89,17 +89,6 @@ class ActiveRecord extends Model {
 	}
 
 	public function group($group, $having ='', $params = array()) {
-		/*
-		$group = func_get_arg(0);
-		if (func_num_args() == 1) {
-			$having = '';
-			$params = array();
-		} else {
-			$having = func_get_arg(1);
-			$params = array_slice(func_get_args(), 2);
-		}
-		*/
-
 		$this->query->group($group, $having, $params);
 		return $this;
 	}
@@ -113,13 +102,6 @@ class ActiveRecord extends Model {
 		$this->query->limit($param1, $param2);
 		return $this;
 	}
-
-	/*
-	public function set($column_name, $value) {
-		$this->query->set($column_name, $value);
-		return $this;
-	}
-	*/
 
 	///////////////////////////////////////////////////////////////////////////
 	// DB Processing
@@ -182,10 +164,15 @@ class ActiveRecord extends Model {
 	}
 
 	/**
+	 * TODO $model->delete() 실행할 수 있도록 변경 필요.
 	 * @return true on success, false on failure
 	 */
 	public function delete() {
 		$db = Context::get('db');
+
+		if (property_exists($this, 'id')) {
+			$this->query->where($this->id);
+		}
 
 		// delete
 		$result = $db->delete($this->query);

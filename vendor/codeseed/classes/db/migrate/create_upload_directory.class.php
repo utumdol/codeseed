@@ -7,11 +7,7 @@ class CreateUploadDirectory extends Migration {
 	}
 
 	public function down() {
-		$filenames = get_files(Config::get('upload_dir'));
-		foreach($filenames as $filename) {
-			unlink($filename);
-		}
-		rmdir(Config::get('upload_dir'));
+		exec('rm -rf ' . Config::get('upload_dir'));
 	}
 }
 

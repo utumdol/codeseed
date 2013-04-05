@@ -7,6 +7,8 @@ class Mysql {
 	private $passwd;
 	private $name;
 
+	private $transaction_level = 0;
+
 	private $types = array(
 			'binary' => 'BLOB',
 			'boolean' => 'TINYINT',
@@ -61,11 +63,11 @@ class Mysql {
 
 	public function connect() {
 		if (!function_exists('mysqli_connect')) {
-			throw new ProcessingError('class mysqli_connect doesn\'t exist: no MySQL interface');
+			throw new DbError('class mysqli_connect doesn\'t exist: no MySQL interface');
 		}
 		$this->conn = mysqli_connect($this->host, $this->user, $this->passwd, $this->name);
 		if (mysqli_connect_error()) {
-			throw new ProcessingError('DB 연결 에러(' . mysqli_connect_errorno() . ') - ' . mysqli_connect_error());
+			throw new DbError('mysql connect error(' . mysqli_connect_errorno() . ') - ' . mysqli_connect_error());
 		}
 	}
 
@@ -77,9 +79,52 @@ class Mysql {
 		Log::debug($query);
 		$result = mysqli_query($this->conn, $query);
 		if (!$result) {
-			throw new ProcessingError('Could not run query: ' . $this->error());
+			throw new DbError('could not run query: ' . $this->error());
 		}
 		return $result;
+	}
+
+	/**
+	 * get last insert/update id.
+	 */
+	public function get_insert_id() {
+		return mysqli_insert_id($this->conn);
+	}
+
+	/**
+	 * start transaction
+	 */
+	public function start_transaction() {
+		if ($this->transaction_level == 0) {
+			$this->execute('START TRANSACTION');
+		}
+		$this->transaction_level++;
+		Log::debug('TRANSACTION_LEVEL: ' . $this->transaction_level);
+	}
+
+	/**
+	 * commit transaction
+	 */
+	public function commit() {
+		if ($this->transaction_level <= 0) {
+			$this->transaction_level = 0;
+			return;
+		}
+		$this->transaction_level--;
+		Log::debug('TRANSACTION_LEVEL: ' . $this->transaction_level);
+		if ($this->transaction_level == 0) {
+			$this->execute('COMMIT');
+		}
+	}
+
+	/**
+	 * rollback transaction
+	 */
+	public function rollback() {
+		if ($this->transaction_level > 0) {
+			$this->execute('ROLLBACK');
+			$this->transaction_level = 0;
+		}
 	}
 
 	public function bind_params($query, $params = array()) {
@@ -270,7 +315,7 @@ class Mysql {
 	public function create_table($table_name) {
 		$type = $this->get_type('integer');
 		$size = $this->get_size('integer');
-		return $this->execute("CREATE TABLE $table_name (id $type($size) NOT NULL AUTO_INCREMENT, PRIMARY KEY(id))");
+		return $this->execute("CREATE TABLE $table_name (id $type($size) NOT NULL AUTO_INCREMENT, PRIMARY KEY(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 	}
 
 	/**

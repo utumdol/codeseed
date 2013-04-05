@@ -46,15 +46,15 @@ function get_object_property($obj, $props = array()) {
 }
 
 function extract_property($objs, $prop = 'id') {
-	$props = array();
+	$results = array();
 
 	if (empty($objs)) {
-		return $props;
+		return $results;
 	}
 
 	foreach($objs as $obj) {
-		$props[] = $obj->$prop;
+		$results[] = $obj->$prop;
 	}
-	return $props;
+	return $results;
 }
 

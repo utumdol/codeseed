@@ -65,6 +65,7 @@ class Config {
 		$this->sys_functions = $this->sys_dir . '/functions';
 
 		$this->log_dir = $this->root_dir . '/log';
+		$this->public_dir = $this->root_dir . '/public';
 		$this->upload_dir = $this->root_dir . '/upload';
 		$this->tmp_dir =  $this->root_dir . '/tmp';
 	}
@@ -117,8 +118,8 @@ class Config {
 	private $use_db_session;
 	private $log_dir;
 	private $log_level; // all, trace, debug, info, warn, error, fatal, off
+	private $public_dir;
 	private $upload_dir;
-	private $max_upload_size = 10485760; // bytes
 	private $tmp_dir;
 }
 

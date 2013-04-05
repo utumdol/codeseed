@@ -61,5 +61,13 @@ class Paging {
 	public function get_link($page = 1) {
 		return str_replace('<page>', $page, $this->link);
 	}
+
+	public static function refine_page($page = null) {
+		$page = intval($page);
+		if (empty($page)) {
+			return 1;
+		}
+		return $page;
+	}
 }
 

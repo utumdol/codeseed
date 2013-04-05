@@ -46,19 +46,27 @@ try {
 		call_user_func_array(array($controller, 'load_view'), array($controller_path . '/' . $action_path));
 	}
 } catch (Skip $e) {
-	// nothing to do
-} catch (ProcessingError $e) {
+} catch (DbError $e) {
 	Log::error($e->getMessage());
+	// TODO replace below
+	//echobn("db errro occurs. refers to the application log.");
+	echobn($e->getMessage());
 } catch (Exception $e) {
 	Log::error($e->getMessage());
+	// TODO replace below
+	//echobn("errro occurs. refers to the application log.");
+	echobn($e->getMessage());
 }
+Context::get('db')->rollback();
 $CONTENTS = ob_get_contents();
 ob_end_clean();
 
 require_once(Config::get('view_dir') . '/layout/' . $controller->layout . '.php');
 
 // close flash
-$flash->add('old_params', array_merge($_GET, $_POST)); // reserve params for history back
+if ($controller->save_old_params) { // reserve old params
+	$flash->add('_old_params', array_merge($_GET, $_POST)); // reserve params for history back
+}
 $flash->clear();
 $flash->save();
 

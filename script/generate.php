@@ -32,9 +32,15 @@ try {
 	$classname = under_to_camel($kind) . 'Generator';
 	$generator = new $classname($name, $params);
 	$generator->generate();
-} catch (ProcessingError $e) {
+} catch (Skip $e) {
+	Context::get('db')->rollback();
+} catch (DbError $e) {
+	Context::get('db')->rollback();
+	Log::error($e->getMessage());
 	echonl($e->getMessage());
 } catch (Exception $e) {
+	Context::get('db')->rollback();
+	Log::error($e->getMessage());
 	echonl($e->getMessage());
 }
 

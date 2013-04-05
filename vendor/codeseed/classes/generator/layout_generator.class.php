@@ -72,7 +72,7 @@ body {
 	<?= $CONTENTS ?>
 	<hr>
 	<footer>
-	<p>&copy; Company 2012</p>
+	<p>&copy; Company 2013</p>
 	</footer>
 </div>
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
