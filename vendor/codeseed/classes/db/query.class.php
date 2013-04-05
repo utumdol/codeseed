@@ -91,7 +91,7 @@ class Query {
 
 	public function group($group, $having ='', $params = array()) {
 		$this->group = $group;
-		$this->having = Context::get('db')->bind_params($where, $params);
+		$this->having = Context::get('db')->bind_params($having, $params);
 	}
 
 	public function order($order) {
