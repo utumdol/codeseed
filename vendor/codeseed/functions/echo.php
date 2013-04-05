@@ -11,3 +11,8 @@ function echobn($str = '') {
 	echo $str . BR . NL;
 }
 
+function alert($message = '') {
+	echo '<script type="text/javascript">alert("';
+	echo $message;
+	echo '");</script>';
+}
