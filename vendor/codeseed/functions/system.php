@@ -40,6 +40,17 @@ function abbr_path($path) {
 	return str_replace(Config::get('root_dir') . '/', '', $path);
 }
 
+function rmrf($dir) {
+	foreach (glob($dir) as $file) {
+		if (is_dir($file)) {
+			rmrf("$file/*");
+			rmdir($file);
+		} else {
+			unlink($file);
+		}
+	}
+}
+
 /**
  * include app controller and model automatically
  */

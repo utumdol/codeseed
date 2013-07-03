@@ -7,7 +7,7 @@ class CreateUploadDirectory extends Migration {
 	}
 
 	public function down() {
-		exec('rm -rf ' . Config::get('upload_dir'));
+		rmrf(Config::get('upload_dir'));
 	}
 }
 
