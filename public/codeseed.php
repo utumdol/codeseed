@@ -28,7 +28,10 @@ if (empty($path[1])) { $path[1] = Config::get('default_controller'); }
 if (empty($path[2])) { $path[2] = Config::get('default_action'); }
 $controller_path = $path[1];
 $action_path = $path[2];
-require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
+if (file_exists(Config::get('help_dir') . '/' . $controller_path . '.php')) {
+	require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
+}
+
 $controller_name = under_to_camel($controller_path . '_controller');
 $controller = new $controller_name();
 // set action name
