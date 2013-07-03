@@ -17,9 +17,18 @@ function is_valid_url($url = '') {
 	return (preg_match($pattern, $url));
 }
 
+function is_valid_text_id($text_id) {
+	return (preg_match("/^\w{5,12}$/", $text_id));
+}
+
 function is_valid_password($password) {
 	// 대소문자, 숫자, 그리고 특수문자 8자 이상
 	// refers to http://nilangshah.wordpress.com/2007/06/26/password-validation-via-regular-expression/
-	return (preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[\w])(?=.*[\W]).*$/", $password));
+	return (preg_match("/^[0-9A-Za-z!@#$%]{8,12}$/", $password));
+}
+
+function is_valid_mobile($number = '') {
+	$number = preg_replace('/[^0-9]+/', '', $number);
+	return (preg_match('/^01[016789][0-9]{7,8}$/', $number));
 }
 

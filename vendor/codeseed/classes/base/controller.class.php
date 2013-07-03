@@ -32,7 +32,7 @@ class Controller {
 
 	/**
 	 * redirect<br/>
-	 * ex) $this->redirect_to('/blog/index');
+	 * ex) $this->redirect_to('/main/index');
 	 */
 	public function redirect_to($where) {
 		$this->layout = 'blank';
@@ -43,14 +43,16 @@ class Controller {
 
 	/**
 	 * forward<br/>
-	 * ex) $this->forward_to('/blog/index/1');
+	 * ex) $this->forward_to('/main/index/1');
 	 */
 	public function forward_to($where) {
 		// parse path
 		$path = parse_request_uri($where);
 		$controller_path = $path[1];
 		$action_path = $path[2];
-		require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
+		if (file_exists(Config::get('help_dir') . '/' . $controller_path . '.php')) {
+			require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
+		}
 		$controller_name = under_to_camel($controller_path . '_controller');
 		$controller = new $controller_name();
 
