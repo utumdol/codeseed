@@ -23,7 +23,6 @@ function is_valid_text_id($text_id) {
 
 function is_valid_password($password) {
 	// 대소문자, 숫자, 그리고 특수문자 8자 이상
-	// refers to http://nilangshah.wordpress.com/2007/06/26/password-validation-via-regular-expression/
 	return (preg_match("/^[0-9A-Za-z!@#$%]{8,12}$/", $password));
 }
 
