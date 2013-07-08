@@ -32,5 +32,6 @@
 		<input type="checkbox" name="keep_login" value="remember-me" checked> 로그인 유지
 	</label>
 	<button class="btn btn-large btn-primary" type="submit">로그인</button>
+	<a class="btn btn-large" href="/user/register_form">회원가입</a>
 </form>
 
