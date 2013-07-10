@@ -34,14 +34,14 @@ class UserController extends ApplicationController {
 
 	public function update_form() {
 		$user = new User();
-		$this->user = $user->where($this->get_login_id())->find();
+		$this->user = $user->where(User::get_login_id())->find();
 	}
 
 	public function update() {
 		// validation
 		$user = new User(_post('user'));
-		$user->id = $this->get_login_id();
-		if (!$user->validate_update($this->get_login_id())) {
+		$user->id = User::get_login_id();
+		if (!$user->validate_update(User::get_login_id())) {
 			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
@@ -55,10 +55,10 @@ class UserController extends ApplicationController {
 	public function leave() {
 		// get nickname to say good bye.
 		$user = new User();
-		$user = $user->where($this->get_login_id())->find();
+		$user = $user->where(User::get_login_id())->find();
 
 		// delete user, article, and article_comment
-		$user->join('article')->join('article_comment')->where($this->get_login_id())->delete();
+		$user->join('article')->join('article_comment')->where(User::get_login_id())->delete();
 
 		$user->logout();
 		$this->redirect_to('/user/leave_success/' . $user->nickname);

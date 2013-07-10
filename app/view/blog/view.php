@@ -5,7 +5,7 @@
 		</div>
 		<div class="span2 btn-group pagination-right" data-toggle="buttons-radio">
 			<a class="btn" href="/blog/index">목록</a>
-			<?php if ($this->article->is_writer(get_login_id())) { ?>
+			<?php if ($this->article->is_writer(User::get_login_id())) { ?>
 			<a class="btn" href="/blog/update_form/<?= $this->article->id ?>">수정</a>
 			<a class="btn" href="/blog/delete/<?= $this->article->id ?>" id="delete_button">삭제</a>
 			<?php } ?>
@@ -49,7 +49,7 @@ $(function() {
 		return confirm('정말 삭제하시겠습니까?');
 	});
 	$('#comment_textarea').keyup(function(event) {
-		<?php if (!is_user_logged()) { ?>
+		<?php if (!User::is_user_login()) { ?>
 			$('#comment_textarea').blur();
 			alert('로그 인이 필요합니다.');
 			$('#comment_textarea').val('');
@@ -57,7 +57,7 @@ $(function() {
 		<?php } ?>
 	});
 	$('#submit_comment').click(function() {
-		<?php if (is_user_logged()) { ?>
+		<?php if (User::is_user_login()) { ?>
 			$('#article_comment_form').submit();
 		<?php } else { ?>
 			alert('로그 인이 필요합니다.');

@@ -22,7 +22,7 @@ class BlogController extends ApplicationController {
 			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
-		$article->user_id = $this->get_login_id();
+		$article->user_id = User::get_login_id();
 		$article->save();
 		$this->redirect_to('/blog/index');
 	}
@@ -62,7 +62,7 @@ class BlogController extends ApplicationController {
 		$this->article = $article->where($id)->find();
 
 		// validation
-		if (!$this->article->validate_update($this->get_login_id())) {
+		if (!$this->article->validate_update(User::get_login_id())) {
 			$this->flash->add('message_error', $this->article->errors->get_messages());
 			$this->back();
 		}
@@ -73,7 +73,7 @@ class BlogController extends ApplicationController {
 		$article = $article->where(_post('article', 'id'))->find();
 
 		// validation
-		if (!$article->validate_update($this->get_login_id())) {
+		if (!$article->validate_update(User::get_login_id())) {
 			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
@@ -93,7 +93,7 @@ class BlogController extends ApplicationController {
 
 		// validation
 		$article = $article->where($id)->find();
-		if (!$article->validate_delete($this->get_login_id())) {
+		if (!$article->validate_delete(User::get_login_id())) {
 			$this->flash->add('message_error', $article->errors->get_messages());
 			$this->back();
 		}
@@ -107,7 +107,7 @@ class BlogController extends ApplicationController {
 	public function post_comment() {
 		$comment = new ArticleComment(_post('article_comment'));
 		if ($comment->validate()) {
-			$comment->user_id = $this->get_login_id();
+			$comment->user_id = User::get_login_id();
 			$comment->save();
 		} else {
 			$this->flash->add('message_error', $comment->errors->get_messages());
@@ -120,7 +120,7 @@ class BlogController extends ApplicationController {
 
 		// validation
 		$comment = $comment->where($id)->find();
-		if (!$comment->validate_delete($this->get_login_id())) {
+		if (!$comment->validate_delete(User::get_login_id())) {
 			$this->flash->add('message_error', $comment->errors->get_messages());
 			$this->back();
 		}

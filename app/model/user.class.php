@@ -122,6 +122,14 @@ class User extends ActiveRecord {
 		_session('user_nickname', null);
 	}
 
+	public static function get_login_id() {
+		return _session('user_id');
+	}
+
+	public static function is_user_login() {
+		return (!is_null(self::get_login_id()));
+	}
+
 	private function create_new_salt() {
 		$this->salt = uniqid() . mt_rand();
 	}
