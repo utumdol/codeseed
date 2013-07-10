@@ -111,15 +111,15 @@ class User extends ActiveRecord {
 		return true;
 	}
 
-	public function login($session) {
+	public function login() {
 		$user = $this->where("email = ?", $this->email)->find();
-		$session->save('user_id', $user->id);
-		$session->save('user_nickname', $user->nickname);
+		_session('user_id', $user->id);
+		_session('user_nickname', $user->nickname);
 	}
 
-	public function logout($session) {
-		$session->delete('user_id');
-		$session->delete('user_nickname');
+	public function logout() {
+		_session('user_id', null);
+		_session('user_nickname', null);
 	}
 
 	private function create_new_salt() {

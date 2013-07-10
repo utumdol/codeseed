@@ -23,7 +23,7 @@ class UserController extends ApplicationController {
 			$this->back();
 		}
 		$user->register();
-		$user->login($this->session);
+		$user->login();
 		$this->redirect_to('/user/register_success/' . $user->nickname);
 	}
 
@@ -46,7 +46,7 @@ class UserController extends ApplicationController {
 			$this->back();
 		}
 		$user->update();
-		$user->login($this->session);
+		$user->login();
 
 		$this->flash->add('message_success', '성공적으로 수정 되었습니다!');
 		$this->redirect_to('/user/update_form');
@@ -60,7 +60,7 @@ class UserController extends ApplicationController {
 		// delete user, article, and article_comment
 		$user->join('article')->join('article_comment')->where($this->get_login_id())->delete();
 
-		$user->logout($this->session);
+		$user->logout();
 		$this->redirect_to('/user/leave_success/' . $user->nickname);
 	}
 
@@ -78,7 +78,7 @@ class UserController extends ApplicationController {
 			$this->back();
 		}
 
-		$user->login($this->session);
+		$user->login();
 		$return_url = _get('return_url');
 		if (empty($return_url)) {
 			$return_url = '/';
@@ -88,7 +88,7 @@ class UserController extends ApplicationController {
 
 	public function logout() {
 		$user = new User();
-		$user->logout($this->session);
+		$user->logout();
 		$this->redirect_to('/blog/index');
 	}
 }

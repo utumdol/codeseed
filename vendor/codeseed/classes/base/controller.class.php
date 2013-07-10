@@ -5,11 +5,9 @@ class Controller {
 	public $action_name; // $action_name is automatically set in the router(codeseed.php) or forward_to method.
 	public $save_old_params = true;
 
-	protected $session;
 	protected $flash;
 
 	public function __construct() {
-		$this->session = Context::get('session');
 		$this->flash = Context::get('flash');
 	}
 

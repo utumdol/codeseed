@@ -14,7 +14,7 @@ class ApplicationController extends Controller {
 	}
 
 	public function get_login_id() {
-		return $this->session->get('user_id');
+		return _session('user_id');
 	}
 }
 
