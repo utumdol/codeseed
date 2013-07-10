@@ -51,7 +51,7 @@ body {
 				?>
 				<ul class="nav pull-right">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= Context::get('session')->get('user_nickname') ?>님, 반갑습니다. <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= User::get_login_user()->nickname ?>님, 반갑습니다. <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/user/update_form">내 정보 수정</a></li>
 							<li class="divider"></li>

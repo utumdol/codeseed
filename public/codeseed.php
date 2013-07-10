@@ -14,7 +14,7 @@ $db->connect();
 session_start();
 
 // init session
-$session = Context::get('session');
+//$session = Context::get('session');
 
 // init flash
 $flash = Context::get('flash');

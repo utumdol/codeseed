@@ -113,17 +113,19 @@ class User extends ActiveRecord {
 
 	public function login() {
 		$user = $this->where("email = ?", $this->email)->find();
-		_session('user_id', $user->id);
-		_session('user_nickname', $user->nickname);
+		_session('user', $user);
 	}
 
 	public function logout() {
-		_session('user_id', null);
-		_session('user_nickname', null);
+		_session('user', null);
+	}
+
+	public static function get_login_user() {
+		return _session('user');
 	}
 
 	public static function get_login_id() {
-		return _session('user_id');
+		return self::get_login_user()->id;
 	}
 
 	public static function is_user_login() {
