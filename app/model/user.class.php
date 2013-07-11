@@ -129,7 +129,7 @@ class User extends ActiveRecord {
 	}
 
 	public static function is_user_login() {
-		return (!is_null(self::get_login_id()));
+		return (!is_null(self::get_login_user()));
 	}
 
 	private function create_new_salt() {

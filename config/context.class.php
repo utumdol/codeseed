@@ -40,9 +40,9 @@ class Context {
 
 	// include system and application default library
 	private function include_library() {
-		require_once(Config::get('sys_functions') . '/system.php');
-		require_once_dir(Config::get('sys_functions'));
-		require_once_dir(Config::get('sys_classes'));
+		require_once(Config::get('plugin_functions') . '/system.php');
+		require_once_dir(Config::get('plugin_functions'));
+		require_once_dir(Config::get('plugin_classes'));
 
 		require_once_dir(Config::get('conf_dir'));
 		if (file_exists(Config::get('ctrl_dir') . '/application_controller.class.php')) {

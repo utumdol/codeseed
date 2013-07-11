@@ -59,10 +59,10 @@ class Config {
 	private function set_system_directory() {
 		$this->root_dir = realpath(dirname(__FILE__) . '/..');
 		$this->root_file = basename($_SERVER['SCRIPT_FILENAME']);
-		$this->vendor_dir = $this->root_dir . '/vendor';
-		$this->sys_dir = $this->vendor_dir . '/codeseed';
-		$this->sys_classes = $this->sys_dir . '/classes';
-		$this->sys_functions = $this->sys_dir . '/functions';
+		$this->plugin_dir = $this->root_dir . '/plugin';
+		// $this->sys_dir = $this->plugin_dir . '/codeseed';
+		$this->plugin_classes = $this->plugin_dir . '/classes';
+		$this->plugin_functions = $this->plugin_dir . '/functions';
 
 		$this->log_dir = $this->root_dir . '/log';
 		$this->public_dir = $this->root_dir . '/public';
@@ -100,9 +100,9 @@ class Config {
 	// system directory
 	private $root_dir;
 	private $root_file;
-	private $sys_dir;
-	private $sys_classes;
-	private $sys_functions;
+	//private $sys_dir;
+	private $plugin_classes;
+	private $plugin_functions;
 
 	// app directory
 	private $app_dir;
