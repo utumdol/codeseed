@@ -53,18 +53,10 @@ class User extends ActiveRecord {
 		return true;
 	}
 
-	public function validate_login() {
-		if (is_blank($this->email)) {
-			$this->errors->add('이메일 주소를 입력해 주세요.');
-			return false;
-		}
-
-		if (is_blank($this->password)) {
-			$this->errors->add('비밀번호를 입력해 주세요.');
-			return false;
-		}
-
-		return true;
+	public function register() {
+		$this->create_new_salt();
+		$this->encrypt_password($this->password, $this->salt);
+		$this->save();
 	}
 
 	public function validate_update($user_id) {
@@ -85,19 +77,18 @@ class User extends ActiveRecord {
 		return true;
 	}
 
-	public function validate_leave($user_id) {
-		return $this->validate_update($user_id);
-	}
+	public function validate_login() {
+		if (is_blank($this->email)) {
+			$this->errors->add('이메일 주소를 입력해 주세요.');
+			return false;
+		}
 
-	public function register() {
-		$this->create_new_salt();
-		$this->encrypt_password($this->password, $this->salt);
-		$this->save();
-	}
+		if (is_blank($this->password)) {
+			$this->errors->add('비밀번호를 입력해 주세요.');
+			return false;
+		}
 
-	public function authenticate() {
 		$user = $this->where("email = ?", $this->email)->find();
-
 		if (is_null($user)) {
 			$this->errors->add('가입되지 않은 이메일 주소입니다.');
 			return false;
@@ -120,6 +111,14 @@ class User extends ActiveRecord {
 		_session('user', null);
 	}
 
+	public function validate_leave($user_id) {
+		return $this->validate_update($user_id);
+	}
+
+	//////////////////////////////////////////////////////////////////
+	// general methods
+	//////////////////////////////////////////////////////////////////
+
 	public static function get_login_user() {
 		return _session('user');
 	}
@@ -128,9 +127,21 @@ class User extends ActiveRecord {
 		return self::get_login_user()->id;
 	}
 
-	public static function is_user_login() {
+	public static function is_login() {
 		return (!is_null(self::get_login_user()));
 	}
+
+	public static function get_by_id($id) {
+		return self::neo()->where($id)->find();
+	}
+
+	public static function get_by_email($email) {
+		return self::neo()->where('email = ?', $email)->find();
+	}
+
+	//////////////////////////////////////////////////////////////////
+	// private functions
+	//////////////////////////////////////////////////////////////////
 
 	private function create_new_salt() {
 		$this->salt = uniqid() . mt_rand();

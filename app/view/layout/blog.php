@@ -47,7 +47,7 @@ body {
 				</ul>
 				-->
 				<?php
-				if (User::is_user_login()) {
+				if (User::is_login()) {
 				?>
 				<ul class="nav pull-right">
 					<li class="dropdown">

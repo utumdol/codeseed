@@ -49,7 +49,7 @@ $(function() {
 		return confirm('정말 삭제하시겠습니까?');
 	});
 	$('#comment_textarea').keyup(function(event) {
-		<?php if (!User::is_user_login()) { ?>
+		<?php if (!User::is_login()) { ?>
 			$('#comment_textarea').blur();
 			alert('로그 인이 필요합니다.');
 			$('#comment_textarea').val('');
@@ -57,7 +57,7 @@ $(function() {
 		<?php } ?>
 	});
 	$('#submit_comment').click(function() {
-		<?php if (User::is_user_login()) { ?>
+		<?php if (User::is_login()) { ?>
 			$('#article_comment_form').submit();
 		<?php } else { ?>
 			alert('로그 인이 필요합니다.');

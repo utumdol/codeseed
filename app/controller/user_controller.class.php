@@ -84,7 +84,7 @@ class UserController extends ApplicationController {
 
 	public function login() {
 		$user = new User(_post('user'));
-		if (!$user->validate_login() || !$user->authenticate()) {
+		if (!$user->validate_login()) {
 			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
