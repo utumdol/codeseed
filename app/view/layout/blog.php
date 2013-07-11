@@ -54,6 +54,7 @@ body {
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= User::get_login_user()->nickname ?>님, 반갑습니다. <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/user/update_form">내 정보 수정</a></li>
+							<li><a href="/user/leave_form">회원 탈퇴</a></li>
 							<li class="divider"></li>
 							<li><a href="/user/logout">로그아웃</a></li>
 						</ul>

@@ -1,6 +1,11 @@
 <?php
 class Migration {
 
+	public static function parse_migration_filename($file) {
+		preg_match('/(\d+)_(.+)\.class\.php/', $file, $matches);
+		return $matches;
+	}
+
 	public function create_table($table) {
 		Context::get('db')->create_table($table);
 	}

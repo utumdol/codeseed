@@ -82,7 +82,7 @@ class Query {
 		}
 		// '$where' is id?
 		if (is_numeric($where) || is_numeric_array($where)) {
-			$this->where = "{$this->from}.id" . Query::make_id_condition($where);
+			$this->where = "{$this->from}.id" . self::id_condition($where);
 			return;
 		}
 		// etc
@@ -112,7 +112,7 @@ class Query {
 		$this->values[] = Context::get('db')->make_value($value);
 	}
 
-	public static function make_id_condition($id) {
+	public static function id_condition($id) {
 		if (!is_array($id)) {
 			return " = {$id}";
 		}

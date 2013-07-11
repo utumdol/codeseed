@@ -38,7 +38,7 @@ if ($INTEND_VERSION >= $schema_version->version) {
 
 for($i = 0; $i < count($files); $i++) {
 	$file = $files[$i];
-	$matches = parse_migration_filename($file);
+	$matches = Migration::parse_migration_filename($file);
 	if (!empty($matches)) {
 		$version = $matches[1];
 		$filename = $matches[2];
@@ -61,7 +61,7 @@ for($i = 0; $i < count($files); $i++) {
 			if ($i == count($files) - 1) {
 				$down_version = 0;
 			} else {
-				$matches = parse_migration_filename($files[$i + 1]);
+				$matches = Migration::parse_migration_filename($files[$i + 1]);
 				if (!empty($matches)) {
 					$down_version = $matches[1];
 				}

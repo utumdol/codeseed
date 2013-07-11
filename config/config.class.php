@@ -41,7 +41,7 @@ class Config {
 	private static $instance;
 	public static function get_instance() {
 		if (empty(self::$instance)) {
-			self::$instance = new Config();
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}

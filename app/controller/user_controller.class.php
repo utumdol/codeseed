@@ -7,7 +7,7 @@ class UserController extends ApplicationController {
 	}
 
 	public function before_filter() {
-		if (is_start_with($this->action_name, 'register') || is_start_with($this->action_name, 'login') || $this->action_name == 'leave_success') {
+		if (in_array($this->action_name, array('register_form', 'register', 'register_success', 'login_form', 'login', 'leave_success'))) {
 			return;
 		}
 		$this->authorize();
@@ -52,13 +52,24 @@ class UserController extends ApplicationController {
 		$this->redirect_to('/user/update_form');
 	}
 
+	public function leave_form() {
+	}
+
 	public function leave() {
 		// get nickname to say good bye.
 		$user = new User();
 		$user = $user->where(User::get_login_id())->find();
 
-		// delete user, article, and article_comment
-		$user->join('article')->join('article_comment')->where(User::get_login_id())->delete();
+		// get all article ids to delete comments
+		$articles = Article::neo()->select('id')->where('user_id = ?', User::get_login_id())->find('all');
+		$article_ids = extract_property($articles, 'id');
+
+		// delete article_comment, article, and user
+		Context::get('db')->start_transaction();
+		ArticleComment::neo()->where('article_id ' . Query::id_condition($article_ids))->delete();
+		Article::neo()->where('user_id = ?', User::get_login_id())->delete();
+		User::neo()->where( User::get_login_id())->delete();
+		Context::get('db')->commit();
 
 		$user->logout();
 		$this->redirect_to('/user/leave_success/' . $user->nickname);

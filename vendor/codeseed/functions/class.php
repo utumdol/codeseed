@@ -1,6 +1,6 @@
 <?php
 /**
- * change underscore notation to camlecase notation
+ * change notation from underscore to camlecase
  */
 function under_to_camel($filename) {
 	$result = str_replace('_', ' ', $filename);
@@ -9,7 +9,7 @@ function under_to_camel($filename) {
 }
 
 /**
- * change camelcase notation to underscore notation
+ * change notation from camlecase to underscore
  */
 function camel_to_under($classname) {
 	$arr = str_split($classname);
@@ -25,7 +25,9 @@ function camel_to_under($classname) {
 	return $result;
 }
 
-// get object property recursively
+/**
+ * get object propery without undefined variable notice
+ */
 function get_object_property($obj, $props = array()) {
 	if (empty($obj) || empty($props)) {
 		return null;
@@ -45,6 +47,10 @@ function get_object_property($obj, $props = array()) {
 	return $obj;
 }
 
+/**
+ * get property from objects array without undefined variable notice
+ * @return array
+ */
 function extract_property($objs, $prop = 'id') {
 	$results = array();
 
