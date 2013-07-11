@@ -4,4 +4,3 @@
 <p>
 	<textarea class="span12" rows="10" name="article[content]" id="input_contents" placeholder="내용*"><?= h(get_default($this, 'article', 'content')) ?></textarea>
 </p>
-

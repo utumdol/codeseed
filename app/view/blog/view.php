@@ -3,7 +3,7 @@
 		<div class="span10">
 			<h4><?= str_replace(' ', '&nbsp;', h($this->article->subject)) ?></h4>
 		</div>
-		<div class="span2 btn-group pagination-right" data-toggle="buttons-radio">
+		<div class="span2 btn-group text-right" data-toggle="buttons-radio">
 			<a class="btn" href="/blog/index">목록</a>
 			<?php if ($this->article->is_writer(User::get_login_id())) { ?>
 			<a class="btn" href="/blog/update_form/<?= $this->article->id ?>">수정</a>

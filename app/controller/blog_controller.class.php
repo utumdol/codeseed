@@ -7,7 +7,7 @@ class BlogController extends ApplicationController {
 	}
 
 	public function before_filter() {
-		if ($this->action_name == 'index' || $this->action_name == 'view') {
+		if (in_array($this->action_name, array('index', 'view'))) {
 			return;
 		}
 		$this->authorize();

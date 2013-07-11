@@ -4,8 +4,8 @@
 <form class="form-horizontal" method="post" action="/user/register">
 	<?php $this->load_view('/user/_form') ?>
 	<div class="form-actions">
-		<button type="submit" class="btn btn-primary">회원가입</button>
-		<button type="reset" class="btn">취소</button>
+		<button type="submit" class="btn btn-large btn-primary">회원가입</button>
+		<button type="reset" class="btn btn-large">취소</button>
 	</div>
 </form>
 

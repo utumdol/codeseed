@@ -7,8 +7,8 @@
 		<p>그동안 기록한 글과 댓글도 모두 삭제됩니다.</p>
 	</div>
 	<div class="form-actions">
-		<button type="submit" class="btn btn-primary">회원탈퇴</button>
-		<button type="reset" class="btn">취소</button>
+		<button type="submit" class="btn btn-large btn-primary">회원탈퇴</button>
+		<button type="reset" class="btn btn-large">취소</button>
 	</div>
 </form>
 
