@@ -42,10 +42,6 @@ class BlogController extends ApplicationController {
 		// get articles in the page
 		$this->list = $article->join("user")->join("article_comment")->order("article.id DESC")->where($ids)->find("all");
 		$this->paging = new Paging($article->count(), $page_size, '/blog/index/<page>', $page);
-
-		echobn('hello');
-		$facebook = new Facebook(array('appId' => '225373684256854', 'secret' => '518e1b01483a8e577630a10fdabff7b7'));
-		echobn($facebook->getAccessToken());
 	}
 
 	/**
