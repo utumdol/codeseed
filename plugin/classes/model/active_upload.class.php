@@ -39,7 +39,7 @@ class ActiveUpload extends Model {
 	//////////////////////////////////////////////////////////////////
 	// validations
 	//////////////////////////////////////////////////////////////////
-	public function is_valid() {
+	public function validate() {
 
 		if (is_blank($this->tmp_name)) {
 			$this->errors->add('파일을 선택해 주세요.');

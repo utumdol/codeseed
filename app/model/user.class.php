@@ -7,7 +7,7 @@ class User extends ActiveRecord {
 			return false;
 		}
 
-		if (!is_valid_email($this->email)) {
+		if (!validate_email($this->email)) {
 			$this->errors->add('바른 형식의 이메일 주소가 필요합니다.');
 			return false;
 		}
