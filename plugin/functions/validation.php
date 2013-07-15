@@ -22,8 +22,8 @@ function validate_text_id($text_id) {
 }
 
 function validate_password($password) {
-	// 대소문자, 숫자, 그리고 특수문자 8자 이상
-	return (preg_match("/^[0-9A-Za-z!@#$%]{8,12}$/", $password));
+	// 대소문자, 숫자, 그리고 특수문자 4자 이상 16자 이하
+	return (preg_match("/^[0-9A-Za-z!@#$%*^()]{4,16}$/", $password));
 }
 
 function validate_mobile($number = '') {
