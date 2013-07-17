@@ -1,6 +1,6 @@
 <?php
 /**
- * PHPWorks Configuration
+ * codeseed Configuration
  * @author utumdol
  */
 class Config {
