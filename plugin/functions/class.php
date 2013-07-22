@@ -1,6 +1,8 @@
 <?php
+
 /**
- * change notation from underscore to camlecase
+ * undercase를 camelcase로 변경
+ * @example hello_world :=> HelloWorld
  */
 function under_to_camel($filename) {
 	$result = str_replace('_', ' ', $filename);
@@ -9,7 +11,8 @@ function under_to_camel($filename) {
 }
 
 /**
- * change notation from camlecase to underscore
+ * camelcase를 undercase로 변경
+ * @example HelloWorld :=> hello_world
  */
 function camel_to_under($classname) {
 	$arr = str_split($classname);
@@ -26,7 +29,9 @@ function camel_to_under($classname) {
 }
 
 /**
- * get object propery without undefined variable notice
+ * notice 없이 배열 값 구하기.
+ * key가 없다면 null을 반환한다.
+ * @example $obj->a->b->c := get_object_property($arr, array('a', 'b', 'c'))
  */
 function get_object_property($obj, $props = array()) {
 	if (empty($obj) || empty($props)) {
@@ -48,8 +53,7 @@ function get_object_property($obj, $props = array()) {
 }
 
 /**
- * get property from objects array without undefined variable notice
- * @return array
+ * 객체들 배열에서 특정 property만 뽑아내어 배열로 반환.
  */
 function extract_property($objs, $prop = 'id') {
 	$results = array();

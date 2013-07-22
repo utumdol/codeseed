@@ -1,4 +1,7 @@
 <?php
+/**
+ * 배열 내에 포함된 원소들이 모두 숫자인지 확인
+ */
 function is_numeric_array($arr) {
 	if (!is_array($arr)) {
 		return false;
@@ -13,7 +16,11 @@ function is_numeric_array($arr) {
 	return true;
 }
 
-// get value from array recursively
+/**
+ * notice 없이 배열 값 구하기.
+ * key가 없다면 null을 반환한다.
+ * @example $arr[a][b][c] := get_array_value($arr, array('a', 'b', 'c'))
+ */
 function get_array_value($arr, $props = array()) {
 	if ($arr == null) {
 		return null;
@@ -27,15 +34,5 @@ function get_array_value($arr, $props = array()) {
 		}
 	}
 	return $arr;
-}
-
-function array_merge_values(/* arr1, arr2, arr3, ... */) {
-	$result = array();
-	foreach(func_get_args() as $arr) {
-		foreach($arr as $key => $value) {
-			$result[] = $value;
-		}
-	}
-	return $result;
 }
 

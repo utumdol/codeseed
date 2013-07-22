@@ -7,7 +7,7 @@ function h($str) {
 }
 
 /**
- * make new line characters to space
+ * new line character들을 모두 space로 변경한다.
  */
 function plain_nl($str = '') {
 	return str_replace(array("\r\n", "\n"), " ", $str);

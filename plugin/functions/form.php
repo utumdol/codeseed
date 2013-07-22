@@ -15,7 +15,7 @@ function get_default(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) 
 		return $args;
 	}
 
-	// 사용자가 입력한 수정값 보존을 위해 우선 검색한다.
+	// 사용자가 입력한 수정값 보존을 위해 플래시(1회성 세션)에서 우선 검색한다.
 	$flash = Context::get('flash');
 	$old_params = get_array_value($flash->get('_old_params'), $props);
 	if (isset($old_params)) {
@@ -33,6 +33,9 @@ function get_default(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) 
 	return null;
 }
 
+/**
+ * 라디오 버튼 출력
+ */
 function input_radio($name, $values = array(), $checked_value = '') {
 	foreach($values as $value) {
 		$checked = ($value == $checked_value) ? 'checked="checked" ' : '';
@@ -40,6 +43,9 @@ function input_radio($name, $values = array(), $checked_value = '') {
 	}
 }
 
+/**
+ * 셀렉트 박스 출력
+ */
 function input_select($name, $options = array(), $selected_value = '',  $id = '', $class = '') {
 	echonl("<select name=\"{$name}\" id=\"{$id}\" class=\"{$class}\">");
 	foreach($options as $value => $html) {

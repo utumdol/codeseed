@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * 메일을 텍스트 형태로 발송한다.
+ */
 function text_mail($to, $subject, $message, $from = 'codeseed <noreply@codeseed.io>') {
 	$headers   = array();
 	$headers[] = "MIME-Version: 1.0";
@@ -11,6 +15,9 @@ function text_mail($to, $subject, $message, $from = 'codeseed <noreply@codeseed.
 	mb_send_mail($to, $subject, $message, implode(NL, $headers));
 }
 
+/**
+ * 메일을 HTML 형태로 발송한다.
+ */
 function html_mail($to, $subject, $message, $from = 'codeseed <noreply@codeseed.io>') {
 	$headers   = array();
 	$headers[] = "MIME-Version: 1.0";

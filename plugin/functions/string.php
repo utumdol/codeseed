@@ -45,6 +45,9 @@ function break_off($str, $length, $tail = '...') {
 	return $str;
 }
 
+/**
+ * add quotes to input string
+ */
 function add_quotes($str = '', $quotes = "'") {
 	return $quotes . $str . $quotes;
 }

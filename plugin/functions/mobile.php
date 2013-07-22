@@ -1,5 +1,8 @@
 <?php
-// referes to http://mobiforge.com/developing/story/lightweight-device-detection-php
+/**
+ * 클라이언트가 사용하는 디바이스가 모바일인지 여부 체크
+ * @see http://mobiforge.com/developing/story/lightweight-device-detection-php
+ */
 function is_mobile(){
 	$regex_match="/(nokia|iphone|android|motorola|^mot-|softbank|foma|docomo|kddi|up.browser|up.link|";
 	$regex_match.="htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|";
