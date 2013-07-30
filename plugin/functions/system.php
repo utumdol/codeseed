@@ -40,6 +40,10 @@ function abbr_path($path) {
 	return str_replace(Config::get('root_dir') . '/', '', $path);
 }
 
+/**
+ * remove recursively
+ * same as "rm -rf"
+ */
 function rmrf($dir) {
 	foreach (glob($dir) as $file) {
 		if (is_dir($file)) {
