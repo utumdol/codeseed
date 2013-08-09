@@ -1,6 +1,8 @@
 <?php
 /**
- * get default value for form.<br/>
+ * get default value for form.
+ * form에서 입력값을 출력할 경우에만 사용하도록 합니다.
+ * 
  * get_default($obj, $prop1, $prop2, ...) means $obj->prop1->prop2.
  * get_default($arr, $idx1, $idx2, ...) means $arr[$idx1][$idx2].
  */
@@ -36,10 +38,10 @@ function get_default(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) 
 /**
  * 라디오 버튼 출력
  */
-function input_radio($name, $values = array(), $checked_value = '') {
+function input_radio($name, $values = array(), $checked_value = '',  $id = '', $class = '') {
 	foreach($values as $value) {
 		$checked = ($value == $checked_value) ? 'checked="checked" ' : '';
-		echonl("<input type=\"radio\" name=\"{$name}\" value=\"{$value}\" {$checked}/>");
+		echonl("<input type=\"radio\" name=\"{$name}\" id=\"{$id}\" class=\"{$class}\" value=\"{$value}\" {$checked}/>");
 	}
 }
 
