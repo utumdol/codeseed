@@ -26,7 +26,7 @@
 </style>
 <form class="form-signin" action="/user/login?return_url=<?= _get('return_url') ?>" method="post">
 	<h2 class="form-signin-heading">로그인</h2>
-	<input type="text" class="input-block-level" name="user[email]"  placeholder="이메일 입력" value="<?= h(get_default($this, 'user', 'email')) ?>">
+	<input type="text" class="input-block-level" name="user[email]"  placeholder="이메일 입력" value="<?= h(form_value($this, 'user', 'email')) ?>">
 	<input type="password" class="input-block-level" name="user[password]" placeholder="비밀번호 입력">
 	<label class="checkbox">
 		<input type="checkbox" name="keep_login" value="remember-me" checked> 로그인 유지

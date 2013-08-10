@@ -3,10 +3,10 @@
  * get default value for form.
  * form에서 입력값을 출력할 경우에만 사용하도록 합니다.
  * 
- * get_default($obj, $prop1, $prop2, ...) means $obj->prop1->prop2.
- * get_default($arr, $idx1, $idx2, ...) means $arr[$idx1][$idx2].
+ * form_value($obj, $prop1, $prop2, ...) means $obj->prop1->prop2.
+ * form_value($arr, $idx1, $idx2, ...) means $arr[$idx1][$idx2].
  */
-function get_default(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) {
+function form_value(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) {
 	$args = func_get_args();
 	if (empty($args)) {
 		return null;
