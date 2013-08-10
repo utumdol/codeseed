@@ -13,34 +13,35 @@ $db->connect();
 //header('P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"');
 session_start();
 
-// init session
-//$session = Context::get('session');
-
 // init flash
 $flash = Context::get('flash');
 $flash->load();
 
 // routing
 Log::debug(_server('REQUEST_METHOD') . ' ' . _server('PATH_INFO'));
-// parse path
-$path = parse_request_uri(_server('PATH_INFO'));
-if (empty($path[1])) { $path[1] = Config::get('default_controller'); }
-if (empty($path[2])) { $path[2] = Config::get('default_action'); }
-$controller_path = $path[1];
-$action_path = $path[2];
-if (file_exists(Config::get('help_dir') . '/' . $controller_path . '.php')) {
-	require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
-}
-
-$controller_name = under_to_camel($controller_path . '_controller');
-$controller = new $controller_name();
-// set action name
-$controller->controller_name = $controller_name;
-$controller->action_name = $action_path;
 
 // make contents
 ob_start();
 try {
+	/**
+	 * @see Controller.forward_to()
+	 */
+	// parse path
+	$path = parse_request_uri(_server('PATH_INFO'));
+	if (empty($path[1])) { $path[1] = Config::get('default_controller'); }
+	if (empty($path[2])) { $path[2] = Config::get('default_action'); }
+	$controller_path = $path[1];
+	$action_path = $path[2];
+	if (file_exists(Config::get('help_dir') . '/' . $controller_path . '.php')) {
+		require_once(Config::get('help_dir') . '/' . $controller_path . '.php');
+	}
+
+	$controller_name = under_to_camel($controller_path . '_controller');
+	$controller = new $controller_name();
+	// set action name
+	$controller->controller_name = $controller_name;
+	$controller->action_name = $action_path;
+
 	// execute request
 	call_user_func(array($controller, 'before_filter'));
 	call_user_func_array(array($controller, $action_path), refine_params(array_slice($path, 3)));

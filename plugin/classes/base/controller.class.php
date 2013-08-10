@@ -42,10 +42,13 @@ class Controller {
 	/**
 	 * forward<br/>
 	 * ex) $this->forward_to('/main/index/1');
+	 * @see public/codeseed.php 
 	 */
 	public function forward_to($where) {
 		// parse path
 		$path = parse_request_uri($where);
+		if (empty($path[1])) { $path[1] = Config::get('default_controller'); }
+		if (empty($path[2])) { $path[2] = Config::get('default_action'); }
 		$controller_path = $path[1];
 		$action_path = $path[2];
 		if (file_exists(Config::get('help_dir') . '/' . $controller_path . '.php')) {
