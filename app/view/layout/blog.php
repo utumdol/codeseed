@@ -75,25 +75,25 @@ body {
 	</div>
 </div>
 <div class="container">
-	<?php if (!is_blank($flash->get('message_success'))) { ?>
+	<?php if (!is_blank($this->flash->get('message_success'))) { ?>
 		<div class="alert alert-success">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?= $flash->get('message_success'); ?>
+			<?= $this->flash->get('message_success'); ?>
 		</div>
 	<?php } ?>
-	<?php if (!is_blank($flash->get('message_info'))) { ?>
+	<?php if (!is_blank($this->flash->get('message_info'))) { ?>
 		<div class="alert alert-info">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?= $flash->get('message_info'); ?>
+			<?= $this->flash->get('message_info'); ?>
 		</div>
 	<?php } ?>
-	<?php if (!is_blank($flash->get('message_error'))) { ?>
+	<?php if (!is_blank($this->flash->get('message_error'))) { ?>
 		<div class="alert alert-error">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?= $flash->get('message_error'); ?>
+			<?= $this->flash->get('message_error'); ?>
 		</div>
 	<?php } ?>
-	<?= $CONTENTS ?>
+	<?= $this->layout_contents ?>
 	<hr>
 	<footer>
 	<p>powered by codeseed</p>

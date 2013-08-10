@@ -1,3 +1,3 @@
 <?php
-echo $CONTENTS;
+echo $this->layout_contents;
 

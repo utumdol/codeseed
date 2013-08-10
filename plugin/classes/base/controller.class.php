@@ -1,6 +1,7 @@
 <?php
 class Controller {
 	public $layout;
+	public $layout_contents;
 	public $controller_name; // $controller_name is automatically set in the router(codeseed.php) or forward_to method.
 	public $action_name; // $action_name is automatically set in the router(codeseed.php) or forward_to method.
 	public $save_old_params = true;

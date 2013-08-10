@@ -62,10 +62,11 @@ try {
 	echobn($e->getMessage());
 }
 Context::get('db')->rollback();
-$CONTENTS = ob_get_contents();
+$controller->layout_contents = ob_get_contents();
 ob_end_clean();
 
-require_once(Config::get('view_dir') . '/layout/' . $controller->layout . '.php');
+call_user_func_array(array($controller, 'load_view'), array('/layout/' . $controller->layout));
+// require_once(Config::get('view_dir') . '/layout/' . $controller->layout . '.php');
 
 // close flash
 if ($controller->save_old_params) { // reserve old params
