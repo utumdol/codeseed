@@ -19,17 +19,17 @@ function form_value(/* $obj, $prop1, $prop2, ... or $arr, $idx1, $idx2, ...*/) {
 
 	// 사용자가 입력한 수정값 보존을 위해 플래시(1회성 세션)에서 우선 검색한다.
 	$flash = Context::get('flash');
-	$old_params = get_array_value($flash->get('_old_params'), $props);
+	$old_params = array_value($flash->get('_old_params'), $props);
 	if (isset($old_params)) {
 		return $old_params;
 	}
 
 	if (is_array($args[0])) {
-		return get_array_value($args[0], array_slice($args, 1));
+		return array_value($args[0], array_slice($args, 1));
 	}
 
 	if (is_object($args[0])) {
-		return get_object_property($args[0], array_slice($args, 1));
+		return object_value($args[0], array_slice($args, 1));
 	}
 
 	return null;

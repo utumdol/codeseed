@@ -96,7 +96,7 @@ body {
 	<?= $this->layout_contents ?>
 	<hr>
 	<footer>
-	<p>powered by codeseed</p>
+	<p><a href="http://www.codeseed.io" target="_blank">Powered by codeseed</a></p>
 	</footer>
 </div>
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
