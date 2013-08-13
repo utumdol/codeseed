@@ -47,7 +47,7 @@ class Controller {
 	 */
 	public function forward_to($where) {
 		// parse path
-		$path = parse_request_uri($where);
+		$path = parse_url_path($where);
 		if (empty($path[1])) { $path[1] = Config::get('default_controller'); }
 		if (empty($path[2])) { $path[2] = Config::get('default_action'); }
 		$controller_path = $path[1];

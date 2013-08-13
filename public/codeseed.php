@@ -27,7 +27,7 @@ try {
 	 * @see Controller.forward_to()
 	 */
 	// parse path
-	$path = parse_request_uri(_server('PATH_INFO'));
+	$path = parse_url_path(_server('PATH_INFO'));
 	if (empty($path[1])) { $path[1] = Config::get('default_controller'); }
 	if (empty($path[2])) { $path[2] = Config::get('default_action'); }
 	$controller_path = $path[1];

@@ -1,11 +1,11 @@
 <?php
-function parse_request_uri($uri) {
-	if(strpos($uri, Config::get('root_file')) == 1) {
-		$uri = substr($uri, 1);
+function parse_url_path($url) {
+	if(strpos($url, Config::get('root_file')) == 1) {
+		$url = substr($url, 1);
 	} else {
-		$uri = Config::get('root_file') . $uri;
+		$url = Config::get('root_file') . $url;
 	}
-	return explode('/', $uri);
+	return explode('/', $url);
 }
 
 function get_files($dir) {
