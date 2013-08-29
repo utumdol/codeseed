@@ -260,7 +260,7 @@ class Mysql {
 		foreach($query->column_names as $name) {
 			$value = $query->values[$i++];
 			if (is_null($value)) {
-				$pairs[] = "$name = ''";
+				$pairs[] = "$name = NULL";
 			} else {
 				$pairs[] = "$name = $value";
 			}
