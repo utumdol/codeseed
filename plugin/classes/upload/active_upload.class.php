@@ -113,7 +113,7 @@ class ActiveUpload extends Model {
 	 * 실제 파일이 업로드 되었는지 여부
 	 */
 	public function is_uploaded() {
-		return (intval($this->error) == 0 && intval($this->size) > 0);
+		return (property_exists($this, 'error') && property_exists($this, 'size') && intval($this->error) == 0 && intval($this->size) > 0);
 	}
 
 	/**

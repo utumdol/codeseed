@@ -38,7 +38,6 @@ class DbSession {
 	}
 
 	public static function destroy($session_id) {
-		$sessions = new Sessions();
 		return Sessions::neo()->where("session_id = ?", $session_id)->delete();
 	}
 

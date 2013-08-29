@@ -145,6 +145,9 @@ class Mysql {
 	}
 
 	public function make_value($param, $quotes = "'") {
+		if (is_null($param)) {
+			return null;
+		}
 		if (is_string($param)) {
 			return $quotes . $this->escape_string($param) . $quotes;
 		}
@@ -256,7 +259,11 @@ class Mysql {
 		$i = 0;
 		foreach($query->column_names as $name) {
 			$value = $query->values[$i++];
-			$pairs[] = "$name = $value";
+			if (is_null($value)) {
+				$pairs[] = "$name = ''";
+			} else {
+				$pairs[] = "$name = $value";
+			}
 		}
 
 		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where);

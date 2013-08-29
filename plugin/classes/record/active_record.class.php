@@ -246,7 +246,6 @@ class ActiveRecord extends Model {
 				if (!property_exists($this, $column_name)) {
 					continue;
 				}
-
 				$this->query->set($column_name, $db->get_value($column->type, $this->$column_name));
 			}
 			if (property_exists($this, 'id')) {
