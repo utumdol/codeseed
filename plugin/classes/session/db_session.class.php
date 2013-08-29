@@ -39,13 +39,12 @@ class DbSession {
 
 	public static function destroy($session_id) {
 		$sessions = new Sessions();
-		return $sessions->where("session_id = ?", $session_id)->delete();
+		return Sessions::neo()->where("session_id = ?", $session_id)->delete();
 	}
 
 	public static function clean($max = 0) {
-		$sessions = new Sessions();
 		$old = time() - $max;
-		return $sessions->where("updated_at < ?", $old)->delete();
+		return Sessions::neo()->where("updated_at < ?", $old)->delete();
 	}
 }
 

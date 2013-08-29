@@ -33,15 +33,14 @@ class UserController extends ApplicationController {
 	}
 
 	public function update_form() {
-		$user = new User();
-		$this->user = $user->where(User::get_login_id())->find();
+		$this->user = User::neo()->where(User::get_login_id())->find();
 	}
 
 	public function update() {
 		// validation
 		$user = new User(_post('user'));
 		$user->id = User::get_login_id();
-		if (!$user->validate_update(User::get_login_id())) {
+		if (!$user->validate_update()) {
 			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
@@ -57,8 +56,7 @@ class UserController extends ApplicationController {
 
 	public function leave() {
 		// get nickname to say good bye.
-		$user = new User();
-		$user = $user->where(User::get_login_id())->find();
+		$user = User::neo()->where(User::get_login_id())->find();
 
 		// get all article ids to delete comments
 		$articles = Article::neo()->select('id')->where('user_id = ?', User::get_login_id())->find('all');
@@ -68,7 +66,7 @@ class UserController extends ApplicationController {
 		Context::get('db')->start_transaction();
 		ArticleComment::neo()->where('article_id ' . Query::id_condition($article_ids))->delete();
 		Article::neo()->where('user_id = ?', User::get_login_id())->delete();
-		User::neo()->where( User::get_login_id())->delete();
+		User::neo()->where(User::get_login_id())->delete();
 		Context::get('db')->commit();
 
 		$user->logout();
@@ -83,13 +81,17 @@ class UserController extends ApplicationController {
 	}
 
 	public function login() {
+		$this->layout = 'blank';
 		$user = new User(_post('user'));
+		$user->refine();
 		if (!$user->validate_login()) {
 			$this->flash->add('message_error', $user->errors->get_messages());
 			$this->back();
 		}
 
-		$user->login();
+		$remember_me = is_blank(_post('remember_me')) ? false : true;
+		$user->login($remember_me);
+
 		$return_url = _get('return_url');
 		if (empty($return_url)) {
 			$return_url = '/';

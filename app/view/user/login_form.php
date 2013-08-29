@@ -29,7 +29,7 @@
 	<input type="text" class="input-block-level" name="user[email]"  placeholder="이메일 입력" value="<?= h(form_value($this, 'user', 'email')) ?>">
 	<input type="password" class="input-block-level" name="user[password]" placeholder="비밀번호 입력">
 	<label class="checkbox">
-		<input type="checkbox" name="keep_login" value="remember-me" checked> 로그인 유지
+		<input type="checkbox" name="remember_me" value="true" checked> 로그인 상태 유지
 	</label>
 	<button class="btn btn-large btn-primary" type="submit">로그인</button>
 	<a class="btn btn-large" href="/user/register_form">회원가입</a>

@@ -6,6 +6,9 @@ class CreateUser extends Migration {
 		$this->add_column(array('table' => 'user', 'name' => 'hashed_password', 'type' => 'string', 'is_null' => false));
 		$this->add_column(array('table' => 'user', 'name' => 'nickname', 'type' => 'string', 'is_null' => false));
 		$this->add_column(array('table' => 'user', 'name' => 'salt', 'type' => 'string', 'is_null' => false));
+
+		$this->add_index('user', 'email', 'email');
+		$this->add_index('user', 'nickname', 'nickname');
 	}
 
 	public function down() {

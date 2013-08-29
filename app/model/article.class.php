@@ -22,16 +22,33 @@ class Article extends ActiveRecord {
 		return ($this->user_id == $user_id);
 	}
 
-	public function validate_update($user_id) {
-		if (!$this->is_writer($user_id)) {
-			$this->errors->add('글을 작성한 본인만 수정 또는 삭제할 수 있습니다.');
+	public function validate_update() {
+		if (!$this->validate()) {
+			return false;
+		}
+
+		if (!self::neo()->where('id = ? AND user_id = ?', $this->id, User::get_login_id())->is_exists()) {
+			$this->errors->add('글을 작성한 본인만 수정할 수 있습니다.');
 			return false;
 		}
 		return true;
 	}
 
-	public function validate_delete($user_id) {
-		return $this->validate_update($user_id);
+	public function validate_delete() {
+		if (!self::neo()->where('id = ? AND user_id = ?', $this->id, User::get_login_id())->is_exists()) {
+			$this->errors->add('글을 작성한 본인만 삭제할 수 있습니다.');
+			return false;
+		}
+		return true;
+	}
+
+	public function delete() {
+		Context::get('db')->start_transaction();
+		// delete article comment
+		ArticleComment::neo()->where('article_id = ?', $this->id)->delete();
+		// delete article
+		parent::delete();
+		Context::get('db')->commit();
 	}
 }
 

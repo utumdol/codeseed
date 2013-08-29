@@ -34,7 +34,7 @@
 		</li>
 	<?php } ?>
 </ul>
-<form action="/blog/post_comment" method="post" id="article_comment_form">
+<form action="/blog/register_comment" method="post" id="article_comment_form">
 	<input type="hidden" name="article_comment[article_id]" value="<?= $this->article->id ?>">
 	<div class="row-fluid">
 		<div class="span12"><textarea class="span12" rows="5" id="comment_textarea" name="article_comment[comment]" placeholder="댓글을 입력해 주세요."></textarea></div>
