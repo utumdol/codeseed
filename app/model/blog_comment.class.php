@@ -1,9 +1,9 @@
 <?php
-class ArticleComment extends ActiveRecord {
+class BlogComment extends ActiveRecord {
 
 	public function init() {
 		$this->belongs_to('user');
-		$this->belongs_to('article');
+		$this->belongs_to('blog');
 	}
 
 	public function validate() {

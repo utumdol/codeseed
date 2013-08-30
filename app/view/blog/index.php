@@ -1,9 +1,9 @@
 <ul class="thumbnails">
-	<?php foreach($this->articles as $article) { ?>
+	<?php foreach($this->blogs as $blog) { ?>
 		<li class="span12">
 			<div class="thumbnail">
-				<strong><a href="/blog/view/<?= $article->id ?>"><?= h($article->subject) ?></a><?= get_comment_count($article->article_comment) ?></strong>
-				<p>by <?= $article->user->nickname ?> <?= date('Y-m-d H:i', $article->created_at) ?></p>
+				<strong><a href="/blog/view/<?= $blog->id ?>"><?= h($blog->subject) ?></a><?= get_comment_count($blog->blog_comment) ?></strong>
+				<p>by <?= $blog->user->nickname ?> <?= date('Y-m-d H:i', $blog->created_at) ?></p>
 			</div>
 		</li>
 	<?php } ?>

@@ -1,9 +1,9 @@
 <?php
-class Article extends ActiveRecord {
+class Blog extends ActiveRecord {
 
 	public function init() {
 		$this->belongs_to('user');
-		$this->has_many('article_comment');
+		$this->has_many('blog_comment');
 	}
 
 	public function validate() {
@@ -44,9 +44,9 @@ class Article extends ActiveRecord {
 
 	public function delete() {
 		Context::get('db')->start_transaction();
-		// delete article comment
-		ArticleComment::neo()->where('article_id = ?', $this->id)->delete();
-		// delete article
+		// delete blog comment
+		BlogComment::neo()->where('blog_id = ?', $this->id)->delete();
+		// delete blog
 		parent::delete();
 		Context::get('db')->commit();
 	}

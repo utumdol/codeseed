@@ -1,5 +1,5 @@
 <form class="form-horizontal" method="post" action="/blog/update">
-	<input type="hidden" name="article[id]" value="<?= $this->article->id ?>" />
+	<input type="hidden" name="blog[id]" value="<?= $this->blog->id ?>" />
 	<?php $this->load_view('/blog/_form') ?>
 	<div class="form-actions">
 		<button type="submit" class="btn btn-large btn-primary">수정하기</button>

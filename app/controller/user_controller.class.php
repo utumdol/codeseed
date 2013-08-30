@@ -58,14 +58,14 @@ class UserController extends ApplicationController {
 		// get nickname to say good bye.
 		$user = User::neo()->where(User::get_login_id())->find();
 
-		// get all article ids to delete comments
-		$articles = Article::neo()->select('id')->where('user_id = ?', User::get_login_id())->find('all');
-		$article_ids = extract_property($articles, 'id');
+		// get all blog ids to delete comments
+		$blogs = Blog::neo()->select('id')->where('user_id = ?', User::get_login_id())->find('all');
+		$blog_ids = extract_property($blogs, 'id');
 
-		// delete article_comment, article, and user
+		// delete blog_comment, blog, and user
 		Context::get('db')->start_transaction();
-		ArticleComment::neo()->where('article_id ' . Query::id_condition($article_ids))->delete();
-		Article::neo()->where('user_id = ?', User::get_login_id())->delete();
+		BlogComment::neo()->where('blog_id ' . Query::id_condition($blog_ids))->delete();
+		Blog::neo()->where('user_id = ?', User::get_login_id())->delete();
 		User::neo()->where(User::get_login_id())->delete();
 		Context::get('db')->commit();
 

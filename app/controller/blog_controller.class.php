@@ -17,13 +17,15 @@ class BlogController extends ApplicationController {
 	}
 
 	public function register() {
-		$article = new Article(_post('article'));
-		if (!$article->validate()) {
-			$this->flash->add('message_error', $article->errors->get_messages());
+		$blog = new Blog(_post('blog'));
+		$blog->trim();
+
+		if (!$blog->validate()) {
+			$this->flash->add('message_error', $blog->errors->get_messages());
 			$this->back();
 		}
-		$article->user_id = User::get_login_id();
-		$article->save();
+		$blog->user_id = User::get_login_id();
+		$blog->save();
 		$this->redirect_to('/blog/index');
 	}
 
@@ -35,69 +37,72 @@ class BlogController extends ApplicationController {
 		$offset = ($page - 1) * $page_size;
 
 		// get id(s) in the page
-		$articles = Article::neo()->select("id")->limit($offset, $page_size)->order("id DESC")->find("all");
-		$ids = extract_property($articles);
+		$blogs = Blog::neo()->select("id")->limit($offset, $page_size)->order("id DESC")->find("all");
+		$ids = extract_property($blogs);
 
-		// get articles in the page
-		$this->articles = Article::neo()->join("user")->join("article_comment")->order("article.id DESC")->where($ids)->find("all");
-		$this->paging = new Paging(Article::neo()->count(), $page_size, '/blog/index/<page>', $page);
+		// get blogs in the page
+		$this->blogs = Blog::neo()->join("user")->join("blog_comment")->order("blog.id DESC")->where($ids)->find("all");
+		$this->paging = new Paging(Blog::neo()->count(), $page_size, '/blog/index/<page>', $page);
 	}
 
 	/**
-	 * show article
+	 * show blog
 	 */
 	public function view($id, $page = '1') {
-		// get article
-		$this->article = Article::neo()->join('user')->where($id)->find();
+		// get blog
+		$this->blog = Blog::neo()->join('user')->where($id)->find();
 
-		// get article comment
-		$this->comment = ArticleComment::neo()->join('user')->where("article_comment.article_id = ?", $id)->order('article_comment.id')->find('all');
+		// get blog comment
+		$this->comment = BlogComment::neo()->join('user')->where("blog_comment.blog_id = ?", $id)->order('blog_comment.id')->find('all');
 	}
 
 	public function update_form($id) {
-		$this->article = Article::neo()->where($id)->find();
+		$this->blog = Blog::neo()->where($id)->find();
 	}
 
 	public function update() {
-		$article = Article::neo()->where(_post('article', 'id'))->find();
+		$blog = new Blog(_post('blog'));
+		$blog->trim();
 
-		$article = new Article(_post('article'));
-		if (!$article->validate_update()) {
-			$this->flash->add('message_error', $article->errors->get_messages());
+		if (!$blog->validate_update()) {
+			$this->flash->add('message_error', $blog->errors->get_messages());
 			$this->back();
 		}
 
-		$article->update();
+		$blog->update();
 		$this->redirect_to('/blog/index');
 	}
 
 	public function delete($id) {
 		// validation
-		$article = Article::neo()->where($id)->find();
-		if (!$article->validate_delete()) {
-			$this->flash->add('message_error', $article->errors->get_messages());
+		$blog = Blog::neo()->where($id)->find();
+		if (!$blog->validate_delete()) {
+			$this->flash->add('message_error', $blog->errors->get_messages());
 			$this->back();
 		}
 
-		// delete article and article_comment
-		$article->delete();
+		// delete blog and blog_comment
+		$blog->delete();
 		$this->redirect_to('/blog/index');
 	}
 
 	public function register_comment() {
-		$comment = new ArticleComment(_post('article_comment'));
+		$comment = new BlogComment(_post('blog_comment'));
+		$comment->trim();
+
 		if ($comment->validate()) {
 			$comment->user_id = User::get_login_id();
 			$comment->save();
 		} else {
 			$this->flash->add('message_error', $comment->errors->get_messages());
 		}
-		$this->redirect_to('/blog/view/' . _post('article_comment', 'article_id'));
+		$this->redirect_to('/blog/view/' . _post('blog_comment', 'blog_id'));
 	}
 
 	public function delete_comment($id) {
+		$comment = BlogComment::neo()->where($id)->find();
+
 		// validation
-		$comment = ArticleComment::neo()->where($id)->find();
 		if (!$comment->validate_delete()) {
 			$this->flash->add('message_error', $comment->errors->get_messages());
 			$this->back();
