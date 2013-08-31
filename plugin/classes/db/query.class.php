@@ -100,16 +100,16 @@ class Query {
 
 	public function limit($param1, $param2 = '') {
 		if (strlen($param2) == 0) {
-			$this->limit = Context::get('db')->make_value($param1);
+			$this->limit = Context::get('db')->db_value($param1);
 			return;
 		}
-		$this->offset = Context::get('db')->make_value($param1);
-		$this->limit = Context::get('db')->make_value($param2);
+		$this->offset = Context::get('db')->db_value($param1);
+		$this->limit = Context::get('db')->db_value($param2);
 	}
 
 	public function set($column_name, $value) {
 		$this->column_names[] = $column_name;
-		$this->values[] = Context::get('db')->make_value($value);
+		$this->values[] = Context::get('db')->db_value($value);
 	}
 
 	public static function id_condition($id) {

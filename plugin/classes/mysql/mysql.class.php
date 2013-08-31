@@ -138,20 +138,10 @@ class Mysql {
 		$querys = explode('?', $query);
 		for ($i = 0; $i < count($querys) - 1; $i++) {
 			$result .= $querys[$i];
-			$result .= $this->make_value($params[$i]);
+			$result .= $this->db_value($params[$i]);
 		}
 		$result .= $querys[$i]; // add last one
 		return $result;
-	}
-
-	public function make_value($param, $quotes = "'") {
-		if (is_null($param)) {
-			return null;
-		}
-		if (is_string($param)) {
-			return $quotes . $this->escape_string($param) . $quotes;
-		}
-		return $this->escape_string($param);
 	}
 
 	public function escape_string($param) {
@@ -170,21 +160,50 @@ class Mysql {
 		return mysqli_error($this->conn);
 	}
 
+	/**
+	 * translate codeseed type to db type
+	 */
 	public function get_type($type) {
 		return $this->types[strtolower($type)];
 	}
 
+	/**
+	 * get default db column size
+	 */
 	public function get_size($type) {
 		return $this->sizes[strtolower($type)];
 	}
 
-	public function get_value($type, $value) {
+	/**
+	 * translate string value to php value through column type
+	 */
+	public function php_value($type, $value) {
 		if (is_null($value)) {
 			return null;
 		}
 
 		$func = $this->value_functions[strtoupper(preg_replace('/\(.*\)/', '', $type))]; // remove '(...)' in type string.
 		return call_user_func($func, $value);
+	}
+
+	/**
+	 * translate php value to db value
+	 */
+	public function db_value($param, $quotes = "'") {
+		if (is_null($param)) {
+			return 'NULL';
+		}
+		if (is_bool($param) === true) {
+			if ($param) {
+				return 'TRUE';
+			} else {
+				return 'FALSE';
+			}
+		}
+		if (is_string($param)) {
+			return $quotes . $this->escape_string($param) . $quotes;
+		}
+		return $this->escape_string($param);
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -259,11 +278,7 @@ class Mysql {
 		$i = 0;
 		foreach($query->column_names as $name) {
 			$value = $query->values[$i++];
-			if (is_null($value)) {
-				$pairs[] = "$name = NULL";
-			} else {
-				$pairs[] = "$name = $value";
-			}
+			$pairs[] = "$name = $value";
 		}
 
 		$result = $this->execute('UPDATE ' . $query->from . ' SET ' . implode(', ', $pairs) . $where);
