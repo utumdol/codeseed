@@ -20,5 +20,3 @@
 	<a class="btn btn-large btn-success" href="/blog/index">첫 화면으로 바로가기</a>
 </div>
 
-
-
