@@ -9,7 +9,7 @@ class Mysql {
 
 	private $transaction_level = 0;
 
-	private $types = array(
+	private $db_types = array(
 			'binary' => 'BLOB',
 			'boolean' => 'TINYINT',
 			'date' => 'DATE',
@@ -24,7 +24,7 @@ class Mysql {
 			'enum' => 'ENUM'
 	);
 
-	private $sizes = array(
+	private $default_sizes = array(
 			'binary' => '',
 			'boolean' => '1',
 			'date' => '',
@@ -163,15 +163,15 @@ class Mysql {
 	/**
 	 * translate codeseed type to db type
 	 */
-	public function get_type($type) {
-		return $this->types[strtolower($type)];
+	public function get_db_type($type) {
+		return $this->db_types[strtolower($type)];
 	}
 
 	/**
 	 * get default db column size
 	 */
-	public function get_size($type) {
-		return $this->sizes[strtolower($type)];
+	public function get_default_size($type) {
+		return $this->default_sizes[strtolower($type)];
 	}
 
 	/**
@@ -335,8 +335,8 @@ class Mysql {
 	 * @return true on success, false on failure
 	 */
 	public function create_table($table_name) {
-		$type = $this->get_type('integer');
-		$size = $this->get_size('integer');
+		$type = $this->get_db_type('integer');
+		$size = $this->get_default_size('integer');
 		return $this->execute("CREATE TABLE $table_name (id $type($size) NOT NULL AUTO_INCREMENT, PRIMARY KEY(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 	}
 
@@ -353,8 +353,8 @@ class Mysql {
 	 */
 	public function add_column($table_name, $name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
 		$not_null = ($is_null) ? '' : 'NOT NULL';
-		$new_type = $this->get_type($type);
-		$new_size = (empty($size)) ? $this->get_size($type) : $size;
+		$new_type = $this->get_db_type($type);
+		$new_size = (empty($size)) ? $this->get_default_size($type) : $size;
 
 		// support the size of decimal type
 		if ($type == 'decimal' && !is_null($scale)) {
@@ -374,8 +374,8 @@ class Mysql {
 	 */
 	public function change_column($table_name, $name, $new_name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
 		$not_null = ($is_null) ? '' : 'NOT NULL';
-		$new_type = $this->get_type($type);
-		$new_size = (empty($size)) ? $this->get_size($type) : $size;
+		$new_type = $this->get_db_type($type);
+		$new_size = (empty($size)) ? $this->get_default_size($type) : $size;
 
 		// support the size of decimal type
 		if ($type == 'decimal' && !is_null($scale)) {
@@ -395,8 +395,8 @@ class Mysql {
 	 */
 	public function modify_column($table_name, $name, $type, $is_null = true, $size = null, $default = null, $scale = null) {
 		$not_null = ($is_null) ? '' : 'NOT NULL';
-		$new_type = $this->get_type($type);
-		$new_size = (empty($size)) ? $this->get_size($type) : $size;
+		$new_type = $this->get_db_type($type);
+		$new_size = (empty($size)) ? $this->get_default_size($type) : $size;
 
 		// support the size of decimal type
 		if ($type == 'decimal' && !is_null($scale)) {
