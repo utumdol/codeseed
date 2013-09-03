@@ -1,14 +1,24 @@
-<div style="width: 400px; margin: auto; clear: both;">
-<div class="box" style="width: 100%;">
-	<div><b><?= $this->user->nickname ?>님,<br/>그 동안 예제 블로그를 사용해 주셔서 감사합니다!</b></div>
-	<hr class="hr" />
-	<div>
-		회원정보가 성공적으로 삭제되었습니다.<br/>
-		언제든지 다시 방문해 주시기 바랍니다. 고맙습니다!
-	</div>
+<style type="text/css">
+/* Main marketing message and sign up button */
+.jumbotron {
+	margin: 60px 0;
+	text-align: center;
+}
+.jumbotron h1 {
+	font-size: 72px;
+	line-height: 1;
+}
+.jumbotron .btn {
+	font-size: 21px;
+	padding: 14px 24px;
+}
+</style>
+
+<div class="jumbotron">
+	<h2>감사합니다!</h2>
+	<p class="lead">회원탈퇴가 완료되었습니다.<br/>언제든지 다시 방문해 주시기 바랍니다. 고맙습니다!</p>
+	<a class="btn btn-large btn-success" href="/blog/index">첫 화면으로 바로가기</a>
 </div>
-</div>
-<div class="menu_area">
-	<span>[<a href="/blog/index">처음으로</a>]</span>
-</div>
+
+
 
