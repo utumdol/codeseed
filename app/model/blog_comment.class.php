@@ -6,7 +6,7 @@ class BlogComment extends ActiveRecord {
 		$this->belongs_to('blog');
 	}
 
-	public function validate() {
+	public function validate_register() {
 		if (is_blank($this->comment)) {
 			$this->errors->add('댓글을 입력해 주세요.');
 			return false;

@@ -6,7 +6,7 @@ class Blog extends ActiveRecord {
 		$this->has_many('blog_comment');
 	}
 
-	public function validate() {
+	public function validate_register() {
 		if (is_blank($this->subject)) {
 			$this->errors->add('제목을 입력해 주세요.');
 			return false;
@@ -23,7 +23,7 @@ class Blog extends ActiveRecord {
 	}
 
 	public function validate_update() {
-		if (!$this->validate()) {
+		if (!$this->validate_register()) {
 			return false;
 		}
 

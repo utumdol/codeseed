@@ -20,7 +20,7 @@ class BlogController extends ApplicationController {
 		$blog = new Blog(_post('blog'));
 		$blog->trim();
 
-		if (!$blog->validate()) {
+		if (!$blog->validate_register()) {
 			$this->flash->add('message_error', $blog->errors->get_messages());
 			$this->back();
 		}
@@ -90,7 +90,7 @@ class BlogController extends ApplicationController {
 		$comment = new BlogComment(_post('blog_comment'));
 		$comment->trim();
 
-		if ($comment->validate()) {
+		if ($comment->validate_register()) {
 			$comment->user_id = User::get_login_id();
 			$comment->save();
 		} else {
