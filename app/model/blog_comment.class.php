@@ -15,10 +15,6 @@ class BlogComment extends ActiveRecord {
 		return true;
 	}
 
-	public function is_writer($user_id) {
-		return ($this->user_id == $user_id);
-	}
-
 	public function validate_delete() {
 		if (!self::neo()->where('id = ? AND user_id = ?', $this->id, User::get_login_id())->is_exists()) {
 			$this->errors->add('글을 작성한 본인만 삭제할 수 있습니다.');

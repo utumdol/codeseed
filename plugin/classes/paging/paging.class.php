@@ -69,5 +69,9 @@ class Paging {
 		}
 		return $page;
 	}
+
+	public function get_total() {
+		return $this->total;
+	}
 }
 

@@ -200,7 +200,7 @@ class User extends ActiveRecord {
 	}
 
 	public static function get_login_id() {
-		return self::get_login_user()->id;
+		return (User::is_login()) ? self::get_login_user()->id : null;
 	}
 
 	public static function is_login() {

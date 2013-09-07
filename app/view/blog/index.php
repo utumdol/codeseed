@@ -6,17 +6,17 @@
 		</h3>
 	</div>
 	<!--
-	<form class="" id="search_form" method="get" action="/blog/index/<?= $this->approved?>">
+	<form class="" id="search_form" method="get" action="/blog/index">
 		<div class="row-fluid">
 			<div class="span6">
 				<span class="input-prepend input-append">
 					<input type="search" id="input_keyword" name="input_keyword" value="<?= h(_get('input_keyword')) ?>" placeholder="제목, 내용, 또는 글쓴이">
 					<button class="btn btn-info" type="submit">검색</button>
-					<button class="btn"type="button" onclick="window.location.href='/blog/index/<?= $this->approved?>'">취소</button>
+					<button class="btn"type="button" onclick="window.location.href='/blog/index'">취소</button>
 				</span>
 			</div>
 			<div class="span6">
-				<div class="pull-right well well-small" style="margin-bottom: 0px;">총 <strong><span id="total"><?= $this->total ?></span></strong>건이 검색되었습니다.</div>
+				<div class="pull-right well well-small" style="margin-bottom: 0px;">총 <strong><?= $this->paging->get_total() ?></strong>건이 검색되었습니다.</div>
 			</div>
 		</div>
 	</form>
@@ -29,7 +29,7 @@
 	<hr style="margin: 0 0 10px 0">
 	<?php if (count($this->blogs) <= 0) { ?>
 	<div class="row-fluid">
-		<div class="span12 text-center">등록된 편집위원이 없습니다.</div>
+		<div class="span12 text-center">등록된 글이 없습니다.</div>
 	</div>
 	<hr style="margin: 0 0 10px 0">
 	<?php } else { foreach($this->blogs as $blog) { ?>

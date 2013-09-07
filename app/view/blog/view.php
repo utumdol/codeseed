@@ -6,7 +6,7 @@
 			</div>
 			<div class="span2 btn-group text-right" data-toggle="buttons-radio">
 				<a class="btn" href="/blog/index">목록</a>
-				<?php if ($this->blog->is_writer(User::get_login_id())) { ?>
+				<?php if ($this->blog->user_id == User::get_login_id()) { ?>
 				<a class="btn" href="/blog/update_form/<?= $this->blog->id ?>">수정</a>
 				<a class="btn" href="/blog/delete/<?= $this->blog->id ?>" id="delete_button">삭제</a>
 				<?php } ?>
@@ -17,7 +17,7 @@
 		<?= nl2br(h($this->blog->content)) ?>
 	</div>
 	<div class="page-header">
-		<h4 class="pagination-right"><small>by <?= $this->blog->user->nickname ?> at <?= get_date($this->blog->updated_at) ?></small></h4>
+		<h4 class="pagination-right"><small>by <?= $this->blog->user->nickname ?> at <?= date('Y-m-d H:i:s', $this->blog->updated_at) ?></small></h4>
 	</div>
 	<div class="comment">
 		<?php foreach ($this->comment as $comment) { ?>
@@ -27,8 +27,10 @@
 				<?= nl2br(h($comment->comment)) ?>
 			</div>
 			<div class="span2">
-				<?= get_date($comment->updated_at) ?>
-				<?= get_delete_comment_button($comment->user->id, $comment->id) ?>
+				<?= date('Y-m-d H:i:s', $comment->updated_at) ?>				
+				<?php if ($comment->user_id == User::get_login_id()) { ?>
+					<a href="/blog/delete_comment/<?= $comment->id ?>" class="delete_button"><i class="icon-trash"></i></a>
+				<?php } ?>
 			</div>
 		</div>
 		<hr>
@@ -40,7 +42,7 @@
 			<div class="span12"><textarea class="span12" rows="5" id="comment_textarea" name="blog_comment[comment]" placeholder="댓글을 입력해 주세요."></textarea></div>
 		</div>
 		<div class="row-fluid">
-			<div class="span12"><input type="button" class="btn span12" id="submit_comment" value="댓글달기"></div>
+			<div class="span12"><input type="button" class="btn btn-block" id="submit_comment" value="댓글달기"></div>
 		</div>
 	</form>
 </section>

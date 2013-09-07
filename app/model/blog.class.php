@@ -18,10 +18,6 @@ class Blog extends ActiveRecord {
 		return true;
 	}
 
-	public function is_writer($user_id) {
-		return ($this->user_id == $user_id);
-	}
-
 	public function validate_update() {
 		if (!$this->validate_register()) {
 			return false;
