@@ -27,14 +27,19 @@
 		<div class="span2"><strong>시간</strong></div>
 	</div>
 	<hr style="margin: 0 0 10px 0">
-	<?php foreach($this->blogs as $blog) { ?>
+	<?php if (count($this->blogs) <= 0) { ?>
+	<div class="row-fluid">
+		<div class="span12 text-center">등록된 편집위원이 없습니다.</div>
+	</div>
+	<hr style="margin: 0 0 10px 0">
+	<?php } else { foreach($this->blogs as $blog) { ?>
 	<div class="row-fluid">
 		<div class="span8"><a href="/blog/view/<?= $blog->id ?>"><strong><?= h($blog->subject) ?></strong></a><?= get_comment_count($blog->blog_comment) ?></div>
 		<div class="span2"><?= $blog->user->nickname ?></div>
 		<div class="span2"><?= date('Y-m-d H:i:s', $blog->created_at) ?></div>
 	</div>
 	<hr style="margin: 0 0 10px 0">
-	<?php } ?>
+	<?php } } ?>
 	<?
 	$this->load_view('layout/_paging');
 	?>
