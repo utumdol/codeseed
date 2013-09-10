@@ -5,7 +5,6 @@
 			<button class="btn btn-large btn-primary pull-right" type="button" onclick="window.location.href='/blog/register_form'">새글쓰기</button>
 		</h3>
 	</div>
-	<!--
 	<form class="" id="search_form" method="get" action="/blog/index">
 		<div class="row-fluid">
 			<div class="span6">
@@ -20,7 +19,6 @@
 			</div>
 		</div>
 	</form>
-	-->
 	<div class="row-fluid">
 		<div class="span8"><strong>제목</strong></div>
 		<div class="span2"><strong>글쓴이</strong></div>
