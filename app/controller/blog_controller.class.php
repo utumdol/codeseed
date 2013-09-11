@@ -36,13 +36,22 @@ class BlogController extends ApplicationController {
 		$page_size = 5;	// page size
 		$offset = ($page - 1) * $page_size;
 
+		$input_keyword = _get('input_keyword');
+		$where = array();
+		if (!is_blank($input_keyword)) {
+			$where[] = "(blog.subject like '%" . Context::get('db')->escape_string($input_keyword) . "%'" .
+					" OR blog.content like '%" . Context::get('db')->escape_string($input_keyword) . "%'" .
+					" OR user.nickname like '%" . Context::get('db')->escape_string($input_keyword) . "%')";
+		}
+		$where = implode(' AND ', $where);
+
 		// get id(s) in the page
-		$blogs = Blog::neo()->select("id")->limit($offset, $page_size)->order("id DESC")->find("all");
+		$blogs = Blog::neo()->join('user')->select('blog.id')->where($where)->limit($offset, $page_size)->find('all');
 		$ids = extract_property($blogs);
 
 		// get blogs in the page
-		$this->blogs = Blog::neo()->join("user")->join("blog_comment")->order("blog.id DESC")->where($ids)->find("all");
-		$this->paging = new Paging(Blog::neo()->count(), $page_size, '/blog/index/<page>', $page);
+		$this->blogs = Blog::neo()->join('user')->join('blog_comment')->order('blog.id DESC')->where($ids)->find('all');
+		$this->paging = new Paging(Blog::neo()->count(), $page_size, "/blog/index/<page>?input_keyword={$input_keyword}", $page);
 	}
 
 	/**
