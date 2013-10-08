@@ -33,7 +33,7 @@
 	<?php } else { foreach($this->blogs as $blog) { ?>
 	<div class="row-fluid">
 		<div class="span8"><a href="/blog/view/<?= $blog->id ?>"><strong><?= h($blog->subject) ?></strong></a><?= get_comment_count($blog->blog_comment) ?></div>
-		<div class="span2"><?= $blog->user->nickname ?><?= array_value($blog, 'user', 'nickname') ?></div>
+		<div class="span2"><?= $blog->user->nickname ?></div>
 		<div class="span2"><?= date('Y-m-d H:i:s', $blog->created_at) ?></div>
 	</div>
 	<hr style="margin: 0 0 10px 0">
