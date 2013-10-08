@@ -26,6 +26,10 @@ function array_value($arr, $props = array()) {
 		return null;
 	}
 
+	if (!is_array($props)) {
+		$props = array_slice(func_get_args(), 1);
+	}
+
 	foreach($props as $prop) {
 		if (array_key_exists($prop, $arr)) {
 			$arr = $arr[$prop];

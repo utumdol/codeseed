@@ -39,7 +39,7 @@ function object_value($obj, $props = array()) {
 	}
 
 	if (!is_array($props)) {
-		$props = array($props);
+		$props = array_slice(func_get_args(), 1);
 	}
 
 	foreach($props as $prop) {
