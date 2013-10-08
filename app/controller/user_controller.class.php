@@ -7,7 +7,7 @@ class UserController extends ApplicationController {
 	}
 
 	public function before_filter() {
-		if (in_array($this->action_name, array('register_form', 'register', 'register_success', 'login_form', 'login', 'leave_success'))) {
+		if (in_array($this->action_name, array('register_form', 'register', 'register_success', 'login_form', 'login', 'leave_success', 'send_password_form', 'send_password', 'send_password_success'))) {
 			return;
 		}
 		$this->authorize();
@@ -75,6 +75,28 @@ class UserController extends ApplicationController {
 
 	public function leave_success($nickname) {
 		$this->register_success($nickname);
+	}
+
+	public function send_password_form() {
+	}
+
+	public function send_password() {
+		$this->layout = 'blank';
+
+		$user = new User(_post('user'));
+		$user->refine();
+
+		if (!$user->validate_send_password()) {
+			$this->flash->add('message_error', $user->errors->get_messages());
+			$this->back();
+		}
+
+		$user = User::get_by_email($user->email);
+		$user->send_password();
+		$this->redirect_to('/user/send_password_success');
+	}
+
+	public function send_password_success() {
 	}
 
 	public function login_form() {

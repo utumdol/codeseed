@@ -166,6 +166,39 @@ class User extends ActiveRecord {
 		return true;
 	}
 
+	public function validate_send_password() {
+		if (is_blank($this->email)) {
+			$this->errors->add('이메일을 입력해 주세요.');
+			return false;
+		}
+
+		if (!validate_email($this->email)) {
+			$this->errors->add('유효한 이메일이 아닙니다.');
+			return false;
+		}
+
+		if (!(User::neo()->where('email = ?', $this->email)->is_exists())) {
+			$this->errors->add('등록된 이메일이 아닙니다.');
+			return false;
+		}
+
+		return true;
+	}
+
+	public function send_password() {
+		Context::get('db')->start_transaction();
+
+		// set new password
+		$this->password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') , 0 , 8);
+		$this->create_new_salt();
+		$this->encrypt_password($this->password, $this->salt);
+		parent::update();
+
+		// send email
+		text_mail($this->email, "임시 비밀번호 발급 안내", "메타메딕 사이트의 임시 비밀번호는 \"{$this->password}\" 입니다.");
+
+		Context::get('db')->commit();
+	}
 
 	public function login($remember_me = false) {
 		$current_cookie_params = session_get_cookie_params();
