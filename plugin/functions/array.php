@@ -19,7 +19,7 @@ function is_numeric_array($arr) {
 /**
  * notice 없이 배열 값 구하기.
  * key가 없다면 null을 반환한다.
- * @example $arr[a][b][c] := array_value($arr, array('a', 'b', 'c'))
+ * @example $arr[a][b][c] = array_value($arr, 'a', 'b', 'c') or array_value($arr, array('a', 'b', 'c'))
  */
 function array_value($arr, $props = array()) {
 	if ($arr == null) {

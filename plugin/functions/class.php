@@ -31,7 +31,7 @@ function camel_to_under($classname) {
 /**
  * notice 없이 배열 값 구하기.
  * key가 없다면 null을 반환한다.
- * @example $obj->a->b->c := object_value($arr, array('a', 'b', 'c'))
+ * @example $obj->a->b->c = object_value($obj, 'a', 'b', 'c') or array_value($obj, array('a', 'b', 'c'))
  */
 function object_value($obj, $props = array()) {
 	if (empty($obj) || empty($props)) {
