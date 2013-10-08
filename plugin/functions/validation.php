@@ -36,7 +36,7 @@ function validate_text_id($text_id) {
  * 대소문자, 숫자, 그리고 특수문자 4자 이상 16자 이하.
  */
 function validate_password($password) {
-	return (preg_match("/^[0-9A-Za-z!@#$%*^()]{4,16}$/", $password));
+	return (preg_match("/^[^\s]{4,16}$/", $password));
 }
 
 /**

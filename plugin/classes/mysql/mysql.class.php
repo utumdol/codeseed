@@ -163,14 +163,14 @@ class Mysql {
 	/**
 	 * translate codeseed type to db type
 	 */
-	public function get_db_type($type) {
+	private function get_db_type($type) {
 		return $this->db_types[strtolower($type)];
 	}
 
 	/**
 	 * get default db column size
 	 */
-	public function get_default_size($type) {
+	private function get_default_size($type) {
 		return $this->default_sizes[strtolower($type)];
 	}
 

@@ -2,6 +2,9 @@
 // include system init
 require_once(dirname(__FILE__) . '/../config/init.php');
 
+// include all migration files
+require_once_dir(Config::get('migr_dir'));
+
 // init default tables
 require_once(dirname(__FILE__) . '/install.php');
 
@@ -45,9 +48,11 @@ for($i = 0; $i < count($files); $i++) {
 		$classname = under_to_camel($filename);
 
 		if ($direction == 'UP' && $version > $schema_version->version && $version <= $INTEND_VERSION) {
-			require_once($file);
+			// require_once($file);
 			$migration = new $classname;
-			$migration->up();
+			if (!$migration->skip) {
+				$migration->up();
+			}
 			$schema_version->version = $version;
 			$schema_version->update();
 
@@ -55,9 +60,11 @@ for($i = 0; $i < count($files); $i++) {
 		}
 
 		if ($direction == 'DOWN' && $version <= $schema_version->version && $version > $INTEND_VERSION) {
-			require_once($file);
+			// require_once($file);
 			$migration = new $classname;
-			$migration->down();
+			if (!$migration->skip) {
+				$migration->down();
+			}
 			if ($i == count($files) - 1) {
 				$down_version = 0;
 			} else {

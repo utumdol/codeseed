@@ -94,6 +94,11 @@ class ActiveUpload extends Model {
 		$this->save();
 	}
 
+	public function copy($other) {
+		$this->make_upload_dir();
+		copy($other->get_path(), $this->get_path());
+	}
+
 	/**
 	 * return real path
 	 */

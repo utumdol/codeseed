@@ -58,9 +58,9 @@ class Controller {
 		$controller_name = under_to_camel($controller_path . '_controller');
 		$controller = new $controller_name();
 
-		// set action name
-		$controller->controller_name = $controller_name;
-		$controller->action_name = $action_path;
+		// reserve controller and action name
+		$controller->controller_name = $this->controller_name;
+		$controller->action_name = $this->action_name;
 
 		// execute request
 		call_user_func(array($controller, 'before_filter'));

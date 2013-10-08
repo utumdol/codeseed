@@ -116,10 +116,12 @@ class ActiveRecord extends Model {
 		$db = Context::get('db');
 
 		// init query
-		if (empty($this->query->select)) { $this->query->select = csv($this->get_select_column($this->query->joins)); }
+		if (empty($this->query->select)) {
+			$this->query->select = csv($this->get_select_column($this->query->joins));
+		}
 		/*
-		if ($option == 'first') {
-			$this->query->limit = 1;
+		 if ($option == 'first') {
+		$this->query->limit = 1;
 		}
 		*/
 
@@ -260,6 +262,24 @@ class ActiveRecord extends Model {
 		$this->query = new Query($this->tablename);
 
 		return $result;
+	}
+
+	public function copy($others) {
+		$db = Context::get('db');
+		$columns = $db->get_table_columns($this->tablename);
+
+		foreach ($columns as $column) {
+			$column_name = $column->name;
+
+			if ($column_name == 'id') {
+				continue;
+			}
+			if (!property_exists($others, $column_name)) {
+				continue;
+			}
+
+			$this->$column_name = $others->$column_name;
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
