@@ -1,5 +1,5 @@
 <?php
-class LayoutGenerator extends Generator {
+class LayoutGenerator extends CodeGenerator {
 	protected $template = '<!DOCTYPE html>
 <html>
 <head>

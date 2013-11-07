@@ -1,5 +1,5 @@
 <?php
-class HelperGenerator extends Generator {
+class HelperGenerator extends CodeGenerator {
 	protected $template = '<?php
 
 ';

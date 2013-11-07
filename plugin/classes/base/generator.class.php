@@ -1,5 +1,5 @@
 <?php
-class Generator {
+class CodeGenerator {
 	protected $name = '';
 	protected $path = '';
 	protected $extention = '.php';

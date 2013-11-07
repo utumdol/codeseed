@@ -1,5 +1,5 @@
 <?php
-class ViewGenerator extends Generator {
+class ViewGenerator extends CodeGenerator {
 	protected $template = '<h1><dir>#<view></h1>
 <div>Find me in app/view/<dir>/<view>.php</div>
 

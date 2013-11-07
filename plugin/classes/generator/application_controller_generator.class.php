@@ -1,5 +1,5 @@
 <?php
-class ApplicationControllerGenerator extends Generator {
+class ApplicationControllerGenerator extends CodeGenerator {
 	protected $template = '<?php
 class ApplicationController extends Controller {
 

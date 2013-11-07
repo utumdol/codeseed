@@ -1,5 +1,5 @@
 <?php
-class MigrationGenerator extends Generator {
+class MigrationGenerator extends CodeGenerator {
 	protected $template = '<?php
 class <class> extends Migration {
 	public function up() {
