@@ -50,9 +50,7 @@ for($i = 0; $i < count($files); $i++) {
 		if ($direction == 'UP' && $version > $schema_version->version && $version <= $INTEND_VERSION) {
 			// require_once($file);
 			$migration = new $classname;
-			if (!$migration->skip) {
-				$migration->up();
-			}
+			$migration->up();
 			$schema_version->version = $version;
 			$schema_version->update();
 
@@ -62,9 +60,7 @@ for($i = 0; $i < count($files); $i++) {
 		if ($direction == 'DOWN' && $version <= $schema_version->version && $version > $INTEND_VERSION) {
 			// require_once($file);
 			$migration = new $classname;
-			if (!$migration->skip) {
-				$migration->down();
-			}
+			$migration->down();
 			if ($i == count($files) - 1) {
 				$down_version = 0;
 			} else {

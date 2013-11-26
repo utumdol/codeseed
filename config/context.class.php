@@ -62,9 +62,9 @@ class Context {
 	private function init_session() {
 		if (Config::get('use_db_session')) {
 			session_set_save_handler(
-					array('DbSession', 'open'), array('DbSession', 'close'),
-					array('DbSession', 'read'), array('DbSession', 'write'),
-					array('DbSession', 'destroy'), array('DbSession', 'clean'));
+			array('DbSession', 'open'), array('DbSession', 'close'),
+			array('DbSession', 'read'), array('DbSession', 'write'),
+			array('DbSession', 'destroy'), array('DbSession', 'clean'));
 		}
 		return new Session();
 	}
@@ -83,10 +83,10 @@ class Context {
 			return;
 		}
 
-		if (apc_clear_cache('user')) {
-			Log::info("apc_clear_cache success");
+		if (strnatcmp(phpversion(), '5.4') >= 0) {
+			apc_clear_cache();
 		} else {
-			Log::info("apc_clear_cache success fail");
+			apc_clear_cache('user');
 		}
 
 		unlink(Config::get('tmp_dir') . '/restart.txt');
