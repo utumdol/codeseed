@@ -195,7 +195,7 @@ class User extends ActiveRecord {
 		parent::update();
 
 		// send email
-		text_mail($this->email, "임시 비밀번호 발급 안내", "메타메딕 사이트의 임시 비밀번호는 \"{$this->password}\" 입니다.");
+		text_mail($this->email, "임시 비밀번호 발급 안내", "임시 비밀번호는 \"{$this->password}\" 입니다.");
 
 		Context::get('db')->commit();
 	}
