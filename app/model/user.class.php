@@ -16,7 +16,7 @@ class User extends ActiveRecord {
 			return false;
 		}
 
-		if ($this->where("email = ?", $this->email)->count() > 0) {
+		if (User::neo()->where("email = ?", $this->email)->count() > 0) {
 			$this->errors->add('이미 등록되어 있는 이메일 주소입니다.');
 			return false;
 		}
@@ -56,7 +56,7 @@ class User extends ActiveRecord {
 			return false;
 		}
 
-		if ($this->where("nickname = ?", $this->nickname)->count() > 0) {
+		if (User::neo()->where("nickname = ?", $this->nickname)->count() > 0) {
 			$this->errors->add('동일한 별명이 이미 사용되고 있습니다. 다른 별명을 입력해 주세요.');
 			return false;
 		}
@@ -133,7 +133,7 @@ class User extends ActiveRecord {
 			return false;
 		}
 
-		if ($this->where("nickname = ? AND id != ?", $this->nickname, User::get_login_id())->count() > 0) {
+		if (User::neo()->where("nickname = ? AND id != ?", $this->nickname, User::get_login_id())->count() > 0) {
 			$this->errors->add('동일한 별명이 이미 사용되고 있습니다. 다른 별명을 입력해 주세요.');
 			return false;
 		}
@@ -152,7 +152,7 @@ class User extends ActiveRecord {
 			return false;
 		}
 
-		$user = $this->where("email = ?", $this->email)->find();
+		$user = User::neo()->where("email = ?", $this->email)->find();
 		if (is_null($user)) {
 			$this->errors->add('가입되지 않은 이메일 주소입니다.');
 			return false;
